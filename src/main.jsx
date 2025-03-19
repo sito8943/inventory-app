@@ -8,11 +8,14 @@ import App from "./App";
 import "@fontsource/poppins";
 import "@fontsource/roboto";
 
+// provider
+import { ManagerProvider } from "./providers/ManagerProvider";
+
 //i18
 import "./i18";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <ManagerProvider>
     <App />
-  </React.StrictMode>
+  </ManagerProvider>
 );
