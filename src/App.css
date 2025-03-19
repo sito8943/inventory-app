@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #272727;
+  --color-drawer-background: #202020;
+  --color-alt-background: #343434;
+  --color-border: #393939;
+  --color-primary: #4cc2ff;
+  --color-hover-primary: #48b2e9;
+  --color-secondary: #d27d6b;
+}
+
+.animated {
+  @apply transition duration-300 ease-in-out;
+}
+
+h1,
+h2,
+.poppins {
+  font-family: "Poppins", sans-serif;
+}
+
+p,
+a,
+button,
+h3,
+input,
+.roboto {
+  font-family: "Roboto", sans-serif;
+}
+
+.button {
+  @apply text-white bg-alt-background hover:bg-border border-border border-2 px-4 py-1 rounded-sm  cursor-pointer;
+}
+
+.button.menu {
+  @apply bg-background border-background hover:bg-border hover:border-border;
+}
+
+.toolbar .button {
+  @apply bg-background hover:bg-alt-background text-white flex items-center justify-center w-14 h-10 border-none rounded-none;
+}
+
+.button.close {
+  @apply hover:bg-red-500;
+}
+
+.input {
+  @apply text-white bg-alt-background border-border border-2 px-4 py-1 rounded-sm;
+}
+
+.primary {
+  @apply bg-primary hover:bg-hover-primary text-black;
+}
+
+main {
+  height: calc(100vh - 40px);
+  @apply bg-background;
+}
+
+main h1,
+main h2,
+main p {
+  @apply text-white;
+}
+
+.apparition {
+  animation: apparition 300ms ease-in-out;
+}
+
+@keyframes apparition {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.opacity {
+  animation: opacity 300ms ease-in-out;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.history {
+  height: calc(100vh - 304px);
+  @apply overflow-auto;
+}

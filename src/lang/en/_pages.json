@@ -1,0 +1,12 @@
+{
+  "home": {
+    "title": "Home",
+    "appName": "Inventory"
+  },
+  "products": {
+    "title": "Productos"
+  },
+  "categories": {
+    "title": "Categorias"
+  }
+}
