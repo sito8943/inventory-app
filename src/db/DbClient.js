@@ -4,7 +4,7 @@ class DbClient {
   db = new Database();
 
   async init() {
-    this.db = await Database.load("sqlite:test.db");
+    this.db = await Database.load("sqlite:base.db");
 
     // create important db
   }
@@ -47,7 +47,12 @@ class DbClient {
    * @param {string} attributes
    */
   async select(table, attributes = "*") {
-    await this.db.select(`SELECT (${attributes}) FROM ${table}`);
+    try {
+      return await this.db.select(`SELECT ${attributes} FROM ${table}`);
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
   }
 }
 

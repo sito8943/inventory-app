@@ -6,7 +6,7 @@ export default class CategoryClient extends BaseClient {
    * @param {string} table
    * @param {DbClient} dbClient
    */
-  constructor(table, dbClient) {
-    super(table, dbClient);
+  constructor(dbClient) {
+    super("categories", dbClient);
   }
 }

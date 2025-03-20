@@ -1,8 +1,16 @@
 {
-  "buttons": {},
+  "buttons": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "closeDialog": "Close dialog"
+  },
   "labels": {},
   "tooltips": {},
-  "ariaLabels": {},
+  "ariaLabels": {
+    "insert": "",
+    "cancel": "",
+    "closeDialog": ""
+  },
   "errors": {
     "unknownError": "An error has occurred"
   },

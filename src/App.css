@@ -49,6 +49,14 @@ input,
   @apply text-white bg-alt-background border-border border-2 px-4 py-1 rounded-sm;
 }
 
+form button {
+  @apply px-4 py-1 rounded-4xl;
+}
+
+.outlined {
+  @apply border-bo
+}
+
 .primary {
   @apply bg-primary hover:bg-hover-primary text-black;
 }

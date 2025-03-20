@@ -5,7 +5,22 @@ import DbClient from "./DbClient";
 export default class Manager {
   constructor() {
     this.db = new DbClient();
-    this.Products = new ProductClient(this.db);
-    this.Categories = new CategoryClient(this.db);
+
+    this.products = new ProductClient(this.db);
+    this.categories = new CategoryClient(this.db);
+  }
+
+  /**
+   * @returns {ProductClient} products
+   */
+  get Products() {
+    return this.products;
+  }
+
+  /**
+   * @returns {CategoryClient} categories
+   */
+  get Categories() {
+    return this.categories;
   }
 }

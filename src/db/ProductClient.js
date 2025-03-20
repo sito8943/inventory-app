@@ -7,6 +7,6 @@ export default class ProductClient extends BaseClient {
    * @param {DbClient} dbClient
    */
   constructor(dbClient) {
-    super(dbClient);
+    super("products", dbClient);
   }
 }

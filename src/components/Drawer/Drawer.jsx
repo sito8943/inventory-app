@@ -28,7 +28,7 @@ function Drawer(props) {
   return (
     <div
       name={t("_accessibility:buttons.closeMenu")}
-      aria-labels={t("_accessibility:ariaLabels.closeMenu")}
+      aria-label={t("_accessibility:ariaLabels.closeMenu")}
       className={`${
         open ? "w-screen h-screen" : "pointer-events-none"
       } fixed z-10`}

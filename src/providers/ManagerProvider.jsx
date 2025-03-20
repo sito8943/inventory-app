@@ -1,6 +1,7 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/jsx-no-constructed-context-values */
 import { createContext, useState, useContext, useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
@@ -8,25 +9,35 @@ import PropTypes from "prop-types";
 // manager
 import Manager from "../db/Manager";
 
-const ManagerContext = createContext();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchInterval: false,
+      refetchOnMount: true,
+      refetchOnReconnect: false,
+      retry: false,
+      retryOnMount: true,
+      refetchOnWindowFocus: false, // default: true
+    },
+  },
+});
+
+const ManagerContext = createContext({});
 
 /**
  * Manager Provider
  * @param {object} props - provider props
- * @returns Provider
+ * @returns {object} React component
  */
 const ManagerProvider = (props) => {
   const { children } = props;
 
-  const [manager, setManager] = useState();
+  const manager = new Manager();
 
-  useEffect(() => {
-    setManager(new Manager());
-  }, []);
-
-  const value = { manager };
   return (
-    <ManagerContext.Provider value={value}>{children}</ManagerContext.Provider>
+    <ManagerContext.Provider value={{ client: manager }}>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </ManagerContext.Provider>
   );
 };
 
@@ -36,14 +47,15 @@ ManagerProvider.propTypes = {
 
 /**
  * useManager hook
- * @returns function hook
+ * @returns {Manager} Provider
  */
 const useManager = () => {
   const context = useContext(ManagerContext);
+
   if (context === undefined)
     throw new Error("managerContext must be used within a Provider");
-  return context;
+  return context.client;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-export { ManagerProvider, useManager };
+export { queryClient, ManagerProvider, useManager };
