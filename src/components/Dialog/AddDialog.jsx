@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 function AddDialog(props) {
   const { t } = useTranslation();
-  const { open = true, title, handleSubmit, handleClose } = props;
+  const { open = false, title, children, handleSubmit, handleClose } = props;
 
   return (
     <div
@@ -14,9 +14,14 @@ function AddDialog(props) {
       } fixed top-0 flex items-center justify-center z-10`}
       onClick={() => handleClose()}
     >
-      <div className={`${open ? "opacity-100" : "opacity-0"}`}>
-        <h3>{}</h3>
+      <div
+        className={`min-w-50 bg-alt-background p-5 rounded-2xl border-border border-2 ${
+          open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+        }`}
+      >
+        <h3>{title}</h3>
         <form onSubmit={handleSubmit}>
+          {children}
           <div className="flex gap-2">
             <button
               type="submit"
@@ -29,6 +34,7 @@ function AddDialog(props) {
             <button
               type="button"
               onClick={handleClose}
+              className="outlined"
               name={t("_accessibility:buttons.cancel")}
               aria-label={t("_accessibility:ariaLabels.cancel")}
             >
