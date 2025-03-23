@@ -4,9 +4,24 @@
     "appName": "Inventory"
   },
   "products": {
-    "title": "Productos"
+    "title": "Products"
   },
   "categories": {
-    "title": "Categorias"
+    "title": "Categories",
+    "forms": {
+      "add": "New category",
+      "edit": "Edit category"
+    },
+    "inputs": {
+      "name": {
+        "name": "Name",
+        "placeholder": "Ex: Drinks",
+        "required": "Name is required"
+      },
+      "color": {
+        "name": "Color",
+        "required": "Color is required"
+      }
+    }
   }
 }
