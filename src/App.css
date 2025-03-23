@@ -45,16 +45,24 @@ input,
   @apply hover:bg-red-500;
 }
 
+.icon-button {
+  @apply hover:bg-border w-7 h-7 rounded-full
+}
+
 .input {
   @apply text-white bg-alt-background border-border border-2 px-4 py-1 rounded-sm;
 }
 
-form button {
+form .button {
   @apply px-4 py-1 rounded-4xl;
 }
 
 .outlined {
   @apply border-border text-white border-2
+}
+
+.outlined:hover {
+  @apply bg-border text-white border-2
 }
 
 .primary {
