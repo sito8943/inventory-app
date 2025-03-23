@@ -1,13 +1,23 @@
+import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 // providers
 import { queryClient, useManager } from "../../../providers/ManagerProvider";
 
-function addCategory() {
+function useAddCategory() {
+  const { t } = useTranslation();
+
   const manager = useManager();
 
   const { control, handleSubmit } = useForm();
+
+  const [open, setOpen] = useState();
+
+  const handleClose = () => setOpen(false);
+
+  const onClick = () => setOpen(true);
 
   const addFn = useMutation({
     mutationFn: (data) => manager.Categories.insert(data),
@@ -21,7 +31,18 @@ function addCategory() {
     },
   });
 
-  return {};
+  return {
+    onClick,
+    formProps: {
+      handleSubmit: handleSubmit((d) => addFn.mutate(d)),
+      control,
+    },
+    dialogProps: {
+      title: t("_pages:categories.forms.add"),
+      open,
+      handleClose,
+    },
+  };
 }
 
-export default addCategory;
+export default useAddCategory;

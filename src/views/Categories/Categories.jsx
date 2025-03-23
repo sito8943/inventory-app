@@ -10,7 +10,10 @@ import { ReactQueryKeys } from "../../utils/queryKey";
 
 // components
 import AddCard from "../../components/Card/AddCard";
-import AddDialog from "../../components/Dialog/AddDialog";
+import AddCategoryDialog from "./categories/AddCategoryDialog";
+
+// hooks
+import useAddCategory from "./hooks/useAddCategory";
 
 function Categories() {
   const { t } = useTranslation();
@@ -23,13 +26,15 @@ function Categories() {
     queryFn: () => manager.Categories.get(),
   });
 
+  const addCategory = useAddCategory();
+
   return (
     <main className="p-5">
       <div className="apparition flex flex-col gap-5">
         <h2 className="text-xl">{t("_pages:categories.title")}</h2>
-        <AddCard />
+        <AddCard onClick={addCategory.onClick} />
       </div>
-      <AddDialog open />
+      <AddCategoryDialog {...addCategory} />
     </main>
   );
 }
