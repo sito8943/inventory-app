@@ -15,9 +15,14 @@ pub fn run() {
             sql: "CREATE TABLE IF NOT EXISTS categories (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
-                description TEXT,
                 color TEXT
             )",
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 2,
+            description: "add description column to categories",
+            sql: "ALTER TABLE categories ADD COLUMN description TEXT",
             kind: MigrationKind::Up,
         }
     ];
