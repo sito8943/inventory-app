@@ -10,6 +10,10 @@
   --color-secondary: #d27d6b;
 }
 
+textarea {
+  resize: none;
+}
+
 .animated {
   @apply transition duration-300 ease-in-out;
 }
@@ -25,6 +29,7 @@ a,
 button,
 h3,
 input,
+textarea,
 .roboto {
   font-family: "Roboto", sans-serif;
 }
@@ -46,7 +51,7 @@ input,
 }
 
 .icon-button {
-  @apply hover:bg-border w-7 h-7 rounded-full
+  @apply hover:bg-border w-7 h-7 rounded-full;
 }
 
 .input {
@@ -58,11 +63,11 @@ form .button {
 }
 
 .outlined {
-  @apply border-border text-white border-2
+  @apply border-border text-white border-2;
 }
 
 .outlined:hover {
-  @apply bg-border text-white border-2
+  @apply bg-border text-white border-2;
 }
 
 .primary {
