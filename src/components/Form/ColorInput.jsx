@@ -1,16 +1,17 @@
 import { faEyeDropper } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 
 // components
 import TextInput from "./TextInput";
 
-function ColorInput(props) {
+const ColorInput = forwardRef(function (props, ref) {
   const [showDialog, setShowDialog] = useState();
 
   return (
     <TextInput
       {...props}
+      ref={ref}
       startAdornment={
         <button
           onClick={() => setShowDialog(true)}
@@ -22,6 +23,6 @@ function ColorInput(props) {
       }
     />
   );
-}
+});
 
 export default ColorInput;

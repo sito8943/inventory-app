@@ -1,10 +1,14 @@
-function TextInput(props) {
+import { forwardRef } from "react";
+
+const TextInput = forwardRef(function (props, ref) {
   const {
     label,
     labelClassName,
     className,
     containerClassName,
     startAdornment,
+    value,
+    ...rest
   } = props;
 
   return (
@@ -12,11 +16,13 @@ function TextInput(props) {
       {!!label ? <label className={`${labelClassName}`}>{label}</label> : ""}
       {startAdornment}
       <input
+        ref={ref}
+        value={value ?? ""}
         className={`input ${startAdornment ? "!pl-9" : ""} ${className}`}
-        {...props}
+        {...rest}
       />
     </div>
   );
-}
+});
 
 export default TextInput;
