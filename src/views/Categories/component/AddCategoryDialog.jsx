@@ -5,6 +5,7 @@ import { Controller } from "react-hook-form";
 import AddDialog from "../../../components/Dialog/AddDialog";
 import TextInput from "../../../components/Form/TextInput";
 import ColorInput from "../../../components/Form/ColorInput";
+import ParagraphInput from "../../../components/Form/ParagraphInput";
 
 export function AddCategoryForm(props) {
   const { control } = props;
@@ -30,7 +31,7 @@ export function AddCategoryForm(props) {
         control={control}
         name={t("_pages:categories.inputs.description.name")}
         render={({ field }) => (
-          <TextInput
+          <ParagraphInput
             placeholder={t("_pages:categories.inputs.description.name")}
             {...field}
           />
