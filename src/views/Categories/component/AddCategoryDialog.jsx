@@ -18,7 +18,7 @@ export function AddCategoryForm(props) {
         rules={{
           required: t("_pages:categories.inputs.name.required"),
         }}
-        name={t("_pages:categories.inputs.name.name")}
+        name="name"
         render={({ field }) => (
           <TextInput
             required
@@ -29,7 +29,7 @@ export function AddCategoryForm(props) {
       />
       <Controller
         control={control}
-        name={t("_pages:categories.inputs.description.name")}
+        name="description"
         render={({ field }) => (
           <ParagraphInput
             placeholder={t("_pages:categories.inputs.description.name")}
@@ -42,7 +42,7 @@ export function AddCategoryForm(props) {
         rules={{
           required: t("_pages:categories.inputs.name.required"),
         }}
-        name={t("_pages:categories.inputs.color.name")}
+        name="color"
         render={({ field }) => (
           <ColorInput
             required
