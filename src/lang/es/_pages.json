@@ -5,7 +5,7 @@
   },
   "products": {
     "title": "Productos"
-  },
+},
   "categories": {
     "title": "Categorias",
     "forms": {
@@ -17,6 +17,10 @@
         "name": "Nombre",
         "placeholder": "Ej: Bebidas",
         "required": "El nombre es requerido"
+      },
+      "description": {
+        "name": "Descripción",
+        "placeholder": "Alguna descripción"
       },
       "color": {
         "name": "Color",

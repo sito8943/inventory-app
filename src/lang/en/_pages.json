@@ -18,6 +18,10 @@
         "placeholder": "Ex: Drinks",
         "required": "Name is required"
       },
+      "description": {
+        "name": "Description",
+        "placeholder": "Some description"
+      },
       "color": {
         "name": "Color",
         "required": "Color is required"
