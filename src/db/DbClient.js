@@ -21,10 +21,12 @@ class DbClient {
    * @returns sql result
    */
   async insert(table, value, attributes) {
-    return await db.execute(
+    return await this.db.execute(
       `INSERT into ${table} (${
         attributes ?? Object.keys(value).toString()
-      }) VALUES (${Object.values(value).toString()})`
+      }) VALUES (${Object.values(value)
+        .map((value) => (typeof value === "string" ? `'${value}'` : value))
+        .toString()})`
     );
   }
 
