@@ -10,10 +10,11 @@ import { ReactQueryKeys } from "../../utils/queryKey";
 
 // components
 import AddCard from "../../components/Card/AddCard";
-import AddCategoryDialog from "./categories/AddCategoryDialog";
+import AddCategoryDialog from "./component/AddCategoryDialog";
 
 // hooks
 import useAddCategory from "./hooks/useAddCategory";
+import CategoryCard from "./component/CategoryCard";
 
 function Categories() {
   const { t } = useTranslation();
@@ -32,7 +33,16 @@ function Categories() {
     <main className="p-5">
       <div className="apparition flex flex-col gap-5">
         <h2 className="text-xl">{t("_pages:categories.title")}</h2>
-        <AddCard onClick={addCategory.onClick} />
+        <ul className="flex flex-wrap gap-5">
+          <li>
+            <AddCard onClick={addCategory.onClick} />
+          </li>
+          {data?.map((category) => (
+            <li key={category.id}>
+              <CategoryCard {...category} />
+            </li>
+          ))}
+        </ul>
       </div>
       <AddCategoryDialog {...addCategory} />
     </main>

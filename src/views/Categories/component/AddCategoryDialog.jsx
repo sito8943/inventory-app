@@ -18,10 +18,20 @@ export function AddCategoryForm(props) {
           required: t("_pages:categories.inputs.name.required"),
         }}
         name={t("_pages:categories.inputs.name.name")}
-        render={(field) => (
+        render={({ field }) => (
           <TextInput
             required
             placeholder={t("_pages:categories.inputs.name.name")}
+            {...field}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        name={t("_pages:categories.inputs.description.name")}
+        render={({ field }) => (
+          <TextInput
+            placeholder={t("_pages:categories.inputs.description.name")}
             {...field}
           />
         )}
@@ -32,7 +42,7 @@ export function AddCategoryForm(props) {
           required: t("_pages:categories.inputs.name.required"),
         }}
         name={t("_pages:categories.inputs.color.name")}
-        render={(field) => (
+        render={({ field }) => (
           <ColorInput
             required
             placeholder={t("_pages:categories.inputs.color.name")}
@@ -46,8 +56,8 @@ export function AddCategoryForm(props) {
 
 export default function AddCategoryDialog(props) {
   return (
-    <AddDialog {...props.dialogProps}>
-      <AddCategoryForm {...props.formProps} />
+    <AddDialog {...props}>
+      <AddCategoryForm {...props} />
     </AddDialog>
   );
 }
