@@ -7,9 +7,7 @@ function AddDialog(props) {
 
   const onKeyPress = useCallback(
     (e) => {
-      if (e.keyCode === 27 && open) {
-        handleClose();
-      }
+      if (e.key === "Escape" && open) handleClose();
     },
     [open, handleClose]
   );
