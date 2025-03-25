@@ -72,16 +72,6 @@ class DbClient {
    */
   async select(table, query, attributes = "*") {
     try {
-      console.log(table, query, attributes);
-      console.log(
-        `SELECT ${attributes} FROM ${table} ${
-          query
-            ? `WHERE ${Object.keys(query).map(
-                (key) => `${key} = ${query[key]}`
-              )}`
-            : ""
-        }`
-      );
       await this.openDb();
       const result = await this.db.select(
         `SELECT ${attributes} FROM ${table} ${

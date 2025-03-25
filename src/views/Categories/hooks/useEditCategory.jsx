@@ -26,10 +26,8 @@ function useEditCategory() {
     queryKey: [ReactQueryKeys.Categories, id],
     enabled: !!id,
   });
-  console.log(id);
 
   useEffect(() => {
-    console.log(data);
     if (data && data.length) reset({ ...data[0] });
   }, [data]);
 
