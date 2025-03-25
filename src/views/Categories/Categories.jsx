@@ -10,11 +10,15 @@ import { ReactQueryKeys } from "../../utils/queryKey";
 
 // components
 import AddCard from "../../components/Card/AddCard";
-import AddCategoryDialog from "./component/AddCategoryDialog";
+import {
+  AddCategoryDialog,
+  EditCategoryDialog,
+} from "./component/CategoryDialog";
 
 // hooks
 import useAddCategory from "./hooks/useAddCategory";
 import CategoryCard from "./component/CategoryCard";
+import useEditCategory from "./hooks/useEditCategory";
 
 function Categories() {
   const { t } = useTranslation();
@@ -29,6 +33,8 @@ function Categories() {
 
   const addCategory = useAddCategory();
 
+  const editCategory = useEditCategory();
+
   return (
     <main className="p-5">
       <div className="apparition flex flex-col gap-5">
@@ -39,12 +45,18 @@ function Categories() {
           </li>
           {data?.map((category) => (
             <li key={category.id}>
-              <CategoryCard {...category} />
+              <CategoryCard
+                onClick={(id) => editCategory.onClick(id)}
+                {...category}
+              />
             </li>
           ))}
         </ul>
       </div>
+
+      {/* Dialogs */}
       <AddCategoryDialog {...addCategory} />
+      <EditCategoryDialog {...editCategory} />
     </main>
   );
 }

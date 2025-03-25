@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-function AddDialog(props) {
+function FormDialog(props) {
   const { t } = useTranslation();
   const { open = false, title, children, handleSubmit, handleClose } = props;
 
@@ -60,4 +60,4 @@ function AddDialog(props) {
   );
 }
 
-export default AddDialog;
+export default FormDialog;

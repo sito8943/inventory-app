@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
@@ -9,7 +9,7 @@ import { queryClient, useManager } from "../../../providers/ManagerProvider";
 // utils
 import { ReactQueryKeys } from "../../../utils/queryKey";
 
-function useAddCategory() {
+function useEditCategory() {
   const { t } = useTranslation();
 
   const manager = useManager();
@@ -19,11 +19,27 @@ function useAddCategory() {
   const [open, setOpen] = useState();
 
   const handleClose = () => setOpen(false);
+  const [id, setId] = useState(0);
 
-  const onClick = () => setOpen(true);
+  const { data, isLoading } = useQuery({
+    queryFn: () => manager.Categories.getById(id),
+    queryKey: [ReactQueryKeys.Categories, id],
+    enabled: !!id,
+  });
+  console.log(id);
 
-  const addFn = useMutation({
-    mutationFn: (data) => manager.Categories.insert(data),
+  useEffect(() => {
+    console.log(data);
+    if (data && data.length) reset({ ...data[0] });
+  }, [data]);
+
+  const onClick = async (id) => {
+    setId(id);
+    setOpen(true);
+  };
+
+  const editFn = useMutation({
+    mutationFn: (data) => manager.Categories.update(data),
     onError: (error) => {
       console.error(error);
       //TODO THROW NOTIFICATION HERE
@@ -42,12 +58,13 @@ function useAddCategory() {
 
   return {
     onClick,
-    title: t("_pages:categories.forms.add"),
+    title: t("_pages:categories.forms.edit"),
     open,
     control,
-    handleSubmit: handleSubmit((data) => addFn.mutate(data)),
+    isLoading,
+    handleSubmit: handleSubmit((data) => editFn.mutate(data)),
     handleClose,
   };
 }
 
-export default useAddCategory;
+export default useEditCategory;
