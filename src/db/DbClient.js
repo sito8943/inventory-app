@@ -40,11 +40,28 @@ class DbClient {
     }
   }
 
-  async update(table, values) {
+  /**
+   *
+   * @param {string} table
+   * @param {object} values
+   * @param {object} whereClause
+   * @returns
+   */
+  async update(table, values, whereClause) {
     try {
       await this.openDb();
 
-      const result = await this.db.execute();
+      const setClause = Object.keys(values)
+        .map((key, i) => `${key} = $${i + 1}`)
+        .join(", ");
+
+      const sql = `UPDATE ${table} SET ${setClause} WHERE ${whereClause}`;
+
+      const params = Object.values(values);
+
+      const result = await this.db.execute(sql, params);
+
+      return result;
     } catch (err) {
       console.error(err);
       throw err;
@@ -65,27 +82,30 @@ class DbClient {
   }
 
   /**
-   *
-   * @param {string} table
-   * @param {object} query
-   * @param {string} attributes
+   * Execute a select query
+   * @param {string} table - Table name
+   * @param {object} query - Where Conditions (key-value)
+   * @param {string} attributes - Columns to select (default '*')
+   * @returns {Promise<Array>} - Query result
    */
-  async select(table, query, attributes = "*") {
+  async select(table, query = {}, attributes = "*") {
     try {
       await this.openDb();
-      const result = await this.db.select(
-        `SELECT ${attributes} FROM ${table} ${
-          query
-            ? `WHERE ${Object.keys(query).map(
-                (key) => `${key} = ${query[key]}`
-              )}`
-            : ""
-        }`
-      );
 
+      let sql = `SELECT ${attributes} FROM ${table}`;
+      const conditions = Object.keys(query);
+      const params = Object.values(query);
+
+      if (conditions.length > 0) {
+        sql +=
+          ` WHERE ` +
+          conditions.map((key, i) => `${key} = $${i + 1}`).join(" AND ");
+      }
+      console.log(sql, params);
+      const result = await this.db.select(sql, params);
       return result;
     } catch (err) {
-      console.error(err);
+      console.error("Error in select:", err);
       throw err;
     }
   }
