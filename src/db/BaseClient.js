@@ -28,7 +28,7 @@ export default class BaseClient {
    * @param {object} value
    */
   async update(values) {
-    return await this.db.update(this.table, values);
+    return await this.db.update(this.table, values, { id: values.id });
   }
 
   async get() {

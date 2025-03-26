@@ -44,21 +44,27 @@ class DbClient {
    *
    * @param {string} table
    * @param {object} values
-   * @param {object} whereClause
+   * @param {object} query
    * @returns
    */
-  async update(table, values, whereClause) {
+  async update(table, values, query) {
     try {
       await this.openDb();
 
+      const conditions = Object.keys(query);
       const setClause = Object.keys(values)
         .map((key, i) => `${key} = $${i + 1}`)
         .join(", ");
 
-      const sql = `UPDATE ${table} SET ${setClause} WHERE ${whereClause}`;
+      let sql = `UPDATE ${table} SET ${setClause}`;
+
+      if (conditions.length > 0) {
+        sql +=
+          ` WHERE ` +
+          conditions.map((key, i) => `${key} = $${i + 1}`).join(" AND ");
+      }
 
       const params = Object.values(values);
-
       const result = await this.db.execute(sql, params);
 
       return result;
@@ -101,7 +107,6 @@ class DbClient {
           ` WHERE ` +
           conditions.map((key, i) => `${key} = $${i + 1}`).join(" AND ");
       }
-      console.log(sql, params);
       const result = await this.db.select(sql, params);
       return result;
     } catch (err) {
