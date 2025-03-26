@@ -4,7 +4,7 @@ import React from "react";
 import { css } from "@emotion/css";
 
 function CategoryCard(props) {
-  const { id, onClick, name, description, color } = props;
+  const { id, onClick, actions, name, description, color } = props;
 
   const styles = css({
     background: color,
@@ -22,6 +22,7 @@ function CategoryCard(props) {
         <h3 className="text-white text-start">{name}</h3>
       </div>
       <p className="text-start text-sm !text-gray-400">{description}</p>
+      <div>{actions}</div>
     </button>
   );
 }

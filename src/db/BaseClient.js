@@ -31,10 +31,22 @@ export default class BaseClient {
     return await this.db.update(this.table, values, { id: values.id });
   }
 
-  async get() {
-    return await this.db.select(this.table);
+  /**
+   *
+   * @param {*} query
+   * @param {*} attributes
+   * @returns
+   */
+  async get(query, attributes) {
+    return await this.db.select(this.table, query, attributes);
   }
 
+  /**
+   *
+   * @param {*} id
+   * @param {*} attributes
+   * @returns
+   */
   async getById(id, attributes) {
     return await this.db.select(this.table, { id }, attributes);
   }

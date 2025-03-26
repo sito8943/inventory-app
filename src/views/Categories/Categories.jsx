@@ -28,7 +28,7 @@ function Categories() {
   const { data, isLoading } = useQuery({
     queryKey: [ReactQueryKeys.Categories],
     enabled: true,
-    queryFn: () => manager.Categories.get(),
+    queryFn: () => manager.Categories.get({ deletedAt: { not: null } }),
   });
 
   const addCategory = useAddCategory();

@@ -6,6 +6,12 @@
   "products": {
     "title": "Products"
   },
+  "common": {
+    "actions": {
+      "add": "Add",
+      "delete": "Delete"
+    }
+  },
   "categories": {
     "title": "Categories",
     "forms": {

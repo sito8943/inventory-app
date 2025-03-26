@@ -15,14 +15,12 @@ pub fn run() {
             sql: "CREATE TABLE IF NOT EXISTS categories (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
-                color TEXT
+                color TEXT,
+                description TEXT,
+                createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+                updatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
+                deletedAt TEXT DEFAULT NULL
             )",
-            kind: MigrationKind::Up,
-        },
-        Migration {
-            version: 2,
-            description: "add description column to categories",
-            sql: "ALTER TABLE categories ADD COLUMN description TEXT",
             kind: MigrationKind::Up,
         }
     ];

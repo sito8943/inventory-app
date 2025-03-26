@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 // providers
 import { queryClient, useManager } from "../../../providers/ManagerProvider";
+
+// hooks
+import useDialog from "../../../hooks/useDialog";
 
 // utils
 import { ReactQueryKeys } from "../../../utils/queryKey";
@@ -16,9 +19,8 @@ function useEditCategory() {
 
   const { control, handleSubmit, reset } = useForm();
 
-  const [open, setOpen] = useState();
+  const { open, handleClose, handleOpen } = useDialog();
 
-  const handleClose = () => setOpen(false);
   const [id, setId] = useState(0);
 
   const { data, isLoading } = useQuery({
@@ -31,9 +33,15 @@ function useEditCategory() {
     if (data && data.length) reset({ ...data[0] });
   }, [data]);
 
+  const close = () => {
+    handleClose();
+    setId(0);
+    reset();
+  };
+
   const onClick = async (id) => {
     setId(id);
-    setOpen(true);
+    handleOpen();
   };
 
   const editFn = useMutation({
@@ -44,15 +52,10 @@ function useEditCategory() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries([ReactQueryKeys.Categories]);
-      handleClose();
-      reset();
+      close();
       //TODO THROW NOTIFICATION HERE
     },
   });
-
-  useEffect(() => {
-    if (!open) reset();
-  }, [open]);
 
   return {
     onClick,
@@ -61,7 +64,7 @@ function useEditCategory() {
     control,
     isLoading,
     handleSubmit: handleSubmit((data) => editFn.mutate(data)),
-    handleClose,
+    handleClose: close,
   };
 }
 

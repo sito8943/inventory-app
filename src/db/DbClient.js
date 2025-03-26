@@ -74,6 +74,23 @@ class DbClient {
     }
   }
 
+  async softDelete(table, ids) {
+    try {
+      await this.openDb();
+
+      const result = await this.db.execute(
+        `UPDATE ${table} SET deletedAt = CURRENT_TIMESTAMP WHERE id IN (${ids.join(
+          ","
+        )})`
+      );
+
+      return result;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
   /**
    *
    * @param {string} table
@@ -105,7 +122,16 @@ class DbClient {
       if (conditions.length > 0) {
         sql +=
           ` WHERE ` +
-          conditions.map((key, i) => `${key} = $${i + 1}`).join(" AND ");
+          conditions
+            .map(
+              (key, i) =>
+                `${key} ${
+                  query[key].not
+                    ? `${query[key].not === null ? "IS NOT" : "!="}`
+                    : "="
+                } $${i + 1}`
+            )
+            .join(" AND ");
       }
       const result = await this.db.select(sql, params);
       return result;

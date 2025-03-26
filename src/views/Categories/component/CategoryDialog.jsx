@@ -22,6 +22,7 @@ export function CategoryForm(props) {
         render={({ field }) => (
           <TextInput
             required
+            maxLength={20}
             placeholder={t("_pages:categories.inputs.name.name")}
             {...field}
           />
@@ -32,6 +33,7 @@ export function CategoryForm(props) {
         name="description"
         render={({ field }) => (
           <ParagraphInput
+            maxLength={60}
             placeholder={t("_pages:categories.inputs.description.name")}
             {...field}
           />

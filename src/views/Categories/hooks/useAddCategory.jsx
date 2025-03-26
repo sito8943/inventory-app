@@ -9,6 +9,9 @@ import { queryClient, useManager } from "../../../providers/ManagerProvider";
 // utils
 import { ReactQueryKeys } from "../../../utils/queryKey";
 
+// hooks
+import useDialog from "../../../hooks/useDialog";
+
 function useAddCategory() {
   const { t } = useTranslation();
 
@@ -16,11 +19,14 @@ function useAddCategory() {
 
   const { control, handleSubmit, reset } = useForm();
 
-  const [open, setOpen] = useState();
+  const { open, handleClose, handleOpen } = useDialog();
 
-  const handleClose = () => setOpen(false);
+  const onClick = () => handleOpen();
 
-  const onClick = () => setOpen(true);
+  const close = () => {
+    handleClose();
+    reset();
+  };
 
   const addFn = useMutation({
     mutationFn: (data) => manager.Categories.insert(data),
@@ -30,15 +36,10 @@ function useAddCategory() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries([ReactQueryKeys.Categories]);
-      handleClose();
-      reset();
+      close();
       //TODO THROW NOTIFICATION HERE
     },
   });
-
-  useEffect(() => {
-    if (!open) reset();
-  }, [open]);
 
   return {
     onClick,
@@ -46,7 +47,7 @@ function useAddCategory() {
     open,
     control,
     handleSubmit: handleSubmit((data) => addFn.mutate(data)),
-    handleClose,
+    handleClose: close,
   };
 }
 

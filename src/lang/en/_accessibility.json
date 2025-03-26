@@ -1,5 +1,6 @@
 {
   "buttons": {
+    "ok": "Ok",
     "submit": "Submit",
     "cancel": "Cancel",
     "closeDialog": "Close dialog"
@@ -7,6 +8,7 @@
   "labels": {},
   "tooltips": {},
   "ariaLabels": {
+    "ok": "",
     "insert": "",
     "cancel": "",
     "closeDialog": ""
