@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
@@ -19,6 +19,7 @@ import {
 import useAddCategory from "./hooks/useAddCategory";
 import CategoryCard from "./component/CategoryCard";
 import useEditCategory from "./hooks/useEditCategory";
+import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
 
 function Categories() {
   const { t } = useTranslation();
@@ -31,9 +32,19 @@ function Categories() {
     queryFn: () => manager.Categories.get({ deletedAt: { not: null } }),
   });
 
+  // #region actions
+
+  const deleteCategory = useDeleteDialog();
+
   const addCategory = useAddCategory();
 
   const editCategory = useEditCategory();
+
+  // #endregion
+
+  const getActions = useCallback((record) => [
+    deleteCategory.action(record.id),
+  ]);
 
   return (
     <main className="p-5">
@@ -46,6 +57,7 @@ function Categories() {
           {data?.map((category) => (
             <li key={category.id}>
               <CategoryCard
+                actions={getActions(category)}
                 onClick={(id) => editCategory.onClick(id)}
                 {...category}
               />

@@ -126,7 +126,7 @@ class DbClient {
             .map(
               (key, i) =>
                 `${key} ${
-                  query[key].not
+                  query[key].not !== undefined
                     ? `${query[key].not === null ? "IS NOT" : "!="}`
                     : "="
                 } $${i + 1}`

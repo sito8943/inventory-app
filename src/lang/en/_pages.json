@@ -9,7 +9,12 @@
   "common": {
     "actions": {
       "add": "Add",
-      "delete": "Delete"
+      "delete": {
+        "text": "Delete",
+        "dialog": {
+          "title": "Are you sure to delete?"
+        }
+      }
     }
   },
   "categories": {

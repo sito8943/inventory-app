@@ -55,6 +55,10 @@ textarea,
   @apply hover:bg-border w-7 h-7 rounded-full;
 }
 
+.action {
+  @apply hover:bg-border w-10 h-10 rounded-full;
+}
+
 .input {
   @apply text-white bg-alt-background border-border border-2 px-4 py-1 rounded-sm;
 }

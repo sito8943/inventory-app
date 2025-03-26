@@ -1,53 +1,24 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 
-// providers
-import { useManager } from "../../providers/ManagerProvider";
+// icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-// hooks
-import useDialog from "../useDialog";
-
-function useDeleteAction() {
+function useDeleteAction(props) {
   const { t } = useTranslation();
 
-  const manager = useManager();
+  const { onClick } = props;
 
-  const { open, handleClose, handleOpen } = useDialog();
-
-  const [id, setId] = useState(0);
-
-  const close = () => {
-    handleClose();
-    setId(0);
-  };
-
-  const onClick = async (id) => {
-    setId(id);
-    handleOpen();
-  };
-
-  const deleteFn = useMutation({
-    mutationFn: (data) => manager.Categories.softDelete(data),
-    onError: (error) => {
-      console.error(error);
-      //TODO THROW NOTIFICATION HERE
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries([ReactQueryKeys.Categories]);
-      close();
-      //TODO THROW NOTIFICATION HERE
-    },
+  const action = (record) => ({
+    id: "delete",
+    hidden: !!record.deletedAt,
+    disabled: !!record.deletedAt,
+    icon: <FontAwesomeIcon className="text-red-500" icon={faTrash} />,
+    tooltip: t("_pages:common.actions.delete.text"),
+    onClick: () => onClick(record),
   });
 
-  return {
-    onClick,
-    title: t("_pages:common.actions.edit"),
-    open,
-    control,
-    isLoading,
-    handleSubmit: () => deleteFn.mutate([id]),
-    handleClose: close,
-  };
+  return action;
 }
 
 export default useDeleteAction;
