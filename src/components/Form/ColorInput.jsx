@@ -32,7 +32,7 @@ const ColorInput = forwardRef(function (props, ref) {
       }
       endAdornment={
         <span
-          className={`rounded-full absolute right-1 top-[50%] -translate-y-[50%] w-5 h-5 ${styles}`}
+          className={`rounded-full absolute right-2 top-[50%] -translate-y-[50%] w-4 h-4 ${styles}`}
         ></span>
       }
     />
