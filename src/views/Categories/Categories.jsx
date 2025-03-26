@@ -39,7 +39,7 @@ function Categories() {
     <main className="p-5">
       <div className="apparition flex flex-col gap-5">
         <h2 className="text-xl">{t("_pages:categories.title")}</h2>
-        <ul className="flex flex-wrap gap-5">
+        <ul className="flex flex-wrap max-xs:flex-col gap-5">
           <li>
             <AddCard onClick={addCategory.onClick} />
           </li>

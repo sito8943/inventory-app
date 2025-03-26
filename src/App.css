@@ -8,6 +8,7 @@
   --color-primary: #4cc2ff;
   --color-hover-primary: #48b2e9;
   --color-secondary: #d27d6b;
+  --breakpoint-xs: 28rem;
 }
 
 textarea {
@@ -75,7 +76,7 @@ form .button {
 }
 
 main {
-  height: calc(100vh - 40px);
+  min-height: calc(100vh - 40px);
   @apply bg-background;
 }
 

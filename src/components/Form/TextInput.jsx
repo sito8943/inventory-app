@@ -7,6 +7,7 @@ const TextInput = forwardRef(function (props, ref) {
     className,
     containerClassName,
     startAdornment,
+    endAdornment,
     value,
     ...rest
   } = props;
@@ -18,9 +19,12 @@ const TextInput = forwardRef(function (props, ref) {
       <input
         ref={ref}
         value={value ?? ""}
-        className={`input ${startAdornment ? "!pl-9" : ""} ${className}`}
+        className={`input ${startAdornment ? "!pl-9" : ""} ${
+          endAdornment ? "!pr-9" : ""
+        } ${className}`}
         {...rest}
       />
+      {endAdornment}
     </div>
   );
 });
