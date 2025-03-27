@@ -10,6 +10,7 @@ import { ReactQueryKeys } from "../../utils/queryKey";
 
 // components
 import AddCard from "../../components/Card/AddCard";
+import CategoryCard from "./component/CategoryCard";
 import {
   AddCategoryDialog,
   EditCategoryDialog,
@@ -17,7 +18,6 @@ import {
 
 // hooks
 import useAddCategory from "./hooks/useAddCategory";
-import CategoryCard from "./component/CategoryCard";
 import useEditCategory from "./hooks/useEditCategory";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
 
@@ -51,9 +51,6 @@ function Categories() {
       <div className="apparition flex flex-col gap-5">
         <h2 className="text-xl">{t("_pages:categories.title")}</h2>
         <ul className="flex flex-wrap max-xs:flex-col gap-5">
-          <li>
-            <AddCard onClick={addCategory.onClick} />
-          </li>
           {data?.map((category) => (
             <li key={category.id}>
               <CategoryCard
@@ -64,6 +61,7 @@ function Categories() {
             </li>
           ))}
         </ul>
+        <AddCard onClick={addCategory.onClick} />
       </div>
 
       {/* Dialogs */}
