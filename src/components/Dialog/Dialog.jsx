@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+// icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
+
 // @emotion/css
 import { css } from "@emotion/css";
 
@@ -46,10 +50,13 @@ function Dialog(props) {
       } fixed left-0 top-0 flex items-center justify-center z-10`}
     >
       <div
-        className={`min-w-70 bg-alt-background p-5 rounded-2xl border-border border-2 animated ${
+        className={`relative min-w-70 bg-alt-background p-5 rounded-2xl border-border border-2 animated ${
           open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         }`}
       >
+        <button className="icon-button absolute top-2 right-2 text-red-400" onClick={handleClose}>
+          <FontAwesomeIcon icon={faClose} />
+        </button>
         <h3 className="mb-5 text-white text-xl">{title}</h3>
         {children}
       </div>
