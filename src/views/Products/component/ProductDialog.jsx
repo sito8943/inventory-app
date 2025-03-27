@@ -4,7 +4,7 @@ import { Controller } from "react-hook-form";
 // components
 import FormDialog from "../../../components/Dialog/FormDialog";
 import TextInput from "../../../components/Form/TextInput";
-import ColorInput from "../../../components/Form/ColorInput";
+import SelectInput from "../../../components/Form/SelectInput";
 import ParagraphInput from "../../../components/Form/ParagraphInput";
 
 export function ProductForm(props) {
