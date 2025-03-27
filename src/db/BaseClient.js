@@ -50,4 +50,8 @@ export default class BaseClient {
   async getById(id, attributes) {
     return await this.db.select(this.table, { id }, attributes);
   }
+
+  async softDelete(ids) {
+    return await this.db.softDelete(this.table, ids);
+  }
 }

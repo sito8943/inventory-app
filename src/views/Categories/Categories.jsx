@@ -20,6 +20,7 @@ import {
 import useAddCategory from "./hooks/useAddCategory";
 import useEditCategory from "./hooks/useEditCategory";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
+import ConfirmationDialog from "../../components/Dialog/ConfirmationDialog";
 
 function Categories() {
   const { t } = useTranslation();
@@ -67,6 +68,7 @@ function Categories() {
       {/* Dialogs */}
       <AddCategoryDialog {...addCategory} />
       <EditCategoryDialog {...editCategory} />
+      <ConfirmationDialog {...deleteCategory} />
     </main>
   );
 }

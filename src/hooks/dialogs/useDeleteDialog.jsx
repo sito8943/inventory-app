@@ -45,7 +45,7 @@ function useDeleteDialog() {
 
   return {
     onClick,
-    title: t("_pages:common.actions.edit"),
+    title: t("_pages:common.actions.delete.dialog.title"),
     open,
     isLoading: deleteFn.isPending,
     handleSubmit: () => deleteFn.mutate([id]),
