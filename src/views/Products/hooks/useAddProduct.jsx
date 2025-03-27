@@ -11,7 +11,7 @@ import { ReactQueryKeys } from "../../../utils/queryKey";
 // hooks
 import useDialog from "../../../hooks/useDialog";
 
-function useAddCategory() {
+function useAddProduct() {
   const { t } = useTranslation();
 
   const manager = useManager();
@@ -28,13 +28,13 @@ function useAddCategory() {
   };
 
   const addFn = useMutation({
-    mutationFn: (data) => manager.Categories.insert(data),
+    mutationFn: (data) => manager.Products.insert(data),
     onError: (error) => {
       console.error(error);
       //TODO THROW NOTIFICATION HERE
     },
     onSuccess: () => {
-      queryClient.invalidateQueries([ReactQueryKeys.Categories]);
+      queryClient.invalidateQueries([ReactQueryKeys.Products]);
       close();
       //TODO THROW NOTIFICATION HERE
     },
@@ -42,7 +42,7 @@ function useAddCategory() {
 
   return {
     onClick,
-    title: t("_pages:categories.forms.add"),
+    title: t("_pages:products.forms.add"),
     open,
     control,
     handleSubmit: handleSubmit((data) => addFn.mutate(data)),
@@ -50,4 +50,4 @@ function useAddCategory() {
   };
 }
 
-export default useAddCategory;
+export default useAddProduct;

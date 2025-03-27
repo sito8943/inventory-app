@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
@@ -30,7 +30,7 @@ function Categories() {
   const { data, isLoading } = useQuery({
     queryKey: [ReactQueryKeys.Categories],
     enabled: true,
-    queryFn: () => manager.Categories.get({ deletedAt: { not: null } }),
+    queryFn: () => manager.Categories.get({ deletedAt: null }),
   });
 
   // #region actions
@@ -51,17 +51,23 @@ function Categories() {
     <main className="p-5">
       <div className="apparition flex flex-col gap-5">
         <h2 className="text-xl">{t("_pages:categories.title")}</h2>
-        <ul className="flex flex-wrap max-xs:flex-col gap-5">
-          {data?.map((category) => (
-            <li key={category.id}>
-              <CategoryCard
-                actions={getActions(category)}
-                onClick={(id) => editCategory.onClick(id)}
-                {...category}
-              />
-            </li>
-          ))}
-        </ul>
+        {data?.length ? (
+          <ul className="flex flex-wrap max-xs:flex-col gap-5">
+            {data?.map((category) => (
+              <li key={category.id}>
+                <CategoryCard
+                  actions={getActions(category)}
+                  onClick={(id) => editCategory.onClick(id)}
+                  {...category}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="!text-gray-400 text-center mt-5">
+            {t("_pages:categories.empty")}
+          </p>
+        )}
         <AddCard onClick={addCategory.onClick} />
       </div>
 

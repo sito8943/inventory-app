@@ -117,7 +117,9 @@ class DbClient {
 
       let sql = `SELECT ${attributes} FROM ${table}`;
       const conditions = Object.keys(query);
-      const params = Object.values(query);
+      const params = Object.values(query).map((value) =>
+        value?.not !== undefined ? value.not : value
+      );
 
       if (conditions.length > 0) {
         sql +=

@@ -41,7 +41,7 @@ function Dialog(props) {
     <div
       name={t("_accessibility:buttons.closeDialog")}
       aria-label={t("_accessibility:ariaLabels.closeDialog")}
-      className={`${styles} h-screen ${
+      className={`dialog ${styles} h-screen ${
         open ? "" : "pointer-events-none"
       } fixed left-0 top-0 flex items-center justify-center z-10`}
     >

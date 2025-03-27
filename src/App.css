@@ -63,7 +63,7 @@ textarea,
   @apply text-white bg-alt-background border-border border-2 px-4 py-1 rounded-sm;
 }
 
-form .button {
+.dialog .button {
   @apply px-4 py-1 rounded-4xl;
 }
 

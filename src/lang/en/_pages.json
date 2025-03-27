@@ -4,7 +4,32 @@
     "appName": "Inventory"
   },
   "products": {
-    "title": "Products"
+    "title": "Products",
+    "empty": "No products to load",
+    "forms": {
+      "add": "New product",
+      "edit": "Edit product"
+    },
+    "inputs": {
+      "name": {
+        "name": "Name",
+        "placeholder": "Ex: Pizza",
+        "required": "Name is required"
+      },
+      "description": {
+        "name": "Description",
+        "placeholder": "Some description"
+      },
+      "category": {
+        "name": "Category"
+      },
+      "price": {
+        "name": "Price"
+      },
+      "stock": {
+        "name": "Stock"
+      }
+    }
   },
   "common": {
     "actions": {
@@ -19,6 +44,7 @@
   },
   "categories": {
     "title": "Categories",
+    "empty": "No categories to load",
     "forms": {
       "add": "New category",
       "edit": "Edit category"
