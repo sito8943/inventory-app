@@ -11,8 +11,8 @@ import { ReactQueryKeys } from "../../utils/queryKey";
 // components
 import AddCard from "../../components/Card/AddCard";
 import ProductCard from "./component/ProductCard";
-import { AddProductDialog, EditProductDialog } from "./component/ProductDialog";
 import ConfirmationDialog from "../../components/Dialog/ConfirmationDialog";
+import { AddProductDialog, EditProductDialog } from "./component/ProductDialog";
 
 // hooks
 import useAddProduct from "./hooks/useAddProduct";

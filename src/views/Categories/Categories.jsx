@@ -15,12 +15,12 @@ import {
   AddCategoryDialog,
   EditCategoryDialog,
 } from "./component/CategoryDialog";
+import ConfirmationDialog from "../../components/Dialog/ConfirmationDialog";
 
 // hooks
 import useAddCategory from "./hooks/useAddCategory";
 import useEditCategory from "./hooks/useEditCategory";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
-import ConfirmationDialog from "../../components/Dialog/ConfirmationDialog";
 
 function Categories() {
   const { t } = useTranslation();
