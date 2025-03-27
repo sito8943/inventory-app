@@ -68,8 +68,8 @@ function Categories() {
             {t("_pages:categories.empty")}
           </p>
         )}
-        <AddCard onClick={addCategory.onClick} />
       </div>
+      <AddCard onClick={addCategory.onClick} />
 
       {/* Dialogs */}
       <AddCategoryDialog {...addCategory} />

@@ -63,8 +63,8 @@ function Products() {
             {t("_pages:products.empty")}
           </p>
         )}
-        <AddCard onClick={addProduct.onClick} />
       </div>
+      <AddCard onClick={addProduct.onClick} />
 
       {/* Dialogs */}
       <AddProductDialog {...addProduct} />
