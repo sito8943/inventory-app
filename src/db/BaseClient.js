@@ -33,22 +33,24 @@ export default class BaseClient {
 
   /**
    *
-   * @param {*} query
-   * @param {*} attributes
-   * @returns
+   * @param {object} query - Where conditions (key-value)
+   * @param {string} attributes - Columns to select (default '*')
+   * @param {Array<{ table: string, on: string }>} relationships - Tables to join
+   * @returns {Promise<Array>} - Query result
    */
-  async get(query, attributes) {
-    return await this.db.select(this.table, query, attributes);
+  async get(query, attributes, relationships) {
+    return await this.db.select(this.table, query, attributes, relationships);
   }
 
   /**
    *
    * @param {*} id
    * @param {*} attributes
-   * @returns
+   * @param {Array<{ table: string, on: string }>} relationships - Tables to join
+   * @returns {Promise<Array>} - Query result
    */
   async getById(id, attributes) {
-    return await this.db.select(this.table, { id }, attributes);
+    return await this.db.select(this.table, { id }, attributes, relationships);
   }
 
   async softDelete(ids) {

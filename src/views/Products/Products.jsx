@@ -27,7 +27,12 @@ function Products() {
   const { data, isLoading } = useQuery({
     queryKey: [ReactQueryKeys.Products],
     enabled: true,
-    queryFn: () => manager.Products.get({ deletedAt: null }),
+    queryFn: () =>
+      manager.Products.get(
+        { deletedAt: null },
+        "products.*, categories.id,categories.name,categories.color",
+        [{ table: "categories", on: "products.category = categories.id" }]
+      ),
   });
 
   // #region actions

@@ -1,5 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { Controller } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
+
+// providers
+import { useManager } from "../../../providers/ManagerProvider";
 
 // components
 import FormDialog from "../../../components/Dialog/FormDialog";
@@ -7,9 +11,29 @@ import TextInput from "../../../components/Form/TextInput";
 import SelectInput from "../../../components/Form/SelectInput";
 import ParagraphInput from "../../../components/Form/ParagraphInput";
 
+// utils
+import { ReactQueryKeys } from "../../../utils/queryKey";
+import { useMemo } from "react";
+
 export function ProductForm(props) {
   const { control } = props;
   const { t } = useTranslation();
+
+  const manager = useManager();
+
+  const categories = useQuery({
+    queryKey: [ReactQueryKeys.Categories],
+    enabled: true,
+    queryFn: () =>
+      manager.Categories.get({ deletedAt: null }, "id,name as value"),
+  });
+
+  const categoryOptions = useMemo(() => {
+    return [
+      { id: 0, value: t("_pages:products.inputs.category.name") },
+      ...(categories?.data ?? []),
+    ];
+  }, [categories.data]);
 
   return (
     <div className="flex flex-col gap-5">
@@ -22,9 +46,27 @@ export function ProductForm(props) {
         render={({ field }) => (
           <TextInput
             required
-            maxLength={20}
+            maxLength={25}
             placeholder={t("_pages:products.inputs.name.name")}
             {...field}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        rules={{
+          required: t("_pages:products.inputs.category.required"),
+        }}
+        name="category"
+        disabled={categories?.isLoading}
+        render={({ field: { value, onChange, ...rest } }) => (
+          <SelectInput
+            required
+            options={categoryOptions}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder={t("_pages:products.inputs.category.name")}
+            {...rest}
           />
         )}
       />

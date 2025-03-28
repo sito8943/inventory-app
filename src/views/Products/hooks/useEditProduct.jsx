@@ -29,6 +29,8 @@ function useEditProduct() {
     enabled: !!id,
   });
 
+  console.log(data, id);
+
   useEffect(() => {
     if (data && data.length) reset({ ...data[0] });
   }, [data]);

@@ -13,7 +13,7 @@ function CategoryCard(props) {
 
   return (
     <div className="flex flex-col justify-between items-start h-40 w-60 max-xs:w-full rounded-2xl p-3 group border-primary/30 hover:border-primary border-2 animated">
-      <button className="cursor-pointer h-full" name="" aria-label="" onClick={() => onClick(id)}>
+      <button className="cursor-pointer h-full flex flex-col" name="" aria-label="" onClick={() => onClick(id)}>
         <div className="flex items-center gap-2 justify-start">
           <span className={`${styles} w-3 h-3 rounded-full`}></span>
           <h3 className="text-white text-start">{name}</h3>

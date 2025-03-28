@@ -105,17 +105,28 @@ class DbClient {
   }
 
   /**
-   * Execute a select query
+   * Execute a select query with optional joins
    * @param {string} table - Table name
-   * @param {object} query - Where Conditions (key-value)
+   * @param {object} query - Where conditions (key-value)
    * @param {string} attributes - Columns to select (default '*')
+   * @param {Array<{ table: string, on: string }>} relationships - Tables to join
    * @returns {Promise<Array>} - Query result
    */
-  async select(table, query = {}, attributes = "*") {
+  async select(table, query = {}, attributes = "*", relationships = []) {
     try {
       await this.openDb();
 
       let sql = `SELECT ${attributes} FROM ${table}`;
+
+      // Add joins if there are relationships
+      if (relationships.length > 0) {
+        sql +=
+          " " +
+          relationships
+            .map((rel) => `JOIN ${rel.table} ON ${rel.on}`)
+            .join(" ");
+      }
+
       const conditions = Object.keys(query);
       const params = Object.values(query).map((value) =>
         value?.not !== undefined ? value.not : value
@@ -125,16 +136,20 @@ class DbClient {
         sql +=
           ` WHERE ` +
           conditions
-            .map(
-              (key, i) =>
-                `${key} ${
-                  query[key] && query[key].not !== undefined
-                    ? `${query[key].not === null ? "IS NOT" : "!="}`
-                    : "="
-                } $${i + 1}`
-            )
+            .map((key, i) => {
+              const fieldName =
+                relationships?.length && key.indexOf(".") === -1
+                  ? `${table}.${key}`
+                  : key;
+              const fieldValue =
+                query[key] && query[key].not !== undefined
+                  ? `${query[key].not === null ? "IS NOT" : "!="}`
+                  : `${query[key] === null ? "IS" : "="}`;
+              return `${fieldName} ${fieldValue} $${i + 1}`;
+            })
             .join(" AND ");
       }
+
       const result = await this.db.select(sql, params);
       return result;
     } catch (err) {
