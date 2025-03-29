@@ -151,6 +151,7 @@ class DbClient {
       }
 
       const result = await this.db.select(sql, params);
+
       return result;
     } catch (err) {
       console.error("Error in select:", err);

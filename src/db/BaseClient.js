@@ -3,14 +3,21 @@ import DbClient from "./DbClient";
 export default class BaseClient {
   db = new DbClient();
   table = "";
+  validator = null;
+
+  async validates(row, event) {
+    if (this.validator[event]) return await this.validator[event](row);
+    return true;
+  }
 
   /**
    *
    * @param {DbClient} dbClient
    */
-  constructor(table, dbClient) {
+  constructor(table, dbClient, validations = {}) {
     this.db = dbClient;
     this.table = table;
+    this.validator = validations;
   }
 
   /**
@@ -20,7 +27,9 @@ export default class BaseClient {
    * @returns
    */
   async insert(value, attributes) {
-    return await this.db.insert(this.table, value, attributes);
+    const validated = await this.validator(value, "insert");
+    if (validated) return await this.db.insert(this.table, value, attributes);
+    return validated;
   }
 
   /**
@@ -28,7 +37,10 @@ export default class BaseClient {
    * @param {object} value
    */
   async update(values) {
-    return await this.db.update(this.table, values, { id: values.id });
+    const validated = await this.validator(values, "update");
+    if (validated)
+      return await this.db.update(this.table, values, { id: values.id });
+    return validated;
   }
 
   /**
@@ -49,7 +61,7 @@ export default class BaseClient {
    * @param {Array<{ table: string, on: string }>} relationships - Tables to join
    * @returns {Promise<Array>} - Query result
    */
-  async getById(id, attributes) {
+  async getById(id, attributes, relationships) {
     return await this.db.select(this.table, { id }, attributes, relationships);
   }
 

@@ -7,6 +7,20 @@ export default class ProductClient extends BaseClient {
    * @param {DbClient} dbClient
    */
   constructor(dbClient) {
-    super("products", dbClient);
+    const validations = () => {
+      const onInsert = async (row) => {
+        if (!row.name) return "required: name";
+        if (category == 0) return "invalid: category";
+        return true;
+      };
+      const onUpdate = onInsert;
+
+      return {
+        insert: onInsert,
+        update: onUpdate,
+      };
+    };
+
+    super("products", dbClient, validations);
   }
 }

@@ -7,6 +7,19 @@ export default class CategoryClient extends BaseClient {
    * @param {DbClient} dbClient
    */
   constructor(dbClient) {
-    super("categories", dbClient);
+    const validations = () => {
+      const onInsert = async (row) => {
+        if (!row.name) return "required: name";
+        return true;
+      };
+      const onUpdate = onInsert;
+
+      return {
+        insert: onInsert,
+        update: onUpdate,
+      };
+    };
+
+    super("categories", dbClient, validations);
   }
 }
