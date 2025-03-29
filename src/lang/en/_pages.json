@@ -21,7 +21,8 @@
         "placeholder": "Some description"
       },
       "category": {
-        "name": "Category"
+        "name": "Category",
+        "invalid": "Please select a valid category"
       },
       "price": {
         "name": "Price"

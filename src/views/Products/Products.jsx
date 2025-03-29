@@ -30,7 +30,7 @@ function Products() {
     queryFn: () =>
       manager.Products.get(
         { deletedAt: null },
-        "products.*, categories.id,categories.name,categories.color",
+        "products.*, categories.id as categoryId,categories.name as categoryName,categories.color",
         [{ table: "categories", on: "products.category = categories.id" }]
       ),
   });

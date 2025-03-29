@@ -11,11 +11,12 @@ const SelectInput = forwardRef(function (props, ref) {
     onChange,
     options,
     label,
-    className,
-    containerClassName,
-    labelClassName,
+    className = "",
+    containerClassName = "",
+    labelClassName = "",
     startAdornment,
     endAdornment,
+    error,
     ...rest
   } = props;
 
@@ -33,9 +34,9 @@ const SelectInput = forwardRef(function (props, ref) {
         ref={ref}
         onChange={onChange}
         value={value ?? ""}
-        className={`input ${startAdornment ? "!pl-9" : ""} ${
-          endAdornment ? "!pr-9" : ""
-        } ${className}`}
+        className={`input ${error ? "!border-red-500" : ""} ${
+          startAdornment ? "!pl-9" : ""
+        } ${endAdornment ? "!pr-9" : ""} ${className}`}
         {...rest}
       >
         {options.map((option) => (

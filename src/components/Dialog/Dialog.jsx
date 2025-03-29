@@ -54,7 +54,10 @@ function Dialog(props) {
           open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         }`}
       >
-        <button className="icon-button absolute top-2 right-2 text-red-400" onClick={handleClose}>
+        <button
+          className="icon-button absolute top-2 right-2 text-red-400"
+          onClick={handleClose}
+        >
           <FontAwesomeIcon icon={faClose} />
         </button>
         <h3 className="mb-5 text-white text-xl">{title}</h3>

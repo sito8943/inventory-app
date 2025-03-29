@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Controller } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
@@ -13,7 +14,6 @@ import ParagraphInput from "../../../components/Form/ParagraphInput";
 
 // utils
 import { ReactQueryKeys } from "../../../utils/queryKey";
-import { useMemo } from "react";
 
 export function ProductForm(props) {
   const { control } = props;
@@ -55,7 +55,7 @@ export function ProductForm(props) {
       <Controller
         control={control}
         rules={{
-          required: t("_pages:products.inputs.category.required"),
+          invalid: t("_pages:products.inputs.category.invalid"),
         }}
         name="category"
         disabled={categories?.isLoading}
@@ -83,13 +83,9 @@ export function ProductForm(props) {
       />
       <Controller
         control={control}
-        rules={{
-          required: t("_pages:products.inputs.price.required"),
-        }}
         name="price"
         render={({ field }) => (
           <TextInput
-            required
             type="number"
             placeholder={t("_pages:products.inputs.price.name")}
             {...field}
@@ -98,13 +94,9 @@ export function ProductForm(props) {
       />
       <Controller
         control={control}
-        rules={{
-          required: t("_pages:products.inputs.stock.required"),
-        }}
         name="stock"
         render={({ field }) => (
           <TextInput
-            required
             type="number"
             placeholder={t("_pages:products.inputs.stock.name")}
             {...field}

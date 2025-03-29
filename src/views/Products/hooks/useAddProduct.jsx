@@ -9,31 +9,31 @@ import { queryClient, useManager } from "../../../providers/ManagerProvider";
 import { ReactQueryKeys } from "../../../utils/queryKey";
 
 // hooks
-import useDialog from "../../../hooks/useDialog";
+import useDialogForm from "../../../hooks/useDialogForm";
 
 function useAddProduct() {
   const { t } = useTranslation();
 
   const manager = useManager();
 
-  const { control, handleSubmit, reset } = useForm();
-
-  const { open, handleClose, handleOpen } = useDialog();
-
-  const onClick = () => handleOpen();
-
-  const close = () => {
-    handleClose();
-    reset();
-  };
+  const {
+    control,
+    handleSubmit,
+    open,
+    close,
+    onClick,
+    parseFormError,
+    releaseFormError,
+  } = useDialogForm({});
 
   const addFn = useMutation({
     mutationFn: (data) => manager.Products.insert(data),
     onError: (error) => {
       console.error(error);
+      parseFormError(error);
       //TODO THROW NOTIFICATION HERE
     },
-    onSuccess: () => {
+    onSuccess: (result) => {
       queryClient.invalidateQueries([ReactQueryKeys.Products]);
       close();
       //TODO THROW NOTIFICATION HERE
@@ -45,7 +45,10 @@ function useAddProduct() {
     title: t("_pages:products.forms.add"),
     open,
     control,
-    handleSubmit: handleSubmit((data) => addFn.mutate(data)),
+    handleSubmit: handleSubmit((data) => {
+      releaseFormError();
+      addFn.mutate(data);
+    }),
     handleClose: close,
   };
 }

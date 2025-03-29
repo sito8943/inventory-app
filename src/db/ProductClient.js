@@ -1,3 +1,4 @@
+import ValidationError from "../lib/ValidationError";
 import BaseClient from "./BaseClient";
 import DbClient from "./DbClient";
 
@@ -9,8 +10,9 @@ export default class ProductClient extends BaseClient {
   constructor(dbClient) {
     const validations = () => {
       const onInsert = async (row) => {
-        if (!row.name) return "required: name";
-        if (category == 0) return "invalid: category";
+        if (!row.name) return new ValidationError(["name", "required"]);
+        if (row.category == 0)
+          return new ValidationError(["category", "invalid"]);
         return true;
       };
       const onUpdate = onInsert;

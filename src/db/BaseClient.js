@@ -14,10 +14,10 @@ export default class BaseClient {
    *
    * @param {DbClient} dbClient
    */
-  constructor(table, dbClient, validations = {}) {
+  constructor(table, dbClient, validations = function () {}) {
     this.db = dbClient;
     this.table = table;
-    this.validator = validations;
+    this.validator = validations();
   }
 
   /**
@@ -27,9 +27,9 @@ export default class BaseClient {
    * @returns
    */
   async insert(value, attributes) {
-    const validated = await this.validator(value, "insert");
-    if (validated) return await this.db.insert(this.table, value, attributes);
-    return validated;
+    const validated = await this.validates(value, "insert");
+    if (!validated) return await this.db.insert(this.table, value, attributes);
+    throw validated;
   }
 
   /**
@@ -37,10 +37,10 @@ export default class BaseClient {
    * @param {object} value
    */
   async update(values) {
-    const validated = await this.validator(values, "update");
-    if (validated)
+    const validated = await this.validates(values, "update");
+    if (!validated)
       return await this.db.update(this.table, values, { id: values.id });
-    return validated;
+    throw validated;
   }
 
   /**

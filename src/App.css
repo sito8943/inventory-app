@@ -64,6 +64,10 @@ select,
   @apply text-white bg-alt-background border-border border-2 px-4 py-1 rounded-sm;
 }
 
+.input.error {
+  @apply border-red-500;
+}
+
 .dialog .button {
   @apply px-4 py-1 rounded-4xl;
 }

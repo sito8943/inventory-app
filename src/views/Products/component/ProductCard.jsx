@@ -16,7 +16,7 @@ function ProductCard(props) {
   return (
     <div className="flex flex-col justify-between items-start h-40 w-60 max-xs:w-full rounded-2xl p-3 group border-primary/30 hover:border-primary border-2 animated">
       <button
-        className="cursor-pointer h-full"
+        className="cursor-pointer h-full flex flex-col"
         name=""
         aria-label=""
         onClick={() => onClick(id)}
