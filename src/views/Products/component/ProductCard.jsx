@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 // @emotion/css
 import { css } from "@emotion/css";
@@ -7,7 +8,10 @@ import { css } from "@emotion/css";
 import Actions from "../../../components/Actions/Actions";
 
 function ProductCard(props) {
-  const { id, onClick, actions, name, description, color } = props;
+  const { t } = useTranslation();
+
+  const { id, onClick, actions, name, description, color, price, stock } =
+    props;
 
   const styles = css({
     background: color,
@@ -24,6 +28,12 @@ function ProductCard(props) {
         <div className="flex items-center gap-2 justify-start">
           <span className={`${styles} w-3 h-3 rounded-full`}></span>
           <h3 className="text-white text-start">{name}</h3>
+        </div>
+        <div className="flex items-center gap-2 justify-start">
+          <p className="!text-gray-400 text-xs">$ {price}</p>
+          <p className="!text-gray-400 text-xs">
+            {stock} {t("_pages:products.inputs.stock.label")}
+          </p>
         </div>
         <p className="text-start text-sm !text-gray-400">{description}</p>
       </button>

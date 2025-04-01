@@ -16,7 +16,7 @@ function useEditProduct() {
 
   const { control, isLoading, handleSubmit, open, close, onClick, dialogFn } =
     useDialogForm({
-      getFunction: manager.Products.getById,
+      getFunction: (id) => manager.Products.getById(id),
       mutationFn: (data) => manager.Products.update(data),
       onSuccessMessage: t("_pages:products.messages.saved"),
       queryKey: ReactQueryKeys.Products,
