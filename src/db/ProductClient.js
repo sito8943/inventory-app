@@ -13,7 +13,7 @@ export default class ProductClient extends BaseClient {
         if (!row.name) return new ValidationError(["name", "required"]);
         if (row.category == 0)
           return new ValidationError(["category", "invalid"]);
-        return true;
+        return false;
       };
       const onUpdate = onInsert;
 

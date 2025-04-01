@@ -36,8 +36,6 @@ function useDialogForm(props) {
     enabled: !!getFunction && !!queryKey && !!id,
   });
 
-  console.log(data, id, getFunction, queryKey, id);
-
   useEffect(() => {
     if (data && data.length) reset({ ...data[0] });
   }, [data]);
