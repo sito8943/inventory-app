@@ -1,5 +1,5 @@
-import BaseClient from "./BaseClient";
 import DbClient from "./DbClient";
+import BaseClient from "./BaseClient";
 import ValidationError from "../lib/ValidationError";
 
 export default class CategoryClient extends BaseClient {
@@ -11,7 +11,7 @@ export default class CategoryClient extends BaseClient {
     const validations = () => {
       const onInsert = async (row) => {
         if (!row.name) return new ValidationError(["name", "required"]);
-        return true;
+        return false;
       };
       const onUpdate = onInsert;
 

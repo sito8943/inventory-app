@@ -7,7 +7,7 @@ export default class BaseClient {
 
   async validates(row, event) {
     if (this.validator[event]) return await this.validator[event](row);
-    return true;
+    return false;
   }
 
   /**

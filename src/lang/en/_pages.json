@@ -6,6 +6,10 @@
   "products": {
     "title": "Products",
     "empty": "No products to load",
+    "messages": {
+      "saved": "Product saved successful",
+      "deleted": "Product deleted successful"
+    },
     "forms": {
       "add": "New product",
       "edit": "Edit product"

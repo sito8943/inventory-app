@@ -6,7 +6,7 @@ import Dialog from "./Dialog";
 function ConfirmationDialog(props) {
   const { t } = useTranslation();
 
-  const { children, handleSubmit, ...rest } = props;
+  const { children, handleSubmit, handleClose, ...rest } = props;
 
   return (
     <Dialog {...rest}>
@@ -19,6 +19,15 @@ function ConfirmationDialog(props) {
           aria-label={t("_accessibility:ariaLabels.ok")}
         >
           {t("_accessibility:buttons.ok")}
+        </button>
+        <button
+          type="button"
+          onClick={handleClose}
+          className="button outlined"
+          name={t("_accessibility:buttons.cancel")}
+          aria-label={t("_accessibility:ariaLabels.cancel")}
+        >
+          {t("_accessibility:buttons.cancel")}
         </button>
       </div>
     </Dialog>

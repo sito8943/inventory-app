@@ -1,5 +1,3 @@
-import { useMutation } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 // providers
@@ -22,22 +20,13 @@ function useAddProduct() {
     open,
     close,
     onClick,
-    parseFormError,
     releaseFormError,
-  } = useDialogForm({});
-
-  const addFn = useMutation({
+    dialogFn,
+    isLoading,
+  } = useDialogForm({
     mutationFn: (data) => manager.Products.insert(data),
-    onError: (error) => {
-      console.error(error);
-      parseFormError(error);
-      //TODO THROW NOTIFICATION HERE
-    },
-    onSuccess: (result) => {
-      queryClient.invalidateQueries([ReactQueryKeys.Products]);
-      close();
-      //TODO THROW NOTIFICATION HERE
-    },
+    onSuccessMessage: t("_pages:products.messages.saved"),
+    queryKey: ReactQueryKeys.Products,
   });
 
   return {
@@ -47,8 +36,9 @@ function useAddProduct() {
     control,
     handleSubmit: handleSubmit((data) => {
       releaseFormError();
-      addFn.mutate(data);
+      dialogFn.mutate(data);
     }),
+    isLoading,
     handleClose: close,
   };
 }
