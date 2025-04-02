@@ -25,7 +25,7 @@ function useAddProduct() {
     isLoading,
   } = useDialogForm({
     mutationFn: (data) => manager.Products.insert(data),
-    onSuccessMessage: t("_pages:products.messages.saved"),
+    onSuccessMessage: t("_pages:common.actions.add.successMessage"),
     queryKey: ReactQueryKeys.Products,
   });
 

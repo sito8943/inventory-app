@@ -18,7 +18,7 @@ function useEditProduct() {
     useDialogForm({
       getFunction: (id) => manager.Products.getById(id),
       mutationFn: (data) => manager.Products.update(data),
-      onSuccessMessage: t("_pages:products.messages.saved"),
+      onSuccessMessage: t("_pages:common.actions.add.successMessage"),
       queryKey: ReactQueryKeys.Products,
       onSuccess: () => queryClient.invalidateQueries([ReactQueryKeys.Products]),
     });

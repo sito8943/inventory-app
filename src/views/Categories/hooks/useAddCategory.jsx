@@ -24,7 +24,7 @@ function useAddCategory() {
     dialogFn,
   } = useDialogForm({
     mutationFn: (data) => manager.Categories.insert(data),
-    onSuccessMessage: t("_pages:categories.messages.saved"),
+    onSuccessMessage: t("_pages:common.actions.add.successMessage"),
     queryKey: ReactQueryKeys.Categories,
   });
 

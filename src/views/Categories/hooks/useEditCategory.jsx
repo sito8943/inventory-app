@@ -18,7 +18,7 @@ function useEditCategory() {
     useDialogForm({
       getFunction: (id) => manager.Categories.getById(id),
       mutationFn: (data) => manager.Categories.update(data),
-      onSuccessMessage: t("_pages:categories.messages.saved"),
+      onSuccessMessage: t("_pages:common.actions.add.successMessage"),
       queryKey: ReactQueryKeys.Categories,
     });
 
