@@ -11,7 +11,7 @@ import { queryClient } from "../providers/ManagerProvider";
 
 function useConfirmationForm(props) {
   const { t } = useTranslation();
-  const { showErrorNotification, showSuccessNotification } = useNotification();
+  const { showSuccessNotification } = useNotification();
 
   const { mutationFn, onError, onSuccess, queryKey, onSuccessMessage } = props;
 
@@ -33,10 +33,6 @@ function useConfirmationForm(props) {
     mutationFn: () => mutationFn([id]),
     onError: (error) => {
       console.error(error);
-      if (error.key)
-        showErrorNotification({
-          message: t(`_pages:common.errors.${error.key}`),
-        });
       if (onError) onError(error);
     },
     onSuccess: (result) => {
