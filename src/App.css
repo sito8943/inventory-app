@@ -36,6 +36,16 @@ select,
   font-family: "Roboto", sans-serif;
 }
 
+button {
+  @apply font-medium;
+}
+
+input,
+p,
+button {
+  @apply text-sm;
+}
+
 .button {
   @apply text-white bg-alt-background hover:bg-border border-border border-2 px-4 py-1 rounded-sm  cursor-pointer;
 }
