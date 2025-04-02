@@ -111,7 +111,7 @@ function useDialogForm(props) {
     parseFormError,
     releaseFormError,
     dialogFn,
-    isLoading,
+    isLoading: isLoading || dialogFn.isPending,
   };
 }
 
