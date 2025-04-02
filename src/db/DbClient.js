@@ -85,12 +85,6 @@ class DbClient {
     try {
       await this.openDb();
 
-      const noProducts = await this.select(Tables.Products, {
-        logic: WhereLogic.Or,
-        property: "category",
-        values: [ids.map((id) => id)],
-      });
-
       const result = await this.db.execute(
         `UPDATE ${table} SET deletedAt = CURRENT_TIMESTAMP WHERE id IN (${ids.join(
           ","

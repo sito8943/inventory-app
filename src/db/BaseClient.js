@@ -66,6 +66,8 @@ export default class BaseClient {
   }
 
   async softDelete(ids) {
-    return await this.db.softDelete(this.table, ids);
+    const validated = await this.validates(ids, "delete");
+    if (!validated) return await this.db.softDelete(this.table, ids);
+    throw validated;
   }
 }

@@ -5,7 +5,7 @@ import BaseClient from "./BaseClient";
 import ValidationError from "../lib/ValidationError";
 
 // enum
-import { Tables } from "./enum";
+import { Tables, WhereLogic } from "./enum";
 
 export default class CategoryClient extends BaseClient {
   /**
@@ -19,10 +19,22 @@ export default class CategoryClient extends BaseClient {
         return false;
       };
       const onUpdate = onInsert;
+      const onDelete = async (ids) => {
+        const noProducts = await dbClient.select(Tables.Products, {
+          logic: WhereLogic.Or,
+          property: "category",
+          values: [ids.map((id) => id)],
+        });
+        if (noProducts.length > 0) {
+          return new ValidationError(["categories", "withProducts"]);
+        }
+        return false;
+      };
 
       return {
         insert: onInsert,
         update: onUpdate,
+        delete: onDelete,
       };
     };
 
