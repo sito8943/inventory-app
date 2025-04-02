@@ -38,10 +38,14 @@
     }
   },
   "common": {
+    "errors": {
+      "withProducts": "Error Deleting. There are products with this category!"
+    },
     "actions": {
-      "add": "Add",
+      "add": { "text": "Add", "successMessage": "Saved successful" },
       "delete": {
         "text": "Delete",
+        "successMessage": "Deleted successful",
         "dialog": {
           "title": "Are you sure to delete?"
         }
