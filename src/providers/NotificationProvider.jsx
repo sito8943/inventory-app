@@ -1,5 +1,8 @@
 import { useContext, createContext, useReducer } from "react";
 
+// lib
+import { Notification, NotificationContext } from "../lib/Notification";
+
 const NotificationContext = createContext({});
 
 export function NotificationProvider(props) {
@@ -7,6 +10,7 @@ export function NotificationProvider(props) {
 
   const [notification, dispatch] = useReducer((state, action) => {
     const { type, items, index } = action;
+
     switch (type) {
       case "set":
         return items;
@@ -56,6 +60,10 @@ export function NotificationProvider(props) {
   );
 }
 
+/**
+ *
+ * @returns {NotificationContext} notification context
+ */
 export const useNotification = () => {
   const context = useContext(NotificationContext);
 

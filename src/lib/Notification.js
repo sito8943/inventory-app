@@ -10,3 +10,12 @@ export class Notification {
     this.id = new Date().getTime();
   }
 }
+
+export class NotificationContext {
+  notification = [];
+  removeNotification = () => {};
+  showErrorNotification = () => {};
+  showNotification = () => {};
+  showStackNotifications = () => {};
+  showSuccessNotification = () => {};
+}

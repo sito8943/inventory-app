@@ -1,5 +1,12 @@
 import Database from "@tauri-apps/plugin-sql";
 
+// enum
+import { Tables, WhereLogic } from "./enum";
+
+// lib
+import ValidationError from "../lib/ValidationError";
+import ServiceError from "../lib/ServiceError";
+
 class DbClient {
   db = new Database();
 
@@ -77,6 +84,12 @@ class DbClient {
   async softDelete(table, ids) {
     try {
       await this.openDb();
+
+      const noProducts = await this.select(Tables.Products, {
+        logic: WhereLogic.Or,
+        property: "category",
+        values: [ids.map((id) => id)],
+      });
 
       const result = await this.db.execute(
         `UPDATE ${table} SET deletedAt = CURRENT_TIMESTAMP WHERE id IN (${ids.join(
@@ -174,7 +187,7 @@ class DbClient {
               .join(" AND ");
         }
       }
-      console.log(sql, params);
+
       const result = await this.db.select(sql, params);
 
       return result;
