@@ -107,7 +107,7 @@ class DbClient {
   /**
    * Execute a select query with optional joins
    * @param {string} table - Table name
-   * @param {object} query - Where conditions (key-value)
+   * @param {object | object[]} query - Where conditions (key-value)
    * @param {string} attributes - Columns to select (default '*')
    * @param {Array<{ table: string, on: string }>} relationships - Tables to join
    * @returns {Promise<Array>} - Query result
@@ -117,6 +117,7 @@ class DbClient {
       await this.openDb();
 
       let sql = `SELECT ${attributes} FROM ${table}`;
+      let params = [];
 
       // Add joins if there are relationships
       if (relationships.length > 0) {
@@ -127,29 +128,53 @@ class DbClient {
             .join(" ");
       }
 
-      const conditions = Object.keys(query);
-      const params = Object.values(query).map((value) =>
-        value?.not !== undefined ? value.not : value
-      );
-
-      if (conditions.length > 0) {
+      if (query.logic) {
+        const { logic, property, values } = query;
+        params = values.map((value) =>
+          value.not !== undefined ? value.not : value
+        );
         sql +=
           ` WHERE ` +
-          conditions
-            .map((key, i) => {
-              const fieldName =
-                relationships?.length && key.indexOf(".") === -1
-                  ? `${table}.${key}`
-                  : key;
-              const fieldValue =
-                query[key] && query[key].not !== undefined
-                  ? `${query[key].not === null ? "IS NOT" : "!="}`
-                  : `${query[key] === null ? "IS" : "="}`;
-              return `${fieldName} ${fieldValue} $${i + 1}`;
+          values
+            .map((value) => {
+              const operator =
+                value.not !== undefined
+                  ? value.not === null
+                    ? "IS NOT"
+                    : "!="
+                  : value === null
+                  ? "IS"
+                  : "=";
+              return `${property} ${operator} ${
+                value.not !== undefined ? value.not : value
+              }`;
             })
-            .join(" AND ");
-      }
+            .join(` ${logic} `);
+      } else {
+        const conditions = Object.keys(query);
+        params = Object.values(query).map((value) =>
+          value?.not !== undefined ? value.not : value
+        );
 
+        if (conditions.length > 0) {
+          sql +=
+            ` WHERE ` +
+            conditions
+              .map((key, i) => {
+                const fieldName =
+                  relationships?.length && key.indexOf(".") === -1
+                    ? `${table}.${key}`
+                    : key;
+                const fieldValue =
+                  query[key] && query[key].not !== undefined
+                    ? `${query[key].not === null ? "IS NOT" : "!="}`
+                    : `${query[key] === null ? "IS" : "="}`;
+                return `${fieldName} ${fieldValue} $${i + 1}`;
+              })
+              .join(" AND ");
+        }
+      }
+      console.log(sql, params);
       const result = await this.db.select(sql, params);
 
       return result;
