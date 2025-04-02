@@ -38,9 +38,6 @@
     }
   },
   "common": {
-    "errors": {
-      "withProducts": "Error Deleting. There are products with this category!"
-    },
     "actions": {
       "add": { "text": "Add", "successMessage": "Saved successful" },
       "delete": {
@@ -58,6 +55,9 @@
     "forms": {
       "add": "New category",
       "edit": "Edit category"
+    },
+    "errors": {
+      "withProducts": "This category has products. Please delete the products first"
     },
     "inputs": {
       "name": {

@@ -11,7 +11,7 @@ export class Notification {
   }
 }
 
-export class NotificationContext {
+export class NotificationContextType {
   notification = [];
   removeNotification = () => {};
   showErrorNotification = () => {};
