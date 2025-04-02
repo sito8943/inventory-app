@@ -1,6 +1,11 @@
 import DbClient from "./DbClient";
 import BaseClient from "./BaseClient";
+
+// lib
 import ValidationError from "../lib/ValidationError";
+
+// enum
+import { Tables } from "./enum";
 
 export default class CategoryClient extends BaseClient {
   /**
@@ -21,6 +26,6 @@ export default class CategoryClient extends BaseClient {
       };
     };
 
-    super("categories", dbClient, validations);
+    super(Tables.Categories, dbClient, validations);
   }
 }
