@@ -7,7 +7,7 @@ import { queryClient, useManager } from "../../../providers/ManagerProvider";
 import { ReactQueryKeys } from "../../../utils/queryKey";
 
 // hooks
-import useDialogForm from "../../../hooks/useDialogForm";
+import useFormDialog from "../../../hooks/useFormDialog";
 
 function useAddCategory() {
   const { t } = useTranslation();
@@ -22,7 +22,7 @@ function useAddCategory() {
     onClick,
     releaseFormError,
     dialogFn,
-  } = useDialogForm({
+  } = useFormDialog({
     mutationFn: (data) => manager.Categories.insert(data),
     onSuccessMessage: t("_pages:common.actions.add.successMessage"),
     queryKey: ReactQueryKeys.Categories,

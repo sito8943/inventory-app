@@ -7,10 +7,13 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient } from "../providers/ManagerProvider";
 import { useNotification } from "../providers/NotificationProvider";
 
+// lib
+import { Notification } from "../lib/Notification";
+
 // hooks
 import useDialog from "./useDialog";
 
-function useDialogForm(props) {
+function useFormDialog(props) {
   const { t } = useTranslation();
   const { showStackNotifications, showSuccessNotification } = useNotification();
 
@@ -115,4 +118,4 @@ function useDialogForm(props) {
   };
 }
 
-export default useDialogForm;
+export default useFormDialog;

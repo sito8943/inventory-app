@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useManager } from "../../../providers/ManagerProvider";
 
 // hooks
-import useDialogForm from "../../../hooks/useDialogForm";
+import useFormDialog from "../../../hooks/useFormDialog";
 
 // utils
 import { ReactQueryKeys } from "../../../utils/queryKey";
@@ -15,7 +15,7 @@ function useEditCategory() {
   const manager = useManager();
 
   const { control, isLoading, handleSubmit, open, close, onClick, dialogFn } =
-    useDialogForm({
+    useFormDialog({
       getFunction: (id) => manager.Categories.getById(id),
       mutationFn: (data) => manager.Categories.update(data),
       onSuccessMessage: t("_pages:common.actions.add.successMessage"),

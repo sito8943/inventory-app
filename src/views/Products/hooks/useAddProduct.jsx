@@ -7,7 +7,7 @@ import { queryClient, useManager } from "../../../providers/ManagerProvider";
 import { ReactQueryKeys } from "../../../utils/queryKey";
 
 // hooks
-import useDialogForm from "../../../hooks/useDialogForm";
+import useFormDialog from "../../../hooks/useFormDialog";
 
 function useAddProduct() {
   const { t } = useTranslation();
@@ -23,7 +23,7 @@ function useAddProduct() {
     releaseFormError,
     dialogFn,
     isLoading,
-  } = useDialogForm({
+  } = useFormDialog({
     mutationFn: (data) => manager.Products.insert(data),
     onSuccessMessage: t("_pages:common.actions.add.successMessage"),
     queryKey: ReactQueryKeys.Products,
