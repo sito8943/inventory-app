@@ -3,7 +3,9 @@
     "ok": "Ok",
     "submit": "Submit",
     "cancel": "Cancel",
-    "closeDialog": "Close dialog"
+    "closeDialog": "Close dialog",
+    "closeOutsideNotification": "Close notification",
+    "closeNotification": "Close notification"
   },
   "labels": {},
   "tooltips": {},
@@ -12,7 +14,9 @@
     "insert": "",
     "cancel": "",
     "delete": "",
-    "closeDialog": ""
+    "closeDialog": "",
+    "closeNotification": "",
+    "closeOutsideNotification": ""
   },
   "errors": {
     "unknownError": "An error has occurred"

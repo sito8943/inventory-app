@@ -7,6 +7,7 @@ import { ReactQueryKeys } from "../../utils/queryKey";
 
 // providers
 import { useManager, queryClient } from "../../providers/ManagerProvider";
+import { useNotification } from "../../providers/NotificationProvider";
 
 // hooks
 import useDialog from "../useDialog";
@@ -14,6 +15,7 @@ import useDeleteAction from "../actions/useDeleteAction";
 
 function useDeleteDialog() {
   const { t } = useTranslation();
+  const { showErrorNotification, showSuccessNotification } = useNotification();
 
   const manager = useManager();
 
@@ -37,12 +39,14 @@ function useDeleteDialog() {
     mutationFn: (data) => manager.Categories.softDelete(data),
     onError: (error) => {
       console.error(error);
-      //TODO THROW NOTIFICATION HERE
+      showErrorNotification({ message: error });
     },
     onSuccess: () => {
       queryClient.invalidateQueries([ReactQueryKeys.Categories]);
       close();
-      //TODO THROW NOTIFICATION HERE
+      showSuccessNotification({
+        message: t("_pages:common.actions.delete.successMessage"),
+      });
     },
   });
 

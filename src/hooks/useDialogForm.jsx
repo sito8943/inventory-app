@@ -5,12 +5,14 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 
 // providers
 import { queryClient } from "../providers/ManagerProvider";
+import { useNotification } from "../providers/NotificationProvider";
 
 // hooks
 import useDialog from "./useDialog";
 
 function useDialogForm(props) {
   const { t } = useTranslation();
+  const { showStackNotifications, showSuccessNotification } = useNotification();
 
   const {
     defaultValues,
@@ -42,15 +44,18 @@ function useDialogForm(props) {
 
   const parseFormError = useCallback((error) => {
     const valError = error?.errors;
+    const messages = [];
     if (valError) {
       valError.forEach(([key, message]) => {
         const input = document.querySelector(`[name="${key}"]`);
         if (input) {
           input.focus();
           input.classList.add("error");
+          messages.push(t(`_pages:${queryKey}.inputs.${key}.${message}`));
         }
       });
     }
+    return messages;
   }, []);
 
   const releaseFormError = useCallback(() => {
@@ -75,15 +80,22 @@ function useDialogForm(props) {
     mutationFn,
     onError: (error) => {
       console.error(error);
-      parseFormError(error);
-      //TODO THROW NOTIFICATION HERE
-      // onSuccessMessage
+      const messages = parseFormError(error);
+      showStackNotifications(
+        messages.map(
+          (message) =>
+            new Notification({
+              message,
+              type: "error",
+            })
+        )
+      );
       if (onError) onError(error);
     },
     onSuccess: (result) => {
       queryClient.invalidateQueries([queryKey]);
       if (onSuccess) onSuccess(result);
-      //TODO THROW NOTIFICATION HERE
+      showSuccessNotification({ message: onSuccessMessage });
       close();
     },
   });
