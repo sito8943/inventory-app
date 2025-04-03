@@ -1,11 +1,71 @@
 import Database from "@tauri-apps/plugin-sql";
 
-// enum
-import { Tables, WhereLogic } from "./enum";
+/**
+ *
+ * @param {object[] | object} query
+ * @param {string} table
+ * @param {Array<{ table: string, on: string }>} relationships - Tables to join
+ * @param {boolean} recall to prevent multiples where
+ * @returns {string}
+ */
+function parseWhere(query, table, relationships, recall = false) {
+  if (!query || !Object.keys(query).length) return "";
 
-// lib
-import ValidationError from "../lib/ValidationError";
-import ServiceError from "../lib/ServiceError";
+  let sql = recall ? "" : " WHERE ";
+
+  // WHERE type array
+  if (query.length)
+    return (sql += query
+      .map((clause) => `(${parseWhere(clause, null, null, true)})`)
+      .join(" AND "));
+
+  // complex
+  if (query.logic) {
+    const { logic, property, values } = query;
+    sql +=
+      ` ` +
+      values
+        .map((value) => {
+          const operator =
+            value.not !== undefined
+              ? value.not === null
+                ? "IS NOT"
+                : "!="
+              : value === null
+              ? "IS"
+              : "=";
+          return `${property} ${operator} ${
+            value.not !== undefined ? value.not : value
+          }`;
+        })
+        .join(` ${logic} `);
+  } else {
+    // simple
+    const conditions = Object.keys(query);
+
+    sql +=
+      ` ` +
+      conditions
+        .map((key, i) => {
+          const fieldValue =
+            query[key] && query[key].not !== undefined
+              ? query[key].not
+              : query[key];
+          const fieldName =
+            relationships?.length && key.indexOf(".") === -1
+              ? `${table}.${key}`
+              : key;
+          const operator =
+            query[key] && query[key].not !== undefined
+              ? `${query[key].not === null ? "IS NOT" : "!="}`
+              : `${query[key] === null ? "IS" : "="}`;
+          return `${fieldName} ${operator} ${fieldValue}`;
+        })
+        .join(" AND ");
+  }
+
+  return sql;
+}
 
 class DbClient {
   db = new Database();
@@ -58,21 +118,15 @@ class DbClient {
     try {
       await this.openDb();
 
-      const conditions = Object.keys(query);
       const setClause = Object.keys(values)
-        .map((key, i) => `${key} = $${i + 1}`)
+        .map((key) => `${key} = ${values[key]}`)
         .join(", ");
 
-      let sql = `UPDATE ${table} SET ${setClause}`;
+      let sql = `UPDATE ${table} SET ${setClause} ${parseWhere(query)}`;
 
-      if (conditions.length > 0) {
-        sql +=
-          ` WHERE ` +
-          conditions.map((key, i) => `${key} = $${i + 1}`).join(" AND ");
-      }
+      console.log(sql);
 
-      const params = Object.values(values);
-      const result = await this.db.execute(sql, params);
+      const result = await this.db.execute(sql);
 
       return result;
     } catch (err) {
@@ -84,6 +138,12 @@ class DbClient {
   async softDelete(table, ids) {
     try {
       await this.openDb();
+
+      console.log(
+        `UPDATE ${table} SET deletedAt = CURRENT_TIMESTAMP WHERE id IN (${ids.join(
+          ","
+        )})`
+      );
 
       const result = await this.db.execute(
         `UPDATE ${table} SET deletedAt = CURRENT_TIMESTAMP WHERE id IN (${ids.join(
@@ -124,7 +184,6 @@ class DbClient {
       await this.openDb();
 
       let sql = `SELECT ${attributes} FROM ${table}`;
-      let params = [];
 
       // Add joins if there are relationships
       if (relationships.length > 0) {
@@ -135,54 +194,9 @@ class DbClient {
             .join(" ");
       }
 
-      if (query.logic) {
-        const { logic, property, values } = query;
-        params = values.map((value) =>
-          value.not !== undefined ? value.not : value
-        );
-        sql +=
-          ` WHERE ` +
-          values
-            .map((value) => {
-              const operator =
-                value.not !== undefined
-                  ? value.not === null
-                    ? "IS NOT"
-                    : "!="
-                  : value === null
-                  ? "IS"
-                  : "=";
-              return `${property} ${operator} ${
-                value.not !== undefined ? value.not : value
-              }`;
-            })
-            .join(` ${logic} `);
-      } else {
-        const conditions = Object.keys(query);
-        params = Object.values(query).map((value) =>
-          value?.not !== undefined ? value.not : value
-        );
+      sql += parseWhere(query, table, relationships);
 
-        if (conditions.length > 0) {
-          sql +=
-            ` WHERE ` +
-            conditions
-              .map((key, i) => {
-                const fieldName =
-                  relationships?.length && key.indexOf(".") === -1
-                    ? `${table}.${key}`
-                    : key;
-                const fieldValue =
-                  query[key] && query[key].not !== undefined
-                    ? `${query[key].not === null ? "IS NOT" : "!="}`
-                    : `${query[key] === null ? "IS" : "="}`;
-                return `${fieldName} ${fieldValue} $${i + 1}`;
-              })
-              .join(" AND ");
-        }
-      }
-
-      const result = await this.db.select(sql, params);
+      const result = await this.db.select(sql);
 
       return result;
     } catch (err) {
