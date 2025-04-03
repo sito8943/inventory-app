@@ -1,10 +1,17 @@
+class ServiceErrorOptions {
+  key = "";
+  message = "";
+}
+
 export default class ServiceError {
   /**
    *
-   * @param {object} options error options
+   * @param {ServiceErrorOptions} options error options
    */
   constructor(options) {
-    const { key } = options;
+    const { key, message } = options;
+
     this.key = key;
+    this.message = message;
   }
 }
