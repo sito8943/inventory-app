@@ -11,14 +11,16 @@ import { Notification } from "../../lib/Notification";
 import useDeleteAction from "../actions/useDeleteAction";
 import useConfirmationForm from "../useConfirmationForm";
 
-function useDeleteDialog() {
+function useDeleteDialog(props) {
+  const { mutationFn } = props;
+
   const { showStackNotifications } = useNotification();
   const { t } = useTranslation();
 
   const manager = useManager();
 
   const { open, onClick, close, dialogFn, isLoading } = useConfirmationForm({
-    mutationFn: (data) => manager.Categories.softDelete(data),
+    mutationFn,
     onSuccessMessage: t("_pages:common.actions.delete.successMessage"),
     onError: (error) => {
       if (error.errors)

@@ -35,7 +35,9 @@ function Categories() {
 
   // #region actions
 
-  const deleteCategory = useDeleteDialog();
+  const deleteCategory = useDeleteDialog({
+    mutationFn: (data) => manager.Categories.softDelete(data),
+  });
 
   const addCategory = useAddCategory();
 

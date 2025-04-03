@@ -37,7 +37,9 @@ function Products() {
 
   // #region actions
 
-  const deleteProduct = useDeleteDialog();
+  const deleteProduct = useDeleteDialog({
+    mutationFn: (data) => manager.Products.softDelete(data),
+  });
 
   const addProduct = useAddProduct();
 
