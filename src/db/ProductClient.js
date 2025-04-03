@@ -2,10 +2,10 @@ import BaseClient from "./BaseClient";
 import DbClient from "./DbClient";
 
 // lib
-import ValidationError from "../lib/ValidationError";
+import { ServiceError, ValidationError } from "../lib/";
 
 // enum
-import { Tables } from "./enum";
+import { MovementTypes, MovementDto, Tables } from "./types";
 
 export default class ProductClient extends BaseClient {
   /**

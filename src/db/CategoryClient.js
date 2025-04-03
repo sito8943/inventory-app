@@ -5,7 +5,7 @@ import BaseClient from "./BaseClient";
 import ValidationError from "../lib/ValidationError";
 
 // enum
-import { Tables, WhereLogic } from "./enum";
+import { Tables, WhereLogic } from "./types/dbUtils";
 
 export default class CategoryClient extends BaseClient {
   /**
