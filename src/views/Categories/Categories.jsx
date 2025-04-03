@@ -71,7 +71,10 @@ function Categories() {
           </p>
         )}
       </div>
-      <AddCard onClick={addCategory.onClick} />
+      <AddCard
+        onClick={addCategory.onClick}
+        tooltip={t("_pages:categories.add")}
+      />
 
       {/* Dialogs */}
       <AddCategoryDialog {...addCategory} />

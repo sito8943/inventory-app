@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 
 // components
 import Header from "./Header";
@@ -12,6 +13,7 @@ function View() {
       <Outlet />
       <Footer />
       <Notification />
+      <Tooltip id="tooltip" />
     </>
   );
 }

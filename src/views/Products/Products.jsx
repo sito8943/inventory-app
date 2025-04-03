@@ -71,7 +71,10 @@ function Products() {
           </p>
         )}
       </div>
-      <AddCard onClick={addProduct.onClick} />
+      <AddCard
+        onClick={addProduct.onClick}
+        tooltip={t("_pages:products.add")}
+      />
 
       {/* Dialogs */}
       <AddProductDialog {...addProduct} />
