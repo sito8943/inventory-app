@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 // providers
-import { queryClient, useManager } from "../../../providers/ManagerProvider";
+import { useManager } from "../../../providers/ManagerProvider";
 
 // hooks
 import useFormDialog from "../../../hooks/useFormDialog";
