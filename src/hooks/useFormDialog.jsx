@@ -83,16 +83,18 @@ function useFormDialog(props) {
     mutationFn,
     onError: (error) => {
       console.error(error);
-      const messages = parseFormError(error);
-      showStackNotifications(
-        messages.map(
-          (message) =>
-            new Notification({
-              message,
-              type: "error",
-            })
-        )
-      );
+      if (error.errors) {
+        const messages = parseFormError(error);
+        showStackNotifications(
+          messages.map(
+            (message) =>
+              new Notification({
+                message,
+                type: "error",
+              })
+          )
+        );
+      }
       if (onError) onError(error);
     },
     onSuccess: (result) => {
