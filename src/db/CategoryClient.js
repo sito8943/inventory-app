@@ -20,11 +20,16 @@ export default class CategoryClient extends BaseClient {
       };
       const onUpdate = onInsert;
       const onDelete = async (ids) => {
-        const noProducts = await dbClient.select(Tables.Products, {
-          logic: WhereLogic.Or,
-          property: "category",
-          values: [ids.map((id) => id)],
-        });
+        const noProducts = await dbClient.select(Tables.Products, [
+          {
+            logic: WhereLogic.Or,
+            property: "category",
+            values: [ids.map((id) => id)],
+          },
+          {
+            deletedAt: null,
+          },
+        ]);
         if (noProducts.length > 0) {
           return new ValidationError(["categories", "withProducts"]);
         }
