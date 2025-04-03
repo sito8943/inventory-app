@@ -1,5 +1,6 @@
 import ProductClient from "./ProductClient";
 import CategoryClient from "./CategoryClient";
+import MovementClient from "./MovementClient";
 import DbClient from "./DbClient";
 
 export default class Manager {
@@ -8,6 +9,7 @@ export default class Manager {
 
     this.products = new ProductClient(this.db);
     this.categories = new CategoryClient(this.db);
+    this.movements = new MovementClient(this.db);
   }
 
   /**
@@ -22,5 +24,12 @@ export default class Manager {
    */
   get Categories() {
     return this.categories;
+  }
+
+  /**
+   * @returns {MovementClient}
+   */
+  get Movements() {
+    return this.movements;
   }
 }

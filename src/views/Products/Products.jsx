@@ -18,6 +18,7 @@ import { AddProductDialog, EditProductDialog } from "./component/ProductDialog";
 import useAddProduct from "./hooks/useAddProduct";
 import useEditProduct from "./hooks/useEditProduct";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
+import useDoMovement from "./hooks/useDoMovement";
 
 function Products() {
   const { t } = useTranslation();
@@ -45,9 +46,14 @@ function Products() {
 
   const editProduct = useEditProduct();
 
+  const doMovement = useDoMovement();
+
   // #endregion
 
-  const getActions = useCallback((record) => [deleteProduct.action(record.id)]);
+  const getActions = useCallback((record) => [
+    doMovement.action(record),
+    deleteProduct.action(record.id),
+  ]);
 
   return (
     <main className="p-5">

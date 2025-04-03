@@ -30,4 +30,41 @@ export default class ProductClient extends BaseClient {
 
     super(Tables.Products, dbClient, validations);
   }
+
+  // #region actions
+
+  /**
+   *
+   * @param {MovementDto} dto
+   * @returns {Promise<number>} - count of items updated
+   */
+  doMovement(dto) {
+    const { id, movement, input } = dto;
+
+    // search product
+    const product = this.db.select(Tables.Products, { id });
+    if (product.length === 0)
+      return new ServiceError({ key: "product", message: "notFound" });
+    const { stock } = product[0];
+    const newStock = movement === MovementTypes.IN ? stock + input : stock - 1;
+    // check if stock is enough
+    if (newStock < 0) {
+      return new ServiceError({
+        key: "product",
+        message: "notEnoughStock",
+      });
+    }
+
+    // log movement
+    this.db.insert(Tables.MovementLogs, {
+      product: id,
+      movement,
+      stock: input,
+      result: newStock,
+    });
+
+    return this.db.update(Tables.Products, { stock: newStock }, { id });
+  }
+
+  // #endregion actions
 }

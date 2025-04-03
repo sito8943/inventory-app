@@ -6,13 +6,18 @@
   "products": {
     "title": "Products",
     "empty": "No products to load",
-    "messages": {
-      "saved": "Product saved successful",
-      "deleted": "Product deleted successful"
+    "add": "Add a product",
+    "actions": {
+      "doMovement": {
+        "notFound": "Product not found",
+        "notEnoughStock": "Not enough stock",
+        "successMessage": "Movement done successful"
+      }
     },
     "forms": {
       "add": "New product",
-      "edit": "Edit product"
+      "edit": "Edit product",
+      "doMovement": "Do movement"
     },
     "inputs": {
       "name": {
@@ -52,6 +57,7 @@
   "categories": {
     "title": "Categories",
     "empty": "No categories to load",
+    "add": "Add a category",
     "forms": {
       "add": "New category",
       "edit": "Edit category"
