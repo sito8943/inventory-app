@@ -38,6 +38,37 @@ pub fn run() {
                 deletedAt TEXT DEFAULT NULL
             )",
             kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 3,
+            description: "create movements and movementLogs tables",
+            sql: "
+                CREATE TABLE IF NOT EXISTS movements (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL,
+                    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+                    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
+                    deletedAt TEXT DEFAULT NULL
+                );
+
+                CREATE TABLE IF NOT EXISTS movementLogs (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    product INTEGER NOT NULL,
+                    movement INTEGER NOT NULL,
+                    stock INTEGER NOT NULL,
+                    result INTEGER NOT NULL,
+                    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (product) REFERENCES products(id) ON DELETE CASCADE,
+                    FOREIGN KEY (movement) REFERENCES movements(id) ON DELETE CASCADE
+                );
+
+                INSERT INTO movements (id, name)
+                VALUES
+                    (1, 'IN'),
+                    (2, 'OUT')
+                ON CONFLICT(id) DO NOTHING;
+            ",
+            kind: MigrationKind::Up,
         }
     ];
 
