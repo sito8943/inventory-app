@@ -17,8 +17,6 @@ function useDeleteDialog(props) {
   const { showStackNotifications } = useNotification();
   const { t } = useTranslation();
 
-  const manager = useManager();
-
   const { open, onClick, close, dialogFn, isLoading } = useConfirmationForm({
     mutationFn,
     onSuccessMessage: t("_pages:common.actions.delete.successMessage"),
