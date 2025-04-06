@@ -31,7 +31,8 @@ function useFormDialog(props) {
 
   const { open, handleClose, handleOpen } = useDialog();
 
-  const { control, handleSubmit, reset, setError } = useForm(defaultValues);
+  const { control, handleSubmit, reset, setError, getValues } =
+    useForm(defaultValues);
 
   const { data, isLoading } = useQuery({
     queryFn: () => {
@@ -63,6 +64,7 @@ function useFormDialog(props) {
 
   const releaseFormError = useCallback(() => {
     const inputs = document.querySelectorAll("input, textarea, select");
+    console.log(inputs);
     inputs.forEach((input) => {
       input.classList.remove("error");
     });
@@ -110,6 +112,7 @@ function useFormDialog(props) {
     onClick,
     close,
     control,
+    getValues,
     handleSubmit,
     reset,
     setError,

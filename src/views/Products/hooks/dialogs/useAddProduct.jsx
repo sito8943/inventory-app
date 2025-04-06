@@ -20,7 +20,6 @@ function useAddProduct() {
     open,
     close,
     onClick,
-    releaseFormError,
     dialogFn,
     isLoading,
   } = useFormDialog({
@@ -34,10 +33,7 @@ function useAddProduct() {
     title: t("_pages:products.forms.add"),
     open,
     control,
-    handleSubmit: handleSubmit((data) => {
-      releaseFormError();
-      dialogFn.mutate(data);
-    }),
+    handleSubmit: handleSubmit((data) => dialogFn.mutate(data)),
     isLoading,
     handleClose: close,
   };

@@ -19,6 +19,7 @@ import useAddProduct from "./hooks/dialogs/useAddProduct";
 import useEditProduct from "./hooks/dialogs/useEditProduct";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
 import useDoMovement from "./hooks/dialogs/useDoMovement";
+import { MovementDialog } from "./component/MovementDialog";
 
 function Products() {
   const { t } = useTranslation();
@@ -85,6 +86,7 @@ function Products() {
       {/* Dialogs */}
       <AddProductDialog {...addProduct} />
       <EditProductDialog {...editProduct} />
+      <MovementDialog {...doMovement} />
       <ConfirmationDialog {...deleteProduct} />
     </main>
   );

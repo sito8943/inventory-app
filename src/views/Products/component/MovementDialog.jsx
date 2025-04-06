@@ -1,7 +1,85 @@
-import React from "react";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Controller } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
 
-function MovementDialog() {
-  return <div></div>;
+// providers
+import { useManager } from "../../../providers/ManagerProvider";
+
+// components
+import FormDialog from "../../../components/Dialog/FormDialog";
+import TextInput from "../../../components/Form/TextInput";
+import SelectInput from "../../../components/Form/SelectInput";
+
+// utils
+import { ReactQueryKeys } from "../../../utils/queryKey";
+
+function MovementForm(props) {
+  const { control, getValues } = props;
+  const { t } = useTranslation();
+
+  console.log(getValues());
+
+  const manager = useManager();
+
+  const movements = useQuery({
+    queryKey: [ReactQueryKeys.Movements],
+    enabled: true,
+    queryFn: () =>
+      manager.Movements.get({ deletedAt: null }, "id,name as value"),
+  });
+
+  const movementOptions = useMemo(() => {
+    return [
+      { id: 0, value: t("_pages:products.inputs.movement.name") },
+      ...(movements?.data ?? []),
+    ];
+  }, [movements.data]);
+
+  return (
+    <div className="flex flex-col gap-5">
+      <Controller
+        control={control}
+        rules={{
+          invalid: t("_pages:products.inputs.movement.invalid"),
+        }}
+        name="movement"
+        disabled={movements?.isLoading}
+        render={({ field: { value, onChange, ...rest } }) => (
+          <SelectInput
+            required
+            options={movementOptions}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder={t("_pages:products.inputs.movement.name")}
+            {...rest}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        rules={{
+          required: t("_pages:products.inputs.count.required"),
+        }}
+        name="count"
+        render={({ field }) => (
+          <TextInput
+            required
+            type="number"
+            maxLength={25}
+            placeholder={t("_pages:products.inputs.count.name")}
+            {...field}
+          />
+        )}
+      />
+    </div>
+  );
 }
 
-export default MovementDialog;
+export function MovementDialog(props) {
+  return (
+    <FormDialog {...props}>
+      <MovementForm {...props} />
+    </FormDialog>
+  );
+}

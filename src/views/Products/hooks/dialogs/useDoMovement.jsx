@@ -15,24 +15,33 @@ function useDoMovement() {
 
   const manager = useManager();
 
-  const { control, isLoading, handleSubmit, open, close, onClick, dialogFn } =
-    useFormDialog({
-      getFunction: (id) => manager.Products.getById(id),
-      mutationFn: (data) => manager.Products.doMovement(data),
-      onSuccessMessage: t("_pages:products.actions.doMovement.successMessage"),
-      queryKey: ReactQueryKeys.Products,
-      onError: (error) => {
-        console.log(error);
-      },
-    });
+  const {
+    control,
+    getValues,
+    isLoading,
+    handleSubmit,
+    open,
+    close,
+    onClick,
+    dialogFn,
+  } = useFormDialog({
+    getFunction: (id) => manager.Products.getById(id, "id"),
+    mutationFn: (data) => manager.Products.doMovement(data),
+    onSuccessMessage: t("_pages:products.actions.doMovement.successMessage"),
+    queryKey: ReactQueryKeys.Products,
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   const action = useDoMovementAction({ onClick });
 
   return {
     onClick,
-    title: t("_pages:products.forms.edit"),
+    title: t("_pages:products.forms.doMovement"),
     open,
     control,
+    getValues,
     isLoading,
     handleSubmit: handleSubmit((data) => dialogFn.mutate(data)),
     handleClose: close,

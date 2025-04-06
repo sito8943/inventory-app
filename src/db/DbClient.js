@@ -124,8 +124,6 @@ class DbClient {
 
       let sql = `UPDATE ${table} SET ${setClause} ${parseWhere(query)}`;
 
-      console.log(sql);
-
       const result = await this.db.execute(sql);
 
       return result;
@@ -138,12 +136,6 @@ class DbClient {
   async softDelete(table, ids) {
     try {
       await this.openDb();
-
-      console.log(
-        `UPDATE ${table} SET deletedAt = CURRENT_TIMESTAMP WHERE id IN (${ids.join(
-          ","
-        )})`
-      );
 
       const result = await this.db.execute(
         `UPDATE ${table} SET deletedAt = CURRENT_TIMESTAMP WHERE id IN (${ids.join(

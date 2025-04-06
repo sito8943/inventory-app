@@ -21,10 +21,16 @@ export default class ProductClient extends BaseClient {
         return false;
       };
       const onUpdate = onInsert;
+      const onDoMovement = async (dto) => {
+        if (dto.movement == 0)
+          return new ValidationError(["movement", "invalid"]);
+        return false;
+      };
 
       return {
         insert: onInsert,
         update: onUpdate,
+        movement: onDoMovement,
       };
     };
 
@@ -38,32 +44,38 @@ export default class ProductClient extends BaseClient {
    * @param {MovementDto} dto
    * @returns {Promise<number>} - count of items updated
    */
-  doMovement(dto) {
-    const { id, movement, input } = dto;
+  async doMovement(dto) {
+    const validated = await this.validates(dto, "movement");
+    if (!validated) {
+      const { id, movement } = dto;
+      const input = Number(dto.count);
 
-    // search product
-    const product = this.db.select(Tables.Products, { id });
-    if (product.length === 0)
-      return new ServiceError({ key: "product", message: "notFound" });
-    const { stock } = product[0];
-    const newStock = stock + input;
-    // check if stock is enough
-    if (newStock < 0) {
-      return new ServiceError({
-        key: "product",
-        message: "notEnoughStock",
+      // search product
+      const product = await this.db.select(Tables.Products, { id });
+      if (product.length === 0)
+        return new ServiceError({ key: "product", message: "notFound" });
+      const { stock } = product[0];
+
+      const newStock = stock + input;
+      // check if stock is enough
+      if (newStock < 0) {
+        return new ServiceError({
+          key: "product",
+          message: "notEnoughStock",
+        });
+      }
+
+      // log movement
+      await this.db.insert(Tables.MovementLogs, {
+        product: id,
+        movement,
+        stock: input,
+        result: newStock,
       });
+
+      return await this.db.update(Tables.Products, { stock: newStock }, { id });
     }
-
-    // log movement
-    this.db.insert(Tables.MovementLogs, {
-      product: id,
-      movement,
-      stock: input,
-      result: newStock,
-    });
-
-    return this.db.update(Tables.Products, { stock: newStock }, { id });
+    throw validated;
   }
 
   // #endregion actions

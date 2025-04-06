@@ -17,7 +17,7 @@
     "forms": {
       "add": "New product",
       "edit": "Edit product",
-      "doMovement": "Do movement"
+      "doMovement": "Add movement"
     },
     "inputs": {
       "name": {
@@ -39,6 +39,14 @@
       "stock": {
         "name": "Stock",
         "label": "in Stock"
+      },
+      "movement": {
+        "name": "Movement",
+        "invalid": "Please select a valid movement"
+      },
+      "count": {
+        "name": "Count",
+        "required": "The count is required"
       }
     }
   },

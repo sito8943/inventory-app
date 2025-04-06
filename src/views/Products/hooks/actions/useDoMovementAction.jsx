@@ -15,7 +15,7 @@ function useDoMovementAction(props) {
     disabled: !!record.deletedAt,
     icon: <FontAwesomeIcon className="text-primary" icon={faPlus} />,
     tooltip: t("_pages:products.forms.doMovement"),
-    onClick: () => onClick(record),
+    onClick: () => onClick(record?.id),
   });
 
   return action;

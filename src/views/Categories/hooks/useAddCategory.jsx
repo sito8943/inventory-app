@@ -14,29 +14,19 @@ function useAddCategory() {
 
   const manager = useManager();
 
-  const {
-    control,
-    handleSubmit,
-    open,
-    close,
-    onClick,
-    releaseFormError,
-    dialogFn,
-  } = useFormDialog({
-    mutationFn: (data) => manager.Categories.insert(data),
-    onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-    queryKey: ReactQueryKeys.Categories,
-  });
+  const { control, handleSubmit, open, close, onClick, dialogFn } =
+    useFormDialog({
+      mutationFn: (data) => manager.Categories.insert(data),
+      onSuccessMessage: t("_pages:common.actions.add.successMessage"),
+      queryKey: ReactQueryKeys.Categories,
+    });
 
   return {
     onClick,
     title: t("_pages:categories.forms.add"),
     open,
     control,
-    handleSubmit: handleSubmit((data) => {
-      releaseFormError();
-      dialogFn.mutate(data);
-    }),
+    handleSubmit: handleSubmit((data) => dialogFn.mutate(data)),
     handleClose: close,
   };
 }

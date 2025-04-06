@@ -14,13 +14,20 @@ function useEditProduct() {
 
   const manager = useManager();
 
-  const { control, isLoading, handleSubmit, open, close, onClick, dialogFn } =
-    useFormDialog({
-      getFunction: (id) => manager.Products.getById(id),
-      mutationFn: (data) => manager.Products.update(data),
-      onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-      queryKey: ReactQueryKeys.Products,
-    });
+  const {
+    control,
+    isLoading,
+    handleSubmit,
+    open,
+    close,
+    onClick,
+    dialogFn,
+  } = useFormDialog({
+    getFunction: (id) => manager.Products.getById(id),
+    mutationFn: (data) => manager.Products.update(data),
+    onSuccessMessage: t("_pages:common.actions.add.successMessage"),
+    queryKey: ReactQueryKeys.Products,
+  });
 
   return {
     onClick,
