@@ -1,14 +1,14 @@
 import { useTranslation } from "react-i18next";
 
 // providers
-import { useManager } from "../../../providers/ManagerProvider";
+import { useManager } from "../../../../providers/ManagerProvider";
 
 // hooks
-import useFormDialog from "../../../hooks/useFormDialog";
+import useFormDialog from "../../../../hooks/useFormDialog";
 
 // utils
-import { ReactQueryKeys } from "../../../utils/queryKey";
-import useDoMovementAction from "./actions/useDoMovementAction";
+import { ReactQueryKeys } from "../../../../utils/queryKey";
+import useDoMovementAction from "../actions/useDoMovementAction";
 
 function useDoMovement() {
   const { t } = useTranslation();

@@ -15,10 +15,10 @@ import ConfirmationDialog from "../../components/Dialog/ConfirmationDialog";
 import { AddProductDialog, EditProductDialog } from "./component/ProductDialog";
 
 // hooks
-import useAddProduct from "./hooks/useAddProduct";
-import useEditProduct from "./hooks/useEditProduct";
+import useAddProduct from "./hooks/dialogs/useAddProduct";
+import useEditProduct from "./hooks/dialogs/useEditProduct";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
-import useDoMovement from "./hooks/useDoMovement";
+import useDoMovement from "./hooks/dialogs/useDoMovement";
 
 function Products() {
   const { t } = useTranslation();

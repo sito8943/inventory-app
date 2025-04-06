@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next";
 
 // providers
-import { queryClient, useManager } from "../../../providers/ManagerProvider";
+import { queryClient, useManager } from "../../../../providers/ManagerProvider";
 
 // utils
-import { ReactQueryKeys } from "../../../utils/queryKey";
+import { ReactQueryKeys } from "../../../../utils/queryKey";
 
 // hooks
-import useFormDialog from "../../../hooks/useFormDialog";
+import useFormDialog from "../../../../hooks/useFormDialog";
 
 function useAddProduct() {
   const { t } = useTranslation();

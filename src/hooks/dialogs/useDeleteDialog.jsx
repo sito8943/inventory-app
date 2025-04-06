@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 
 // providers
-import { useManager } from "../../providers/ManagerProvider";
 import { useNotification } from "../../providers/NotificationProvider";
 
 // lib

@@ -46,7 +46,7 @@ export default class ProductClient extends BaseClient {
     if (product.length === 0)
       return new ServiceError({ key: "product", message: "notFound" });
     const { stock } = product[0];
-    const newStock = movement === MovementTypes.IN ? stock + input : stock - 1;
+    const newStock = stock + input;
     // check if stock is enough
     if (newStock < 0) {
       return new ServiceError({
