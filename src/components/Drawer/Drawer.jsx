@@ -16,6 +16,10 @@ const sitemap = [
     name: "categories",
     path: "/categories",
   },
+  {
+    name: "movements",
+    path: "/movements",
+  },
 ];
 
 function Drawer(props) {

@@ -3,6 +3,35 @@
     "title": "Home",
     "appName": "Inventory"
   },
+
+  "common": {
+    "actions": {
+      "add": { "text": "Add", "successMessage": "Saved successful" },
+      "delete": {
+        "text": "Delete",
+        "successMessage": "Deleted successful",
+        "dialog": {
+          "title": "Are you sure to delete?"
+        }
+      }
+    }
+  },
+  "movements": {
+    "title": "Movements",
+    "empty": "No movements to load",
+    "add": "Add a movement",
+    "actions": {},
+    "forms": {
+      "add": "New Movement",
+      "edit": "Edit Movement"
+    },
+    "inputs": {
+      "name": {
+        "name": "Name",
+        "placeholder":"Ex: "
+      }
+    }
+  },
   "products": {
     "title": "Products",
     "empty": "No products to load",
@@ -47,18 +76,6 @@
       "count": {
         "name": "Count",
         "required": "The count is required"
-      }
-    }
-  },
-  "common": {
-    "actions": {
-      "add": { "text": "Add", "successMessage": "Saved successful" },
-      "delete": {
-        "text": "Delete",
-        "successMessage": "Deleted successful",
-        "dialog": {
-          "title": "Are you sure to delete?"
-        }
       }
     }
   },

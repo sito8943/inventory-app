@@ -46,6 +46,7 @@ pub fn run() {
                 CREATE TABLE IF NOT EXISTS movements (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
+                    type BYTE DEFAULT 1,
                     createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
                     updatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
                     deletedAt TEXT DEFAULT NULL
@@ -62,10 +63,10 @@ pub fn run() {
                     FOREIGN KEY (movement) REFERENCES movements(id) ON DELETE CASCADE
                 );
 
-                INSERT INTO movements (id, name)
+                INSERT INTO movements (id, name, type)
                 VALUES
-                    (1, 'IN'),
-                    (2, 'OUT')
+                    (1, 'IN', 1),
+                    (2, 'OUT', 2)
                 ON CONFLICT(id) DO NOTHING;
             ",
             kind: MigrationKind::Up,
