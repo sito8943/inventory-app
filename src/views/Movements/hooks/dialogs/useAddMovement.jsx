@@ -1,29 +1,29 @@
 import { useTranslation } from "react-i18next";
 
 // providers
-import { useManager } from "../../../providers/ManagerProvider";
+import { useManager } from "../../../../providers/ManagerProvider";
 
 // utils
-import { ReactQueryKeys } from "../../../utils/queryKey";
+import { ReactQueryKeys } from "../../../../utils/queryKey";
 
 // hooks
-import useFormDialog from "../../../hooks/useFormDialog";
+import useFormDialog from "../../../../hooks/useFormDialog";
 
-function useAddCategory() {
+function useAddMovement() {
   const { t } = useTranslation();
 
   const manager = useManager();
 
   const { control, handleSubmit, open, close, onClick, dialogFn } =
     useFormDialog({
-      mutationFn: (data) => manager.Categories.insert(data),
+      mutationFn: (data) => manager.Movements.insert(data),
       onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-      queryKey: ReactQueryKeys.Categories,
+      queryKey: ReactQueryKeys.Movements,
     });
 
   return {
     onClick,
-    title: t("_pages:categories.forms.add"),
+    title: t("_pages:movements.forms.add"),
     open,
     control,
     handleSubmit: handleSubmit((data) => dialogFn.mutate(data)),
@@ -31,4 +31,4 @@ function useAddCategory() {
   };
 }
 
-export default useAddCategory;
+export default useAddMovement;
