@@ -13,13 +13,13 @@ import AddCard from "../../components/Card/AddCard";
 import ProductCard from "./component/ProductCard";
 import ConfirmationDialog from "../../components/Dialog/ConfirmationDialog";
 import { AddProductDialog, EditProductDialog } from "./component/ProductDialog";
+import { DoMovementDialog } from "./component/DoMovementDialog";
 
 // hooks
 import useAddProduct from "./hooks/dialogs/useAddProduct";
 import useEditProduct from "./hooks/dialogs/useEditProduct";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
 import useDoMovement from "./hooks/dialogs/useDoMovement";
-import { MovementDialog } from "./component/MovementDialog";
 
 function Products() {
   const { t } = useTranslation();
@@ -86,7 +86,7 @@ function Products() {
       {/* Dialogs */}
       <AddProductDialog {...addProduct} />
       <EditProductDialog {...editProduct} />
-      <MovementDialog {...doMovement} />
+      <DoMovementDialog {...doMovement} />
       <ConfirmationDialog {...deleteProduct} />
     </main>
   );

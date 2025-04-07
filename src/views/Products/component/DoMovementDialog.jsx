@@ -14,7 +14,7 @@ import SelectInput from "../../../components/Form/SelectInput";
 // utils
 import { ReactQueryKeys } from "../../../utils/queryKey";
 
-function MovementForm(props) {
+function DoMovementForm(props) {
   const { control, getValues } = props;
   const { t } = useTranslation();
 
@@ -76,10 +76,10 @@ function MovementForm(props) {
   );
 }
 
-export function MovementDialog(props) {
+export function DoMovementDialog(props) {
   return (
     <FormDialog {...props}>
-      <MovementForm {...props} />
+      <DoMovementForm {...props} />
     </FormDialog>
   );
 }
