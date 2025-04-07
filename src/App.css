@@ -137,3 +137,18 @@ main p {
   height: calc(100vh - 304px);
   @apply overflow-auto;
 }
+
+.rotate {
+  animation: rotate 1000ms infinite;
+  --tw-ease: cubic-bezier(0.4, 0, 0.2, 1)
+  transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1)
+}
+
+@keyframes rotate {
+  0% {
+    rotate: 0;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}

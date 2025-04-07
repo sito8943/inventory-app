@@ -8,9 +8,12 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 // @emotion/css
 import { css } from "@emotion/css";
 
+// components
+import Loading from "../Loading/Loading";
+
 function Dialog(props) {
   const { t } = useTranslation();
-  const { open = false, title, children, handleClose } = props;
+  const { open = false, title, children, handleClose, isLoading } = props;
 
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
@@ -60,7 +63,10 @@ function Dialog(props) {
         >
           <FontAwesomeIcon icon={faClose} />
         </button>
-        <h3 className="mb-5 text-white text-xl">{title}</h3>
+        <div className="flex items-center gap-2 mb-5">
+          {!isLoading ? <Loading className="mt-1" /> : null}
+          <h3 className="text-white text-xl">{title}</h3>
+        </div>
         {children}
       </div>
     </div>
