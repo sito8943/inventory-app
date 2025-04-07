@@ -28,7 +28,13 @@
     "inputs": {
       "name": {
         "name": "Name",
-        "placeholder":"Ex: "
+        "placeholder": "Ex: "
+      },
+      "type": {
+        "invalid": "Please select a valid type",
+        "name": "Type",
+        "in": "In",
+        "out": "Out"
       }
     }
   },
