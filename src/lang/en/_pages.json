@@ -52,6 +52,7 @@
     "forms": {
       "add": "New product",
       "edit": "Edit product",
+      "movementLogs": "Movement logs",
       "doMovement": "Add movement"
     },
     "inputs": {

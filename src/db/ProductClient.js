@@ -90,5 +90,16 @@ export default class ProductClient extends BaseClient {
     throw validated;
   }
 
+  /**
+   *
+   * @param {number} id
+   * @returns {Promise<object[]>} - movement logs
+   */
+  async movementLogs(id) {
+    const logs = await this.db.select(Tables.MovementLogs, { product: id });
+
+    return logs;
+  }
+
   // #endregion actions
 }
