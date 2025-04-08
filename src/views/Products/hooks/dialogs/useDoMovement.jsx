@@ -30,7 +30,7 @@ function useDoMovement() {
     onSuccessMessage: t("_pages:products.actions.doMovement.successMessage"),
     queryKey: ReactQueryKeys.Products,
     onError: (error) => {
-      console.log(error);
+      console.error(error);
     },
   });
 
