@@ -129,8 +129,6 @@ class DbClient {
 
       let sql = `UPDATE ${table} SET ${setClause} ${parseWhere(query)}`;
 
-      console.log(sql);
-
       const result = await this.db.execute(sql);
 
       return result;
