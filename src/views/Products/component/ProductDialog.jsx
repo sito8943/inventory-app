@@ -16,7 +16,7 @@ import ParagraphInput from "../../../components/Form/ParagraphInput";
 import { ReactQueryKeys } from "../../../utils/queryKey";
 
 export function ProductForm(props) {
-  const { control } = props;
+  const { control, isLoading } = props;
   const { t } = useTranslation();
 
   const manager = useManager();
@@ -43,6 +43,7 @@ export function ProductForm(props) {
           required: t("_pages:products.inputs.name.required"),
         }}
         name="name"
+        disabled={isLoading || categories?.isLoading}
         render={({ field }) => (
           <TextInput
             required
@@ -58,7 +59,7 @@ export function ProductForm(props) {
           invalid: t("_pages:products.inputs.category.invalid"),
         }}
         name="category"
-        disabled={categories?.isLoading}
+        disabled={isLoading || categories?.isLoading}
         render={({ field: { value, onChange, ...rest } }) => (
           <SelectInput
             required
@@ -73,6 +74,7 @@ export function ProductForm(props) {
       <Controller
         control={control}
         name="description"
+        disabled={isLoading || categories?.isLoading}
         render={({ field }) => (
           <ParagraphInput
             maxLength={60}
@@ -84,6 +86,7 @@ export function ProductForm(props) {
       <Controller
         control={control}
         name="price"
+        disabled={isLoading || categories?.isLoading}
         render={({ field }) => (
           <TextInput
             type="number"
@@ -95,6 +98,7 @@ export function ProductForm(props) {
       <Controller
         control={control}
         name="stock"
+        disabled={isLoading || categories?.isLoading}
         render={({ field }) => (
           <TextInput
             type="number"

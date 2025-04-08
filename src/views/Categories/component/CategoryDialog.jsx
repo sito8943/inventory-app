@@ -8,7 +8,7 @@ import ColorInput from "../../../components/Form/ColorInput";
 import ParagraphInput from "../../../components/Form/ParagraphInput";
 
 export function CategoryForm(props) {
-  const { control } = props;
+  const { control, isLoading } = props;
   const { t } = useTranslation();
 
   return (
@@ -19,6 +19,7 @@ export function CategoryForm(props) {
           required: t("_pages:categories.inputs.name.required"),
         }}
         name="name"
+        disabled={isLoading}
         render={({ field }) => (
           <TextInput
             required
@@ -31,6 +32,7 @@ export function CategoryForm(props) {
       <Controller
         control={control}
         name="description"
+        disabled={isLoading}
         render={({ field }) => (
           <ParagraphInput
             maxLength={60}
@@ -45,6 +47,7 @@ export function CategoryForm(props) {
           required: t("_pages:categories.inputs.name.required"),
         }}
         name="color"
+        disabled={isLoading}
         render={({ field }) => (
           <ColorInput
             required

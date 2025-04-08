@@ -15,10 +15,8 @@ import SelectInput from "../../../components/Form/SelectInput";
 import { ReactQueryKeys } from "../../../utils/queryKey";
 
 function DoMovementForm(props) {
-  const { control, getValues } = props;
+  const { control, isLoading } = props;
   const { t } = useTranslation();
-
-  console.log(getValues());
 
   const manager = useManager();
 
@@ -44,7 +42,7 @@ function DoMovementForm(props) {
           invalid: t("_pages:products.inputs.movement.invalid"),
         }}
         name="movement"
-        disabled={movements?.isLoading}
+        disabled={isLoading || movements?.isLoading}
         render={({ field: { value, onChange, ...rest } }) => (
           <SelectInput
             required
@@ -62,6 +60,7 @@ function DoMovementForm(props) {
           required: t("_pages:products.inputs.count.required"),
         }}
         name="count"
+        disabled={isLoading || movements?.isLoading}
         render={({ field }) => (
           <TextInput
             required
