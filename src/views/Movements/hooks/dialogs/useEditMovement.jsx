@@ -14,16 +14,25 @@ function useEditMovement() {
 
   const manager = useManager();
 
-  const { control, isLoading, handleSubmit, open, close, onClick, dialogFn } =
-    useFormDialog({
-      getFunction: (id) => manager.Movements.getById(id),
-      mutationFn: (data) => manager.Movements.update(data),
-      onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-      queryKey: ReactQueryKeys.Movements,
-    });
+  const {
+    control,
+    isLoading,
+    handleSubmit,
+    open,
+    close,
+    onClick,
+    dialogFn,
+    getValues,
+  } = useFormDialog({
+    getFunction: (id) => manager.Movements.getById(id),
+    mutationFn: (data) => manager.Movements.update(data),
+    onSuccessMessage: t("_pages:common.actions.add.successMessage"),
+    queryKey: ReactQueryKeys.Movements,
+  });
 
   return {
     onClick,
+    getValues,
     title: t("_pages:movements.forms.edit"),
     open,
     control,

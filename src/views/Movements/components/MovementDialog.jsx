@@ -11,13 +11,13 @@ import SelectInput from "../../../components/Form/SelectInput";
 import { types } from "../../../db/types/products";
 
 export function MovementForm(props) {
-  const { control, isLoading } = props;
+  const { control, isLoading, getValues } = props;
   const { t } = useTranslation();
 
   const typeOptions = useMemo(() => {
     return [
       { id: 0, value: t("_pages:movements.inputs.type.name") },
-      ...(types?.data ?? []),
+      ...(types?.map(({ id, label }) => ({ id, value: label })) ?? []),
     ];
   }, []);
 
