@@ -11,6 +11,7 @@ import { ReactQueryKeys } from "../../utils/queryKey";
 // components
 import AddCard from "../../components/Card/AddCard";
 import ProductCard from "./component/ProductCard";
+import Loading from "../../components/Loading/Loading";
 import ConfirmationDialog from "../../components/Dialog/ConfirmationDialog";
 import { AddProductDialog, EditProductDialog } from "./component/ProductDialog";
 import { DoMovementDialog } from "./component/DoMovementDialog";
@@ -60,7 +61,12 @@ function Products() {
     <main className="p-5">
       <div className="apparition flex flex-col gap-5">
         <h2 className="text-xl">{t("_pages:products.title")}</h2>
-        {data?.length ? (
+        {isLoading ? (
+          <Loading
+            size="text-3xl"
+            containerClassName="flex justify-center items-center h-50"
+          />
+        ) : data?.length ? (
           <ul className="flex flex-wrap max-xs:flex-col gap-5">
             {data?.map((product) => (
               <li key={product.id}>
@@ -79,6 +85,7 @@ function Products() {
         )}
       </div>
       <AddCard
+        disabled={isLoading}
         onClick={addProduct.onClick}
         tooltip={t("_pages:products.add")}
       />

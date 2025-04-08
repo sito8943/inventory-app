@@ -15,6 +15,7 @@ import {
   AddCategoryDialog,
   EditCategoryDialog,
 } from "./component/CategoryDialog";
+import Loading from "../../components/Loading/Loading";
 import ConfirmationDialog from "../../components/Dialog/ConfirmationDialog";
 
 // hooks
@@ -53,7 +54,12 @@ function Categories() {
     <main className="p-5">
       <div className="apparition flex flex-col gap-5">
         <h2 className="text-xl">{t("_pages:categories.title")}</h2>
-        {data?.length ? (
+        {isLoading ? (
+          <Loading
+            size="text-3xl"
+            containerClassName="flex justify-center items-center h-50"
+          />
+        ) : data?.length ? (
           <ul className="flex flex-wrap max-xs:flex-col gap-5">
             {data?.map((category) => (
               <li key={category.id}>
@@ -72,6 +78,7 @@ function Categories() {
         )}
       </div>
       <AddCard
+        disabled={isLoading}
         onClick={addCategory.onClick}
         tooltip={t("_pages:categories.add")}
       />
