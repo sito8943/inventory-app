@@ -48,13 +48,25 @@ export default class ProductClient extends BaseClient {
     const validated = await this.validates(dto, "movement");
     if (!validated) {
       const { id, movement } = dto;
-      const input = Number(dto.count);
+      let input = Number(dto.count);
 
       // search product
       const product = await this.db.select(Tables.Products, { id });
+
+      // search movement type
+      const movements = await this.db.select(Tables.Movements, {
+        id: movement,
+      });
+
       if (product.length === 0)
         return new ServiceError({ key: "product", message: "notFound" });
+
+      if (movements.length === 0)
+        return new ServiceError({ key: "movement", message: "notFound" });
       const { stock } = product[0];
+
+      const { type } = movements[0];
+      if (type === MovementTypes.OUT) input *= -1;
 
       const newStock = stock + input;
       // check if stock is enough
