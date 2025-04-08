@@ -15,6 +15,7 @@ import Loading from "../../components/Loading/Loading";
 import ConfirmationDialog from "../../components/Dialog/ConfirmationDialog";
 import { AddProductDialog, EditProductDialog } from "./component/ProductDialog";
 import { DoMovementDialog } from "./component/DoMovementDialog";
+import { MovementLogsDialog } from "./component/MovementLogs";
 
 // hooks
 import useAddProduct from "./hooks/dialogs/useAddProduct";
@@ -98,6 +99,7 @@ function Products() {
       <AddProductDialog {...addProduct} />
       <EditProductDialog {...editProduct} />
       <DoMovementDialog {...doMovement} />
+      <MovementLogsDialog {...movementLogs} />
       <ConfirmationDialog {...deleteProduct} />
     </main>
   );
