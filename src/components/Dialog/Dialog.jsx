@@ -44,10 +44,22 @@ function Dialog(props) {
 
   const styles = useMemo(() => css({ width: `${windowSize}px` }));
 
+  const bigHandleClose = useCallback(
+    (e) => {
+      if (
+        e?.target?.getAttribute("name") ===
+        t("_accessibility:buttons.closeDialog")
+      )
+        handleClose();
+    },
+    [t, handleClose]
+  );
+
   return (
     <div
       name={t("_accessibility:buttons.closeDialog")}
       aria-label={t("_accessibility:ariaLabels.closeDialog")}
+      onClick={bigHandleClose}
       className={`dialog ${styles} h-screen ${
         open ? "" : "pointer-events-none"
       } fixed left-0 top-0 flex items-center justify-center z-10`}
