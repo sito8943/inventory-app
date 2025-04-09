@@ -1,3 +1,5 @@
+import RowCell from "./components/RowCell";
+
 function Table(props) {
   const { columns, rows } = props;
 
@@ -19,14 +21,12 @@ function Table(props) {
         {rows.map((row) => (
           <tr key={row.id?.value} className={`${row.className ?? ""}`}>
             {columns.map((column) => (
-              <td
-                className={`border-border border-2 rounded-2xl px-5 py-2 text-gray-50 text-sm ${
-                  row[column.id]?.className ?? ""
-                }`}
+              <RowCell
                 key={column.id}
-              >
-                {row[column.id]?.value ?? ""}
-              </td>
+                tooltip={row[column.id]?.tooltip ?? ""}
+                value={row[column.id]?.value ?? ""}
+                className={row[column.id]?.className ?? ""}
+              />
             ))}
           </tr>
         ))}
