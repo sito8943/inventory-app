@@ -15,7 +15,7 @@ function useDeleteAction(props) {
     disabled: !!record.deletedAt,
     icon: <FontAwesomeIcon className="text-red-500" icon={faTrash} />,
     tooltip: t("_pages:common.actions.delete.text"),
-    onClick: () => onClick(record),
+    onClick: () => onClick(record?.id),
   });
 
   return action;

@@ -58,8 +58,8 @@ function Products() {
 
   const getActions = useCallback((record) => [
     doMovement.action(record),
-    movementLogs.action(record.id),
-    deleteProduct.action(record.id),
+    movementLogs.action(record),
+    deleteProduct.action(record),
   ]);
 
   return (
