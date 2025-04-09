@@ -17,10 +17,20 @@ function useTableOptions(props) {
 
       Object.keys(row).forEach((column) => {
         const newRow = {};
+
+        //* value parser
         if (customOptions[column]?.rowOptions?.parser)
           newRow.value = customOptions[column].rowOptions.parser(row[column]);
         else newRow.value = row[column];
 
+        //* tooltip
+        if (customOptions[column]?.rowOptions?.showTooltip) {
+          if (customOptions[column]?.rowOptions?.customTooltip)
+            newRow.tooltip = "";
+          else newRow.tooltip = row[column];
+        }
+
+        //* row class name
         if (customOptions[column]?.rowOptions?.className)
           newRow.className = customOptions[column].rowOptions.className;
 
