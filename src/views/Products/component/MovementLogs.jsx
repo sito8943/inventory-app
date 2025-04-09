@@ -1,13 +1,15 @@
-import { useTranslation } from "react-i18next";
+// components
+import Table from "../../../components/Table/Table";
 import Dialog from "../../../components/Dialog/Dialog";
 
 function MovementLogs(props) {
-  const { data, isLoading } = props;
-  const { t } = useTranslation();
+  const { isLoading, tableProps } = props;
 
-  console.log(data, isLoading);
-
-  return <div className="flex flex-col gap-5"></div>;
+  return (
+    <div className="flex flex-col gap-5">
+      <Table isLoading={isLoading} {...tableProps} />
+    </div>
+  );
 }
 
 export function MovementLogsDialog(props) {

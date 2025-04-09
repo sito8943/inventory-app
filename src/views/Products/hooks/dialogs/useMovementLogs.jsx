@@ -12,19 +12,48 @@ import useMovementLogsAction from "../actions/useMovementLogsAction";
 // utils
 import { ReactQueryKeys } from "../../../../utils/queryKey";
 
+// hooks
+import useTableOptions from "../../../../components/Table/useTableOptions";
+import useTimeAge from "../../../../hooks/useTimeAge";
+
 export default function useMovementLogs() {
   const { t } = useTranslation();
+
+  const { timeAge } = useTimeAge();
 
   const manager = useManager();
 
   const [id, setId] = useState(0);
 
   const { data, isLoading } = useQuery({
-    queryFn: () => manager.Products.logs(id),
+    queryFn: () => manager.Products.movementLogs(id),
     queryKey: [ReactQueryKeys.MovementLogs, id],
   });
 
   const { open, handleClose, handleOpen } = useDialog();
+
+  const tableProps = useTableOptions({
+    data,
+    entity: "movementLogs",
+    customOptions: {
+      stock: {
+        columnOptions: { className: "text-right" },
+        rowOptions: {
+          className: "text-right",
+        },
+      },
+      result: {
+        columnOptions: { className: "text-right" },
+        rowOptions: {
+          className: "text-right",
+        },
+      },
+      createdAt: {
+        rowOptions: { parser: (value) => timeAge(new Date(value)) },
+      },
+    },
+    ignoreColumns: ["id", "product"],
+  });
 
   const onClick = (id) => {
     setId(id);
@@ -40,5 +69,6 @@ export default function useMovementLogs() {
     data,
     isLoading,
     handleClose,
+    tableProps,
   };
 }
