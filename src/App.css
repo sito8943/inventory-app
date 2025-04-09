@@ -21,6 +21,7 @@ textarea {
 
 h1,
 h2,
+th,
 .poppins {
   font-family: "Poppins", sans-serif;
 }
@@ -32,6 +33,7 @@ h3,
 input,
 textarea,
 select,
+td,
 .roboto {
   font-family: "Roboto", sans-serif;
 }
