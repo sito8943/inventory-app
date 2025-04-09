@@ -7,7 +7,15 @@
     "closeOutsideNotification": "Close notification",
     "closeNotification": "Close notification"
   },
-  "labels": {},
+  "labels": {
+    "justNow": "Right now",
+    "minute": "Minute",
+    "minutes": "Minutes",
+    "hour": "Hour",
+    "hours": "Hours",
+    "yesterday": "Yesterday",
+    "ago": "Ago"
+  },
   "tooltips": {},
   "ariaLabels": {
     "ok": "",
