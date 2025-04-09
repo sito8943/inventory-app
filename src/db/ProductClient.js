@@ -96,7 +96,12 @@ export default class ProductClient extends BaseClient {
    * @returns {Promise<object[]>} - movement logs
    */
   async movementLogs(id) {
-    const logs = await this.db.select(Tables.MovementLogs, { product: id });
+    const logs = await this.db.select(
+      Tables.MovementLogs,
+      { product: id },
+      "movementLogs.id as id, movements.name as movement, movementLogs.stock as stock, movementLogs.result as result,movementLogs.createdAt as createdAt",
+      [{ table: "movements", on: "movements.id = movementLogs.movement" }]
+    );
 
     return logs;
   }
