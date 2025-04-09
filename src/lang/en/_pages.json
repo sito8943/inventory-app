@@ -3,7 +3,6 @@
     "title": "Home",
     "appName": "Inventory"
   },
-
   "common": {
     "actions": {
       "add": { "text": "Add", "successMessage": "Saved successful" },
@@ -36,6 +35,14 @@
         "in": "In",
         "out": "Out"
       }
+    }
+  },
+  "movementLogs": {
+    "properties": {
+      "movement": "Movement",
+      "stock": "Quantity",
+      "result": "Resulting stock",
+      "createdAt": "Date"
     }
   },
   "products": {
