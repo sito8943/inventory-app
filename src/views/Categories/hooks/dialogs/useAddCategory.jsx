@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next";
 
 // providers
-import { useManager } from "../../../providers/ManagerProvider";
+import { useManager } from "../../../../providers/ManagerProvider";
 
 // utils
-import { ReactQueryKeys } from "../../../utils/queryKey";
+import { ReactQueryKeys } from "../../../../utils/queryKey";
 
 // hooks
-import useFormDialog from "../../../hooks/useFormDialog";
+import useFormDialog from "../../../../hooks/useFormDialog";
 
 export function useAddCategory() {
   const { t } = useTranslation();
