@@ -1,8 +1,41 @@
 {
-  "buttons": {},
-  "labels": {},
+  "buttons": {
+    "ok": "Aceptar",
+    "openMenu": "Abrir menú",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "closeDialog": "Cerrar diálogo",
+    "closeOutsideNotification": "Cerrar notificación",
+    "closeNotification": "Cerrar notificación",
+    "toggleMaximize": "Alternar maximizar",
+    "minimize": "Minimizar",
+    "closeApp": "Cerrar aplicación",
+    "closeMenu": "Cerrar menú"
+  },
+  "labels": {
+    "justNow": "Justo ahora",
+    "minute": "Minuto",
+    "minutes": "Minutos",
+    "hour": "Hora",
+    "hours": "Horas",
+    "yesterday": "Ayer",
+    "ago": "Hace"
+  },
   "tooltips": {},
-  "ariaLabels": {},
+  "ariaLabels": {
+    "ok": "Confirmar acción",
+    "insert": "Insertar contenido",
+    "cancel": "Cancelar acción",
+    "delete": "Eliminar elemento",
+    "openMenu": "Abrir menú",
+    "closeDialog": "Cerrar ventana de diálogo",
+    "closeNotification": "Descartar notificación",
+    "closeOutsideNotification": "Descartar notificación externa",
+    "toggleMaximize": "Alternar maximizar ventana",
+    "minimize": "Minimizar ventana",
+    "closeApp": "Cerrar la aplicación",
+    "closeMenu": "Cerrar el menú"
+  },
   "errors": {
     "unknownError": "Ha ocurrido un error"
   },

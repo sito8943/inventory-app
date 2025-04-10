@@ -7,10 +7,10 @@
     "closeDialog": "Close dialog",
     "closeOutsideNotification": "Close notification",
     "closeNotification": "Close notification",
-    "toggleMaximize": "",
-    "minimize": "",
-    "closeApp": "",
-    "closeMenu": ""
+    "toggleMaximize": "Toggle maximize",
+    "minimize": "Minimize",
+    "closeApp": "Close application",
+    "closeMenu": "Close menu"
   },
   "labels": {
     "justNow": "Right now",
@@ -23,18 +23,18 @@
   },
   "tooltips": {},
   "ariaLabels": {
-    "ok": "",
-    "insert": "",
-    "cancel": "",
-    "delete": "",
-    "openMenu": "",
-    "closeDialog": "",
-    "closeNotification": "",
-    "closeOutsideNotification": "",
-    "toggleMaximize": "",
-    "minimize": "",
-    "closeApp": "",
-    "closeMenu": ""
+    "ok": "Confirm action",
+    "insert": "Insert content",
+    "cancel": "Cancel action",
+    "delete": "Delete item",
+    "openMenu": "Open menu",
+    "closeDialog": "Close dialog window",
+    "closeNotification": "Dismiss notification",
+    "closeOutsideNotification": "Dismiss outside notification",
+    "toggleMaximize": "Toggle maximize window",
+    "minimize": "Minimize window",
+    "closeApp": "Close the application",
+    "closeMenu": "Close the menu"
   },
   "errors": {
     "unknownError": "An error has occurred"

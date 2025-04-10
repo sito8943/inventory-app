@@ -3,20 +3,115 @@
     "title": "Inicio",
     "appName": "Inventario"
   },
+  "common": {
+    "actions": {
+      "add": { "text": "Agregar", "successMessage": "Guardado exitosamente" },
+      "delete": {
+        "text": "Eliminar",
+        "successMessage": "Eliminado exitosamente",
+        "dialog": {
+          "title": "¿Estás seguro de que deseas eliminar?"
+        }
+      }
+    }
+  },
+  "movements": {
+    "title": "Movimientos",
+    "empty": "No hay movimientos para mostrar",
+    "add": "Agregar un movimiento",
+    "actions": {},
+    "forms": {
+      "add": "Nuevo Movimiento",
+      "edit": "Editar Movimiento",
+      "editAria": "Haz clic para editar el movimiento"
+    },
+    "inputs": {
+      "name": {
+        "name": "Nombre",
+        "placeholder": "Ej: "
+      },
+      "type": {
+        "invalid": "Por favor selecciona un tipo válido",
+        "name": "Tipo",
+        "in": "Entrada",
+        "out": "Salida"
+      }
+    }
+  },
+  "movementLogs": {
+    "properties": {
+      "movement": "Movimiento",
+      "stock": "Cantidad",
+      "result": "Stock resultante",
+      "createdAt": "Fecha"
+    }
+  },
   "products": {
-    "title": "Productos"
+    "title": "Productos",
+    "empty": "No hay productos para mostrar",
+    "add": "Agregar un producto",
+    "actions": {
+      "doMovement": {
+        "notFound": "Producto no encontrado",
+        "notEnoughStock": "Stock insuficiente",
+        "successMessage": "Movimiento realizado exitosamente"
+      }
+    },
+    "forms": {
+      "add": "Nuevo producto",
+      "edit": "Editar producto",
+      "editAria": "Haz clic para editar el producto",
+      "movementLogs": "Registros de movimientos",
+      "doMovement": "Agregar movimiento"
+    },
+    "inputs": {
+      "name": {
+        "name": "Nombre",
+        "placeholder": "Ej: Pizza",
+        "required": "El nombre es obligatorio"
+      },
+      "description": {
+        "name": "Descripción",
+        "placeholder": "Alguna descripción"
+      },
+      "category": {
+        "name": "Categoría",
+        "invalid": "Por favor selecciona una categoría válida"
+      },
+      "price": {
+        "name": "Precio"
+      },
+      "stock": {
+        "name": "Inventario",
+        "label": "En stock"
+      },
+      "movement": {
+        "name": "Movimiento",
+        "invalid": "Por favor selecciona un movimiento válido"
+      },
+      "count": {
+        "name": "Cantidad",
+        "required": "La cantidad es obligatoria"
+      }
+    }
   },
   "categories": {
-    "title": "Categorias",
+    "title": "Categorías",
+    "empty": "No hay categorías para mostrar",
+    "add": "Agregar una categoría",
     "forms": {
-      "add": "Nueva categoria",
-      "edit": "Editar categoria"
+      "add": "Nueva categoría",
+      "edit": "Editar categoría",
+      "editAria": "Haz clic para editar la categoría"
+    },
+    "errors": {
+      "withProducts": "Esta categoría tiene productos. Por favor elimina los productos primero"
     },
     "inputs": {
       "name": {
         "name": "Nombre",
         "placeholder": "Ej: Bebidas",
-        "required": "El nombre es requerido"
+        "required": "El nombre es obligatorio"
       },
       "description": {
         "name": "Descripción",
@@ -24,7 +119,7 @@
       },
       "color": {
         "name": "Color",
-        "required": "El color es requerido"
+        "required": "El color es obligatorio"
       }
     }
   }
