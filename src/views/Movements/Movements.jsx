@@ -9,18 +9,15 @@ import { useManager } from "../../providers/ManagerProvider";
 import { ReactQueryKeys } from "../../utils/queryKey";
 
 // components
-import AddCard from "../../components/Card/AddCard";
-import MovementCard from "./components/MovementCard";
+import { AddCard, Loading, ConfirmationDialog } from "../../components";
 import {
+  MovementCard,
   AddMovementDialog,
   EditMovementDialog,
-} from "./components/MovementDialog";
-import Loading from "../../components/Loading/Loading";
-import ConfirmationDialog from "../../components/Dialog/ConfirmationDialog";
+} from "./components";
 
 // hooks
-import useAddMovement from "./hooks/dialogs/useAddMovement";
-import useEditMovement from "./hooks/dialogs/useEditMovement";
+import { useAddMovement, useEditMovement } from "./hooks/dialogs/";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
 
 function Movements() {

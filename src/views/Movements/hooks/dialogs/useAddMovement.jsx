@@ -9,7 +9,7 @@ import { ReactQueryKeys } from "../../../../utils/queryKey";
 // hooks
 import useFormDialog from "../../../../hooks/useFormDialog";
 
-function useAddMovement() {
+export function useAddMovement() {
   const { t } = useTranslation();
 
   const manager = useManager();
@@ -30,5 +30,3 @@ function useAddMovement() {
     handleClose: close,
   };
 }
-
-export default useAddMovement;

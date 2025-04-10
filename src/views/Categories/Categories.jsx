@@ -9,18 +9,15 @@ import { useManager } from "../../providers/ManagerProvider";
 import { ReactQueryKeys } from "../../utils/queryKey";
 
 // components
-import AddCard from "../../components/Card/AddCard";
-import CategoryCard from "./component/CategoryCard";
+import { AddCard, Loading, ConfirmationDialog } from "../../components";
 import {
+  CategoryCard,
   AddCategoryDialog,
   EditCategoryDialog,
-} from "./component/CategoryDialog";
-import Loading from "../../components/Loading/Loading";
-import ConfirmationDialog from "../../components/Dialog/ConfirmationDialog";
+} from "./components";
 
 // hooks
-import useAddCategory from "./hooks/useAddCategory";
-import useEditCategory from "./hooks/useEditCategory";
+import { useAddCategory, useEditCategory } from "./hooks/dialogs";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
 
 function Categories() {
