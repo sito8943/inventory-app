@@ -70,6 +70,8 @@ function Dialog(props) {
         }`}
       >
         <button
+          name={t("_accessibility:buttons.closeDialog")}
+          aria-label={t("_accessibility:ariaLabels.closeDialog")}
           className="icon-button absolute top-2 right-2 text-red-400"
           onClick={handleClose}
         >

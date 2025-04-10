@@ -5,7 +5,7 @@ function RowCell(props) {
 
   return (
     <td
-      data-tooltip-id="tooltip"
+      data-tooltip-id="tooltip-2"
       data-tooltip-content={tooltip }
       className={`border-border border-2 rounded-2xl px-5 py-2 text-gray-50 text-sm ${
         className
