@@ -73,5 +73,6 @@ export default function useMovementLogs() {
     isLoading,
     handleClose,
     tableProps,
+    containerClassName: "h-[60vh]",
   };
 }

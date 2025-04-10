@@ -13,7 +13,14 @@ import Loading from "../Loading/Loading";
 
 function Dialog(props) {
   const { t } = useTranslation();
-  const { open = false, title, children, handleClose, isLoading } = props;
+  const {
+    open = false,
+    title,
+    children,
+    handleClose,
+    isLoading,
+    className,
+  } = props;
 
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
