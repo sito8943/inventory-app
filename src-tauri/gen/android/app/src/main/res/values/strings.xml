@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">inventory-app</string>
+    <string name="main_activity_title">inventory-app</string>
+</resources>
