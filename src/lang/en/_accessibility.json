@@ -1,11 +1,16 @@
 {
   "buttons": {
     "ok": "Ok",
+    "openMenu": "Open menu",
     "submit": "Submit",
     "cancel": "Cancel",
     "closeDialog": "Close dialog",
     "closeOutsideNotification": "Close notification",
-    "closeNotification": "Close notification"
+    "closeNotification": "Close notification",
+    "toggleMaximize": "",
+    "minimize": "",
+    "closeApp": "",
+    "closeMenu": ""
   },
   "labels": {
     "justNow": "Right now",
@@ -22,9 +27,14 @@
     "insert": "",
     "cancel": "",
     "delete": "",
+    "openMenu": "",
     "closeDialog": "",
     "closeNotification": "",
-    "closeOutsideNotification": ""
+    "closeOutsideNotification": "",
+    "toggleMaximize": "",
+    "minimize": "",
+    "closeApp": "",
+    "closeMenu": ""
   },
   "errors": {
     "unknownError": "An error has occurred"

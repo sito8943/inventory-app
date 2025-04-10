@@ -13,14 +13,7 @@ import Loading from "../Loading/Loading";
 
 function Dialog(props) {
   const { t } = useTranslation();
-  const {
-    open = false,
-    title,
-    children,
-    handleClose,
-    isLoading,
-    className,
-  } = props;
+  const { open = false, title, children, handleClose, isLoading } = props;
 
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
@@ -66,6 +59,7 @@ function Dialog(props) {
     <div
       name={t("_accessibility:buttons.closeDialog")}
       aria-label={t("_accessibility:ariaLabels.closeDialog")}
+      aria-disabled={!open}
       onClick={bigHandleClose}
       className={`dialog ${styles} h-screen ${
         open ? "" : "pointer-events-none"
@@ -77,6 +71,8 @@ function Dialog(props) {
         }`}
       >
         <button
+          disabled={!open}
+          aria-disabled={!open}
           name={t("_accessibility:buttons.closeDialog")}
           aria-label={t("_accessibility:ariaLabels.closeDialog")}
           className="icon-button absolute top-2 right-2 text-red-400"

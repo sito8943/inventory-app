@@ -33,6 +33,7 @@ function Drawer(props) {
     <div
       name={t("_accessibility:buttons.closeMenu")}
       aria-label={t("_accessibility:ariaLabels.closeMenu")}
+      aria-disabled={!open}
       className={`${
         open ? "w-screen h-screen" : "pointer-events-none"
       } fixed z-10`}
@@ -57,6 +58,8 @@ function Drawer(props) {
               } animated`}
             >
               <Link
+                disabled={!open}
+                aria-disabled={!open}
                 to={link.path ?? `/${link.name}`}
                 name={`_pages:${link.name}.title`}
                 aria-label={t(`_accessibility:ariaLabels.${link.name}`)}

@@ -6,6 +6,7 @@ function Action(props) {
       className="action"
       disabled={disabled}
       onClick={onClick}
+      aria-disabled={disabled}
       data-tooltip-id="tooltip"
       data-tooltip-content={tooltip}
     >

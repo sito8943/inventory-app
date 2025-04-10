@@ -22,7 +22,8 @@
     "actions": {},
     "forms": {
       "add": "New Movement",
-      "edit": "Edit Movement"
+      "edit": "Edit Movement",
+      "editAria": "Click to edit movement"
     },
     "inputs": {
       "name": {
@@ -59,6 +60,7 @@
     "forms": {
       "add": "New product",
       "edit": "Edit product",
+      "editAria": "Click to edit product",
       "movementLogs": "Movement logs",
       "doMovement": "Add movement"
     },
@@ -99,7 +101,8 @@
     "add": "Add a category",
     "forms": {
       "add": "New category",
-      "edit": "Edit category"
+      "edit": "Edit category",
+      "editAria": "Click to edit category"
     },
     "errors": {
       "withProducts": "This category has products. Please delete the products first"

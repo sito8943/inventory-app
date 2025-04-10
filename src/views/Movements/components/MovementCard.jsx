@@ -27,14 +27,17 @@ function MovementCard(props) {
     <div className="flex flex-col justify-between items-start h-40 w-60 max-xs:w-full rounded-2xl p-3 group border-primary/30 hover:border-primary border-2 animated">
       <button
         className="cursor-pointer h-full w-full flex flex-col justify-start items-start"
-        name=""
-        aria-label=""
+        name={t("_pages:movements.forms.edit")}
+        aria-label={t("_pages:movements.forms.editAria")}
         onClick={() => onClick(id)}
       >
         <div className="flex flex-col items-start gap-2 justify-start">
           <h3 className="text-xl text-white text-start">{name}</h3>
           <div className="flex gap-2 items-center">
-            <FontAwesomeIcon className="text-primary text-xl" icon={icons[renderType?.id]} />
+            <FontAwesomeIcon
+              className="text-primary text-xl"
+              icon={icons[renderType?.id]}
+            />
             <p>{t(`_pages:movements.inputs.type.${renderType?.label}`)}</p>
           </div>
         </div>

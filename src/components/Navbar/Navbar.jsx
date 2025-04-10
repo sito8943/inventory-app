@@ -58,8 +58,8 @@ function Navbar(props) {
       <div className="flex gap-2 items-center">
         <button
           type="button"
-          name="open-menu"
-          aria-label="open-menu"
+          name={t("_accessibility:buttons.openMenu")}
+          aria-label={t("_accessibility:ariaLabels.openMenu")}
           onClick={openDrawer}
           className="button menu animated"
         >
@@ -71,6 +71,8 @@ function Navbar(props) {
       </div>
       <ul className="toolbar flex items-center justify-end">
         <button
+          name={t("_accessibility:buttons.minimize")}
+          aria-label={t("_accessibility:ariaLabels.minimize")}
           onClick={() => appWindow.minimize()}
           className="button animated"
         >
@@ -82,6 +84,8 @@ function Navbar(props) {
             else setIsMaximized(true);
             appWindow.toggleMaximize();
           }}
+          name={t("_accessibility:buttons.toggleMaximize")}
+          aria-label={t("_accessibility:ariaLabels.toggleMaximize")}
           className="button animated"
         >
           {isMaximized ? (
@@ -101,6 +105,8 @@ function Navbar(props) {
         </button>
         <button
           onClick={() => appWindow.close()}
+          name={t("_accessibility:buttons.closeApp")}
+          aria-label={t("_accessibility:ariaLabels.closeApp")}
           className="button close animated"
         >
           <FontAwesomeIcon className="" icon={faClose} />
