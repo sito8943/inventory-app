@@ -49,7 +49,10 @@ export default function useMovementLogs() {
         },
       },
       createdAt: {
-        rowOptions: { parser: (value) => timeAge(new Date(value)) },
+        rowOptions: {
+          parser: (value) => timeAge(new Date(value)),
+          showTooltip: true,
+        },
       },
     },
     ignoreColumns: ["id", "product"],
