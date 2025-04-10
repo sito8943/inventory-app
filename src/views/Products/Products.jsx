@@ -9,20 +9,23 @@ import { useManager } from "../../providers/ManagerProvider";
 import { ReactQueryKeys } from "../../utils/queryKey";
 
 // components
-import AddCard from "../../components/Card/AddCard";
-import ProductCard from "./component/ProductCard";
-import Loading from "../../components/Loading/Loading";
-import ConfirmationDialog from "../../components/Dialog/ConfirmationDialog";
-import { AddProductDialog, EditProductDialog } from "./component/ProductDialog";
-import { DoMovementDialog } from "./component/DoMovementDialog";
-import { MovementLogsDialog } from "./component/MovementLogs";
+import { AddCard, Loading, ConfirmationDialog } from "../../components";
+import {
+  ProductCard,
+  AddProductDialog,
+  EditProductDialog,
+  DoMovementDialog,
+  MovementLogsDialog,
+} from "./components";
 
 // hooks
-import useAddProduct from "./hooks/dialogs/useAddProduct";
-import useEditProduct from "./hooks/dialogs/useEditProduct";
+import {
+  useAddProduct,
+  useEditProduct,
+  useDoMovement,
+  useMovementLogs,
+} from "./hooks/dialogs/";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
-import useDoMovement from "./hooks/dialogs/useDoMovement";
-import useMovementLogs from "./hooks/dialogs/useMovementLogs";
 
 function Products() {
   const { t } = useTranslation();

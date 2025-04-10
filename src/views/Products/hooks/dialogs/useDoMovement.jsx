@@ -10,7 +10,7 @@ import useDoMovementAction from "../actions/useDoMovementAction";
 // utils
 import { ReactQueryKeys } from "../../../../utils/queryKey";
 
-function useDoMovement() {
+export function useDoMovement() {
   const { t } = useTranslation();
 
   const manager = useManager();
@@ -48,5 +48,3 @@ function useDoMovement() {
     action,
   };
 }
-
-export default useDoMovement;

@@ -9,24 +9,17 @@ import { ReactQueryKeys } from "../../../../utils/queryKey";
 // hooks
 import useFormDialog from "../../../../hooks/useFormDialog";
 
-function useAddProduct() {
+export function useAddProduct() {
   const { t } = useTranslation();
 
   const manager = useManager();
 
-  const {
-    control,
-    handleSubmit,
-    open,
-    close,
-    onClick,
-    dialogFn,
-    isLoading,
-  } = useFormDialog({
-    mutationFn: (data) => manager.Products.insert(data),
-    onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-    queryKey: ReactQueryKeys.Products,
-  });
+  const { control, handleSubmit, open, close, onClick, dialogFn, isLoading } =
+    useFormDialog({
+      mutationFn: (data) => manager.Products.insert(data),
+      onSuccessMessage: t("_pages:common.actions.add.successMessage"),
+      queryKey: ReactQueryKeys.Products,
+    });
 
   return {
     onClick,
@@ -38,5 +31,3 @@ function useAddProduct() {
     handleClose: close,
   };
 }
-
-export default useAddProduct;

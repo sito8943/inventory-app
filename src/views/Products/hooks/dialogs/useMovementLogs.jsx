@@ -16,7 +16,7 @@ import { ReactQueryKeys } from "../../../../utils/queryKey";
 import useTableOptions from "../../../../components/Table/useTableOptions";
 import useTimeAge from "../../../../hooks/useTimeAge";
 
-export default function useMovementLogs() {
+export function useMovementLogs() {
   const { t } = useTranslation();
 
   const { timeAge } = useTimeAge();

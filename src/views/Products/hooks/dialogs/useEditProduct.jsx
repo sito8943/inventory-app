@@ -9,25 +9,18 @@ import useFormDialog from "../../../../hooks/useFormDialog";
 // utils
 import { ReactQueryKeys } from "../../../../utils/queryKey";
 
-function useEditProduct() {
+export function useEditProduct() {
   const { t } = useTranslation();
 
   const manager = useManager();
 
-  const {
-    control,
-    isLoading,
-    handleSubmit,
-    open,
-    close,
-    onClick,
-    dialogFn,
-  } = useFormDialog({
-    getFunction: (id) => manager.Products.getById(id),
-    mutationFn: (data) => manager.Products.update(data),
-    onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-    queryKey: ReactQueryKeys.Products,
-  });
+  const { control, isLoading, handleSubmit, open, close, onClick, dialogFn } =
+    useFormDialog({
+      getFunction: (id) => manager.Products.getById(id),
+      mutationFn: (data) => manager.Products.update(data),
+      onSuccessMessage: t("_pages:common.actions.add.successMessage"),
+      queryKey: ReactQueryKeys.Products,
+    });
 
   return {
     onClick,
@@ -39,5 +32,3 @@ function useEditProduct() {
     handleClose: close,
   };
 }
-
-export default useEditProduct;
