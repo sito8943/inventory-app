@@ -43,9 +43,7 @@ function Movements() {
 
   // #endregion
 
-  const getActions = useCallback((record) => [
-    deleteMovement.action(record.id),
-  ]);
+  const getActions = useCallback((record) => [deleteMovement.action(record)]);
 
   return (
     <main className="p-5">
