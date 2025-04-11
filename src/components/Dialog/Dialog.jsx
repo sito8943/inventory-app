@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 
 // icons
@@ -13,7 +14,15 @@ import Loading from "../Loading/Loading";
 
 function Dialog(props) {
   const { t } = useTranslation();
-  const { open = false, title, children, handleClose, isLoading } = props;
+  const {
+    open = false,
+    title,
+    children,
+    handleClose,
+    isLoading,
+    containerClassName,
+    className,
+  } = props;
 
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
@@ -55,7 +64,7 @@ function Dialog(props) {
     [t, handleClose]
   );
 
-  return (
+  return createPortal(
     <div
       name={t("_accessibility:buttons.closeDialog")}
       aria-label={t("_accessibility:ariaLabels.closeDialog")}
@@ -63,12 +72,12 @@ function Dialog(props) {
       onClick={bigHandleClose}
       className={`dialog ${styles} h-screen ${
         open ? "" : "pointer-events-none"
-      } fixed left-0 top-0 flex items-center justify-center z-10`}
+      } fixed left-0 top-0 flex items-center justify-center z-10 ${containerClassName}`}
     >
       <div
         className={`relative min-w-70 bg-alt-background p-5 rounded-2xl border-border border-2 animated ${
           open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-        }`}
+        } ${className}`}
       >
         <button
           disabled={!open}
@@ -86,7 +95,8 @@ function Dialog(props) {
         </div>
         {children}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
