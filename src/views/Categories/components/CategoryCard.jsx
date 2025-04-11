@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 // @emotion/css
 import { css } from "@emotion/css";
@@ -7,6 +8,8 @@ import { css } from "@emotion/css";
 import Actions from "../../../components/Actions/Actions";
 
 function CategoryCard(props) {
+  const { t } = useTranslation();
+
   const { id, onClick, actions, name, description, color } = props;
 
   const styles = css({
