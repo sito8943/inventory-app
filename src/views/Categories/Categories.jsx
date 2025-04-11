@@ -43,9 +43,7 @@ function Categories() {
 
   // #endregion
 
-  const getActions = useCallback((record) => [
-    deleteCategory.action(record.id),
-  ]);
+  const getActions = useCallback((record) => [deleteCategory.action(record)]);
 
   return (
     <main className="p-5">
