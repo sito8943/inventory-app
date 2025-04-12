@@ -33,6 +33,7 @@ export function useMovementLogs() {
   const { open, handleClose, handleOpen } = useDialog();
 
   const tableProps = useTableOptions({
+    emptyMessage: t("_pages:movements.empty"),
     data,
     entity: "movementLogs",
     customOptions: {
@@ -63,7 +64,7 @@ export function useMovementLogs() {
     handleOpen();
   };
 
-  const action = useMovementLogsAction({ onClick });
+  const action = useMovementLogsAction({ onClick, hidden: !data?.length });
 
   return {
     action,
