@@ -14,6 +14,7 @@
     "closeMenu": "Close menu"
   },
   "labels": {
+    "colorPicker": "Pick a color",
     "justNow": "Right now",
     "minute": "Minute",
     "minutes": "Minutes",
