@@ -1,6 +1,9 @@
-import { useState, forwardRef } from "react";
-import { SketchPicker } from "react-color";
+import { useState, forwardRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { HexColorPicker } from "react-colorful";
+
+// components
+import FormDialog from "../Dialog/FormDialog";
 
 // icons
 import { faEyeDropper } from "@fortawesome/free-solid-svg-icons";
@@ -13,13 +16,18 @@ import { css } from "@emotion/css";
 import useDialog from "../../hooks/useDialog";
 
 // components
-import Dialog from "../Dialog/Dialog";
 import TextInput from "./TextInput";
 
 const ColorInput = forwardRef(function (props, ref) {
+  const { onChange, value, ...rest } = props;
+
   const { t } = useTranslation();
 
-  const { value } = props;
+  const [color, setColor] = useState("#aabbcc");
+
+  useEffect(() => {
+    setColor(value);
+  }, [value]);
 
   const styles = css({
     backgroundColor: value,
@@ -50,9 +58,18 @@ const ColorInput = forwardRef(function (props, ref) {
           ></span>
         }
       />
-      <Dialog {...dialogProps} containerClassName={"!z-20"}>
-        <SketchPicker />
-      </Dialog>
+      <FormDialog
+        className="!min-w-60"
+        containerClassName="!z-20"
+        handleSubmit={() => {
+          dialogProps.handleClose();
+          onChange(color);
+        }}
+        title={t("_accessibility:labels.colorPicker")}
+        {...dialogProps}
+      >
+        <HexColorPicker color={color} onChange={setColor} />
+      </FormDialog>
     </>
   );
 });
