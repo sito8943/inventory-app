@@ -3,15 +3,32 @@ import { useTranslation } from "react-i18next";
 // component
 import Dialog from "./Dialog";
 
+class FormDialogProps {
+  handleSubmit = (data) => {};
+  handleClose = () => {};
+  buttonEnd = true;
+}
+
+/**
+ *
+ * @param {FormDialogProps} props
+ * @returns
+ */
 function FormDialog(props) {
   const { t } = useTranslation();
-  const { children, handleSubmit, handleClose, ...rest } = props;
+  const {
+    children,
+    handleSubmit,
+    handleClose,
+    buttonEnd = true,
+    ...rest
+  } = props;
 
   return (
     <Dialog {...rest} handleClose={handleClose}>
       <form onSubmit={handleSubmit}>
         {children}
-        <div className="flex gap-2 mt-5">
+        <div className={`flex gap-2 mt-5 ${buttonEnd ? "justify-end" : ""}`}>
           <button
             type="submit"
             className="button submit primary"
