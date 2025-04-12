@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
+import { ErrorBoundary } from "react-error-boundary";
 
 // components
 import Header from "./Header";
@@ -10,7 +11,9 @@ function View() {
   return (
     <>
       <Header />
-      <Outlet />
+      <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
+        <Outlet />
+      </ErrorBoundary>
       <Footer />
       <Notification />
       <Tooltip id="tooltip" />
