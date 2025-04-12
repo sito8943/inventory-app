@@ -4,9 +4,9 @@ import { Tooltip } from "react-tooltip";
 import RowCell from "./components/RowCell";
 
 function Table(props) {
-  const { columns, rows } = props;
+  const { columns, rows, emptyMessage = "" } = props;
 
-  return (
+  return !!rows?.length ? (
     <>
       <Tooltip id="tooltip-2" />
       <table className="">
@@ -38,6 +38,8 @@ function Table(props) {
         </tbody>
       </table>
     </>
+  ) : (
+    <p className="!text-gray-400 text-center mt-5">{emptyMessage}</p>
   );
 }
 

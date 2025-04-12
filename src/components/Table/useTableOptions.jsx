@@ -4,7 +4,13 @@ import { useTranslation } from "react-i18next";
 function useTableOptions(props) {
   const { t } = useTranslation();
 
-  const { data, entity, ignoreColumns = [], customOptions = {} } = props;
+  const {
+    data,
+    entity,
+    ignoreColumns = [],
+    customOptions = {},
+    emptyMessage = "",
+  } = props;
 
   const rows = useMemo(() => {
     if (!data) return [];
@@ -58,7 +64,7 @@ function useTableOptions(props) {
     }));
   }, [data, ignoreColumns]);
 
-  return { rows, columns };
+  return { rows, columns, emptyMessage };
 }
 
 export default useTableOptions;
