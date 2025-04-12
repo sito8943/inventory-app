@@ -71,7 +71,7 @@ function Dialog(props) {
       aria-disabled={!open}
       onClick={bigHandleClose}
       className={`dialog ${styles} h-screen ${
-        open ? "" : "pointer-events-none"
+        open ? "bg-alt-background/20 backdrop-blur-xl" : "pointer-events-none"
       } fixed left-0 top-0 flex items-center justify-center z-10 ${containerClassName}`}
     >
       <div
