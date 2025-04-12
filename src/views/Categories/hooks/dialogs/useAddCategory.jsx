@@ -14,19 +14,16 @@ export function useAddCategory() {
 
   const manager = useManager();
 
-  const { control, handleSubmit, open, close, onClick, dialogFn } =
-    useFormDialog({
-      mutationFn: (data) => manager.Categories.insert(data),
-      onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-      queryKey: ReactQueryKeys.Categories,
-    });
+  const { handleSubmit, close, dialogFn, ...rest } = useFormDialog({
+    mutationFn: (data) => manager.Categories.insert(data),
+    onSuccessMessage: t("_pages:common.actions.add.successMessage"),
+    queryKey: ReactQueryKeys.Categories,
+  });
 
   return {
-    onClick,
     title: t("_pages:categories.forms.add"),
-    open,
-    control,
     handleSubmit: handleSubmit((data) => dialogFn.mutate(data)),
     handleClose: close,
+    ...rest,
   };
 }

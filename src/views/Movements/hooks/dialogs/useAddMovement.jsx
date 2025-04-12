@@ -14,19 +14,16 @@ export function useAddMovement() {
 
   const manager = useManager();
 
-  const { control, handleSubmit, open, close, onClick, dialogFn } =
-    useFormDialog({
-      mutationFn: (data) => manager.Movements.insert(data),
-      onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-      queryKey: ReactQueryKeys.Movements,
-    });
+  const { handleSubmit, close, dialogFn, ...rest } = useFormDialog({
+    mutationFn: (data) => manager.Movements.insert(data),
+    onSuccessMessage: t("_pages:common.actions.add.successMessage"),
+    queryKey: ReactQueryKeys.Movements,
+  });
 
   return {
-    onClick,
     title: t("_pages:movements.forms.add"),
-    open,
-    control,
     handleSubmit: handleSubmit((data) => dialogFn.mutate(data)),
     handleClose: close,
+    ...rest,
   };
 }

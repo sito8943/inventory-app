@@ -14,21 +14,17 @@ export function useEditProduct() {
 
   const manager = useManager();
 
-  const { control, isLoading, handleSubmit, open, close, onClick, dialogFn } =
-    useFormDialog({
-      getFunction: (id) => manager.Products.getById(id),
-      mutationFn: (data) => manager.Products.update(data),
-      onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-      queryKey: ReactQueryKeys.Products,
-    });
+  const { handleSubmit, close, dialogFn, ...rest } = useFormDialog({
+    getFunction: (id) => manager.Products.getById(id),
+    mutationFn: (data) => manager.Products.update(data),
+    onSuccessMessage: t("_pages:common.actions.add.successMessage"),
+    queryKey: ReactQueryKeys.Products,
+  });
 
   return {
-    onClick,
     title: t("_pages:products.forms.edit"),
-    open,
-    control,
-    isLoading,
     handleSubmit: handleSubmit((data) => dialogFn.mutate(data)),
     handleClose: close,
+    ...rest,
   };
 }

@@ -14,16 +14,7 @@ export function useEditMovement() {
 
   const manager = useManager();
 
-  const {
-    control,
-    isLoading,
-    handleSubmit,
-    open,
-    close,
-    onClick,
-    dialogFn,
-    getValues,
-  } = useFormDialog({
+  const { handleSubmit, close, dialogFn, ...rest } = useFormDialog({
     getFunction: (id) => manager.Movements.getById(id),
     mutationFn: (data) => manager.Movements.update(data),
     onSuccessMessage: t("_pages:common.actions.add.successMessage"),
@@ -31,13 +22,9 @@ export function useEditMovement() {
   });
 
   return {
-    onClick,
-    getValues,
     title: t("_pages:movements.forms.edit"),
-    open,
-    control,
-    isLoading,
     handleSubmit: handleSubmit((data) => dialogFn.mutate(data)),
     handleClose: close,
+    ...rest,
   };
 }

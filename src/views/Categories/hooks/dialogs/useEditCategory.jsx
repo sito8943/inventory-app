@@ -14,21 +14,17 @@ export function useEditCategory() {
 
   const manager = useManager();
 
-  const { control, isLoading, handleSubmit, open, close, onClick, dialogFn } =
-    useFormDialog({
-      getFunction: (id) => manager.Categories.getById(id),
-      mutationFn: (data) => manager.Categories.update(data),
-      onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-      queryKey: ReactQueryKeys.Categories,
-    });
+  const { handleSubmit, close, dialogFn, ...rest } = useFormDialog({
+    getFunction: (id) => manager.Categories.getById(id),
+    mutationFn: (data) => manager.Categories.update(data),
+    onSuccessMessage: t("_pages:common.actions.add.successMessage"),
+    queryKey: ReactQueryKeys.Categories,
+  });
 
   return {
-    onClick,
     title: t("_pages:categories.forms.edit"),
-    open,
-    control,
-    isLoading,
     handleSubmit: handleSubmit((data) => dialogFn.mutate(data)),
     handleClose: close,
+    ...rest,
   };
 }
