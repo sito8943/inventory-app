@@ -11,13 +11,17 @@ import {
   faCircleCheck,
   faClose,
 } from "@fortawesome/free-solid-svg-icons";
+import { createPortal } from "react-dom";
 
 function Notification() {
   const { t } = useTranslation();
 
   const { notification, removeNotification, timer } = useNotification();
 
-  const onClose = (index) => removeNotification(index);
+  const onClose = useCallback(
+    (index) => removeNotification(index),
+    [removeNotification]
+  );
 
   const renderIcon = useCallback((type) => {
     switch (type) {
@@ -43,22 +47,27 @@ function Notification() {
     if (timer) setTimeout(() => onClose(), timer);
   }, [timer, onClose]);
 
-  return (
+  useEffect(() => {
+    window.addEventListener("click", onClose);
+    return () => {
+      window.removeEventListener("click", onClose);
+    };
+  }, [onClose]);
+
+  return createPortal(
     <div
-      onClick={() => onClose()}
-      name={t("_accessibility:buttons.closeOutsideNotification")}
-      aria-label={t("_accessibility:ariaLabels.closeOutsideNotification")}
-      className={`bottom-0 left-0 p-2 gap-2 flex flex-col justify-end items-start fixed z-10 ${
-        notification?.length ? "w-screen h-screen" : "pointer-events-none"
-      }`}
+      className={`bottom-0 left-0 p-2 gap-2 flex flex-col justify-end items-start fixed z-30 ${
+        notification?.length ? "w-screen h-screen" : ""
+      } pointer-events-none`}
     >
       {notification?.length
         ? notification?.map(({ id, type, message }, i) => (
             <div
+              name={`notification-${id}`}
               key={id}
               className={`relative apparition z-10 bg-alt-background p-4 pl-2.5 rounded-2xl ${textColor(
                 type
-              )} flex justify-between gap-2 items-center min-w-40 max-xs:w-full`}
+              )} pointer-events-auto flex justify-between gap-2 items-center min-w-40 max-xs:w-full`}
             >
               <div className="flex gap-3 items-center">
                 <FontAwesomeIcon icon={renderIcon(type)} />
@@ -78,7 +87,8 @@ function Notification() {
             </div>
           ))
         : null}
-    </div>
+    </div>,
+    document.body
   );
 }
 
