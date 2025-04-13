@@ -6,12 +6,13 @@ import { ErrorBoundary } from "react-error-boundary";
 import Header from "./Header";
 import Footer from "./Footer";
 import Notification from "../../components/Notification/Notification";
+import Error from "../../components/Error/Error";
 
 function View() {
   return (
     <>
       <Header />
-      <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
+      <ErrorBoundary fallback={<Error />}>
         <Outlet />
       </ErrorBoundary>
       <Footer />
