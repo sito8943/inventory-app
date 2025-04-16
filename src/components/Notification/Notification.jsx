@@ -48,11 +48,13 @@ function Notification() {
   }, [timer, onClose]);
 
   useEffect(() => {
-    window.addEventListener("click", onClose);
+      if (notification?.length)
+          window.addEventListener("click", () => onClose());
     return () => {
-      window.removeEventListener("click", onClose);
+        if (notification?.length)
+          window.removeEventListener("click", () => onClose());
     };
-  }, [onClose]);
+  }, [notification, onClose]);
 
   return createPortal(
     <div

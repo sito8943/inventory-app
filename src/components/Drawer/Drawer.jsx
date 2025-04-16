@@ -9,12 +9,12 @@ const sitemap = [
     path: "/",
   },
   {
-    name: "products",
-    path: "/products",
-  },
-  {
     name: "categories",
     path: "/categories",
+  },
+  {
+    name: "products",
+    path: "/products",
   },
   {
     name: "movements",
