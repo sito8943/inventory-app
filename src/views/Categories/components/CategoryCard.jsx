@@ -28,7 +28,13 @@ function CategoryCard(props) {
           <span className={`${styles} w-3 h-3 rounded-full`}></span>
           <h3 className="text-white text-start">{name}</h3>
         </div>
-        <p className="text-start text-sm !text-gray-400">{description}</p>
+        {description ? (
+          <p className="text-start text-sm !text-gray-400">{description}</p>
+        ) : (
+          <p className="italic text-start !text-xs !text-gray-500">
+            {t("_pages:categories.inputs.description.empty")}
+          </p>
+        )}
       </button>
 
       <Actions actions={actions} />

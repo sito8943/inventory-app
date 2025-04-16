@@ -115,6 +115,7 @@
       },
       "description": {
         "name": "Descripción",
+        "empty": "No hay descripción",
         "placeholder": "Alguna descripción"
       },
       "color": {

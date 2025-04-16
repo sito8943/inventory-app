@@ -115,6 +115,7 @@
       },
       "description": {
         "name": "Description",
+        "empty": "No description",
         "placeholder": "Some description"
       },
       "color": {
