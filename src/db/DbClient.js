@@ -96,8 +96,8 @@ class DbClient {
         `INSERT into ${table} (${
           attributes ?? Object.keys(value).toString()
         }) VALUES (${Object.values(value)
-          .map((value) =>
-            typeof value === "string" ? `'${value ?? ""}'` : value ?? 0
+          .map((val) =>
+            typeof val === "string" ? `'${val ?? ""}'` : val ?? 'null'
           )
           .toString()})`
       );
