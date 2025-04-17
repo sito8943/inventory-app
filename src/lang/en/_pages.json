@@ -1,4 +1,4 @@
-{
+
   "home": {
     "title": "Home",
     "appName": "Inventory"
@@ -72,6 +72,7 @@
       },
       "description": {
         "name": "Description",
+        "empty": "No description",
         "placeholder": "Some description"
       },
       "category": {

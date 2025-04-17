@@ -35,7 +35,13 @@ function ProductCard(props) {
             {stock} {t("_pages:products.inputs.stock.label")}
           </p>
         </div>
-        <p className="text-start text-sm !text-gray-400">{description}</p>
+        {description ? (
+          <p className="text-start text-sm !text-gray-400">{description}</p>
+        ) : (
+          <p className="italic text-start !text-xs !text-gray-500">
+            {t("_pages:products.inputs.description.empty")}
+          </p>
+        )}
       </button>
 
       <Actions actions={actions} />
