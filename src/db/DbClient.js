@@ -8,7 +8,7 @@ function getValueForSql(value) {
 }
 
 function getOperatorForSql(value) {
-  return   value && value.not !== undefined
+  return value && value.not !== undefined
     ? value.not === null
       ? "IS NOT"
       : "!="
@@ -194,8 +194,6 @@ class DbClient {
       }
 
       sql += parseWhere(query, table, relationships);
-
-      console.log(sql);
 
       const result = await this.db.select(sql);
 
