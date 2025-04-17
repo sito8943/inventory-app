@@ -28,6 +28,7 @@
     "inputs": {
       "name": {
         "name": "Nombre",
+        "unique": "Ya existe un movimiento con ese nombre",
         "placeholder": "Ej: "
       },
       "type": {
@@ -67,11 +68,13 @@
     "inputs": {
       "name": {
         "name": "Nombre",
+        "unique": "Ya existe un producto con ese nombre",
         "placeholder": "Ej: Pizza",
         "required": "El nombre es obligatorio"
       },
       "description": {
         "name": "Descripción",
+        "empty": "Sin descripción",
         "placeholder": "Alguna descripción"
       },
       "category": {
@@ -110,12 +113,13 @@
     "inputs": {
       "name": {
         "name": "Nombre",
+        "unique": "Ya existe una categoría con ese nombre",
         "placeholder": "Ej: Bebidas",
         "required": "El nombre es obligatorio"
       },
       "description": {
         "name": "Descripción",
-        "empty": "No hay descripción",
+        "empty": "Sin descripción",
         "placeholder": "Alguna descripción"
       },
       "color": {

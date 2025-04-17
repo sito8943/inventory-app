@@ -1,5 +1,22 @@
 import Database from "@tauri-apps/plugin-sql";
 
+function getValueForSql(value) {
+  const realValue = value && value.not !== undefined ? value.not : value;
+  return typeof realValue === "string"
+    ? `'${realValue ?? ""}'`
+    : (realValue ?? "null");
+}
+
+function getOperatorForSql(value) {
+  return   value && value.not !== undefined
+    ? value.not === null
+      ? "IS NOT"
+      : "!="
+    : value === null
+      ? "IS"
+      : "=";
+}
+
 /**
  *
  * @param {object[] | object} query
@@ -26,17 +43,8 @@ function parseWhere(query, table, relationships, recall = false) {
       ` ` +
       values
         .map((value) => {
-          const operator =
-            value.not !== undefined
-              ? value.not === null
-                ? "IS NOT"
-                : "!="
-              : value === null
-              ? "IS"
-              : "=";
-          return `${property} ${operator} ${
-            value.not !== undefined ? value.not : value
-          }`;
+          const operator = getOperatorForSql(value);
+          return `${property} ${operator} ${getValueForSql(value)}`;
         })
         .join(` ${logic} `);
   } else {
@@ -47,18 +55,12 @@ function parseWhere(query, table, relationships, recall = false) {
       ` ` +
       conditions
         .map((key, i) => {
-          const fieldValue =
-            query[key] && query[key].not !== undefined
-              ? query[key].not
-              : query[key];
+          const fieldValue = getValueForSql(query[key]);
           const fieldName =
             relationships?.length && key.indexOf(".") === -1
               ? `${table}.${key}`
               : key;
-          const operator =
-            query[key] && query[key].not !== undefined
-              ? `${query[key].not === null ? "IS NOT" : "!="}`
-              : `${query[key] === null ? "IS" : "="}`;
+          const operator = getOperatorForSql(query[key]);
           return `${fieldName} ${operator} ${fieldValue}`;
         })
         .join(" AND ");
@@ -96,10 +98,8 @@ class DbClient {
         `INSERT into ${table} (${
           attributes ?? Object.keys(value).toString()
         }) VALUES (${Object.values(value)
-          .map((val) =>
-            typeof val === "string" ? `'${val ?? ""}'` : val ?? 'null'
-          )
-          .toString()})`
+          .map((val) => getValueForSql(val))
+          .toString()})`,
       );
 
       return result;
@@ -125,7 +125,7 @@ class DbClient {
           (key) =>
             `${key} = ${
               typeof values[key] === "string" ? `"${values[key]}"` : values[key]
-            }`
+            }`,
         )
         .join(", ");
 
@@ -146,8 +146,8 @@ class DbClient {
 
       const result = await this.db.execute(
         `UPDATE ${table} SET deletedAt = CURRENT_TIMESTAMP WHERE id IN (${ids.join(
-          ","
-        )})`
+          ",",
+        )})`,
       );
 
       return result;
@@ -194,6 +194,8 @@ class DbClient {
       }
 
       sql += parseWhere(query, table, relationships);
+
+      console.log(sql);
 
       const result = await this.db.select(sql);
 

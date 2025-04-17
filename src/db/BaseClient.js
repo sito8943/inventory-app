@@ -1,5 +1,8 @@
 import DbClient from "./DbClient";
 
+// lib
+import ValidationError from "../lib/ValidationError";
+
 export default class BaseClient {
   db = new DbClient();
   table = "";
@@ -7,6 +10,22 @@ export default class BaseClient {
 
   async validates(row, event) {
     if (this.validator[event]) return await this.validator[event](row);
+    return false;
+  }
+
+  static async UniqueValue(dbClient, table, column, value) {
+    const colQuery = {};
+    colQuery[column] = value;
+    const noEntries = await dbClient.select(table, [
+      {
+        deletedAt: null,
+      },
+      {
+        ...colQuery,
+      },
+    ]);
+      console.log(noEntries)
+    if (noEntries.length > 0) return new ValidationError([column, "unique"]);
     return false;
   }
 

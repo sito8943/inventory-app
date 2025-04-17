@@ -6,6 +6,7 @@ import ValidationError from "../lib/ValidationError";
 
 // enum
 import { Tables, WhereLogic } from "./types/dbUtils";
+import { UniqueColumns } from "./types/products.js";
 
 export default class CategoryClient extends BaseClient {
   /**
@@ -16,6 +17,16 @@ export default class CategoryClient extends BaseClient {
     const validations = () => {
       const onInsert = async (row) => {
         if (!row.name) return new ValidationError(["name", "required"]);
+        // check uniqueness
+        for (const col of UniqueColumns) {
+          const exist = await BaseClient.UniqueValue(
+            dbClient,
+            Tables.Categories,
+            col,
+            row[col],
+          );
+          if (exist) return exist;
+        }
         return false;
       };
       const onUpdate = onInsert;

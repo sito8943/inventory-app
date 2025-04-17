@@ -6,6 +6,7 @@ import { ServiceError, ValidationError } from "../lib/";
 
 // enum
 import { MovementTypes, MovementDto, Tables } from "./types";
+import { UniqueColumns } from "./types/products";
 
 export default class ProductClient extends BaseClient {
   /**
@@ -16,6 +17,16 @@ export default class ProductClient extends BaseClient {
     const validations = () => {
       const onInsert = async (row) => {
         if (!row.name) return new ValidationError(["name", "required"]);
+        // check uniqueness
+        for (const col of UniqueColumns) {
+          const exist = await BaseClient.UniqueValue(
+            dbClient,
+            Tables.Products,
+            col,
+            row[col],
+          );
+          if (exist) return exist;
+        }
         if (row.category == 0)
           return new ValidationError(["category", "invalid"]);
         return false;
@@ -100,7 +111,7 @@ export default class ProductClient extends BaseClient {
       Tables.MovementLogs,
       { product: id },
       "movementLogs.id as id, movements.name as movement, movementLogs.stock as stock, movementLogs.result as result,movementLogs.createdAt as createdAt",
-      [{ table: "movements", on: "movements.id = movementLogs.movement" }]
+      [{ table: "movements", on: "movements.id = movementLogs.movement" }],
     );
 
     return logs;

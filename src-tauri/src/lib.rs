@@ -76,7 +76,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(
             tauri_plugin_sql::Builder::default()
-                .add_migrations("sqlite:base.db", migrations)
+                .add_migrations("sqlite:inventory-db.db", migrations)
                 .build()
         )
         .plugin(tauri_plugin_opener::init())

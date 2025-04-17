@@ -61,9 +61,11 @@ const ColorInput = forwardRef(function (props, ref) {
       <FormDialog
         className="!min-w-60"
         containerClassName="!z-20"
-        handleSubmit={() => {
+        handleSubmit={(e) => {
           dialogProps.handleClose();
           onChange(color);
+          e.preventDefault();
+          e.stopPropagation();
         }}
         title={t("_accessibility:labels.colorPicker")}
         {...dialogProps}

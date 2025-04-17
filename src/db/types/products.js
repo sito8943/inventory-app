@@ -3,6 +3,8 @@ export const MovementTypes = {
   OUT: 2,
 };
 
+export const UniqueColumns = ["name"]
+
 export const types = [
   {
     id: 1,

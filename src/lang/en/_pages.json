@@ -28,6 +28,7 @@
     "inputs": {
       "name": {
         "name": "Name",
+        "unique": "There is a movement with that name already",
         "placeholder": "Ex: "
       },
       "type": {
@@ -67,6 +68,7 @@
     "inputs": {
       "name": {
         "name": "Name",
+        "unique": "There is a product with that name already",
         "placeholder": "Ex: Pizza",
         "required": "Name is required"
       },
@@ -112,6 +114,7 @@
       "name": {
         "name": "Name",
         "placeholder": "Ex: Drinks",
+        "unique": "There is a category with that name already",
         "required": "Name is required"
       },
       "description": {
