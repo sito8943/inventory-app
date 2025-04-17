@@ -64,7 +64,7 @@ export function useMovementLogs() {
     handleOpen();
   };
 
-  const action = useMovementLogsAction({ onClick, hidden: !data?.length });
+  const action = useMovementLogsAction({ onClick });
 
   return {
     action,
