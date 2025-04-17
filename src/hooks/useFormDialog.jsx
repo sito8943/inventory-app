@@ -69,10 +69,10 @@ function useFormDialog(props) {
     });
   }, []);
 
-  const onClick = (id) => {
+  const onClick = useCallback((id) => {
     setId(id);
     handleOpen();
-  };
+  }, [handleOpen]);
 
   const close = useCallback(() => {
     releaseFormError();

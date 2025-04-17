@@ -7,9 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useManager } from "../../../providers/ManagerProvider";
 
 // components
-import FormDialog from "../../../components/Dialog/FormDialog";
-import TextInput from "../../../components/Form/TextInput";
-import SelectInput from "../../../components/Form/SelectInput";
+import { FormDialog, TextInput, SelectInput } from "../../../components";
 
 // utils
 import { ReactQueryKeys } from "../../../utils/queryKey";
@@ -27,12 +25,10 @@ function DoMovementForm(props) {
       manager.Movements.get({ deletedAt: null }, "id,name as value"),
   });
 
-  const movementOptions = useMemo(() => {
-    return [
-      { id: 0, value: t("_pages:products.inputs.movement.name") },
-      ...(movements?.data ?? []),
-    ];
-  }, [movements.data]);
+  const movementOptions = useMemo(
+    () => [...(movements?.data ?? [])],
+    [movements.data],
+  );
 
   return (
     <div className="flex flex-col gap-5">

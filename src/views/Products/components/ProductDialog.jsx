@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, memo } from "react";
 import { useTranslation } from "react-i18next";
 import { Controller } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ import ParagraphInput from "../../../components/Form/ParagraphInput";
 // utils
 import { ReactQueryKeys } from "../../../utils/queryKey";
 
-export function ProductForm(props) {
+export const ProductForm = (props) => {
   const { control, isLoading } = props;
   const { t } = useTranslation();
 
@@ -28,12 +28,10 @@ export function ProductForm(props) {
       manager.Categories.get({ deletedAt: null }, "id,name as value"),
   });
 
-  const categoryOptions = useMemo(() => {
-    return [
-      { id: 0, value: t("_pages:products.inputs.category.name") },
-      ...(categories?.data ?? []),
-    ];
-  }, [categories.data]);
+  const categoryOptions = useMemo(
+    () => [...(categories?.data ?? [])],
+    [categories.data],
+  );
 
   return (
     <div className="flex flex-col gap-5">
@@ -109,7 +107,7 @@ export function ProductForm(props) {
       />
     </div>
   );
-}
+};
 
 export function AddProductDialog(props) {
   return (

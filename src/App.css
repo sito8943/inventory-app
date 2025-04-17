@@ -96,7 +96,6 @@ button {
   @apply bg-primary hover:bg-hover-primary text-black;
 }
 
-
 main {
   min-height: calc(100vh - 40px);
   @apply bg-background;
@@ -154,4 +153,12 @@ main p {
   100% {
     rotate: 360deg;
   }
+}
+
+.chip {
+    @apply rounded-xl px-3 py-1;
+}
+
+.chip.primary {
+  @apply bg-primary text-black;
 }

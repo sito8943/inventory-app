@@ -14,12 +14,10 @@ export function MovementForm(props) {
   const { control, isLoading, getValues } = props;
   const { t } = useTranslation();
 
-  const typeOptions = useMemo(() => {
-    return [
-      { id: 0, value: t("_pages:movements.inputs.type.name") },
-      ...(types?.map(({ id, label }) => ({ id, value: label })) ?? []),
-    ];
-  }, []);
+  const typeOptions = useMemo(
+    () => [...(types?.map(({ id, label }) => ({ id, value: label })) ?? [])],
+    [],
+  );
 
   return (
     <div className="flex flex-col gap-5">
