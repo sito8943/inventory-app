@@ -16,7 +16,7 @@ import { ColorInput, ParagraphInput, SelectInput, TextInput } from "./Form";
 
 export {
   Page,
-    PrettyGrid,
+  PrettyGrid,
   Chip,
   Loading,
   Table,

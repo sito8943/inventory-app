@@ -26,7 +26,7 @@ export default class CategoryClient extends BaseClient {
             row[col],
           );
           if (exist && exist.id !== row.id)
-            return new ValidationError([column, "unique"])
+            return new ValidationError([column, "unique"]);
         }
         return false;
       };
