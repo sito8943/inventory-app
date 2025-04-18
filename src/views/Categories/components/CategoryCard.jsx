@@ -26,15 +26,11 @@ function CategoryCard(props) {
       >
         <div className="flex items-center gap-2 justify-start">
           <span className={`${styles} w-3 h-3 rounded-full`}></span>
-          <h3 className="text-white text-start">{name}</h3>
+          <h3 className="!text-gray-200 text-lg text-start">{name}</h3>
         </div>
-        {description ? (
-          <p className="text-start text-sm !text-gray-400">{description}</p>
-        ) : (
-          <p className="italic text-start !text-xs !text-gray-500">
-            {t("_pages:categories.inputs.description.empty")}
-          </p>
-        )}
+        <p className="text-sm text-start">
+          {description ?? t("_pages:categories.inputs.description.empty")}
+        </p>
       </button>
 
       <Actions actions={actions} />

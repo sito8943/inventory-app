@@ -32,7 +32,7 @@ function MovementCard(props) {
         onClick={() => onClick(id)}
       >
         <div className="flex flex-col items-start gap-2 justify-start">
-          <h3 className="text-xl text-white text-start">{name}</h3>
+          <h3 className="text-lg text-gray-200 text-start">{name}</h3>
           <div className="flex gap-2 items-center">
             <FontAwesomeIcon
               className="text-primary text-xl"

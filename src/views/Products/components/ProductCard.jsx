@@ -45,12 +45,8 @@ function ProductCard(props) {
         aria-label={t("_pages:products.forms.editAria")}
         onClick={() => onClick(id)}
       >
-        <div className="flex justify-between items-start">
-          <h3 className="text-lg text-start !text-gray-200">
-            {name}
-          </h3>
-        </div>
-        <p className="text-sm text-gray-500 text-start">
+        <h3 className="text-lg text-start !text-gray-200">{name}</h3>
+        <p className="text-sm text-start">
           {description ?? t("_pages:products.inputs.description.empty")}
         </p>
 
