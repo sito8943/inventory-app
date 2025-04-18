@@ -46,7 +46,7 @@ function ProductCard(props) {
         onClick={() => onClick(id)}
       >
         <div className="flex justify-between items-start">
-          <h3 className="text-lg text-start font-semibold !text-gray-200">
+          <h3 className="text-lg text-start !text-gray-200">
             {name}
           </h3>
         </div>

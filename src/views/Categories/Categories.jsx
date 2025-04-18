@@ -9,7 +9,7 @@ import { useManager } from "../../providers/ManagerProvider";
 import { ReactQueryKeys } from "../../utils/queryKey";
 
 // components
-import { AddCard, Loading, ConfirmationDialog } from "../../components";
+import { Page, AddCard, Loading, ConfirmationDialog } from "../../components";
 import {
   CategoryCard,
   AddCategoryDialog,
@@ -46,32 +46,24 @@ function Categories() {
   const getActions = useCallback((record) => [deleteCategory.action(record)]);
 
   return (
-    <main className="p-5">
-      <div className="apparition flex flex-col gap-5">
-        <h2 className="text-xl">{t("_pages:categories.title")}</h2>
-        {isLoading ? (
-          <Loading
-            size="text-3xl"
-            containerClassName="flex justify-center items-center h-50"
-          />
-        ) : data?.length ? (
-          <ul className="flex flex-wrap max-xs:flex-col gap-5">
-            {data?.map((category) => (
-              <li key={category.id}>
-                <CategoryCard
-                  actions={getActions(category)}
-                  onClick={(id) => editCategory.onClick(id)}
-                  {...category}
-                />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="!text-gray-400 text-center mt-5">
-            {t("_pages:categories.empty")}
-          </p>
-        )}
-      </div>
+    <Page title={t("_pages:categories.title")} isLoading={isLoading}>
+      {data?.length ? (
+        <ul className="flex flex-wrap max-xs:flex-col gap-5">
+          {data?.map((category) => (
+            <li key={category.id}>
+              <CategoryCard
+                actions={getActions(category)}
+                onClick={(id) => editCategory.onClick(id)}
+                {...category}
+              />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="!text-gray-400 text-center mt-5">
+          {t("_pages:categories.empty")}
+        </p>
+      )}
       <AddCard
         disabled={isLoading}
         onClick={addCategory.onClick}
@@ -82,7 +74,7 @@ function Categories() {
       <AddCategoryDialog {...addCategory} />
       <EditCategoryDialog {...editCategory} />
       <ConfirmationDialog {...deleteCategory} />
-    </main>
+    </Page>
   );
 }
 

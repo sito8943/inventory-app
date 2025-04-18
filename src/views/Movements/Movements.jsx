@@ -9,7 +9,7 @@ import { useManager } from "../../providers/ManagerProvider";
 import { ReactQueryKeys } from "../../utils/queryKey";
 
 // components
-import { AddCard, Loading, ConfirmationDialog } from "../../components";
+import { Page, AddCard, Loading, ConfirmationDialog } from "../../components";
 import {
   MovementCard,
   AddMovementDialog,
@@ -46,32 +46,24 @@ function Movements() {
   const getActions = useCallback((record) => [deleteMovement.action(record)]);
 
   return (
-    <main className="p-5">
-      <div className="apparition flex flex-col gap-5">
-        <h2 className="text-xl">{t("_pages:movements.title")}</h2>
-        {isLoading ? (
-          <Loading
-            size="text-3xl"
-            containerClassName="flex justify-center items-center h-50"
-          />
-        ) : data?.length ? (
-          <ul className="flex flex-wrap max-xs:flex-col gap-5">
-            {data?.map((movement) => (
-              <li key={movement.id}>
-                <MovementCard
-                  actions={getActions(movement)}
-                  onClick={(id) => editMovement.onClick(id)}
-                  {...movement}
-                />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="!text-gray-400 text-center mt-5">
-            {t("_pages:movements.empty")}
-          </p>
-        )}
-      </div>
+    <Page title={t("_pages:movements.title")} isLoading={isLoading}>
+      {data?.length ? (
+        <ul className="flex flex-wrap max-xs:flex-col gap-5">
+          {data?.map((movement) => (
+            <li key={movement.id}>
+              <MovementCard
+                actions={getActions(movement)}
+                onClick={(id) => editMovement.onClick(id)}
+                {...movement}
+              />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="!text-gray-400 text-center mt-5">
+          {t("_pages:movements.empty")}
+        </p>
+      )}
       <AddCard
         disabled={isLoading}
         onClick={addMovement.onClick}
@@ -82,7 +74,7 @@ function Movements() {
       <AddMovementDialog {...addMovement} />
       <EditMovementDialog {...editMovement} />
       <ConfirmationDialog {...deleteMovement} />
-    </main>
+    </Page>
   );
 }
 

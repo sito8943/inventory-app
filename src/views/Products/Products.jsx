@@ -9,7 +9,7 @@ import { useManager } from "../../providers/ManagerProvider";
 import { ReactQueryKeys } from "../../utils/queryKey";
 
 // components
-import { AddCard, Loading, ConfirmationDialog } from "../../components";
+import { Page, AddCard, Loading, ConfirmationDialog } from "../../components";
 import {
   ProductCard,
   AddProductDialog,
@@ -41,7 +41,7 @@ function Products() {
       manager.Products.get(
         { deletedAt: null },
         "products.*, categories.id as categoryId,categories.name as categoryName,categories.color",
-        [{ table: "categories", on: "products.category = categories.id" }]
+        [{ table: "categories", on: "products.category = categories.id" }],
       ),
   });
 
@@ -68,32 +68,24 @@ function Products() {
   ]);
 
   return (
-    <main className="p-5">
-      <div className="apparition flex flex-col gap-5">
-        <h2 className="text-xl">{t("_pages:products.title")}</h2>
-        {isLoading ? (
-          <Loading
-            size="text-3xl"
-            containerClassName="flex justify-center items-center h-50"
-          />
-        ) : data?.length ? (
-          <ul className="flex flex-wrap max-xs:flex-col gap-5">
-            {data?.map((product) => (
-              <li key={product.id}>
-                <ProductCard
-                  actions={getActions(product)}
-                  onClick={(id) => editProduct.onClick(id)}
-                  {...product}
-                />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="!text-gray-400 text-center mt-5">
-            {t("_pages:products.empty")}
-          </p>
-        )}
-      </div>
+    <Page title={t("_pages:products.title")} isLoading={isLoading}>
+      {data?.length ? (
+        <ul className="flex flex-wrap max-xs:flex-col gap-5">
+          {data?.map((product) => (
+            <li key={product.id}>
+              <ProductCard
+                actions={getActions(product)}
+                onClick={(id) => editProduct.onClick(id)}
+                {...product}
+              />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="!text-gray-400 text-center mt-5">
+          {t("_pages:products.empty")}
+        </p>
+      )}
       <AddCard
         disabled={isLoading}
         onClick={addProduct.onClick}
@@ -106,7 +98,7 @@ function Products() {
       <DoMovementDialog {...doMovement} />
       <MovementLogsDialog {...movementLogs} />
       <ConfirmationDialog {...deleteProduct} />
-    </main>
+    </Page>
   );
 }
 
