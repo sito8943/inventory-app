@@ -9,7 +9,7 @@ import { useManager } from "../../providers/ManagerProvider";
 import { ReactQueryKeys } from "../../utils/queryKey";
 
 // components
-import { Page, AddCard, Loading, ConfirmationDialog } from "../../components";
+import { Page, PrettyGrid, AddCard, Loading, ConfirmationDialog } from "../../components";
 import {
   MovementCard,
   AddMovementDialog,
@@ -47,23 +47,18 @@ function Movements() {
 
   return (
     <Page title={t("_pages:movements.title")} isLoading={isLoading}>
-      {data?.length ? (
-        <ul className="flex flex-wrap max-xs:flex-col gap-5">
-          {data?.map((movement) => (
-            <li key={movement.id}>
-              <MovementCard
-                actions={getActions(movement)}
-                onClick={(id) => editMovement.onClick(id)}
-                {...movement}
-              />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="!text-gray-400 text-center mt-5">
-          {t("_pages:movements.empty")}
-        </p>
-      )}
+      <PrettyGrid
+        data={data}
+        emptyMessage={t("_pages:movements.empty")}
+        renderComponent={(movement) => (
+          <MovementCard
+            actions={getActions(movement)}
+            onClick={(id) => editMovement.onClick(id)}
+            {...movement}
+          />
+        )}
+      />
+
       <AddCard
         disabled={isLoading}
         onClick={addMovement.onClick}

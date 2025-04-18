@@ -11,10 +11,12 @@ import FormDialog from "./Dialog/FormDialog";
 import Loading from "./Loading/Loading";
 import Chip from "./Chip/Chip";
 import Page from "./Page/Page";
+import PrettyGrid from "./PrettyGrid/PrettyGrid";
 import { ColorInput, ParagraphInput, SelectInput, TextInput } from "./Form";
 
 export {
   Page,
+    PrettyGrid,
   Chip,
   Loading,
   Table,

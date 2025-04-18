@@ -9,7 +9,13 @@ import { useManager } from "../../providers/ManagerProvider";
 import { ReactQueryKeys } from "../../utils/queryKey";
 
 // components
-import { Page, AddCard, Loading, ConfirmationDialog } from "../../components";
+import {
+  Page,
+  PrettyGrid,
+  AddCard,
+  Loading,
+  ConfirmationDialog,
+} from "../../components";
 import {
   CategoryCard,
   AddCategoryDialog,
@@ -47,23 +53,18 @@ function Categories() {
 
   return (
     <Page title={t("_pages:categories.title")} isLoading={isLoading}>
-      {data?.length ? (
-        <ul className="flex flex-wrap max-xs:flex-col gap-5">
-          {data?.map((category) => (
-            <li key={category.id}>
-              <CategoryCard
-                actions={getActions(category)}
-                onClick={(id) => editCategory.onClick(id)}
-                {...category}
-              />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="!text-gray-400 text-center mt-5">
-          {t("_pages:categories.empty")}
-        </p>
-      )}
+      <PrettyGrid
+        data={data}
+        emptyMessage={t("_pages:categories.empty")}
+        renderComponent={(category) => (
+          <CategoryCard
+            actions={getActions(category)}
+            onClick={(id) => editCategory.onClick(id)}
+            {...category}
+          />
+        )}
+      />
+
       <AddCard
         disabled={isLoading}
         onClick={addCategory.onClick}

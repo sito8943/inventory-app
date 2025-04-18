@@ -9,7 +9,13 @@ import { useManager } from "../../providers/ManagerProvider";
 import { ReactQueryKeys } from "../../utils/queryKey";
 
 // components
-import { Page, AddCard, Loading, ConfirmationDialog } from "../../components";
+import {
+  Page,
+  PrettyGrid,
+  AddCard,
+  Loading,
+  ConfirmationDialog,
+} from "../../components";
 import {
   ProductCard,
   AddProductDialog,
@@ -69,23 +75,17 @@ function Products() {
 
   return (
     <Page title={t("_pages:products.title")} isLoading={isLoading}>
-      {data?.length ? (
-        <ul className="flex flex-wrap max-xs:flex-col gap-5">
-          {data?.map((product) => (
-            <li key={product.id}>
-              <ProductCard
-                actions={getActions(product)}
-                onClick={(id) => editProduct.onClick(id)}
-                {...product}
-              />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="!text-gray-400 text-center mt-5">
-          {t("_pages:products.empty")}
-        </p>
-      )}
+      <PrettyGrid
+        data={data}
+        emptyMessage={t("_pages:products.empty")}
+        renderComponent={(product) => (
+          <ProductCard
+            actions={getActions(product)}
+            onClick={(id) => editProduct.onClick(id)}
+            {...product}
+          />
+        )}
+      />
       <AddCard
         disabled={isLoading}
         onClick={addProduct.onClick}
