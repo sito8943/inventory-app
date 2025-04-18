@@ -4,9 +4,9 @@
  * @returns Chip component
  */
 const Chip = (props) => {
-  const { text, variant = "primary", className } = props;
+  const { text, children, variant = "primary", className, ...rest } = props;
 
-  return <div className={`chip ${variant} ${className}`}>{text}</div>;
+  return <div className={`chip ${variant} ${className}`} {...rest}>{text ?? children}</div>;
 };
 
 export default Chip
