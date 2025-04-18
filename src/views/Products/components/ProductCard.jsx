@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faBoxArchive,
     faDollar,
-    faMoneyBill,
+    faCoins,
 } from "@fortawesome/free-solid-svg-icons";
 
 function ProductCard(props) {
@@ -64,7 +64,7 @@ function ProductCard(props) {
                     </p>
                 </Chip>
                 <Chip variant="none" className="!p-0">
-                    <FontAwesomeIcon icon={faMoneyBill} />{" "}
+                    <FontAwesomeIcon icon={faCoins} />{" "}
                     <p className="font-medium">
                         {t("_pages:products.inputs.cost.name")}:
                     </p>
