@@ -25,7 +25,8 @@ export default class ProductClient extends BaseClient {
             col,
             row[col],
           );
-          if (exist) return exist;
+          if (exist && exist.id !== row.id)
+            return new ValidationError([column, "unique"]);
         }
         if (row.category == 0)
           return new ValidationError(["category", "invalid"]);

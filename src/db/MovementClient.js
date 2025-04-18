@@ -25,7 +25,8 @@ export default class MovementClient extends BaseClient {
             col,
             row[col],
           );
-          if (exist) return exist;
+          if (exist && exist.id !== row.id)
+            return new ValidationError([column,"unique"])
         }
         if (row.type === 0) return new ValidationError(["type", "invalid"]);
         return false;

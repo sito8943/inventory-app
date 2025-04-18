@@ -24,8 +24,7 @@ export default class BaseClient {
         ...colQuery,
       },
     ]);
-    if (noEntries.length > 0) return new ValidationError([column, "unique"]);
-    return false;
+    return noEntries[0];
   }
 
   /**
