@@ -37,7 +37,7 @@ function ProductCard(props) {
 
   return (
     <div
-      className={`${styles} flex flex-col justify-between items-start h-50 w-60 max-xs:w-full rounded-2xl p-3 pb-1 group border-primary/30 hover:!border-primary border-2 animated`}
+      className={`${styles} flex flex-col justify-between items-start h-52 w-60 max-xs:w-full rounded-2xl p-3 pb-1 group border-primary/30 hover:!border-primary border-2 animated`}
     >
       <button
         className="cursor-pointer h-full w-full flex flex-col gap-1"
