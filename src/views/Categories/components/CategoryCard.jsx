@@ -33,7 +33,6 @@ function CategoryCard(props) {
       <p className="text-sm text-start">
         {description ?? t("_pages:categories.inputs.description.empty")}
       </p>
-
     </ItemCard>
   );
 }
