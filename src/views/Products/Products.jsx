@@ -32,6 +32,7 @@ import {
   useMovementLogs,
 } from "./hooks/dialogs/";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
+import useProductsList from "../../hooks/queries/useProducts";
 
 const a = null;
 
@@ -40,16 +41,7 @@ function Products() {
 
   const manager = useManager();
 
-  const { data, isLoading } = useQuery({
-    queryKey: [ReactQueryKeys.Products],
-    enabled: true,
-    queryFn: () =>
-      manager.Products.get(
-        { deletedAt: null },
-        "products.*, categories.id as categoryId,categories.name as categoryName,categories.color",
-        [{ table: "categories", on: "products.category = categories.id" }],
-      ),
-  });
+  const { data, isLoading } = useProductsList({});
 
   // #region actions
 
