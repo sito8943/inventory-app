@@ -99,7 +99,7 @@ function useFormDialog(props) {
       if (onError) onError(error);
     },
     onSuccess: (result) => {
-      queryClient.invalidateQueries([queryKey]);
+      queryClient.invalidateQueries({queryKey});
       if (onSuccess) onSuccess(result);
       showSuccessNotification({ message: onSuccessMessage });
       close();
