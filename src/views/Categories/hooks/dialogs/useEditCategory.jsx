@@ -18,7 +18,7 @@ export function useEditCategory() {
         getFunction: (id) => manager.Categories.getById(id),
         mutationFn: (data) => manager.Categories.update(data),
         onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-        ...CategoriesQueryKeys.all,
+        queryKey: CategoriesQueryKeys.all.queryKey,
     });
 
     return {

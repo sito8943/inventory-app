@@ -18,7 +18,7 @@ export function useEditMovement() {
         getFunction: (id) => manager.Movements.getById(id),
         mutationFn: (data) => manager.Movements.update(data),
         onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-        ...MovementsQueryKeys.all,
+        queryKey: MovementsQueryKeys.all.queryKey,
     });
 
     return {

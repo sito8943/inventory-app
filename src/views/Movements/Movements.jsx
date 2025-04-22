@@ -36,7 +36,7 @@ function Movements() {
 
     return (
         <Page title={t("_pages:movements.title")} isLoading={isLoading}
-              addOptions={{onClick: addMovement.onClick, disabled: isLoading, tooltip: t("_pages:movements.add")}}>>
+              addOptions={{onClick: addMovement.onClick, disabled: isLoading, tooltip: t("_pages:movements.add")}}>
             <PrettyGrid
                 data={data}
                 emptyMessage={t("_pages:movements.empty")}

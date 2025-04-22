@@ -35,10 +35,9 @@ function useFormDialog(props) {
         useForm(defaultValues);
 
     const {data, isLoading} = useQuery({
-        queryFn: () => {
-            return getFunction?.(id);
-        },
-        queryKey,
+        queryFn: () =>
+            getFunction?.(id),
+        queryKey: [...queryKey, id],
         enabled: !!getFunction && !!queryKey && !!id,
     });
 

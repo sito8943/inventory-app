@@ -18,7 +18,7 @@ export function useEditProduct() {
         getFunction: (id) => manager.Products.getById(id),
         mutationFn: (data) => manager.Products.update(data),
         onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-        ...ProductsQueryKeys.all,
+        queryKey: ProductsQueryKeys.all.queryKey,
     });
 
     return {
