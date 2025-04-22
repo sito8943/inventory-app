@@ -1,12 +1,8 @@
 import {useCallback} from "react";
-import {useQuery} from "@tanstack/react-query";
 import {useTranslation} from "react-i18next";
 
 // providers
 import {useManager} from "../../providers/ManagerProvider";
-
-// utils
-import {ReactQueryKeys} from "../../utils/queryKey";
 
 // components
 import {AddCard, ConfirmationDialog, Page, PrettyGrid} from "../../components";
@@ -14,59 +10,56 @@ import {AddMovementDialog, EditMovementDialog, MovementCard,} from "./components
 
 // hooks
 import {useAddMovement, useEditMovement} from "./hooks/dialogs/";
+import {useMovementsList} from "../../hooks/queries/useMovements.jsx";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
 
 function Movements() {
-  const { t } = useTranslation();
+    const {t} = useTranslation();
 
-  const manager = useManager();
+    const manager = useManager();
 
-  const { data, isLoading } = useQuery({
-    queryKey: [ReactQueryKeys.Movements],
-    enabled: true,
-    queryFn: () => manager.Movements.get({ deletedAt: null }),
-  });
+    const {data, isLoading} = useMovementsList({});
 
-  // #region actions
+    // #region actions
 
-  const deleteMovement = useDeleteDialog({
-    mutationFn: (data) => manager.Movements.softDelete(data),
-  });
+    const deleteMovement = useDeleteDialog({
+        mutationFn: (data) => manager.Movements.softDelete(data),
+    });
 
-  const addMovement = useAddMovement();
+    const addMovement = useAddMovement();
 
-  const editMovement = useEditMovement();
+    const editMovement = useEditMovement();
 
-  // #endregion
+    // #endregion
 
-  const getActions = useCallback((record) => [deleteMovement.action(record)]);
+    const getActions = useCallback((record) => [deleteMovement.action(record)], [deleteMovement]);
 
-  return (
-    <Page title={t("_pages:movements.title")} isLoading={isLoading}>
-      <PrettyGrid
-        data={data}
-        emptyMessage={t("_pages:movements.empty")}
-        renderComponent={(movement) => (
-          <MovementCard
-            actions={getActions(movement)}
-            onClick={(id) => editMovement.onClick(id)}
-            {...movement}
-          />
-        )}
-      />
+    return (
+        <Page title={t("_pages:movements.title")} isLoading={isLoading}>
+            <PrettyGrid
+                data={data}
+                emptyMessage={t("_pages:movements.empty")}
+                renderComponent={(movement) => (
+                    <MovementCard
+                        actions={getActions(movement)}
+                        onClick={(id) => editMovement.onClick(id)}
+                        {...movement}
+                    />
+                )}
+            />
 
-      <AddCard
-        disabled={isLoading}
-        onClick={addMovement.onClick}
-        tooltip={t("_pages:movements.add")}
-      />
+            <AddCard
+                disabled={isLoading}
+                onClick={addMovement.onClick}
+                tooltip={t("_pages:movements.add")}
+            />
 
-      {/* Dialogs */}
-      <AddMovementDialog {...addMovement} />
-      <EditMovementDialog {...editMovement} />
-      <ConfirmationDialog {...deleteMovement} />
-    </Page>
-  );
+            {/* Dialogs */}
+            <AddMovementDialog {...addMovement} />
+            <EditMovementDialog {...editMovement} />
+            <ConfirmationDialog {...deleteMovement} />
+        </Page>
+    );
 }
 
 export default Movements;

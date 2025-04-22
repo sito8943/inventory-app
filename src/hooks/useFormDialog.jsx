@@ -1,125 +1,125 @@
-import { useCallback, useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import {useCallback, useState, useEffect} from "react";
+import {useForm} from "react-hook-form";
+import {useTranslation} from "react-i18next";
+import {useQuery, useMutation} from "@tanstack/react-query";
 
 // providers
-import { queryClient } from "../providers/ManagerProvider";
-import { useNotification } from "../providers/NotificationProvider";
+import {queryClient} from "../providers/ManagerProvider";
+import {useNotification} from "../providers/NotificationProvider";
 
 // lib
-import { Notification } from "../lib/Notification";
+import {Notification} from "../lib/Notification";
 
 // hooks
 import useDialog from "./useDialog";
 
 function useFormDialog(props) {
-  const { t } = useTranslation();
-  const { showStackNotifications, showSuccessNotification } = useNotification();
+    const {t} = useTranslation();
+    const {showStackNotifications, showSuccessNotification} = useNotification();
 
-  const {
-    defaultValues,
-    getFunction,
-    mutationFn,
-    onError,
-    onSuccess,
-    queryKey,
-    onSuccessMessage,
-  } = props;
+    const {
+        defaultValues,
+        getFunction,
+        mutationFn,
+        onError,
+        onSuccess,
+        queryKey,
+        onSuccessMessage,
+    } = props;
 
-  const [id, setId] = useState(0);
+    const [id, setId] = useState(0);
 
-  const { open, handleClose, handleOpen } = useDialog();
+    const {open, handleClose, handleOpen} = useDialog();
 
-  const { control, handleSubmit, reset, setError, getValues } =
-    useForm(defaultValues);
+    const {control, handleSubmit, reset, setError, getValues} =
+        useForm(defaultValues);
 
-  const { data, isLoading } = useQuery({
-    queryFn: () => {
-      return getFunction?.(id);
-    },
-    queryKey: [queryKey, id],
-    enabled: !!getFunction && !!queryKey && !!id,
-  });
-
-  useEffect(() => {
-    if (data && data.length) reset({ ...data[0] });
-  }, [data]);
-
-  const parseFormError = useCallback((error) => {
-    const valError = error?.errors;
-    const messages = [];
-    if (valError) {
-      valError.forEach(([key, message]) => {
-        const input = document.querySelector(`[name="${key}"]`);
-        if (input) {
-          input.focus();
-          input.classList.add("error");
-          messages.push(t(`_pages:${queryKey}.inputs.${key}.${message}`));
-        }
-      });
-    }
-    return messages;
-  }, [t, queryKey]);
-
-  const releaseFormError = useCallback(() => {
-    const inputs = document.querySelectorAll("input, textarea, select");
-    inputs.forEach((input) => {
-      input.classList.remove("error");
+    const {data, isLoading} = useQuery({
+        queryFn: () => {
+            return getFunction?.(id);
+        },
+        queryKey,
+        enabled: !!getFunction && !!queryKey && !!id,
     });
-  }, []);
 
-  const onClick = useCallback((id) => {
-    setId(id);
-    handleOpen();
-  }, [handleOpen]);
+    useEffect(() => {
+        if (data && data.length) reset({...data[0]});
+    }, [data]);
 
-  const close = useCallback(() => {
-    releaseFormError();
-    handleClose();
-    reset();
-  }, [reset, releaseFormError, handleClose]);
+    const parseFormError = useCallback((error) => {
+        const valError = error?.errors;
+        const messages = [];
+        if (valError) {
+            valError.forEach(([key, message]) => {
+                const input = document.querySelector(`[name="${key}"]`);
+                if (input) {
+                    input.focus();
+                    input.classList.add("error");
+                    messages.push(t(`_pages:${queryKey}.inputs.${key}.${message}`));
+                }
+            });
+        }
+        return messages;
+    }, [t, queryKey]);
 
-  const dialogFn = useMutation({
-    mutationFn,
-    onError: (error) => {
-      console.error(error);
-      if (error.errors) {
-        const messages = parseFormError(error);
-        showStackNotifications(
-          messages.map(
-            (message) =>
-              new Notification({
-                message,
-                type: "error",
-              })
-          )
-        );
-      }
-      if (onError) onError(error);
-    },
-    onSuccess: (result) => {
-      queryClient.invalidateQueries({queryKey});
-      if (onSuccess) onSuccess(result);
-      showSuccessNotification({ message: onSuccessMessage });
-      close();
-    },
-  });
+    const releaseFormError = useCallback(() => {
+        const inputs = document.querySelectorAll("input, textarea, select");
+        inputs.forEach((input) => {
+            input.classList.remove("error");
+        });
+    }, []);
 
-  return {
-    open,
-    onClick,
-    close,
-    control,
-    getValues,
-    handleSubmit,
-    reset,
-    setError,
-    parseFormError,
-    releaseFormError,
-    dialogFn,
-    isLoading: isLoading || dialogFn.isPending,
-  };
+    const onClick = useCallback((id) => {
+        setId(id);
+        handleOpen();
+    }, [handleOpen]);
+
+    const close = useCallback(() => {
+        releaseFormError();
+        handleClose();
+        reset();
+    }, [reset, releaseFormError, handleClose]);
+
+    const dialogFn = useMutation({
+        mutationFn,
+        onError: (error) => {
+            console.error(error);
+            if (error.errors) {
+                const messages = parseFormError(error);
+                showStackNotifications(
+                    messages.map(
+                        (message) =>
+                            new Notification({
+                                message,
+                                type: "error",
+                            })
+                    )
+                );
+            }
+            if (onError) onError(error);
+        },
+        onSuccess: async (result) => {
+            await queryClient.invalidateQueries(queryKey);
+            if (onSuccess) onSuccess(result);
+            showSuccessNotification({message: onSuccessMessage});
+            close();
+        },
+    });
+
+    return {
+        open,
+        onClick,
+        close,
+        control,
+        getValues,
+        handleSubmit,
+        reset,
+        setError,
+        parseFormError,
+        releaseFormError,
+        dialogFn,
+        isLoading: isLoading || dialogFn.isPending,
+    };
 }
 
 export default useFormDialog;

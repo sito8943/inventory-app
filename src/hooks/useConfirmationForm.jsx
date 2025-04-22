@@ -35,7 +35,7 @@ function useConfirmationForm(props) {
             if (onError) onError(error);
         },
         onSuccess: async (result) => {
-            await queryClient.invalidateQueries({queryKey});
+            await queryClient.invalidateQueries(queryKey);
             if (onSuccess) onSuccess(result);
             showSuccessNotification({message: onSuccessMessage});
             close();

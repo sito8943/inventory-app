@@ -2,8 +2,6 @@ import {useMemo} from "react";
 import {useTranslation} from "react-i18next";
 import {Controller} from "react-hook-form";
 
-// providers
-
 // components
 import FormDialog from "../../../components/Dialog/FormDialog";
 import TextInput from "../../../components/Form/TextInput";
@@ -16,8 +14,8 @@ import {useCategoriesCommon} from "../../../hooks/queries/useCategories.jsx";
 export const ProductForm = (props) => {
     const {control, isLoading} = props;
     const {t} = useTranslation();
-     
-    const {data: categories} = useCategoriesCommon();
+
+    const categories = useCategoriesCommon();
 
     const categoryOptions = useMemo(
         () => [...(categories?.data ?? [])],

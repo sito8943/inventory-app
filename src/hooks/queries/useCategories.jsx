@@ -24,7 +24,7 @@ export function useCategoriesList(props) {
     });
 }
 
-export function useCategoriesCommon(props) {
+export function useCategoriesCommon() {
     const manager = useManager();
     return useQuery({
         ...CategoriesQueryKeys.list(),
