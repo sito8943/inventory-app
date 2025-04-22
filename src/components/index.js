@@ -13,7 +13,13 @@ import Chip from "./Chip/Chip";
 import Page from "./Page/Page";
 import PrettyGrid from "./PrettyGrid/PrettyGrid";
 import ItemCard from "./Card/ItemCard";
-import { ColorInput, ParagraphInput, SelectInput, TextInput } from "./Form";
+import {
+  ColorInput,
+  ParagraphInput,
+  SelectInput,
+  TextInput,
+  AutocompleteInput,
+} from "./Form";
 
 export {
   Page,
@@ -35,4 +41,5 @@ export {
   ParagraphInput,
   SelectInput,
   TextInput,
+  AutocompleteInput,
 };

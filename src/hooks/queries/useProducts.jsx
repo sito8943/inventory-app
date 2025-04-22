@@ -27,7 +27,16 @@ function useProductsList(props) {
       manager.Products.get(
         filters ? { deletedAt: null } : [{ deletedAt: null }, ...filters],
         "products.*, categories.id as categoryId,categories.name as categoryName,categories.color",
-        [{ table: "categories", on: "products.category = categories.id" }],
+        [
+          {
+            table: "productCategories",
+            on: "productCategories.category = categories.id",
+          },
+          {
+            table: "productCategories",
+            on: "productCategories.product = product.id",
+          },
+        ],
       ),
   });
 }
