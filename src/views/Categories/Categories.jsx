@@ -35,7 +35,8 @@ function Categories() {
     const getActions = useCallback((record) => [deleteCategory.action(record)], [deleteCategory]);
 
     return (
-        <Page title={t("_pages:categories.title")} isLoading={isLoading}>
+        <Page title={t("_pages:categories.title")} isLoading={isLoading}
+              addOptions={{onClick: addCategory.onClick, disabled: isLoading, tooltip: t("_pages:categories.add")}}>
             <PrettyGrid
                 data={data}
                 emptyMessage={t("_pages:categories.empty")}
@@ -46,12 +47,6 @@ function Categories() {
                         {...category}
                     />
                 )}
-            />
-
-            <AddCard
-                disabled={isLoading}
-                onClick={addCategory.onClick}
-                tooltip={t("_pages:categories.add")}
             />
 
             {/* Dialogs */}

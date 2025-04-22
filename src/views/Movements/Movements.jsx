@@ -35,7 +35,8 @@ function Movements() {
     const getActions = useCallback((record) => [deleteMovement.action(record)], [deleteMovement]);
 
     return (
-        <Page title={t("_pages:movements.title")} isLoading={isLoading}>
+        <Page title={t("_pages:movements.title")} isLoading={isLoading}
+              addOptions={{onClick: addMovement.onClick, disabled: isLoading, tooltip: t("_pages:movements.add")}}>>
             <PrettyGrid
                 data={data}
                 emptyMessage={t("_pages:movements.empty")}
@@ -46,12 +47,6 @@ function Movements() {
                         {...movement}
                     />
                 )}
-            />
-
-            <AddCard
-                disabled={isLoading}
-                onClick={addMovement.onClick}
-                tooltip={t("_pages:movements.add")}
             />
 
             {/* Dialogs */}

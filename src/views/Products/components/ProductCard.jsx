@@ -39,7 +39,7 @@ function ProductCard(props) {
             className="gap-2"
             actions={actions}
         >
-            <p className="text-sm text-start">
+            <p className={`${!!description ? "" : "!text-xs italic"} text-start`}>
                 {description ?? t("_pages:products.inputs.description.empty")}
             </p>
 

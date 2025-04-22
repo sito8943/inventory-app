@@ -44,7 +44,8 @@ function Products() {
     ], [doMovement, movementLogs, deleteProduct]);
 
     return (
-        <Page title={t("_pages:products.title")} isLoading={isLoading}>
+        <Page title={t("_pages:products.title")} isLoading={isLoading}
+              addOptions={{onClick: addProduct.onClick, disabled: isLoading, tooltip: t("_pages:products.add")}}>
             <PrettyGrid
                 data={data}
                 emptyMessage={t("_pages:products.empty")}
@@ -54,12 +55,8 @@ function Products() {
                         onClick={(id) => editProduct.onClick(id)}
                         {...product}
                     />
-                )}
-            />
-            <AddCard
-                disabled={isLoading}
-                onClick={addProduct.onClick}
-                tooltip={t("_pages:products.add")}
+                )
+                }
             />
 
             {/* Dialogs */}
