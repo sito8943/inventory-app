@@ -20,12 +20,13 @@ export function CategoryForm(props) {
         }}
         name="name"
         disabled={isLoading}
-        render={({ field }) => (
+        render={({ field: { value, ...rest } }) => (
           <TextInput
             required
             maxLength={20}
+            value={value ?? ""}
             placeholder={t("_pages:categories.inputs.name.name")}
-            {...field}
+            {...rest}
           />
         )}
       />
@@ -33,11 +34,12 @@ export function CategoryForm(props) {
         control={control}
         name="description"
         disabled={isLoading}
-        render={({ field }) => (
+        render={({ field: { value, ...rest } }) => (
           <ParagraphInput
             maxLength={60}
+            value={value ?? ""}
             placeholder={t("_pages:categories.inputs.description.name")}
-            {...field}
+            {...rest}
           />
         )}
       />
@@ -48,11 +50,13 @@ export function CategoryForm(props) {
         }}
         name="color"
         disabled={isLoading}
-        render={({ field }) => (
+        render={({ field: { value, onChange, ...rest } }) => (
           <ColorInput
             required
+            value={value ?? ""}
+            onChange={onChange}
             placeholder={t("_pages:categories.inputs.color.name")}
-            {...field}
+            {...rest}
           />
         )}
       />

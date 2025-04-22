@@ -4,8 +4,8 @@ import BaseClient from "./BaseClient";
 import ValidationError from "../lib/ValidationError";
 
 // enum
-import {Tables} from "./types/dbUtils";
-import {UniqueColumns} from "./types/products.js";
+import { Tables } from "./types/dbUtils";
+import { UniqueColumns } from "./types/products.js";
 
 export default class MovementClient extends BaseClient {
   /**
@@ -36,5 +36,18 @@ export default class MovementClient extends BaseClient {
     };
 
     super(Tables.Movements, dbClient, validations);
+  }
+
+  /**
+   *
+   * @param {object[]} defaultValues
+   * @returns {Promise<boolean>}
+   */
+  async init(defaultValues = []) {
+    const movements = await this.get();
+
+    if (movements.length > 0) return false;
+
+    await this.insertMany(defaultValues);
   }
 }

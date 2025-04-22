@@ -1,6 +1,6 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/jsx-no-constructed-context-values */
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // prop-types is a library for typechecking of props
@@ -8,6 +8,9 @@ import PropTypes from "prop-types";
 
 // manager
 import Manager from "../db/Manager";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
+import { defaultMovements } from "../hooks/queries/useMovements.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,9 +33,14 @@ const ManagerContext = createContext({});
  * @returns {object} React component
  */
 const ManagerProvider = (props) => {
+  const { i18n } = useTranslation();
   const { children } = props;
 
   const manager = new Manager();
+
+  useEffect(async () => {
+    await manager.Movements.init(defaultMovements[i18n.language]);
+  }, []);
 
   return (
     <ManagerContext.Provider value={{ client: manager }}>

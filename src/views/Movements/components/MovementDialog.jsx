@@ -1,6 +1,6 @@
-import {useMemo} from "react";
-import {useTranslation} from "react-i18next";
-import {Controller} from "react-hook-form";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Controller, useWatch } from "react-hook-form";
 
 // components
 import FormDialog from "../../../components/Dialog/FormDialog";
@@ -8,16 +8,22 @@ import TextInput from "../../../components/Form/TextInput";
 import SelectInput from "../../../components/Form/SelectInput";
 
 // types
-import {types} from "../../../db/types/products";
+import { types } from "../../../db/types/products";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// utils
+import { icons } from "./MovementCard.jsx";
 
 export function MovementForm(props) {
-  const { control, isLoading,  } = props;
+  const { control, isLoading } = props;
   const { t } = useTranslation();
 
   const typeOptions = useMemo(
     () => [...(types?.map(({ id, label }) => ({ id, value: label })) ?? [])],
     [],
   );
+
+  const { type } = useWatch({ control });
 
   return (
     <div className="flex flex-col gap-5">
@@ -50,6 +56,12 @@ export function MovementForm(props) {
             options={typeOptions}
             value={value}
             onChange={(e) => onChange(e.target.value)}
+            startAdornment={
+              <FontAwesomeIcon
+                icon={icons[type ?? 0]}
+                className=" ml-2 border-border border-2 absolute left-1 top-[50%] -translate-y-[50%] text-white text-sm"
+              />
+            }
             placeholder={t("_pages:movements.inputs.type.name")}
             {...rest}
           />

@@ -1,20 +1,20 @@
 import Database from "@tauri-apps/plugin-sql";
 
 function getValueForSql(value) {
-    const realValue = value && value.not !== undefined ? value.not : value;
-    return typeof realValue === "string"
-        ? `'${realValue ?? ""}'`
-        : (realValue ?? "null");
+  const realValue = value && value.not !== undefined ? value.not : value;
+  return typeof realValue === "string"
+    ? `'${realValue ?? ""}'`
+    : (realValue ?? "null");
 }
 
 function getOperatorForSql(value) {
-    return value && value.not !== undefined
-        ? value.not === null
-            ? "IS NOT"
-            : "!="
-        : value === null
-            ? "IS"
-            : "=";
+  return value && value.not !== undefined
+    ? value.not === null
+      ? "IS NOT"
+      : "!="
+    : value === null
+      ? "IS"
+      : "=";
 }
 
 /**
@@ -26,176 +26,173 @@ function getOperatorForSql(value) {
  * @returns {string}
  */
 function parseWhere(query, table, relationships, recall = false) {
-    if (!query || !Object.keys(query).length) return "";
+  if (!query || !Object.keys(query).length) return "";
 
-    let sql = recall ? "" : " WHERE ";
+  let sql = recall ? "" : " WHERE ";
 
-    // WHERE type array
-    if (query.length)
-        return (sql + query
-            .map((clause) => `(${parseWhere(clause, null, null, true)})`)
-            .join(" AND "));
+  // WHERE type array
+  if (query.length)
+    return (
+      sql +
+      query
+        .map((clause) => `(${parseWhere(clause, null, null, true)})`)
+        .join(" AND ")
+    );
 
-    // complex
-    if (query.logic) {
-        const {logic, property, values} = query;
-        sql +=
-            ` ` +
-            values
-                .map((value) => {
-                    const operator = getOperatorForSql(value);
-                    return `${property} ${operator} ${getValueForSql(value)}`;
-                })
-                .join(` ${logic} `);
-    } else {
-        // simple
-        const conditions = Object.keys(query);
+  // complex
+  if (query.logic) {
+    const { logic, property, values } = query;
+    sql +=
+      ` ` +
+      values
+        .map((value) => {
+          const operator = getOperatorForSql(value);
+          return `${property} ${operator} ${getValueForSql(value)}`;
+        })
+        .join(` ${logic} `);
+  } else {
+    // simple
+    const conditions = Object.keys(query);
 
-        sql +=
-            ` ` +
-            conditions
-                .map((key,) => {
-                    const fieldValue = getValueForSql(query[key]);
-                    const fieldName =
-                        relationships?.length && key.indexOf(".") === -1
-                            ? `${table}.${key}`
-                            : key;
-                    const operator = getOperatorForSql(query[key]);
-                    return `${fieldName} ${operator} ${fieldValue}`;
-                })
-                .join(" AND ");
-    }
+    sql +=
+      ` ` +
+      conditions
+        .map((key) => {
+          const fieldValue = getValueForSql(query[key]);
+          const fieldName =
+            relationships?.length && key.indexOf(".") === -1
+              ? `${table}.${key}`
+              : key;
+          const operator = getOperatorForSql(query[key]);
+          return `${fieldName} ${operator} ${fieldValue}`;
+        })
+        .join(" AND ");
+  }
 
-    return sql;
+  return sql;
 }
 
 class DbClient {
-    db = new Database();
+  db = new Database();
 
-    openDb = async () => (this.db = await Database.load("sqlite:base.db"));
+  openDb = async () => (this.db = await Database.load("sqlite:base.db"));
 
+  constructor() {}
 
-    constructor() {
+  /**
+   *
+   * @param {string} table
+   * @param {object} value
+   * @param {string} attributes
+   * @returns sql result
+   */
+  async insert(table, value, attributes = "") {
+    try {
+      await this.openDb();
 
-    }
-
-    /**
-     *
-     * @param {string} table
-     * @param {object} value
-     * @param {string} attributes
-     * @returns sql result
-     */
-    async insert(table, value, attributes = "") {
-        try {
-            await this.openDb();
-
-            return await this.db.execute(
-                `INSERT into ${table} (${
-                        !!attributes ? attributes : Object.keys(value).toString()
-                })
+      return await this.db.execute(
+        `INSERT into ${table} (${
+          !!attributes ? attributes : Object.keys(value).toString()
+        })
                  VALUES (${Object.values(value)
-                         .map((val) => getValueForSql(val))
-                         .toString()})`,
-            );
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
+                   .map((val) => getValueForSql(val))
+                   .toString()})`,
+      );
+    } catch (err) {
+      console.error(err);
+      throw err;
     }
+  }
 
-    /**
-     *
-     * @param {string} table
-     * @param {object} values
-     * @param {object} query
-     * @returns
-     */
-    async update(table, values, query) {
-        try {
-            await this.openDb();
+  /**
+   *
+   * @param {string} table
+   * @param {object} values
+   * @param {object} query
+   * @returns
+   */
+  async update(table, values, query) {
+    try {
+      await this.openDb();
 
-            const setClause = Object.keys(values)
-                .map(
-                    (key) =>
-                        `${key} = ${
-                            typeof values[key] === "string" ? `"${values[key]}"` : values[key]
-                        }`,
-                )
-                .join(", ");
+      const setClause = Object.keys(values)
+        .map(
+          (key) =>
+            `${key} = ${
+              typeof values[key] === "string" ? `"${values[key]}"` : values[key]
+            }`,
+        )
+        .join(", ");
 
-            let sql = `UPDATE ${table}
+      let sql = `UPDATE ${table}
                        SET ${setClause} ${parseWhere(query)}`;
 
-            return await this.db.execute(sql);
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
+      return await this.db.execute(sql);
+    } catch (err) {
+      console.error(err);
+      throw err;
     }
+  }
 
-    async softDelete(table, ids) {
-        try {
-            await this.openDb();
+  async softDelete(table, ids) {
+    try {
+      await this.openDb();
 
-            return await this.db.execute(
-                `UPDATE ${table}
+      return await this.db.execute(
+        `UPDATE ${table}
                  SET deletedAt = CURRENT_TIMESTAMP
-                 WHERE id IN (${ids.join(
-                         ",",
-                 )})`,
-            );
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
+                 WHERE id IN (${ids.join(",")})`,
+      );
+    } catch (err) {
+      console.error(err);
+      throw err;
     }
+  }
 
-    /**
-     *
-     * @param {string} table
-     * @param {object[]} values
-     * @param {string} attributes
-     * @returns count of items inserted
-     */
-    async insertMany(table, values, attributes) {
-        for (const val of values) await this.insert(table, val, attributes);
+  /**
+   *
+   * @param {string} table
+   * @param {object[]} values
+   * @param {string} attributes
+   * @returns count of items inserted
+   */
+  async insertMany(table, values, attributes = "") {
+    for (const val of values) await this.insert(table, val, attributes);
 
-        return values.length;
-    }
+    return values.length;
+  }
 
-    /**
-     * Execute a select query with optional joins
-     * @param {string} table - Table name
-     * @param {object | object[]} query - Where conditions (key-value)
-     * @param {string} attributes - Columns to select (default '*')
-     * @param {Array<{ table: string, on: string }>} relationships - Tables to join
-     * @returns {Promise<Array>} - Query result
-     */
-    async select(table, query = {}, attributes = "*", relationships = []) {
-        try {
-            await this.openDb();
+  /**
+   * Execute a select query with optional joins
+   * @param {string} table - Table name
+   * @param {object | object[]} query - Where conditions (key-value)
+   * @param {string} attributes - Columns to select (default '*')
+   * @param {Array<{ table: string, on: string }>} relationships - Tables to join
+   * @returns {Promise<Array>} - Query result
+   */
+  async select(table, query = {}, attributes = "*", relationships = []) {
+    try {
+      await this.openDb();
 
-            let sql = `SELECT ${attributes}
+      let sql = `SELECT ${attributes}
                        FROM ${table}`;
+      // Add joins if there are relationships
+      if (relationships.length > 0) {
+        sql +=
+          " " +
+          relationships
+            .map((rel) => `JOIN ${rel.table} ON ${rel.on}`)
+            .join(" ");
+      }
 
-            // Add joins if there are relationships
-            if (relationships.length > 0) {
-                sql +=
-                    " " +
-                    relationships
-                        .map((rel) => `JOIN ${rel.table} ON ${rel.on}`)
-                        .join(" ");
-            }
-
-            sql += parseWhere(query, table, relationships);
-
-            return await this.db.select(sql);
-        } catch (err) {
-            console.error("Error in select:", err);
-            throw err;
-        }
+      sql += parseWhere(query, table, relationships);
+      console.log(sql);
+      return await this.db.select(sql);
+    } catch (err) {
+      console.error("Error in select:", err);
+      throw err;
     }
+  }
 }
 
 export default DbClient;
