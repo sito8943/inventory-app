@@ -1,4 +1,3 @@
-import React from "react";
 import Action from "./Action";
 
 function Actions(props) {

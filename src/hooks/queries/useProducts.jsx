@@ -1,7 +1,6 @@
 // providers
-import { useMemo } from "react";
-import { useManager } from "../../providers/ManagerProvider";
-import { useQuery } from "@tanstack/react-query";
+import {useManager} from "../../providers/ManagerProvider";
+import {useQuery} from "@tanstack/react-query";
 
 export const ProductsQueryKeys = {
   all: {
@@ -20,7 +19,7 @@ function useProductsList(props) {
     ...ProductsQueryKeys.list(),
     queryFn: () =>
       manager.Products.get(
-        { deletedAt: null },
+        [{ deletedAt: null }, ...filters],
         "products.*, categories.id as categoryId,categories.name as categoryName,categories.color",
         [{ table: "categories", on: "products.category = categories.id" }],
       ),

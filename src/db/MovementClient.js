@@ -1,16 +1,14 @@
-import DbClient from "./DbClient";
 import BaseClient from "./BaseClient";
 
 // lib
 import ValidationError from "../lib/ValidationError";
 
 // enum
-import { Tables } from "./types/dbUtils";
-import { UniqueColumns } from "./types/products.js";
+import {Tables} from "./types/dbUtils";
+import {UniqueColumns} from "./types/products.js";
 
 export default class MovementClient extends BaseClient {
   /**
-   * @param {string} table
    * @param {DbClient} dbClient
    */
   constructor(dbClient) {
@@ -26,16 +24,14 @@ export default class MovementClient extends BaseClient {
             row[col],
           );
           if (exist && exist.id !== row.id)
-            return new ValidationError([column, "unique"]);
+            return new ValidationError([col, "unique"]);
         }
         if (row.type === 0) return new ValidationError(["type", "invalid"]);
         return false;
       };
-      const onUpdate = onInsert;
-
       return {
         insert: onInsert,
-        update: onUpdate,
+        update: onInsert,
       };
     };
 

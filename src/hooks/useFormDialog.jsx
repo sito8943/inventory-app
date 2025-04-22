@@ -60,7 +60,7 @@ function useFormDialog(props) {
       });
     }
     return messages;
-  }, []);
+  }, [t, queryKey]);
 
   const releaseFormError = useCallback(() => {
     const inputs = document.querySelectorAll("input, textarea, select");
@@ -78,7 +78,7 @@ function useFormDialog(props) {
     releaseFormError();
     handleClose();
     reset();
-  }, [reset, releaseFormError]);
+  }, [reset, releaseFormError, handleClose]);
 
   const dialogFn = useMutation({
     mutationFn,

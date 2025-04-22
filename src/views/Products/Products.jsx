@@ -1,97 +1,75 @@
-import { useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
+import {useCallback} from "react";
+import {useTranslation} from "react-i18next";
 
 // providers
-import { useManager } from "../../providers/ManagerProvider";
-
-// utils
-import { ReactQueryKeys } from "../../utils/queryKey";
+import {useManager} from "../../providers/ManagerProvider";
 
 // components
-import {
-  Page,
-  PrettyGrid,
-  AddCard,
-  Loading,
-  ConfirmationDialog,
-} from "../../components";
-import {
-  ProductCard,
-  AddProductDialog,
-  EditProductDialog,
-  DoMovementDialog,
-  MovementLogsDialog,
-} from "./components";
+import {AddCard, ConfirmationDialog, Page, PrettyGrid,} from "../../components";
+import {AddProductDialog, DoMovementDialog, EditProductDialog, MovementLogsDialog, ProductCard,} from "./components";
 
 // hooks
-import {
-  useAddProduct,
-  useEditProduct,
-  useDoMovement,
-  useMovementLogs,
-} from "./hooks/dialogs/";
+import {useAddProduct, useDoMovement, useEditProduct, useMovementLogs,} from "./hooks/dialogs/";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
 import useProductsList from "../../hooks/queries/useProducts";
 
-const a = null;
 
 function Products() {
-  const { t } = useTranslation();
+    const {t} = useTranslation();
 
-  const manager = useManager();
+    const manager = useManager();
 
-  const { data, isLoading } = useProductsList({});
+    const {data, isLoading} = useProductsList({});
 
-  // #region actions
+    // #region actions
 
-  const deleteProduct = useDeleteDialog({
-    mutationFn: (data) => manager.Products.softDelete(data),
-  });
+    const deleteProduct = useDeleteDialog({
+        mutationFn: (data) => manager.Products.softDelete(data),
+    });
 
-  const addProduct = useAddProduct();
+    const addProduct = useAddProduct();
 
-  const editProduct = useEditProduct();
+    const editProduct = useEditProduct();
 
-  const doMovement = useDoMovement();
+    const doMovement = useDoMovement();
 
-  const movementLogs = useMovementLogs();
+    const movementLogs = useMovementLogs();
 
-  // #endregion
+    // #endregion
 
-  const getActions = useCallback((record) => [
-    doMovement.action(record),
-    movementLogs.action(record),
-    deleteProduct.action(record),
-  ]);
+    const getActions = useCallback((record) => [
+        doMovement.action(record),
+        movementLogs.action(record),
+        deleteProduct.action(record),
+    ], [doMovement, movementLogs, deleteProduct]);
 
-  return (
-    <Page title={t("_pages:products.title")} isLoading={isLoading}>
-      <PrettyGrid
-        data={data}
-        emptyMessage={t("_pages:products.empty")}
-        renderComponent={(product) => (
-          <ProductCard
-            actions={getActions(product)}
-            onClick={(id) => editProduct.onClick(id)}
-            {...product}
-          />
-        )}
-      />
-      <AddCard
-        disabled={isLoading}
-        onClick={addProduct.onClick}
-        tooltip={t("_pages:products.add")}
-      />
+    return (
+        <Page title={t("_pages:products.title")} isLoading={isLoading}>
+            <PrettyGrid
+                data={data}
+                emptyMessage={t("_pages:products.empty")}
+                renderComponent={(product) => (
+                    <ProductCard
+                        actions={getActions(product)}
+                        onClick={(id) => editProduct.onClick(id)}
+                        {...product}
+                    />
+                )}
+            />
+            <AddCard
+                disabled={isLoading}
+                onClick={addProduct.onClick}
+                tooltip={t("_pages:products.add")}
+            />
 
-      {/* Dialogs */}
-      <AddProductDialog {...addProduct} />
-      <EditProductDialog {...editProduct} />
-      <DoMovementDialog {...doMovement} />
-      <MovementLogsDialog {...movementLogs} />
-      <ConfirmationDialog {...deleteProduct} />
-    </Page>
-  );
+            {/* Dialogs */}
+            <AddProductDialog {...addProduct} />
+            <EditProductDialog {...editProduct} />
+            <DoMovementDialog {...doMovement} />
+            <MovementLogsDialog {...movementLogs} />
+            <ConfirmationDialog {...deleteProduct} />
+        </Page>
+    );
 }
 
 export default Products;

@@ -1,11 +1,10 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 // @emotion/css
-import { css } from "@emotion/css";
+import {css} from "@emotion/css";
 
 // components
-import Actions from "../../../components/Actions/Actions";
 import ItemCard from "../../../components/Card/ItemCard";
 
 function CategoryCard(props) {

@@ -38,7 +38,7 @@ const ColorInput = forwardRef(function (props, ref) {
   return (
     <>
       <TextInput
-        {...props}
+        {...rest}
         ref={ref}
         startAdornment={
           <button

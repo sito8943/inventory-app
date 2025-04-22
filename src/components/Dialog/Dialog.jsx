@@ -66,7 +66,6 @@ function Dialog(props) {
 
   return createPortal(
     <div
-      name={t("_accessibility:buttons.closeDialog")}
       aria-label={t("_accessibility:ariaLabels.closeDialog")}
       aria-disabled={!open}
       onClick={bigHandleClose}

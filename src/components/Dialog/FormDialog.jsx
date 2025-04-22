@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import Dialog from "./Dialog";
 
 class FormDialogProps {
-  handleSubmit = (data) => {};
+  handleSubmit = () => {};
   handleClose = () => {};
   buttonEnd = true;
 }

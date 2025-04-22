@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**
  * Chip component
- * @param {object} props - componente props
+ * @param {object} props - component props
  * @returns Chip component
  */
 const Chip = (props) => {

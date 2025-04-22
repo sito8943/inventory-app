@@ -1,23 +1,19 @@
-import { useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
+import {useCallback} from "react";
+import {useQuery} from "@tanstack/react-query";
+import {useTranslation} from "react-i18next";
 
 // providers
-import { useManager } from "../../providers/ManagerProvider";
+import {useManager} from "../../providers/ManagerProvider";
 
 // utils
-import { ReactQueryKeys } from "../../utils/queryKey";
+import {ReactQueryKeys} from "../../utils/queryKey";
 
 // components
-import { Page, PrettyGrid, AddCard, Loading, ConfirmationDialog } from "../../components";
-import {
-  MovementCard,
-  AddMovementDialog,
-  EditMovementDialog,
-} from "./components";
+import {AddCard, ConfirmationDialog, Page, PrettyGrid} from "../../components";
+import {AddMovementDialog, EditMovementDialog, MovementCard,} from "./components";
 
 // hooks
-import { useAddMovement, useEditMovement } from "./hooks/dialogs/";
+import {useAddMovement, useEditMovement} from "./hooks/dialogs/";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
 
 function Movements() {

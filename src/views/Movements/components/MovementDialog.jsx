@@ -1,6 +1,6 @@
-import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
-import { Controller } from "react-hook-form";
+import {useMemo} from "react";
+import {useTranslation} from "react-i18next";
+import {Controller} from "react-hook-form";
 
 // components
 import FormDialog from "../../../components/Dialog/FormDialog";
@@ -8,10 +8,10 @@ import TextInput from "../../../components/Form/TextInput";
 import SelectInput from "../../../components/Form/SelectInput";
 
 // types
-import { types } from "../../../db/types/products";
+import {types} from "../../../db/types/products";
 
 export function MovementForm(props) {
-  const { control, isLoading, getValues } = props;
+  const { control, isLoading,  } = props;
   const { t } = useTranslation();
 
   const typeOptions = useMemo(

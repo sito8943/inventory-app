@@ -16,7 +16,7 @@ export function CategoryForm(props) {
       <Controller
         control={control}
         rules={{
-          required: t("_pages:categories.inputs.name.required"),
+          required: `t("_pages:categories.inputs.name.required")`,
         }}
         name="name"
         disabled={isLoading}

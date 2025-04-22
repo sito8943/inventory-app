@@ -1,10 +1,8 @@
-import { useMemo, memo } from "react";
-import { useTranslation } from "react-i18next";
-import { Controller } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
+import {useMemo} from "react";
+import {useTranslation} from "react-i18next";
+import {Controller} from "react-hook-form";
 
 // providers
-import { useManager } from "../../../providers/ManagerProvider";
 
 // components
 import FormDialog from "../../../components/Dialog/FormDialog";
@@ -13,20 +11,13 @@ import SelectInput from "../../../components/Form/SelectInput";
 import ParagraphInput from "../../../components/Form/ParagraphInput";
 
 // utils
-import { ReactQueryKeys } from "../../../utils/queryKey";
+import {useCategoriesCommon} from "../../../hooks/queries/useCategories.jsx";
 
 export const ProductForm = (props) => {
-    const { control, isLoading } = props;
-    const { t } = useTranslation();
-
-    const manager = useManager();
-
-    const categories = useQuery({
-        queryKey: [ReactQueryKeys.Categories],
-        enabled: true,
-        queryFn: () =>
-            manager.Categories.get({ deletedAt: null }, "id,name as value"),
-    });
+    const {control, isLoading} = props;
+    const {t} = useTranslation();
+     
+    const {data: categories} = useCategoriesCommon();
 
     const categoryOptions = useMemo(
         () => [...(categories?.data ?? [])],
@@ -42,7 +33,7 @@ export const ProductForm = (props) => {
                 }}
                 name="name"
                 disabled={isLoading || categories?.isLoading}
-                render={({ field }) => (
+                render={({field}) => (
                     <TextInput
                         required
                         maxLength={25}
@@ -58,7 +49,7 @@ export const ProductForm = (props) => {
                 }}
                 name="category"
                 disabled={isLoading || categories?.isLoading}
-                render={({ field: { value, onChange, ...rest } }) => (
+                render={({field: {value, onChange, ...rest}}) => (
                     <SelectInput
                         required
                         options={categoryOptions}
@@ -73,7 +64,7 @@ export const ProductForm = (props) => {
                 control={control}
                 name="description"
                 disabled={isLoading || categories?.isLoading}
-                render={({ field }) => (
+                render={({field}) => (
                     <ParagraphInput
                         maxLength={60}
                         placeholder={t("_pages:products.inputs.description.name")}
@@ -85,7 +76,7 @@ export const ProductForm = (props) => {
                 control={control}
                 name="price"
                 disabled={isLoading || categories?.isLoading}
-                render={({ field }) => (
+                render={({field}) => (
                     <TextInput
                         type="number"
                         placeholder={t("_pages:products.inputs.price.name")}
@@ -97,7 +88,7 @@ export const ProductForm = (props) => {
                 control={control}
                 name="cost"
                 disabled={isLoading || categories?.isLoading}
-                render={({ field }) => (
+                render={({field}) => (
                     <TextInput
                         type="number"
                         placeholder={t("_pages:products.inputs.cost.name")}
@@ -109,7 +100,7 @@ export const ProductForm = (props) => {
                 control={control}
                 name="stock"
                 disabled={isLoading || categories?.isLoading}
-                render={({ field }) => (
+                render={({field}) => (
                     <TextInput
                         type="number"
                         placeholder={t("_pages:products.inputs.stock.name")}
