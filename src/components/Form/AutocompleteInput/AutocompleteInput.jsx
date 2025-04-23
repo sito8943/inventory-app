@@ -1,13 +1,21 @@
-import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 // icons
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
-import Chip from "../../Chip/Chip.jsx";
 import TextInput from "../TextInput.jsx";
-import Suggestions from "./Suggesstion.jsx";
+import Suggestions from "./Suggestions.jsx";
+import { Values } from "./Values.jsx";
 
 /**
  *
@@ -15,6 +23,8 @@ import Suggestions from "./Suggesstion.jsx";
  * @returns
  */
 const AutocompleteInput = forwardRef(function (props, ref) {
+  const { t } = useTranslation();
+
   const {
     state,
     value,
@@ -32,17 +42,23 @@ const AutocompleteInput = forwardRef(function (props, ref) {
   const [localValue, setLocalValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const suggestions = options.filter((option) => {
-    const isIncluded = option.value
-      .toLowerCase()
-      .includes(localValue?.toLowerCase());
-    if (value && value.length) {
-      return value?.some
-        ? !value?.some((v) => v.id === option.id)
-        : value?.id !== option.id;
-    }
-    return isIncluded;
-  });
+  const suggestions = useMemo(
+    () =>
+      options
+        ? options.filter((option) => {
+            const isIncluded = option.value
+              .toLowerCase()
+              .includes(localValue?.toLowerCase());
+            if (value && value.length) {
+              return value?.some
+                ? !value?.some((v) => v.id === option.id)
+                : value?.id !== option.id;
+            }
+            return isIncluded;
+          })
+        : [],
+    [options, localValue, value],
+  );
 
   const autocompleteRef = useRef();
 
@@ -65,9 +81,9 @@ const AutocompleteInput = forwardRef(function (props, ref) {
     };
   }, []);
 
-  const handleChange = (event) => {
+  const handleChange = useCallback((event) => {
     setLocalValue(event.target.value);
-  };
+  }, []);
 
   const handleSuggestionClick = useCallback(
     (suggestion = null) => {
@@ -80,7 +96,7 @@ const AutocompleteInput = forwardRef(function (props, ref) {
       }
       setShowSuggestions(false);
     },
-    [multiple, onChange, value]
+    [multiple, onChange, value],
   );
 
   const handleDeleteChip = useCallback(
@@ -89,12 +105,12 @@ const AutocompleteInput = forwardRef(function (props, ref) {
       if (newValue.length) onChange(newValue);
       else onChange(null);
     },
-    [onChange, value]
+    [onChange, value],
   );
 
   return (
     <div
-      className={`relative w-full mb-5 group ${containerClassName}`}
+      className={`relative w-full ${containerClassName}`}
       ref={autocompleteRef}
     >
       <TextInput
@@ -105,31 +121,32 @@ const AutocompleteInput = forwardRef(function (props, ref) {
         placeholder={placeholder}
         onFocus={() => setShowSuggestions(true)}
         label={label}
-        containerClassName="!mb-0"
         ref={ref}
+        className="!py-2"
+        endAdornment={
+          !multiple &&
+          value && (
+            <button
+              type="button"
+              name={t("_accessibility:buttons.cleanInput")}
+              aria-label={t("_accessibility:ariaLabels.cleanInput")}
+              className="icon-button absolute right-1 top-[50%] -translate-y-[50%] text-primary hover:text-red-300"
+              onClick={() => handleSuggestionClick()}
+            >
+              <FontAwesomeIcon icon={faClose} />
+            </button>
+          )
+        }
         {...rest}
-      >
-        {!multiple && value && (
-          <button
-            type="button"
-            className="absolute right-0 top-[9px]"
-            onClick={() => handleSuggestionClick()}
-          >
-            <FontAwesomeIcon icon={faClose} />
-          </button>
-        )}
-      </TextInput>
-      {showSuggestions && <Suggestions suggestions={suggestions} />}
+      ></TextInput>
+      {showSuggestions && (
+        <Suggestions
+          suggestions={suggestions}
+          onOptionClick={handleSuggestionClick}
+        />
+      )}
       {multiple && value && value.length ? (
-        <div className="flex items-center justify-start flex-wrap my-4 gap-2">
-          {value.map((selected, i) => (
-            <Chip
-              key={selected.value}
-              label={selected.value}
-              onDelete={() => handleDeleteChip(i)}
-            />
-          ))}
-        </div>
+        <Values list={value} onDelete={handleDeleteChip} />
       ) : null}
     </div>
   );
