@@ -10,7 +10,6 @@ import {useProductMovements} from "../../../../hooks/queries/useProducts.jsx";
 import useTableOptions from "../../../../components/Table/useTableOptions";
 import useTimeAge from "../../../../hooks/useTimeAge";
 
-
 export function useMovementLogs() {
     const {t} = useTranslation();
 
