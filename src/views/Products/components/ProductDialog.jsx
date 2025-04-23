@@ -54,7 +54,8 @@ export const ProductForm = (props) => {
             required
             options={categoryOptions}
             value={value}
-            onChange={(e) => onChange(e.target.value)}
+            multiple
+            onChange={(v) => onChange(v)}
             placeholder={t("_pages:products.inputs.category.name")}
             {...rest}
           />
