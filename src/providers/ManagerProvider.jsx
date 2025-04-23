@@ -38,8 +38,8 @@ const ManagerProvider = (props) => {
 
   const manager = new Manager();
 
-  useEffect(async () => {
-    await manager.Movements.init(defaultMovements[i18n.language]);
+  useEffect(() => {
+    manager.Movements.init(defaultMovements[i18n.language]);
   }, []);
 
   return (
