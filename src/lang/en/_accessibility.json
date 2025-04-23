@@ -11,7 +11,9 @@
     "toggleMaximize": "Toggle maximize",
     "minimize": "Minimize",
     "closeApp": "Close application",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "deleteChip": "Remove {{value}}",
+    "cleanInput": "Clean input"
   },
   "labels": {
     "colorPicker": "Pick a color",
@@ -37,7 +39,9 @@
     "toggleMaximize": "Toggle maximize window",
     "minimize": "Minimize window",
     "closeApp": "Close the application",
-    "closeMenu": "Close the menu"
+    "closeMenu": "Close the menu",
+    "deleteChip": "Remove the {{value}}",
+    "cleanInput": "Clean the input value"
   },
   "errors": {
     "unknownError": "An error has occurred"
