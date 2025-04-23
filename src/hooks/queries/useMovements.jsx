@@ -7,6 +7,7 @@ export const MovementsQueryKeys = {
     queryKey: ["movements"],
   },
   list: () => ({ queryKey: [...MovementsQueryKeys.all.queryKey, "list"] }),
+  common: () => ({ queryKey: [...MovementsQueryKeys.all.queryKey, "common"] }),
 };
 
 export function useMovementsList(props) {
@@ -23,7 +24,7 @@ export function useMovementsList(props) {
 export function useMovementsCommon() {
   const manager = useManager();
   return useQuery({
-    ...MovementsQueryKeys.list(),
+    ...MovementsQueryKeys.common(),
     queryFn: () =>
       manager.Movements.get({ deletedAt: null }, "name as value,id"),
   });
