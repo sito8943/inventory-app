@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
  * @returns Chip component
  */
 const Chip = (props) => {
-  const { text, children, icon, variant = "primary", className, ...rest } = props;
+  const { text, children, icon, variant = "primary", className, onDelete, ...rest } = props;
 
   return (
     <div className={`chip ${variant} ${className}`} {...rest}>
