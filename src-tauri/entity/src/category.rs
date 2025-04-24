@@ -24,6 +24,19 @@ pub struct AddCategoryDto {
     pub description: Option<String>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct CommonCategoryDto {
+    pub id: i32,
+    pub name: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct CategoryFilter {
+    pub name: Option<String>,
+    pub color: Option<String>,
+    pub deleted: Option<bool>, // if true => deleted_at IS NULL
+}
+
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {}

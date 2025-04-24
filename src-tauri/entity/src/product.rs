@@ -20,6 +20,15 @@ pub struct Model {
     pub deleted_at: Option<DateTime<Utc>>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct AddProductDto {
+    pub name: String,
+    pub price: f64,
+    pub cost: f64,
+    pub stock: i32,
+    pub description: Option<String>,
+}
+
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {}
 
