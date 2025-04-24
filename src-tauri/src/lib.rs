@@ -222,14 +222,14 @@ async fn update_categories(
 }
 
 #[tauri::command]
-async fn delete_categories(state: tauri::State<'_, AppState>, id: i32) -> Result<FlashData, ()> {
-    ProductService::Mutation::delete(&state.conn, id)
+async fn delete_many_categories(state: tauri::State<'_, AppState>, ids: Vec<i32>) -> Result<FlashData, ()> {
+    CategoryService::Mutation::delete_many(&state.conn, ids)
         .await
-        .expect("could not delete category");
+        .expect("could not delete categories");
 
     let data = FlashData {
         kind: "success".to_owned(),
-        message: "category successfully deleted".to_owned(),
+        message: "categories successfully deleted".to_owned(),
     };
 
     Ok(data)
@@ -242,7 +242,7 @@ async fn list_categories(
 ) -> Result<Vec<category::Model>, ()> {
     let (items, num_pages) = CategoryService::Query::get(&state.conn, filters)
         .await
-        .expect("cannot find category in page");
+        .expect("cannot find categories");
 
     println!("num_pages: {}", num_pages);
 
