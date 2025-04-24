@@ -54,7 +54,7 @@ impl Mutation {
     pub async fn delete(db: &DbConn, id: i32) -> Result<Model, DbErr> {
         let mut category: category::ActiveModel = get_by_id(db, id).await?.into();
 
-        category.deleted_at = Set(Utc::now());
+        category.deleted_at = Set(Option::from(Utc::now()));
 
         category.update(db).await
     }
