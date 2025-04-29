@@ -10,14 +10,12 @@ export const MovementsQueryKeys = {
   common: () => ({ queryKey: [...MovementsQueryKeys.all.queryKey, "common"] }),
 };
 
-export function useMovementsList(props) {
-  const { filters = [] } = props;
-
+export function useMovementsList() {
   const manager = useManager();
 
   return useQuery({
     ...MovementsQueryKeys.list(),
-    queryFn: () => manager.Movements.get([{ deletedAt: null }, ...filters]),
+    queryFn: () => manager.Movements.get({ deleted: false }),
   });
 }
 
@@ -25,8 +23,7 @@ export function useMovementsCommon() {
   const manager = useManager();
   return useQuery({
     ...MovementsQueryKeys.common(),
-    queryFn: () =>
-      manager.Movements.get({ deletedAt: null }, "name as value,id"),
+    queryFn: () => manager.Movements.commonGet({ deleted: false }),
   });
 }
 

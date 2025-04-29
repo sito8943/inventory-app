@@ -8,17 +8,14 @@ export const CategoriesQueryKeys = {
   },
   list: () => ({ queryKey: [...CategoriesQueryKeys.all.queryKey, "list"] }),
   common: () => ({ queryKey: [...CategoriesQueryKeys.all.queryKey, "common"] }),
-  details: (id) => ({ queryKey: [...CategoriesQueryKeys.all.queryKey, id] }),
 };
 
-export function useCategoriesList(props) {
-  const { filters = [] } = props;
-
+export function useCategoriesList() {
   const manager = useManager();
 
   return useQuery({
     ...CategoriesQueryKeys.list(),
-    queryFn: () => manager.Categories.get([{ deletedAt: null }, ...filters]),
+    queryFn: () => manager.Categories.get({ deleted: false }),
   });
 }
 
@@ -26,7 +23,6 @@ export function useCategoriesCommon() {
   const manager = useManager();
   return useQuery({
     ...CategoriesQueryKeys.common(),
-    queryFn: () =>
-      manager.Categories.get({ deletedAt: null }, "name as value,id"),
+    queryFn: () => manager.Categories.commonGet({ deleted: false }),
   });
 }
