@@ -1,12 +1,12 @@
 // Prevents an additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use entity::{category, product, movement};
+use entity::{category, movement, product};
 use migration::{Migrator, MigratorTrait};
 use sea_orm::{Database, DatabaseConnection};
 use serde::{Deserialize, Serialize};
 use service::categories as CategoryService;
-use service::products as ProductService;
 use service::movements as MovementService;
+use service::products as ProductService;
 use std::env;
 use std::fs;
 
@@ -40,34 +40,36 @@ pub async fn run() {
             create_products,
             create_many_products,
             update_products,
-            delete_products,
+            delete_many_products,
             list_products,
+            list_common_products,
             products_by_id,
             // category crud
             create_categories,
             create_many_categories,
             update_categories,
-            delete_categories,
+            delete_many_categories,
             list_categories,
+            list_common_categories,
             categories_by_id,
             // movement crud
             create_movements,
             create_many_movements,
             update_movements,
-            delete_movements,
+            delete_many_movements,
             list_movements,
+            list_common_movements,
             movements_by_id,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
 
-
 //# region Products
 #[tauri::command]
 async fn create_products(
     state: tauri::State<'_, AppState>,
-    form: product::AddProductDto,
+    form: product::AddDto,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
@@ -86,7 +88,7 @@ async fn create_products(
 #[tauri::command]
 async fn create_many_products(
     state: tauri::State<'_, AppState>,
-    items: Vec<product::AddProductDto>,
+    items: Vec<product::AddDto>,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
@@ -121,14 +123,17 @@ async fn update_products(
 }
 
 #[tauri::command]
-async fn delete_products(state: tauri::State<'_, AppState>, id: i32) -> Result<FlashData, ()> {
-    ProductService::Mutation::delete(&state.conn, id)
+async fn delete_many_products(
+    state: tauri::State<'_, AppState>,
+    ids: Vec<i32>,
+) -> Result<FlashData, ()> {
+    ProductService::Mutation::delete_many(&state.conn, ids)
         .await
-        .expect("could not delete product");
+        .expect("could not delete products");
 
     let data = FlashData {
         kind: "success".to_owned(),
-        message: "product successfully deleted".to_owned(),
+        message: "products successfully deleted".to_owned(),
     };
 
     Ok(data)
@@ -137,16 +142,23 @@ async fn delete_products(state: tauri::State<'_, AppState>, id: i32) -> Result<F
 #[tauri::command]
 async fn list_products(
     state: tauri::State<'_, AppState>,
-    params: Params,
+    filters: product::Filter,
 ) -> Result<Vec<product::Model>, ()> {
-    let page = params.page.unwrap_or(1);
-    let items_per_page = params.items_per_page.unwrap_or(5);
-
-    let (items, num_pages) = ProductService::Query::get(&state.conn, page, items_per_page)
+    let (items, _) = ProductService::Query::get(&state.conn, filters)
         .await
         .expect("Cannot find products in page");
 
-    println!("num_pages: {}", num_pages);
+    Ok(items)
+}
+
+#[tauri::command]
+async fn list_common_products(
+    state: tauri::State<'_, AppState>,
+    filters: product::Filter,
+) -> Result<Vec<product::CommonDto>, ()> {
+    let (items, _) = ProductService::Query::common_get(&state.conn, filters)
+        .await
+        .expect("cannot find products");
 
     Ok(items)
 }
@@ -168,7 +180,7 @@ async fn products_by_id(state: tauri::State<'_, AppState>, id: i32) -> Result<pr
 #[tauri::command]
 async fn create_categories(
     state: tauri::State<'_, AppState>,
-    form: category::AddCategoryDto,
+    form: category::AddDto,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
@@ -187,7 +199,7 @@ async fn create_categories(
 #[tauri::command]
 async fn create_many_categories(
     state: tauri::State<'_, AppState>,
-    items: Vec<category::AddCategoryDto>,
+    items: Vec<category::AddDto>,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
@@ -222,7 +234,10 @@ async fn update_categories(
 }
 
 #[tauri::command]
-async fn delete_many_categories(state: tauri::State<'_, AppState>, ids: Vec<i32>) -> Result<FlashData, ()> {
+async fn delete_many_categories(
+    state: tauri::State<'_, AppState>,
+    ids: Vec<i32>,
+) -> Result<FlashData, ()> {
     CategoryService::Mutation::delete_many(&state.conn, ids)
         .await
         .expect("could not delete categories");
@@ -238,13 +253,23 @@ async fn delete_many_categories(state: tauri::State<'_, AppState>, ids: Vec<i32>
 #[tauri::command]
 async fn list_categories(
     state: tauri::State<'_, AppState>,
-    filters: category::CategoryFilter,
+    filters: category::Filter,
 ) -> Result<Vec<category::Model>, ()> {
-    let (items, num_pages) = CategoryService::Query::get(&state.conn, filters)
+    let (items, _) = CategoryService::Query::get(&state.conn, filters)
         .await
         .expect("cannot find categories");
 
-    println!("num_pages: {}", num_pages);
+    Ok(items)
+}
+
+#[tauri::command]
+async fn list_common_categories(
+    state: tauri::State<'_, AppState>,
+    filters: category::Filter,
+) -> Result<Vec<category::CommonDto>, ()> {
+    let (items, _) = CategoryService::Query::common_get(&state.conn, filters)
+        .await
+        .expect("cannot find categories");
 
     Ok(items)
 }
@@ -269,7 +294,7 @@ async fn categories_by_id(
 #[tauri::command]
 async fn create_movements(
     state: tauri::State<'_, AppState>,
-    form: movement::AddMovementDto,
+    form: movement::AddDto,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
@@ -288,7 +313,7 @@ async fn create_movements(
 #[tauri::command]
 async fn create_many_movements(
     state: tauri::State<'_, AppState>,
-    items: Vec<movement::AddMovementDto>,
+    items: Vec<movement::AddDto>,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
@@ -323,14 +348,17 @@ async fn update_movements(
 }
 
 #[tauri::command]
-async fn delete_movements(state: tauri::State<'_, AppState>, id: i32) -> Result<FlashData, ()> {
-    ProductService::Mutation::delete(&state.conn, id)
+async fn delete_many_movements(
+    state: tauri::State<'_, AppState>,
+    ids: Vec<i32>,
+) -> Result<FlashData, ()> {
+    MovementService::Mutation::delete_many(&state.conn, ids)
         .await
-        .expect("could not delete movement");
+        .expect("could not delete movements");
 
     let data = FlashData {
         kind: "success".to_owned(),
-        message: "movement successfully deleted".to_owned(),
+        message: "movements successfully deleted".to_owned(),
     };
 
     Ok(data)
@@ -339,13 +367,23 @@ async fn delete_movements(state: tauri::State<'_, AppState>, id: i32) -> Result<
 #[tauri::command]
 async fn list_movements(
     state: tauri::State<'_, AppState>,
-    filters: movement::MovementFilter,
+    filters: movement::Filter,
 ) -> Result<Vec<movement::Model>, ()> {
-    let (items, num_pages) = MovementService::Query::get(&state.conn, filters)
+    let (items, _) = MovementService::Query::get(&state.conn, filters)
         .await
         .expect("cannot find movement in page");
 
-    println!("num_pages: {}", num_pages);
+    Ok(items)
+}
+
+#[tauri::command]
+async fn list_common_movements(
+    state: tauri::State<'_, AppState>,
+    filters: movement::Filter,
+) -> Result<Vec<movement::CommonDto>, ()> {
+    let (items, _) = MovementService::Query::common_get(&state.conn, filters)
+        .await
+        .expect("cannot find movement in page");
 
     Ok(items)
 }
@@ -380,10 +418,4 @@ struct AppState {
 struct FlashData {
     kind: String,
     message: String,
-}
-
-#[derive(Deserialize)]
-struct Params {
-    page: Option<u64>,
-    items_per_page: Option<u64>,
 }

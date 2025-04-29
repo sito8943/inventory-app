@@ -10,9 +10,9 @@ pub struct Mutation;
 impl Mutation {
     pub async fn create(
         db: &DbConn,
-        form_data: category::AddCategoryDto,
+        form_data: category::AddDto,
     ) -> Result<category::ActiveModel, DbErr> {
-        let category::AddCategoryDto {
+        let category::AddDto {
             name,
             color,
             description,
@@ -31,7 +31,7 @@ impl Mutation {
 
     pub async fn create_many(
         db: &DbConn,
-        items: Vec<category::AddCategoryDto>,
+        items: Vec<category::AddDto>,
     ) -> Result<i32, DbErr> {
         let active_models: Vec<category::ActiveModel> = items
             .into_iter()

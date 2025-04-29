@@ -11,7 +11,7 @@ impl Query {
     /// If ok, returns (movement models, num pages).
     pub async fn get(
         db: &DbConn,
-        filters: movement::MovementFilter,
+        filters: movement::Filter,
     ) -> Result<(Vec<movement::Model>, u64), DbErr> {
         use sea_orm::{ColumnTrait, Condition, EntityTrait, QueryFilter};
 
@@ -33,10 +33,20 @@ impl Query {
 
     pub async fn common_get(
         db: &DbConn,
-    ) -> Result<(Vec<movement::CommonMovementDto>, u64), String> {
-        // Setup paginator
+        filters: movement::Filter,
+    ) -> Result<(Vec<movement::CommonDto>, u64), String> {
+        let mut condition = Condition::all();
+
+        if filters.deleted != Some(true) {
+            condition = condition.add(movement::Column::DeletedAt.is_null());
+        }
+
+        if let Some(search_term) = &filters.name {
+            condition = condition.add(movement::Column::Name.contains(search_term));
+        }
+
         let categories = movementEntity::find()
-            .filter(movement::Column::DeletedAt.is_not_null())
+            .filter(condition)
             .order_by_asc(movement::Column::Id)
             .all(db)
             .await
@@ -44,7 +54,7 @@ impl Query {
 
         let dto_list = categories
             .into_iter()
-            .map(|model| movement::CommonMovementDto {
+            .map(|model| movement::CommonDto {
                 id: model.id,
                 name: model.name,
             })
