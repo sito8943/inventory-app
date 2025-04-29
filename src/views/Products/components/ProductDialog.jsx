@@ -54,7 +54,6 @@ export const ProductForm = (props) => {
         disabled={isLoading || categories?.isLoading}
         render={({ field: { value, onChange, ...rest } }) => (
           <AutocompleteInput
-            required
             options={categoryOptions}
             value={value}
             multiple
