@@ -20,8 +20,11 @@ export const ProductForm = (props) => {
   const categories = useCategoriesCommon();
 
   const categoryOptions = useMemo(
-    () => [...(categories?.data ?? [])],
-    [categories.data],
+    () => [
+      ...(categories?.data?.map((cat) => ({ id: cat.id, value: cat.name })) ??
+        []),
+    ],
+    [categories.data]
   );
 
   return (
