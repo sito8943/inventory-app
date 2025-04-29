@@ -35,7 +35,7 @@ export default class MovementClient extends BaseClient {
       };
     };
 
-    super(Tables.Movements, dbClient, validations);
+    super(Tables.Movements, validations);
   }
 
   /**
@@ -44,7 +44,7 @@ export default class MovementClient extends BaseClient {
    * @returns {Promise<boolean>}
    */
   async init(defaultValues = []) {
-    const movements = await this.get();
+    const movements = await this.get({ name: null, deleted: false });
 
     if (movements.length > 0) return false;
 
