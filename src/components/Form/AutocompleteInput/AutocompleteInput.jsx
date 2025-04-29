@@ -57,7 +57,7 @@ const AutocompleteInput = forwardRef(function (props, ref) {
             return isIncluded;
           })
         : [],
-    [options, localValue, value],
+    [options, localValue, value]
   );
 
   const autocompleteRef = useRef();
@@ -96,7 +96,7 @@ const AutocompleteInput = forwardRef(function (props, ref) {
       }
       setShowSuggestions(false);
     },
-    [multiple, onChange, value],
+    [multiple, onChange, value]
   );
 
   const handleDeleteChip = useCallback(
@@ -105,7 +105,7 @@ const AutocompleteInput = forwardRef(function (props, ref) {
       if (newValue.length) onChange(newValue);
       else onChange(null);
     },
-    [onChange, value],
+    [onChange, value]
   );
 
   return (
