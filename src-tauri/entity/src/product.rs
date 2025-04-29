@@ -21,12 +21,27 @@ pub struct Model {
 }
 
 #[derive(Debug, Clone, Deserialize)]
-pub struct AddProductDto {
+pub struct AddDto {
     pub name: String,
     pub price: f64,
     pub cost: f64,
     pub stock: i32,
     pub description: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct CommonDto {
+    pub id: i32,
+    pub name: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Filter {
+    pub name: Option<String>,
+    pub price: f64,
+    pub cost: f64,
+    pub stock: i32,
+    pub deleted: Option<bool>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

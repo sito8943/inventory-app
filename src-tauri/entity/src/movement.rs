@@ -18,20 +18,20 @@ pub struct Model {
 }
 
 #[derive(Debug, Clone, Deserialize)]
-pub struct AddMovementDto {
+pub struct AddDto {
     pub name: String,
     pub description: Option<String>,
     pub r#type: i32,
 }
 
-#[derive(Debug, Clone, Deserialize)]
-pub struct CommonMovementDto {
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct CommonDto {
     pub id: i32,
     pub name: String,
 }
 
 #[derive(Debug, Deserialize)]
-pub struct MovementFilter {
+pub struct Filter {
     pub name: Option<String>,
     pub deleted: Option<bool>, // if true => deleted_at IS NULL
 }

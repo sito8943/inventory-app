@@ -18,25 +18,24 @@ pub struct Model {
 }
 
 #[derive(Debug, Clone, Deserialize)]
-pub struct AddCategoryDto {
+pub struct AddDto {
     pub name: String,
     pub color: String,
     pub description: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
-pub struct CommonCategoryDto {
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct CommonDto {
     pub id: i32,
     pub name: String,
 }
 
 #[derive(Debug, Deserialize)]
-pub struct CategoryFilter {
+pub struct Filter {
     pub name: Option<String>,
     pub color: Option<String>,
-    pub deleted: Option<bool>, // if true => deleted_at IS NULL
+    pub deleted: Option<bool>,
 }
-
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {}
