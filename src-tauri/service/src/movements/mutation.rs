@@ -12,27 +12,17 @@ impl Mutation {
         db: &DbConn,
         form_data: movement::AddDto,
     ) -> Result<movement::ActiveModel, DbErr> {
-        let movement::AddDto {
-            name,
-            description,
-            r#type,
-            ..
-        } = form_data;
-
         movement::ActiveModel {
-            name: Set(name),
-            r#type: Set(r#type),
-            description: Set(description),
+            name: Set(form_data.name),
+            r#type: Set(form_data.r#type),
+            description: Set(form_data.description),
             ..Default::default()
         }
         .save(db)
         .await
     }
 
-    pub async fn create_many(
-        db: &DbConn,
-        items: Vec<movement::AddDto>,
-    ) -> Result<i32, DbErr> {
+    pub async fn create_many(db: &DbConn, items: Vec<movement::AddDto>) -> Result<i32, DbErr> {
         let active_models: Vec<movement::ActiveModel> = items
             .into_iter()
             .map(|p| movement::ActiveModel {
@@ -45,7 +35,9 @@ impl Mutation {
             })
             .collect();
 
-        movement::Entity::insert_many(active_models.clone()).exec(db).await?;
+        movement::Entity::insert_many(active_models.clone())
+            .exec(db)
+            .await?;
 
         Ok(active_models.len() as i32)
     }
@@ -53,17 +45,10 @@ impl Mutation {
     pub async fn update(db: &DbConn, id: i32, form_data: Model) -> Result<Model, DbErr> {
         let mut movement: movement::ActiveModel = get_by_id(db, id).await?.into();
 
-        let Model {
-            name,
-            r#type,
-            description,
-            ..
-        } = form_data;
-
         movement.updated_at = Set(Utc::now());
-        movement.name = Set(name);
-        movement.r#type = Set(r#type);
-        movement.description = Set(description);
+        movement.name = Set(form_data.name);
+        movement.r#type = Set(form_data.r#type);
+        movement.description = Set(form_data.description);
 
         movement.update(db).await
     }

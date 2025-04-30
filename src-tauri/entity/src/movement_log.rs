@@ -4,14 +4,15 @@ use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, DeriveEntityModel, Serialize, Deserialize)]
-#[sea_orm(table_name = "movements")]
+#[sea_orm(table_name = "movement_logs")]
 pub struct Model {
     #[sea_orm(primary_key)]
     #[serde(skip_deserializing)]
     pub id: i32,
-    pub name: String,
-    pub r#type: i32,
-    pub description: Option<String>,
+    pub product: i32,
+    pub movement: i32,
+    pub stock: i32,
+    pub result: i32,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
     pub deleted_at: Option<DateTime<Utc>>,
@@ -19,29 +20,29 @@ pub struct Model {
 
 #[derive(Debug, Clone, Deserialize)]
 pub struct AddDto {
-    pub name: String,
-    pub description: Option<String>,
-    pub r#type: i32,
+    pub id: i32,
+    pub product: i32,
+    pub movement: i32,
+    pub count: i32,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CommonDto {
     pub id: i32,
-    pub name: String,
+    pub product: i32,
+    pub movement: i32,
+    pub stock: i32,
+    pub result: i32,
+    pub updated_at: DateTime<Utc>,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct Filter {
-    pub name: Option<String>,
+    pub product: i32,
     pub deleted: Option<bool>, // if true => deleted_at IS NULL
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {}
-
-pub enum MovementTypes {
-    In = 1,
-    Out = 2,
-}
 
 impl ActiveModelBehavior for ActiveModel {}

@@ -14,7 +14,8 @@ impl MigrationTrait for Migration {
                     .col(pk_auto(MovementLogs::Id))
                     .col(ColumnDef::new(MovementLogs::Movement).integer().not_null())
                     .col(ColumnDef::new(MovementLogs::Product).integer().not_null())
-                    .col(ColumnDef::new(MovementLogs::Count).integer().not_null())
+                    .col(ColumnDef::new(MovementLogs::Stock).integer().not_null())
+                    .col(ColumnDef::new(MovementLogs::Result).integer().not_null())
                     .col(
                         ColumnDef::new(MovementLogs::CreatedAt)
                             .timestamp()
@@ -44,7 +45,8 @@ enum MovementLogs {
     Id,
     Movement,
     Product,
-    Count,
+    Stock,
+    Result,
     CreatedAt,
     UpdatedAt,
     DeletedAt,

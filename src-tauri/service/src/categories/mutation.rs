@@ -12,27 +12,17 @@ impl Mutation {
         db: &DbConn,
         form_data: category::AddDto,
     ) -> Result<category::ActiveModel, DbErr> {
-        let category::AddDto {
-            name,
-            color,
-            description,
-            ..
-        } = form_data;
-
         category::ActiveModel {
-            name: Set(name),
-            color: Set(color),
-            description: Set(description),
+            name: Set(form_data.name),
+            color: Set(form_data.color),
+            description: Set(form_data.description),
             ..Default::default()
         }
         .save(db)
         .await
     }
 
-    pub async fn create_many(
-        db: &DbConn,
-        items: Vec<category::AddDto>,
-    ) -> Result<i32, DbErr> {
+    pub async fn create_many(db: &DbConn, items: Vec<category::AddDto>) -> Result<i32, DbErr> {
         let active_models: Vec<category::ActiveModel> = items
             .into_iter()
             .map(|p| category::ActiveModel {
@@ -45,37 +35,25 @@ impl Mutation {
             })
             .collect();
 
-        category::Entity::insert_many(active_models.clone()).exec(db).await?;
+        category::Entity::insert_many(active_models.clone())
+            .exec(db)
+            .await?;
 
         Ok(active_models.len() as i32)
     }
 
-    pub async fn update(
-        db: &DbConn,
-        id: i32,
-        form_data: Model,
-    ) -> Result<Model, DbErr> {
+    pub async fn update(db: &DbConn, id: i32, form_data: Model) -> Result<Model, DbErr> {
         let mut category: category::ActiveModel = get_by_id(db, id).await?.into();
 
-        let Model {
-            name,
-            color,
-            description,
-            ..
-        } = form_data;
-
         category.updated_at = Set(Utc::now());
-        category.name = Set(name);
-        category.color = Set(color);
-        category.description = Set(description);
+        category.name = Set(form_data.name);
+        category.color = Set(form_data.color);
+        category.description = Set(form_data.description);
 
         category.update(db).await
     }
 
-    pub async fn delete_many(
-        db: &DbConn,
-        ids: Vec<i32>,
-    ) -> Result<UpdateResult, DbErr> {
+    pub async fn delete_many(db: &DbConn, ids: Vec<i32>) -> Result<UpdateResult, DbErr> {
         use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
 
         categoryEntity::update_many()
