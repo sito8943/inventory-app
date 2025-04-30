@@ -1,12 +1,19 @@
-use ::entity::{product, product::Entity as productEntity};
+use ::entity::{movement_log, product, product::Entity as productEntity};
 use sea_orm::*;
+use crate::movement_logs;
 
 pub struct Query;
 
 impl Query {
-
     pub async fn get_by_id(db: &DbConn, id: i32) -> Result<Option<product::Model>, DbErr> {
         productEntity::find_by_id(id).one(db).await
+    }
+
+    pub async fn movement_logs(
+        db: &DbConn,
+        filters: movement_log::Filter,
+    ) -> Result<(Vec<movement_log::CommonDto>, u64), String> {
+        movement_logs::Query::common_get(db, filters).await
     }
 
     pub async fn get(
