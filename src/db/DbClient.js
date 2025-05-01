@@ -32,9 +32,12 @@ function parseWhere(query, table, relationships, recall = false) {
 
   // WHERE type array
   if (query.length)
-    return (sql += query
-      .map((clause) => `(${parseWhere(clause, null, null, true)})`)
-      .join(" AND "));
+    return (
+      sql +
+      query
+        .map((clause) => `(${parseWhere(clause, null, null, true)})`)
+        .join(" AND ")
+    );
 
   // complex
   if (query.logic) {
@@ -54,7 +57,7 @@ function parseWhere(query, table, relationships, recall = false) {
     sql +=
       ` ` +
       conditions
-        .map((key, i) => {
+        .map((key) => {
           const fieldValue = getValueForSql(query[key]);
           const fieldName =
             relationships?.length && key.indexOf(".") === -1
@@ -73,15 +76,8 @@ class DbClient {
   db = new Database();
 
   openDb = async () => (this.db = await Database.load("sqlite:base.db"));
-  closeDb = async () => await this.db.close();
 
-  async init() {
-    // open first to created if doesn't exist
-  }
-
-  constructor() {
-    this.init();
-  }
+  constructor() {}
 
   /**
    *
@@ -90,19 +86,18 @@ class DbClient {
    * @param {string} attributes
    * @returns sql result
    */
-  async insert(table, value, attributes) {
+  async insert(table, value, attributes = "") {
     try {
       await this.openDb();
 
-      const result = await this.db.execute(
+      return await this.db.execute(
         `INSERT into ${table} (${
-          attributes ?? Object.keys(value).toString()
-        }) VALUES (${Object.values(value)
-          .map((val) => getValueForSql(val))
-          .toString()})`,
+          !!attributes ? attributes : Object.keys(value).toString()
+        })
+                 VALUES (${Object.values(value)
+                   .map((val) => getValueForSql(val))
+                   .toString()})`,
       );
-
-      return result;
     } catch (err) {
       console.error(err);
       throw err;
@@ -129,11 +124,10 @@ class DbClient {
         )
         .join(", ");
 
-      let sql = `UPDATE ${table} SET ${setClause} ${parseWhere(query)}`;
+      let sql = `UPDATE ${table}
+                       SET ${setClause} ${parseWhere(query)}`;
 
-      const result = await this.db.execute(sql);
-
-      return result;
+      return await this.db.execute(sql);
     } catch (err) {
       console.error(err);
       throw err;
@@ -144,13 +138,11 @@ class DbClient {
     try {
       await this.openDb();
 
-      const result = await this.db.execute(
-        `UPDATE ${table} SET deletedAt = CURRENT_TIMESTAMP WHERE id IN (${ids.join(
-          ",",
-        )})`,
+      return await this.db.execute(
+        `UPDATE ${table}
+                 SET deletedAt = CURRENT_TIMESTAMP
+                 WHERE id IN (${ids.join(",")})`,
       );
-
-      return result;
     } catch (err) {
       console.error(err);
       throw err;
@@ -164,7 +156,7 @@ class DbClient {
    * @param {string} attributes
    * @returns count of items inserted
    */
-  async insertMany(table, values, attributes) {
+  async insertMany(table, values, attributes = "") {
     for (const val of values) await this.insert(table, val, attributes);
 
     return values.length;
@@ -182,8 +174,8 @@ class DbClient {
     try {
       await this.openDb();
 
-      let sql = `SELECT ${attributes} FROM ${table}`;
-
+      let sql = `SELECT ${attributes}
+                       FROM ${table}`;
       // Add joins if there are relationships
       if (relationships.length > 0) {
         sql +=
@@ -194,10 +186,8 @@ class DbClient {
       }
 
       sql += parseWhere(query, table, relationships);
-
-      const result = await this.db.select(sql);
-
-      return result;
+      console.log(sql);
+      return await this.db.select(sql);
     } catch (err) {
       console.error("Error in select:", err);
       throw err;

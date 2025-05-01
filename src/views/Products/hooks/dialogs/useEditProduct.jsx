@@ -7,7 +7,7 @@ import { useManager } from "../../../../providers/ManagerProvider";
 import useFormDialog from "../../../../hooks/useFormDialog";
 
 // utils
-import { ReactQueryKeys } from "../../../../utils/queryKey";
+import { ProductsQueryKeys } from "../../../../hooks/queries/useProducts.jsx";
 
 export function useEditProduct() {
   const { t } = useTranslation();
@@ -18,9 +18,8 @@ export function useEditProduct() {
     getFunction: (id) => manager.Products.getById(id),
     mutationFn: (data) => manager.Products.update(data),
     onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-    queryKey: ReactQueryKeys.Products,
+    ...ProductsQueryKeys.all,
   });
-
   return {
     title: t("_pages:products.forms.edit"),
     handleSubmit: handleSubmit((data) => dialogFn.mutate(data)),

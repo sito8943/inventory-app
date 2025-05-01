@@ -81,12 +81,18 @@
         "name": "Category",
         "invalid": "Please select a valid category"
       },
+      "cost": {
+        "name": "Cost",
+        "empty": "Free"
+      },
       "price": {
-        "name": "Price"
+        "name": "Price",
+        "empty": "Free"
       },
       "stock": {
         "name": "Stock",
-        "label": "in Stock"
+        "empty": "Out of stock",
+        "units": "units"
       },
       "movement": {
         "name": "Movement",

@@ -2,10 +2,11 @@
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
   "description": "Capability for the main window",
-  "windows": ["main"],
+  "windows": [
+    "main"
+  ],
   "permissions": [
     "core:default",
-    "opener:default",
     "core:window:default",
     "core:window:allow-start-dragging",
     "core:window:allow-toggle-maximize",
@@ -13,11 +14,26 @@
     "core:window:allow-set-size",
     "core:window:allow-close",
     "core:window:allow-minimize",
-    "core:window:allow-internal-toggle-maximize",
-    "sql:default",
-    "sql:allow-load",
-    "sql:allow-execute",
-    "sql:allow-select",
-    "sql:allow-close"
+    "core:window:allow-internal-toggle-maximize"
+  ],
+  "capabilities": [
+    {
+      "identifier": "my-capability",
+      "description": "My application capability used for all windows",
+      "windows": [
+        "*"
+      ],
+      "permissions": [
+        "core:default",
+        "core:window:default",
+        "core:window:allow-start-dragging",
+        "core:window:allow-toggle-maximize",
+        "core:window:allow-set-position",
+        "core:window:allow-set-size",
+        "core:window:allow-close",
+        "core:window:allow-minimize",
+        "core:window:allow-internal-toggle-maximize"
+      ]
+    }
   ]
 }

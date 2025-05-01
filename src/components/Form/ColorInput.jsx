@@ -23,11 +23,7 @@ const ColorInput = forwardRef(function (props, ref) {
 
   const { t } = useTranslation();
 
-  const [color, setColor] = useState("#aabbcc");
-
-  useEffect(() => {
-    setColor(value);
-  }, [value]);
+  const [color, setColor] = useState(value ?? "#aabbcc");
 
   const styles = css({
     backgroundColor: value,
@@ -38,8 +34,10 @@ const ColorInput = forwardRef(function (props, ref) {
   return (
     <>
       <TextInput
-        {...props}
+        {...rest}
         ref={ref}
+        value={color}
+        onChange={onChange}
         startAdornment={
           <button
             onClick={() => dialogProps.handleOpen()}

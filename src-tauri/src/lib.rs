@@ -1,86 +1,97 @@
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-use tauri_plugin_sql::{Migration, MigrationKind};
+// Prevents an additional console window on Windows in release, DO NOT REMOVE!!
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+use migration::{Migrator, MigratorTrait};
+use sea_orm::{Database, DatabaseConnection};
+use serde::{Deserialize, Serialize};
 
+use crate::commands::{
+    categories::{
+        categories_by_id, create_categories, create_many_categories, delete_many_categories,
+        list_categories, list_common_categories, update_categories,
+    },
+    movements::{
+        create_many_movements, create_movements, delete_many_movements, list_common_movements,
+        list_movements, movements_by_id, update_movements,
+    },
+    products::{
+        create_products, create_many_products, delete_many_products, list_common_products, list_products, products_by_id,
+        update_products,
+    },
+};
+
+use std::env;
+use std::fs;
+
+mod commands;
+
+#[tokio::main]
+pub async fn run() {
+    env::set_var("RUST_LOG", "debug");
+    tracing_subscriber::fmt::init();
+
+    dotenvy::dotenv().ok();
+
+    let data_dir = ".tauri-seaorm-template/data";
+    if let Err(_) = fs::metadata(&data_dir) {
+        fs::create_dir_all(&data_dir).expect("Could not create data directory");
+    }
+
+    let db_url = "sqlite://".to_string() + data_dir + "/inventory-db.sqlite?mode=rwc";
+    //let db_url = env::var("DATABASE_URL").expect("DATABASE_URL is not set in .env file");
+
+    let conn = Database::connect(db_url)
+        .await
+        .expect("Database connection failed");
+    Migrator::up(&conn, None).await.unwrap();
+
+    let state = AppState { conn };
+
+    tauri::Builder::default()
+        .manage(state)
+        .invoke_handler(tauri::generate_handler![
+            greet,
+            // product crud
+            create_products,
+            create_many_products,
+            update_products,
+            delete_many_products,
+            list_products,
+            list_common_products,
+            products_by_id,
+            // category crud
+            create_categories,
+            create_many_categories,
+            update_categories,
+            delete_many_categories,
+            list_categories,
+            list_common_categories,
+            categories_by_id,
+            // movement crud
+            create_movements,
+            create_many_movements,
+            update_movements,
+            delete_many_movements,
+            list_movements,
+            list_common_movements,
+            movements_by_id,
+        ])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+
+// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
-pub fn run() {
-    let migrations = vec![
-        Migration {
-            version: 1,
-            description: "create categories table",
-            sql: "CREATE TABLE IF NOT EXISTS categories (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL,
-                color TEXT,
-                description TEXT,
-                createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
-                updatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
-                deletedAt TEXT DEFAULT NULL
-            )",
-            kind: MigrationKind::Up,
-        },
-        Migration {
-            version: 2,
-            description: "create products table",
-            sql: "CREATE TABLE IF NOT EXISTS products (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL,
-                category INTEGER NOT NULL,
-                price REAL DEFAULT 0,
-                stock INTEGER DEFAULT 0,
-                description TEXT,
-                createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
-                updatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
-                deletedAt TEXT DEFAULT NULL
-            )",
-            kind: MigrationKind::Up,
-        },
-        Migration {
-            version: 3,
-            description: "create movements and movementLogs tables",
-            sql: "
-                CREATE TABLE IF NOT EXISTS movements (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT NOT NULL,
-                    type BYTE DEFAULT 1,
-                    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
-                    updatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
-                    deletedAt TEXT DEFAULT NULL
-                );
+#[derive(Clone)]
+struct AppState {
+    conn: DatabaseConnection,
+}
 
-                CREATE TABLE IF NOT EXISTS movementLogs (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    product INTEGER NOT NULL,
-                    movement INTEGER NOT NULL,
-                    stock INTEGER NOT NULL,
-                    result INTEGER NOT NULL,
-                    createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (product) REFERENCES products(id) ON DELETE CASCADE,
-                    FOREIGN KEY (movement) REFERENCES movements(id) ON DELETE CASCADE
-                );
-
-                INSERT INTO movements (id, name, type)
-                VALUES
-                    (1, 'IN', 1),
-                    (2, 'OUT', 2)
-                ON CONFLICT(id) DO NOTHING;
-            ",
-            kind: MigrationKind::Up,
-        }
-    ];
-
-    tauri::Builder::default()
-        .plugin(
-            tauri_plugin_sql::Builder::default()
-                .add_migrations("sqlite:inventory-db.db", migrations)
-                .build()
-        )
-        .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+#[derive(Deserialize, Serialize, Debug, Clone)]
+struct FlashData {
+    kind: String,
+    message: String,
 }

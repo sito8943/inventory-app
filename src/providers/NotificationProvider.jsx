@@ -1,63 +1,63 @@
-import { useContext, createContext, useReducer } from "react";
+import {useContext, createContext, useReducer} from "react";
 
 // lib
-import { Notification, NotificationContextType } from "../lib/Notification";
+import {Notification, NotificationContextType} from "../lib/Notification";
 
 const NotificationContext = createContext({});
 
 export function NotificationProvider(props) {
-  const { children } = props;
+    const {children} = props;
 
-  const [notification, dispatch] = useReducer((state, action) => {
-    const { type, items, index } = action;
+    const [notification, dispatch] = useReducer((state, action) => {
+        const {type, items, index} = action;
 
-    switch (type) {
-      case "set":
-        return items;
-      case "remove":
-        if (index) return state.filter((_, i) => i !== index);
-        return [];
-    }
-    return state;
-  }, []);
+        switch (type) {
+            case "set":
+                return items;
+            case "remove":
+                if (index) return state.filter((_, i) => i !== index);
+                return [];
+        }
+        return state;
+    }, [], () => []);
 
-  const showErrorNotification = (options) =>
-    dispatch({
-      type: "set",
-      items: [new Notification({ ...options, type: "error" })],
-    });
+    const showErrorNotification = (options) =>
+        dispatch({
+            type: "set",
+            items: [new Notification({...options, type: "error"})],
+        });
 
-  const showNotification = (options) =>
-    dispatch({
-      type: "set",
-      items: [new Notification({ ...options })],
-    });
+    const showNotification = (options) =>
+        dispatch({
+            type: "set",
+            items: [new Notification({...options})],
+        });
 
-  const showStackNotifications = (notifications) =>
-    dispatch({ type: "set", items: notifications });
+    const showStackNotifications = (notifications) =>
+        dispatch({type: "set", items: notifications});
 
-  const showSuccessNotification = (options) =>
-    dispatch({
-      type: "set",
-      items: [new Notification({ ...options, type: "success" })],
-    });
+    const showSuccessNotification = (options) =>
+        dispatch({
+            type: "set",
+            items: [new Notification({...options, type: "success"})],
+        });
 
-  const removeNotification = (index) => dispatch({ type: "remove", index });
+    const removeNotification = (index) => dispatch({type: "remove", index});
 
-  return (
-    <NotificationContext.Provider
-      value={{
-        notification,
-        removeNotification,
-        showErrorNotification,
-        showNotification,
-        showSuccessNotification,
-        showStackNotifications,
-      }}
-    >
-      {children}
-    </NotificationContext.Provider>
-  );
+    return (
+        <NotificationContext.Provider
+            value={{
+                notification,
+                removeNotification,
+                showErrorNotification,
+                showNotification,
+                showSuccessNotification,
+                showStackNotifications,
+            }}
+        >
+            {children}
+        </NotificationContext.Provider>
+    );
 }
 
 /**
@@ -65,9 +65,9 @@ export function NotificationProvider(props) {
  * @returns {NotificationContextType} notification context
  */
 export const useNotification = () => {
-  const context = useContext(NotificationContext);
+    const context = useContext(NotificationContext);
 
-  if (context === undefined)
-    throw new Error("NotificationContext must be used within a Provider");
-  return context;
+    if (context === undefined)
+        throw new Error("NotificationContext must be used within a Provider");
+    return context;
 };

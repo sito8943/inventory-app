@@ -43,7 +43,7 @@ function useTimeAge() {
         year: "numeric",
       });
     },
-    [t, i18n]
+    [t, i18n.language]
   );
 
   return { timeAge };

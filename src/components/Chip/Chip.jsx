@@ -1,12 +1,27 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 /**
  * Chip component
- * @param {object} props - componente props
+ * @param {object} props - component props
  * @returns Chip component
  */
 const Chip = (props) => {
-  const { text, variant = "primary", className } = props;
+  const {
+    text,
+    children,
+    icon,
+    variant = "primary",
+    className = "",
+    onDelete,
+    ...rest
+  } = props;
 
-  return <div className={`chip ${variant} ${className}`}>{text}</div>;
+  return (
+    <div className={`chip ${variant} ${className}`} {...rest}>
+      {icon ? <FontAwesomeIcon icon={icon} /> : null}
+      {text ?? children}
+    </div>
+  );
 };
 
-export default Chip
+export default Chip;

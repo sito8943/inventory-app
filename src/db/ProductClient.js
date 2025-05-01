@@ -1,39 +1,37 @@
 import BaseClient from "./BaseClient";
-import DbClient from "./DbClient";
 
 // lib
 import { ServiceError, ValidationError } from "../lib/";
 
 // enum
-import { MovementTypes, MovementDto, Tables } from "./types";
+import { MovementDto, MovementTypes, Tables } from "./types";
 import { UniqueColumns } from "./types/products";
 
 export default class ProductClient extends BaseClient {
   /**
-   * @param {string} table
-   * @param {DbClient} dbClient
+   *
    */
-  constructor(dbClient) {
+  constructor() {
     const validations = () => {
       const onInsert = async (row) => {
         if (!row.name) return new ValidationError(["name", "required"]);
         // check uniqueness
         for (const col of UniqueColumns) {
           const exist = await BaseClient.UniqueValue(
-            dbClient,
             Tables.Products,
             col,
-            row[col],
+            row[col]
           );
-          if (exist) return exist;
+          if (exist && exist.id !== row.id)
+            return new ValidationError([col, "unique"]);
         }
-        if (row.category == 0)
+        if (row.category === 0)
           return new ValidationError(["category", "invalid"]);
         return false;
       };
       const onUpdate = onInsert;
       const onDoMovement = async (dto) => {
-        if (dto.movement == 0)
+        if (dto.movement === 0)
           return new ValidationError(["movement", "invalid"]);
         return false;
       };
@@ -45,7 +43,7 @@ export default class ProductClient extends BaseClient {
       };
     };
 
-    super(Tables.Products, dbClient, validations);
+    super(Tables.Products, validations);
   }
 
   // #region actions
@@ -111,7 +109,7 @@ export default class ProductClient extends BaseClient {
       Tables.MovementLogs,
       { product: id },
       "movementLogs.id as id, movements.name as movement, movementLogs.stock as stock, movementLogs.result as result,movementLogs.createdAt as createdAt",
-      [{ table: "movements", on: "movements.id = movementLogs.movement" }],
+      [{ table: "movements", on: "movements.id = movementLogs.movement" }]
     );
 
     return logs;

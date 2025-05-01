@@ -1,14 +1,14 @@
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 // providers
-import { useManager } from "../../../../providers/ManagerProvider";
+import {useManager} from "../../../../providers/ManagerProvider";
 
 // hooks
 import useFormDialog from "../../../../hooks/useFormDialog";
 import useDoMovementAction from "../actions/useDoMovementAction";
 
 // utils
-import { ReactQueryKeys } from "../../../../utils/queryKey";
+import {ProductsQueryKeys} from "../../../../hooks/queries/useProducts.jsx";
 
 export function useDoMovement() {
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ export function useDoMovement() {
     getFunction: (id) => manager.Products.getById(id, "id"),
     mutationFn: (data) => manager.Products.doMovement(data),
     onSuccessMessage: t("_pages:products.actions.doMovement.successMessage"),
-    queryKey: ReactQueryKeys.Products,
+    ...ProductsQueryKeys.all,
     onError: (error) => {
       console.error(error);
     },

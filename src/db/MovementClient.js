@@ -1,4 +1,3 @@
-import DbClient from "./DbClient";
 import BaseClient from "./BaseClient";
 
 // lib
@@ -10,7 +9,6 @@ import { UniqueColumns } from "./types/products.js";
 
 export default class MovementClient extends BaseClient {
   /**
-   * @param {string} table
    * @param {DbClient} dbClient
    */
   constructor(dbClient) {
@@ -25,19 +23,31 @@ export default class MovementClient extends BaseClient {
             col,
             row[col],
           );
-          if (exist) return exist;
+          if (exist && exist.id !== row.id)
+            return new ValidationError([col, "unique"]);
         }
         if (row.type === 0) return new ValidationError(["type", "invalid"]);
         return false;
       };
-      const onUpdate = onInsert;
-
       return {
         insert: onInsert,
-        update: onUpdate,
+        update: onInsert,
       };
     };
 
-    super(Tables.Movements, dbClient, validations);
+    super(Tables.Movements, validations);
+  }
+
+  /**
+   *
+   * @param {object[]} defaultValues
+   * @returns {Promise<boolean>}
+   */
+  async init(defaultValues = []) {
+    const movements = await this.get({ name: null, deleted: false });
+
+    if (movements.length > 0) return false;
+
+    await this.insertMany(defaultValues);
   }
 }

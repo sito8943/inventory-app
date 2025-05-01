@@ -10,9 +10,21 @@ import ConfirmationDialog from "./Dialog/ConfirmationDialog";
 import FormDialog from "./Dialog/FormDialog";
 import Loading from "./Loading/Loading";
 import Chip from "./Chip/Chip";
-import { ColorInput, ParagraphInput, SelectInput, TextInput } from "./Form";
+import Page from "./Page/Page";
+import PrettyGrid from "./PrettyGrid/PrettyGrid";
+import ItemCard from "./Card/ItemCard";
+import {
+  ColorInput,
+  ParagraphInput,
+  SelectInput,
+  TextInput,
+  AutocompleteInput,
+} from "./Form";
 
 export {
+  Page,
+  PrettyGrid,
+  ItemCard,
   Chip,
   Loading,
   Table,
@@ -29,4 +41,5 @@ export {
   ParagraphInput,
   SelectInput,
   TextInput,
+  AutocompleteInput,
 };

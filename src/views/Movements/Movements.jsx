@@ -1,89 +1,60 @@
-import { useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
+import {useCallback} from "react";
+import {useTranslation} from "react-i18next";
 
 // providers
-import { useManager } from "../../providers/ManagerProvider";
-
-// utils
-import { ReactQueryKeys } from "../../utils/queryKey";
+import {useManager} from "../../providers/ManagerProvider";
 
 // components
-import { AddCard, Loading, ConfirmationDialog } from "../../components";
-import {
-  MovementCard,
-  AddMovementDialog,
-  EditMovementDialog,
-} from "./components";
+import {AddCard, ConfirmationDialog, Page, PrettyGrid} from "../../components";
+import {AddMovementDialog, EditMovementDialog, MovementCard,} from "./components";
 
 // hooks
-import { useAddMovement, useEditMovement } from "./hooks/dialogs/";
+import {useAddMovement, useEditMovement} from "./hooks/dialogs/";
+import {useMovementsList} from "../../hooks/queries/useMovements.jsx";
 import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
 
 function Movements() {
-  const { t } = useTranslation();
+    const {t} = useTranslation();
 
-  const manager = useManager();
+    const manager = useManager();
 
-  const { data, isLoading } = useQuery({
-    queryKey: [ReactQueryKeys.Movements],
-    enabled: true,
-    queryFn: () => manager.Movements.get({ deletedAt: null }),
-  });
+    const {data, isLoading} = useMovementsList({});
 
-  // #region actions
+    // #region actions
 
-  const deleteMovement = useDeleteDialog({
-    mutationFn: (data) => manager.Movements.softDelete(data),
-  });
+    const deleteMovement = useDeleteDialog({
+        mutationFn: (data) => manager.Movements.softDelete(data),
+    });
 
-  const addMovement = useAddMovement();
+    const addMovement = useAddMovement();
 
-  const editMovement = useEditMovement();
+    const editMovement = useEditMovement();
 
-  // #endregion
+    // #endregion
 
-  const getActions = useCallback((record) => [deleteMovement.action(record)]);
+    const getActions = useCallback((record) => [deleteMovement.action(record)], [deleteMovement]);
 
-  return (
-    <main className="p-5">
-      <div className="apparition flex flex-col gap-5">
-        <h2 className="text-xl">{t("_pages:movements.title")}</h2>
-        {isLoading ? (
-          <Loading
-            size="text-3xl"
-            containerClassName="flex justify-center items-center h-50"
-          />
-        ) : data?.length ? (
-          <ul className="flex flex-wrap max-xs:flex-col gap-5">
-            {data?.map((movement) => (
-              <li key={movement.id}>
-                <MovementCard
-                  actions={getActions(movement)}
-                  onClick={(id) => editMovement.onClick(id)}
-                  {...movement}
-                />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="!text-gray-400 text-center mt-5">
-            {t("_pages:movements.empty")}
-          </p>
-        )}
-      </div>
-      <AddCard
-        disabled={isLoading}
-        onClick={addMovement.onClick}
-        tooltip={t("_pages:movements.add")}
-      />
+    return (
+        <Page title={t("_pages:movements.title")} isLoading={isLoading}
+              addOptions={{onClick: addMovement.onClick, disabled: isLoading, tooltip: t("_pages:movements.add")}}>
+            <PrettyGrid
+                data={data}
+                emptyMessage={t("_pages:movements.empty")}
+                renderComponent={(movement) => (
+                    <MovementCard
+                        actions={getActions(movement)}
+                        onClick={(id) => editMovement.onClick(id)}
+                        {...movement}
+                    />
+                )}
+            />
 
-      {/* Dialogs */}
-      <AddMovementDialog {...addMovement} />
-      <EditMovementDialog {...editMovement} />
-      <ConfirmationDialog {...deleteMovement} />
-    </main>
-  );
+            {/* Dialogs */}
+            <AddMovementDialog {...addMovement} />
+            <EditMovementDialog {...editMovement} />
+            <ConfirmationDialog {...deleteMovement} />
+        </Page>
+    );
 }
 
 export default Movements;

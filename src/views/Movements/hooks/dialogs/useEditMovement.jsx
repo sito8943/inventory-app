@@ -7,7 +7,7 @@ import { useManager } from "../../../../providers/ManagerProvider";
 import useFormDialog from "../../../../hooks/useFormDialog";
 
 // utils
-import { ReactQueryKeys } from "../../../../utils/queryKey";
+import { MovementsQueryKeys } from "../../../../hooks/queries/useMovements.jsx";
 
 export function useEditMovement() {
   const { t } = useTranslation();
@@ -18,7 +18,7 @@ export function useEditMovement() {
     getFunction: (id) => manager.Movements.getById(id),
     mutationFn: (data) => manager.Movements.update(data),
     onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-    queryKey: ReactQueryKeys.Movements,
+    ...MovementsQueryKeys.all,
   });
 
   return {

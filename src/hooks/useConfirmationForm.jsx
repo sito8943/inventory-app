@@ -1,49 +1,48 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useMutation } from "@tanstack/react-query";
+import {useState} from "react";
+import {useMutation} from "@tanstack/react-query";
 
 // hooks
 import useDialog from "./useDialog";
 
 // providers
-import { useNotification } from "../providers/NotificationProvider";
-import { queryClient } from "../providers/ManagerProvider";
+import {useNotification} from "../providers/NotificationProvider";
+import {queryClient} from "../providers/ManagerProvider";
 
 function useConfirmationForm(props) {
-  const { t } = useTranslation();
-  const { showSuccessNotification } = useNotification();
 
-  const { mutationFn, onError, onSuccess, queryKey, onSuccessMessage } = props;
+    const {showSuccessNotification} = useNotification();
 
-  const [id, setId] = useState(0);
+    const {mutationFn, onError, onSuccess, queryKey, onSuccessMessage} = props;
 
-  const { open, handleClose, handleOpen } = useDialog();
+    const [id, setId] = useState(0);
 
-  const close = () => {
-    handleClose();
-    setId(0);
-  };
+    const {open, handleClose, handleOpen} = useDialog();
 
-  const onClick = async (id) => {
-    setId(id);
-    handleOpen();
-  };
+    const close = () => {
+        handleClose();
+        setId(0);
+    };
 
-  const dialogFn = useMutation({
-    mutationFn: () => mutationFn([id]),
-    onError: (error) => {
-      console.error(error);
-      if (onError) onError(error);
-    },
-    onSuccess: (result) => {
-      queryClient.invalidateQueries([queryKey]);
-      if (onSuccess) onSuccess(result);
-      showSuccessNotification({ message: onSuccessMessage });
-      close();
-    },
-  });
+    const onClick = async (id) => {
+        setId(id);
+        handleOpen();
+    };
 
-  return { open, onClick, close, dialogFn, isLoading: dialogFn.isPending };
+    const dialogFn = useMutation({
+        mutationFn: () => mutationFn([id]),
+        onError: (error) => {
+            console.error(error);
+            if (onError) onError(error);
+        },
+        onSuccess: async (result) => {
+            await queryClient.invalidateQueries(queryKey);
+            if (onSuccess) onSuccess(result);
+            showSuccessNotification({message: onSuccessMessage});
+            close();
+        },
+    });
+
+    return {open, onClick, close, dialogFn, isLoading: dialogFn.isPending};
 }
 
 export default useConfirmationForm;

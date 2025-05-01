@@ -7,7 +7,7 @@ import { useManager } from "../../../../providers/ManagerProvider";
 import useFormDialog from "../../../../hooks/useFormDialog";
 
 // utils
-import { ReactQueryKeys } from "../../../../utils/queryKey";
+import { CategoriesQueryKeys } from "../../../../hooks/queries/useCategories.jsx";
 
 export function useEditCategory() {
   const { t } = useTranslation();
@@ -18,7 +18,7 @@ export function useEditCategory() {
     getFunction: (id) => manager.Categories.getById(id),
     mutationFn: (data) => manager.Categories.update(data),
     onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-    queryKey: ReactQueryKeys.Categories,
+    ...CategoriesQueryKeys.all,
   });
 
   return {

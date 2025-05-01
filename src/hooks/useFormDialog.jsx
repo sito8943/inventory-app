@@ -35,10 +35,8 @@ function useFormDialog(props) {
     useForm(defaultValues);
 
   const { data, isLoading } = useQuery({
-    queryFn: () => {
-      return getFunction?.(id);
-    },
-    queryKey: [queryKey, id],
+    queryFn: () => getFunction?.(id),
+    queryKey: [...queryKey, id],
     enabled: !!getFunction && !!queryKey && !!id,
   });
 
@@ -46,21 +44,24 @@ function useFormDialog(props) {
     if (data && data.length) reset({ ...data[0] });
   }, [data]);
 
-  const parseFormError = useCallback((error) => {
-    const valError = error?.errors;
-    const messages = [];
-    if (valError) {
-      valError.forEach(([key, message]) => {
-        const input = document.querySelector(`[name="${key}"]`);
-        if (input) {
-          input.focus();
-          input.classList.add("error");
-          messages.push(t(`_pages:${queryKey}.inputs.${key}.${message}`));
-        }
-      });
-    }
-    return messages;
-  }, []);
+  const parseFormError = useCallback(
+    (error) => {
+      const valError = error?.errors;
+      const messages = [];
+      if (valError) {
+        valError.forEach(([key, message]) => {
+          const input = document.querySelector(`[name="${key}"]`);
+          if (input) {
+            input.focus();
+            input.classList.add("error");
+            messages.push(t(`_pages:${queryKey}.inputs.${key}.${message}`));
+          }
+        });
+      }
+      return messages;
+    },
+    [t, queryKey],
+  );
 
   const releaseFormError = useCallback(() => {
     const inputs = document.querySelectorAll("input, textarea, select");
@@ -69,16 +70,19 @@ function useFormDialog(props) {
     });
   }, []);
 
-  const onClick = useCallback((id) => {
-    setId(id);
-    handleOpen();
-  }, [handleOpen]);
+  const onClick = useCallback(
+    (id) => {
+      setId(id);
+      handleOpen();
+    },
+    [handleOpen],
+  );
 
   const close = useCallback(() => {
     releaseFormError();
     handleClose();
     reset();
-  }, [reset, releaseFormError]);
+  }, [reset, releaseFormError, handleClose]);
 
   const dialogFn = useMutation({
     mutationFn,
@@ -92,14 +96,14 @@ function useFormDialog(props) {
               new Notification({
                 message,
                 type: "error",
-              })
-          )
+              }),
+          ),
         );
       }
       if (onError) onError(error);
     },
-    onSuccess: (result) => {
-      queryClient.invalidateQueries([queryKey]);
+    onSuccess: async (result) => {
+      await queryClient.invalidateQueries(queryKey);
       if (onSuccess) onSuccess(result);
       showSuccessNotification({ message: onSuccessMessage });
       close();

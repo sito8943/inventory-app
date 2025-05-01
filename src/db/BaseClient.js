@@ -1,39 +1,42 @@
-import DbClient from "./DbClient";
-
-// lib
-import ValidationError from "../lib/ValidationError";
+import { invoke } from "@tauri-apps/api/core";
 
 export default class BaseClient {
-  db = new DbClient();
   table = "";
   validator = null;
 
+  /**
+   *
+   * @param row
+   * @param event
+   * @returns {Promise<*|boolean>}
+   */
   async validates(row, event) {
     if (this.validator[event]) return await this.validator[event](row);
     return false;
   }
 
-  static async UniqueValue(dbClient, table, column, value) {
+  /**
+   *
+   * @param {string} table
+   * @param {string} column
+   * @param {object} value
+   * @returns {Promise<*>}
+   */
+  static async UniqueValue(table, column, value) {
     const colQuery = {};
     colQuery[column] = value;
-    const noEntries = await dbClient.select(table, [
-      {
-        deletedAt: null,
-      },
-      {
-        ...colQuery,
-      },
-    ]);
-    if (noEntries.length > 0) return new ValidationError([column, "unique"]);
-    return false;
+    /*const noEntries = await invoke("list_categories", {
+              params: { items_per_page: 1 },
+            });
+            return noEntries[0];*/
   }
 
   /**
    *
-   * @param {DbClient} dbClient
+   * @param {string} table
+   * @param {function} validations
    */
-  constructor(table, dbClient, validations = function () {}) {
-    this.db = dbClient;
+  constructor(table, validations = function () {}) {
     this.table = table;
     this.validator = validations();
   }
@@ -41,18 +44,27 @@ export default class BaseClient {
   /**
    *
    * @param {object} value
-   * @param {string} attributes
    * @returns
    */
-  async insert(value, attributes) {
+  async insert(value) {
     const validated = await this.validates(value, "insert");
-    if (!validated) return await this.db.insert(this.table, value, attributes);
+    if (!validated)
+      return await invoke(`create_${this.table}`, { form: value });
     throw validated;
   }
 
   /**
    *
-   * @param {object} value
+   * @param {object[]} values
+   * @returns count of items inserted
+   */
+  async insertMany(values) {
+    return await invoke(`create_many_${this.table}`, { items: values });
+  }
+
+  /**
+   *
+   * @param {object} values
    */
   async update(values) {
     const validated = await this.validates(values, "update");
@@ -64,28 +76,37 @@ export default class BaseClient {
   /**
    *
    * @param {object} query - Where conditions (key-value)
-   * @param {string} attributes - Columns to select (default '*')
-   * @param {Array<{ table: string, on: string }>} relationships - Tables to join
    * @returns {Promise<Array>} - Query result
    */
-  async get(query, attributes, relationships) {
-    return await this.db.select(this.table, query, attributes, relationships);
+  async get(query = {}) {
+    return await invoke(`list_${this.table}`, {
+      filters: { ...query },
+    });
+  }
+
+  /**
+   *
+   * @param {object} query - Where conditions (key-value)
+   * @returns {Promise<Array>} - Query result
+   */
+  async commonGet(query = {}) {
+    return await invoke(`list_common_${this.table}`, {
+      filters: { ...query },
+    });
   }
 
   /**
    *
    * @param {*} id
-   * @param {*} attributes
-   * @param {Array<{ table: string, on: string }>} relationships - Tables to join
    * @returns {Promise<Array>} - Query result
    */
-  async getById(id, attributes, relationships) {
-    return await this.db.select(this.table, { id }, attributes, relationships);
+  async getById(id) {
+    return await invoke(`${this.table}_by_id`, { id });
   }
 
   async softDelete(ids) {
     const validated = await this.validates(ids, "delete");
-    if (!validated) return await this.db.softDelete(this.table, ids);
+    if (!validated) return await invoke(`delete_${this.table}`, ids);
     throw validated;
   }
 }

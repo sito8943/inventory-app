@@ -1,29 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #272727;
-  --color-drawer-background: #202020;
-  --color-alt-background: #343434;
-  --color-border: #393939;
-  --color-primary: #4cc2ff;
-  --color-hover-primary: #48b2e9;
-  --color-secondary: #d27d6b;
-  --breakpoint-xs: 28rem;
+    --color-dark: #1b1b1b;
+    --color-background: #272727;
+    --color-drawer-background: #202020;
+    --color-alt-background: #343434;
+    --color-border: #393939;
+    --color-primary: #4cc2ff;
+    --color-hover-primary: #48b2e9;
+    --color-secondary: #d27d6b;
+    --breakpoint-xs: 28rem;
 }
 
 textarea {
-  resize: none;
+    resize: none;
 }
 
 .animated {
-  @apply transition duration-300 ease-in-out;
+    @apply transition duration-300 ease-in-out;
 }
 
 h1,
 h2,
 th,
 .poppins {
-  font-family: "Poppins", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 p,
@@ -35,130 +36,137 @@ textarea,
 select,
 td,
 .roboto {
-  font-family: "Roboto", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 button {
-  @apply font-medium;
+    @apply text-sm font-medium;
 }
 
 input,
-p,
-button {
-  @apply text-sm;
+p {
+    @apply text-sm text-gray-400;
 }
 
 .button {
-  @apply text-white bg-alt-background hover:bg-border border-border border-2 px-4 py-1 rounded-sm  cursor-pointer;
+    @apply text-white bg-alt-background hover:bg-border border-border border-2 px-4 py-1 rounded-sm  cursor-pointer;
 }
 
 .button.menu {
-  @apply bg-background border-background hover:bg-border hover:border-border;
+    @apply bg-background border-background hover:bg-border hover:border-border;
 }
 
 .toolbar .button {
-  @apply bg-background hover:bg-alt-background text-white flex items-center justify-center w-14 h-10 border-none rounded-none;
+    @apply bg-background hover:bg-alt-background text-white flex items-center justify-center w-14 h-10 border-none rounded-none;
 }
 
 .button.close {
-  @apply hover:bg-red-500;
+    @apply hover:bg-red-500;
 }
 
 .icon-button {
-  @apply hover:bg-border w-7 h-7 rounded-full;
+    @apply hover:bg-border w-7 h-7 rounded-full flex items-center justify-center;
 }
 
 .action {
-  @apply hover:bg-border w-10 h-10 rounded-full;
+    @apply hover:bg-border w-10 h-10 rounded-full;
 }
 
 .input {
-  @apply text-white bg-alt-background border-border border-2 px-4 py-1 rounded-sm;
+    @apply text-white bg-alt-background border-border border-2 px-4 py-1 rounded-sm;
 }
 
 .input.error {
-  @apply border-red-500;
+    @apply border-red-500;
 }
 
 .dialog .button {
-  @apply px-4 py-1 rounded-4xl;
+    @apply px-4 py-1 rounded-4xl;
 }
 
 .outlined {
-  @apply border-border text-white border-2;
+    @apply border-border text-white border-2;
 }
 
 .outlined:hover {
-  @apply bg-border text-white border-2;
+    @apply bg-border text-white border-2;
 }
 
 .primary {
-  @apply bg-primary hover:bg-hover-primary text-black;
+    @apply bg-primary hover:bg-hover-primary text-black;
 }
 
 main {
-  min-height: calc(100vh - 40px);
-  @apply bg-background;
+    min-height: calc(100vh - 40px);
+    @apply bg-background;
 }
 
 main h1,
 main h2,
-main p {
-  @apply text-white;
+main h3 {
+    @apply text-white;
 }
 
 .apparition {
-  animation: apparition 300ms ease-in-out;
+    animation: apparition 300ms ease-in-out;
 }
 
 @keyframes apparition {
-  0% {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    0% {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .opacity {
-  animation: opacity 300ms ease-in-out;
+    animation: opacity 300ms ease-in-out;
 }
 
 @keyframes opacity {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .history {
-  height: calc(100vh - 304px);
-  @apply overflow-auto;
+    height: calc(100vh - 304px);
+    @apply overflow-auto;
 }
 
 .rotate {
-  animation: rotate 1000ms infinite;
-  --tw-ease: cubic-bezier(0.4, 0, 0.2, 1)
-  transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1)
+    animation: rotate 1000ms infinite;
+    --tw-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes rotate {
-  0% {
-    rotate: 0;
-  }
-  100% {
-    rotate: 360deg;
-  }
+    0% {
+        rotate: 0;
+    }
+    100% {
+        rotate: 360deg;
+    }
 }
 
 .chip {
-    @apply rounded-xl px-3 py-1;
+    @apply rounded-4xl pl-3 pr-3 py-1 flex items-center justify-center gap-2;
 }
 
 .chip.primary {
-  @apply bg-primary text-black;
+    @apply bg-primary text-dark;
+}
+
+.chip.primary p {
+    @apply text-dark font-medium;
+}
+
+.elevated {
+    box-shadow: 0px 3px 8px 0px #0000004f;
 }

@@ -30,7 +30,7 @@ function Dialog(props) {
     (e) => {
       if (e.key === "Escape" && open) handleClose();
     },
-    [open, handleClose]
+    [open, handleClose],
   );
 
   useEffect(() => {
@@ -61,21 +61,20 @@ function Dialog(props) {
       )
         handleClose();
     },
-    [t, handleClose]
+    [t, handleClose],
   );
 
   return createPortal(
     <div
-      name={t("_accessibility:buttons.closeDialog")}
       aria-label={t("_accessibility:ariaLabels.closeDialog")}
       aria-disabled={!open}
       onClick={bigHandleClose}
-      className={`dialog ${styles} h-screen ${
+      className={`dialog  ${styles} h-screen ${
         open ? "bg-alt-background/20 backdrop-blur-xl" : "pointer-events-none"
       } fixed left-0 top-0 flex items-center justify-center z-10 ${containerClassName}`}
     >
       <div
-        className={`relative min-w-70 bg-alt-background p-5 rounded-2xl border-border border-2 animated ${
+        className={`relative elevated min-w-70 bg-alt-background p-5 rounded-2xl border-border border-2 animated ${
           open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         } ${className}`}
       >
@@ -96,7 +95,7 @@ function Dialog(props) {
         {children}
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }
 

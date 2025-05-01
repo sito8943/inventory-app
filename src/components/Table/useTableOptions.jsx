@@ -45,7 +45,7 @@ function useTableOptions(props) {
 
       return row;
     });
-  }, [data, ignoreColumns]);
+  }, [data, ignoreColumns, customOptions]);
 
   const columns = useMemo(() => {
     if (!data || data.length === 0) return [];
@@ -62,7 +62,7 @@ function useTableOptions(props) {
         ? customOptions[key]?.columnOptions?.className
         : "text-left",
     }));
-  }, [data, ignoreColumns]);
+  }, [data, ignoreColumns, t, entity, customOptions]);
 
   return { rows, columns, emptyMessage };
 }

@@ -2,6 +2,7 @@ import { forwardRef } from "react";
 
 const TextInput = forwardRef(function (props, ref) {
   const {
+    children,
     label,
     labelClassName = "",
     className = "",
@@ -26,6 +27,7 @@ const TextInput = forwardRef(function (props, ref) {
         {...rest}
       />
       {endAdornment}
+      {children}
     </div>
   );
 });

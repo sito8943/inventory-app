@@ -1,36 +1,30 @@
-import { useMemo, memo } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Controller } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
-
-// providers
-import { useManager } from "../../../providers/ManagerProvider";
 
 // components
-import FormDialog from "../../../components/Dialog/FormDialog";
-import TextInput from "../../../components/Form/TextInput";
-import SelectInput from "../../../components/Form/SelectInput";
-import ParagraphInput from "../../../components/Form/ParagraphInput";
+import {
+  FormDialog,
+  AutocompleteInput,
+  TextInput,
+  ParagraphInput,
+} from "../../../components";
 
 // utils
-import { ReactQueryKeys } from "../../../utils/queryKey";
+import { useCategoriesCommon } from "../../../hooks/queries/useCategories.jsx";
 
 export const ProductForm = (props) => {
   const { control, isLoading } = props;
   const { t } = useTranslation();
 
-  const manager = useManager();
-
-  const categories = useQuery({
-    queryKey: [ReactQueryKeys.Categories],
-    enabled: true,
-    queryFn: () =>
-      manager.Categories.get({ deletedAt: null }, "id,name as value"),
-  });
+  const categories = useCategoriesCommon();
 
   const categoryOptions = useMemo(
-    () => [...(categories?.data ?? [])],
-    [categories.data],
+    () => [
+      ...(categories?.data?.map((cat) => ({ id: cat.id, value: cat.name })) ??
+        []),
+    ],
+    [categories.data]
   );
 
   return (
@@ -59,11 +53,11 @@ export const ProductForm = (props) => {
         name="category"
         disabled={isLoading || categories?.isLoading}
         render={({ field: { value, onChange, ...rest } }) => (
-          <SelectInput
-            required
+          <AutocompleteInput
             options={categoryOptions}
             value={value}
-            onChange={(e) => onChange(e.target.value)}
+            multiple
+            onChange={(v) => onChange(v)}
             placeholder={t("_pages:products.inputs.category.name")}
             {...rest}
           />
@@ -89,6 +83,18 @@ export const ProductForm = (props) => {
           <TextInput
             type="number"
             placeholder={t("_pages:products.inputs.price.name")}
+            {...field}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        name="cost"
+        disabled={isLoading || categories?.isLoading}
+        render={({ field }) => (
+          <TextInput
+            type="number"
+            placeholder={t("_pages:products.inputs.cost.name")}
             {...field}
           />
         )}
