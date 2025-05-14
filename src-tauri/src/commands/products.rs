@@ -6,11 +6,11 @@ use crate::{AppState, FlashData};
 #[tauri::command]
 pub async fn create_products(
     state: tauri::State<'_, AppState>,
-    form: product::AddDto,
+    data: product::AddDto,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
-    ProductService::Mutation::create(&state.conn, form)
+    ProductService::Mutation::create(&state.conn, data)
         .await
         .expect("could not insert product");
 
@@ -25,11 +25,11 @@ pub async fn create_products(
 #[tauri::command]
 pub async fn create_many_products(
     state: tauri::State<'_, AppState>,
-    items: Vec<product::AddDto>,
+    data: Vec<product::AddDto>,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
-    ProductService::Mutation::create_many(&state.conn, items)
+    ProductService::Mutation::create_many(&state.conn, data)
         .await
         .expect("could not insert products");
 
@@ -45,9 +45,9 @@ pub async fn create_many_products(
 pub async fn update_products(
     state: tauri::State<'_, AppState>,
     id: i32,
-    form: product::Model,
+    data: product::Model,
 ) -> Result<FlashData, ()> {
-    ProductService::Mutation::update(&state.conn, id, form)
+    ProductService::Mutation::update(&state.conn, id, data)
         .await
         .expect("could not edit product");
 

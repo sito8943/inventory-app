@@ -1,40 +1,40 @@
-import {createContext, useContext} from "react";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import { createContext, useContext } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // manager
 import Manager from "../db/Manager";
-import {ManagerProviderContextType, ManagerProviderPropTypes} from "./types.ts";
+import { ManagerProviderContextType, BasicProviderPropTypes } from "./types.ts";
 
 const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchInterval: false,
-            refetchOnMount: true,
-            refetchOnReconnect: false,
-            retry: false,
-            retryOnMount: true,
-            refetchOnWindowFocus: false, // default: true
-        },
+  defaultOptions: {
+    queries: {
+      refetchInterval: false,
+      refetchOnMount: true,
+      refetchOnReconnect: false,
+      retry: false,
+      retryOnMount: true,
+      refetchOnWindowFocus: false, // default: true
     },
+  },
 });
 
-const ManagerContext = createContext({} as ManagerProviderContextType)
+const ManagerContext = createContext({} as ManagerProviderContextType);
 
 /**
  * Manager Provider
  * @param props - provider props
  * @returns  React component
  */
-const ManagerProvider = (props: ManagerProviderPropTypes) => {
-    const {children} = props;
+const ManagerProvider = (props: BasicProviderPropTypes) => {
+  const { children } = props;
 
-    const manager = new Manager();
+  const manager = new Manager();
 
-    return (
-        <ManagerContext.Provider value={{client: manager}}>
-            <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-        </ManagerContext.Provider>
-    );
+  return (
+    <ManagerContext.Provider value={{ client: manager }}>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </ManagerContext.Provider>
+  );
 };
 
 /**
@@ -42,12 +42,12 @@ const ManagerProvider = (props: ManagerProviderPropTypes) => {
  * @returns Provider
  */
 const useManager = () => {
-    const context = useContext(ManagerContext);
+  const context = useContext(ManagerContext);
 
-    if (context === undefined)
-        throw new Error("managerContext must be used within a Provider");
-    return context.client;
+  if (context === undefined)
+    throw new Error("managerContext must be used within a Provider");
+  return context.client;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-export {queryClient, ManagerProvider, useManager};
+export { queryClient, ManagerProvider, useManager };

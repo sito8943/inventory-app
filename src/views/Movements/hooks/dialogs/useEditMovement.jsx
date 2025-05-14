@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useManager } from "../../../../providers/ManagerProvider";
 
 // hooks
-import useFormDialog from "../../../../hooks/useFormDialog";
+import useFormDialog from "../../../../hooks/dialogs/useFormDialog.jsx";
 
 // utils
 import { MovementsQueryKeys } from "../../../../hooks/queries/useMovements.jsx";

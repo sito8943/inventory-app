@@ -17,6 +17,10 @@ use crate::commands::{
         create_products, create_many_products, delete_many_products, list_common_products, list_products, products_by_id,
         update_products,
     },
+    movement_logs::{
+        create_movement_logs, create_many_movement_logs, delete_many_movement_logs, list_common_movement_logs,
+        list_movement_logs, movement_logs_by_id, update_movement_logs,
+    }
 };
 
 use std::env;
@@ -74,6 +78,14 @@ pub async fn run() {
             list_movements,
             list_common_movements,
             movements_by_id,
+            // movement log crud
+            create_movement_logs,
+            create_many_movement_logs,
+            update_movement_logs,
+            delete_many_movement_logs,
+            list_movement_logs,
+            list_common_movement_logs,
+            movement_logs_by_id,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

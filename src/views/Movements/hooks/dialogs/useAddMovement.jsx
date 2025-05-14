@@ -1,29 +1,29 @@
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 // providers
-import {useManager} from "../../../../providers/ManagerProvider";
+import { useManager } from "../../../../providers/ManagerProvider";
 
 // utils
-import {MovementsQueryKeys} from "../../../../hooks/queries/useMovements.jsx";
+import { MovementsQueryKeys } from "../../../../hooks/queries/useMovements.jsx";
 
 // hooks
-import useFormDialog from "../../../../hooks/useFormDialog";
+import useFormDialog from "../../../../hooks/dialogs/useFormDialog.jsx";
 
 export function useAddMovement() {
-    const {t} = useTranslation();
+  const { t } = useTranslation();
 
-    const manager = useManager();
+  const manager = useManager();
 
-    const {handleSubmit, close, dialogFn, ...rest} = useFormDialog({
-        mutationFn: (data) => manager.Movements.insert(data),
-        onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-        ...MovementsQueryKeys.all,
-    });
+  const { handleSubmit, close, dialogFn, ...rest } = useFormDialog({
+    mutationFn: (data) => manager.Movements.insert(data),
+    onSuccessMessage: t("_pages:common.actions.add.successMessage"),
+    ...MovementsQueryKeys.all,
+  });
 
-    return {
-        title: t("_pages:movements.forms.add"),
-        handleSubmit: handleSubmit((data) => dialogFn.mutate(data)),
-        handleClose: close,
-        ...rest,
-    };
+  return {
+    title: t("_pages:movements.forms.add"),
+    handleSubmit: handleSubmit((data) => dialogFn.mutate(data)),
+    handleClose: close,
+    ...rest,
+  };
 }
