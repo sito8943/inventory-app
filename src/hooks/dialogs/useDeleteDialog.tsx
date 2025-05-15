@@ -1,17 +1,16 @@
 import { useTranslation } from "react-i18next";
 
 // providers
-import { useNotification } from "../../providers/NotificationProvider";
+import { useNotification } from "providers";
 
 // lib
 import { NotificationEnumType, NotificationType, ValidationError } from "lib";
 
 // hooks
-import useDeleteAction from "../actions/useDeleteAction";
-import useConfirmationForm from "../forms/useConfirmationForm.tsx";
+import { useDeleteAction, useConfirmationForm } from "hooks";
 
 // types
-import { UseDeleteDialogPropsType } from "./types.js";
+import { UseDeleteDialogPropsType } from "hooks";
 
 export const useDeleteDialog = (props: UseDeleteDialogPropsType) => {
   const { mutationFn, queryKey } = props;

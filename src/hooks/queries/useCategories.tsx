@@ -1,5 +1,5 @@
 // providers
-import { useManager } from "../../providers/ManagerProvider";
+import { useManager } from "providers";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
 // types

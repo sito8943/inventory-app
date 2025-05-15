@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { HexColorPicker } from "react-colorful";
 
 // components
-import FormDialog from "../Dialog/FormDialog";
+import { Dialog } from "components";
 
 // icons
 import { faEyeDropper } from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { css } from "@emotion/css";
 
 // hooks
-import useDialog from "../../hooks/dialogs/useDialog";
+import { useDialog } from "hooks";
 
 // components
 import TextInput from "./TextInput";
@@ -42,7 +42,7 @@ const ColorInput = forwardRef(function (
       <TextInput
         {...rest}
         ref={ref}
-        value={color}
+        value={value}
         onChange={(e) => onChange(e.target.value)}
         startAdornment={
           <button
@@ -62,20 +62,37 @@ const ColorInput = forwardRef(function (
           ></span>
         }
       />
-      <FormDialog
+      <Dialog
         className="!min-w-60"
         containerClassName="!z-20"
-        handleSubmit={(e) => {
-          dialogProps.handleClose();
-          onChange(color);
-          e.preventDefault();
-          e.stopPropagation();
-        }}
         title={t("_accessibility:labels.colorPicker")}
         {...dialogProps}
       >
         <HexColorPicker color={color} onChange={setColor} />
-      </FormDialog>
+        <div className={`flex gap-2 mt-5 justify-end`}>
+          <button
+            type="button"
+            onClick={() => {
+              onChange(color);
+              dialogProps.handleClose();
+            }}
+            className="button submit primary"
+            name={t("_accessibility:buttons.submit")}
+            aria-label={t("_accessibility:ariaLabels.insert")}
+          >
+            {t("_accessibility:buttons.submit")}
+          </button>
+          <button
+            type="button"
+            onClick={() => dialogProps.handleClose()}
+            className="button outlined"
+            name={t("_accessibility:buttons.cancel")}
+            aria-label={t("_accessibility:ariaLabels.cancel")}
+          >
+            {t("_accessibility:buttons.cancel")}
+          </button>
+        </div>
+      </Dialog>
     </>
   );
 });

@@ -40,7 +40,7 @@ function Drawer(props: DrawerPropsTypes) {
       aria-disabled={!open}
       className={`${
         open ? "w-screen h-screen" : "pointer-events-none"
-      } fixed z-10`}
+      } fixed z-30`}
       onClick={() => onClose()}
     >
       <aside

@@ -1,20 +1,25 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Controller, useWatch } from "react-hook-form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
-import FormDialog from "../../../components/Dialog/FormDialog";
-import TextInput from "../../../components/Form/TextInput";
-import SelectInput from "../../../components/Form/SelectInput";
+import { FormDialog, TextInput, SelectInput } from "components";
 
 // types
 import { types } from "../../../db/types/products";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // utils
 import { icons } from "./MovementCard.jsx";
 
-export function MovementForm(props) {
+// types
+import {
+  AddMovementDialogPropsType,
+  EditMovementDialogPropsType,
+  MovementFormPropsType,
+} from "./types.ts";
+
+export function MovementForm(props: MovementFormPropsType) {
   const { control, isLoading } = props;
   const { t } = useTranslation();
 
@@ -45,9 +50,6 @@ export function MovementForm(props) {
       />
       <Controller
         control={control}
-        rules={{
-          invalid: t("_pages:movements.inputs.type.invalid"),
-        }}
         name="type"
         disabled={isLoading}
         render={({ field: { value, onChange, ...rest } }) => (
@@ -58,7 +60,7 @@ export function MovementForm(props) {
             onChange={(e) => onChange(e.target.value)}
             startAdornment={
               <FontAwesomeIcon
-                icon={icons[type ?? 0]}
+                icon={icons[(type ?? 0) as keyof typeof icons]}
                 className=" ml-2 border-border border-2 absolute left-1 top-[50%] -translate-y-[50%] text-white text-sm"
               />
             }
@@ -71,7 +73,7 @@ export function MovementForm(props) {
   );
 }
 
-export function AddMovementDialog(props) {
+export function AddMovementDialog(props: AddMovementDialogPropsType) {
   return (
     <FormDialog {...props}>
       <MovementForm {...props} />
@@ -79,7 +81,7 @@ export function AddMovementDialog(props) {
   );
 }
 
-export function EditMovementDialog(props) {
+export function EditMovementDialog(props: EditMovementDialogPropsType) {
   return (
     <FormDialog {...props}>
       <MovementForm {...props} />

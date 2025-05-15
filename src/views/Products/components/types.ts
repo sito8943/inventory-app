@@ -5,13 +5,12 @@ import {
 } from "components";
 import {
   AddMovementLogDto,
-  AddProductDto,
   MovementLogDto,
   ProductDto,
-  UpdateProductDto,
   ValidationError,
 } from "lib";
 import { TablePropsType } from "../../../components/Table/types.ts";
+import { FieldValues } from "react-hook-form";
 
 export interface DoMovementDialogPropsType extends DoMovementFormPropsType {
   title: string;
@@ -19,26 +18,22 @@ export interface DoMovementDialogPropsType extends DoMovementFormPropsType {
 }
 
 export interface DoMovementFormPropsType
-  extends FormDialogPropsType<
-    AddMovementLogDto,
-    AddMovementLogDto,
-    ValidationError
-  > {
+  extends FormDialogPropsType<AddMovementLogDto, ValidationError> {
   productId: number;
 }
 
+export interface ProductFormType
+  extends Omit<ProductDto, "createdAt" | "deletedAt" | "updatedAt">,
+    FieldValues {}
+
 export interface ProductFormPropsType
-  extends FormDialogPropsType<ProductDto, ProductDto, ValidationError> {}
+  extends FormDialogPropsType<ProductFormType, ValidationError> {}
 
 export interface AddProductDialogPropsType
-  extends FormDialogPropsType<AddProductDto, AddProductDto, ValidationError> {}
+  extends FormDialogPropsType<ProductFormType, ValidationError> {}
 
 export interface EditProductDialogPropsType
-  extends FormDialogPropsType<
-    UpdateProductDto,
-    UpdateProductDto,
-    ValidationError
-  > {}
+  extends FormDialogPropsType<ProductFormType, ValidationError> {}
 
 export type MovementLogsPropsType = {
   isLoading: boolean;

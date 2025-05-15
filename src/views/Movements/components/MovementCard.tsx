@@ -6,22 +6,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBoxArchive, faDolly } from "@fortawesome/free-solid-svg-icons";
 
 // components
-import ItemCard from "../../../components/Card/ItemCard";
+import { ItemCard } from "components";
 
 // types
-import { types } from "../../../db/types/products";
+import { MovementCardPropsType } from "./types.ts";
+import { types } from "../../../db/types/products.ts";
 
 export const icons = {
   1: faBoxArchive,
   2: faDolly,
 };
 
-function MovementCard(props) {
+function MovementCard(props: MovementCardPropsType) {
   const { t } = useTranslation();
 
   const { id, onClick, actions, name, type } = props;
 
-  const renderType = useMemo(() => types.find((ty) => ty.id === type), [type]);
+  const renderType = useMemo(
+    () => types.find((ty) => ty.id === type) ?? types[0],
+    [type],
+  );
 
   return (
     <ItemCard
@@ -34,7 +38,7 @@ function MovementCard(props) {
       <div className="flex gap-2 items-center">
         <FontAwesomeIcon
           className="text-primary text-xl"
-          icon={icons[renderType?.id]}
+          icon={icons[renderType?.id as keyof typeof icons]}
         />
         <p>{t(`_pages:movements.inputs.type.${renderType?.label}`)}</p>
       </div>

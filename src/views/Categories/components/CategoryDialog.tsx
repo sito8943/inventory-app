@@ -2,12 +2,16 @@ import { useTranslation } from "react-i18next";
 import { Controller } from "react-hook-form";
 
 // components
-import FormDialog from "../../../components/Dialog/FormDialog";
-import TextInput from "../../../components/Form/TextInput";
-import ColorInput from "../../../components/Form/ColorInput";
-import ParagraphInput from "../../../components/Form/ParagraphInput";
+import { FormDialog, TextInput, ColorInput, ParagraphInput } from "components";
 
-export function CategoryForm(props) {
+// types
+import {
+  AddCategoryDialogPropsType,
+  CategoryFormPropsType,
+  EditCategoryDialogPropsType,
+} from "./types.ts";
+
+export function CategoryForm(props: CategoryFormPropsType) {
   const { control, isLoading } = props;
   const { t } = useTranslation();
 
@@ -64,7 +68,7 @@ export function CategoryForm(props) {
   );
 }
 
-export function AddCategoryDialog(props) {
+export function AddCategoryDialog(props: AddCategoryDialogPropsType) {
   return (
     <FormDialog {...props}>
       <CategoryForm {...props} />
@@ -72,7 +76,7 @@ export function AddCategoryDialog(props) {
   );
 }
 
-export function EditCategoryDialog(props) {
+export function EditCategoryDialog(props: EditCategoryDialogPropsType) {
   return (
     <FormDialog {...props}>
       <CategoryForm {...props} />

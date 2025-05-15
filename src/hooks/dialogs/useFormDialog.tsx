@@ -16,9 +16,19 @@ import { useDialog } from "hooks";
 import { UseFormDialogPropsType } from "hooks";
 import { FormDialogPropsType } from "components";
 
-export const useFormDialog = <TInput extends FieldValues, TResponse>(
-  props: UseFormDialogPropsType<TInput, TResponse>,
-): FormDialogPropsType<TInput, TResponse, ValidationError> => {
+export const useFormDialog = <
+  TDto,
+  TMutationDto,
+  TMutationOutputDto,
+  TFormType extends FieldValues,
+>(
+  props: UseFormDialogPropsType<
+    TDto,
+    TMutationDto,
+    TMutationOutputDto,
+    TFormType
+  >,
+): FormDialogPropsType<TFormType, ValidationError> => {
   const { t } = useTranslation();
   const { showStackNotifications, showSuccessNotification } = useNotification();
 
@@ -26,6 +36,8 @@ export const useFormDialog = <TInput extends FieldValues, TResponse>(
     defaultValues,
     getFunction,
     mutationFn,
+    formToDto,
+    dtoToForm,
     onError,
     onSuccess,
     queryKey,
@@ -37,12 +49,10 @@ export const useFormDialog = <TInput extends FieldValues, TResponse>(
 
   const { open, handleClose, handleOpen } = useDialog();
 
-  const { control, handleSubmit, reset, setError, getValues } = useForm<
-    TInput,
-    TResponse
-  >({
-    defaultValues,
-  });
+  const { control, handleSubmit, reset, setError, getValues } =
+    useForm<TFormType>({
+      defaultValues,
+    });
 
   const { data, isLoading } = useQuery({
     queryFn: () => getFunction?.(id),
@@ -51,7 +61,7 @@ export const useFormDialog = <TInput extends FieldValues, TResponse>(
   });
 
   useEffect(() => {
-    if (data && data.length) reset({ ...data[0] });
+    if (data) reset({ ...dtoToForm(data) });
   }, [data]);
 
   const parseFormError = useCallback(
@@ -85,8 +95,8 @@ export const useFormDialog = <TInput extends FieldValues, TResponse>(
   }, []);
 
   const onClick = useCallback(
-    (id: number) => {
-      setId(id);
+    (id?: number) => {
+      setId(id ?? 0);
       handleOpen();
     },
     [handleOpen],
@@ -98,7 +108,11 @@ export const useFormDialog = <TInput extends FieldValues, TResponse>(
     reset();
   }, [reset, releaseFormError, handleClose]);
 
-  const dialogFn = useMutation<TResponse, ValidationError, TInput>({
+  const dialogFn = useMutation<
+    TMutationOutputDto,
+    ValidationError,
+    TMutationDto
+  >({
     mutationFn,
     onError: (error: ValidationError) => {
       console.error(error);
@@ -133,12 +147,11 @@ export const useFormDialog = <TInput extends FieldValues, TResponse>(
     control,
     getValues,
     handleSubmit,
-    onSubmit: (data) => dialogFn.mutate(data),
+    onSubmit: (data) => dialogFn.mutate(formToDto(data)),
     reset,
     setError,
     parseFormError,
     releaseFormError,
-    dialogFn,
     title,
     isLoading: isLoading || dialogFn.isPending,
   };

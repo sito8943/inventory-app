@@ -10,7 +10,7 @@ import {
   MovementDto,
   FilterMovementDto,
   CommonMovementDto,
-} from "../lib";
+} from "lib";
 
 export default class MovementClient extends BaseClient<
   MovementDto,

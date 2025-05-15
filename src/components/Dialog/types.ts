@@ -8,8 +8,6 @@ import {
   UseFormReset,
   UseFormSetError,
 } from "react-hook-form";
-import { UseMutationResult } from "@tanstack/react-query";
-import { ValidationError } from "lib";
 
 export type DialogPropsType = {
   open?: boolean;
@@ -26,20 +24,18 @@ export interface ConfirmationDialogPropsType extends DialogPropsType {
 }
 
 export interface FormDialogPropsType<
-  TInput extends FieldValues = FieldValues,
-  TResponse = unknown,
+  TFormType extends FieldValues,
   TError extends Error = Error,
 > extends DialogPropsType {
-  control: Control<TInput>;
-  getValues?: UseFormGetValues<TInput>;
-  reset?: UseFormReset<TInput>;
-  setError?: UseFormSetError<TInput>;
-  handleSubmit: UseFormHandleSubmit<TInput>;
-  onSubmit: SubmitHandler<TInput>;
+  control?: Control<TFormType>;
+  getValues?: UseFormGetValues<TFormType>;
+  reset?: UseFormReset<TFormType>;
+  setError?: UseFormSetError<TFormType>;
+  handleSubmit: UseFormHandleSubmit<TFormType>;
+  onSubmit: SubmitHandler<TFormType>;
   parseFormError?: (error: TError) => string[];
   releaseFormError?: () => void;
-  dialogFn: UseMutationResult<TResponse, ValidationError, TInput>;
-  onClick: (id: number) => void;
+  onClick: (id?: number) => void;
   /* if the buttons are aligned to the end */
   buttonEnd?: boolean;
 }

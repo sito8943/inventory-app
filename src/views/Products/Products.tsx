@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 // providers
-import { useManager } from "../../providers/ManagerProvider";
+import { useManager } from "providers";
 
 // components
 import { ConfirmationDialog, Page, PrettyGrid } from "../../components";
@@ -21,10 +21,7 @@ import {
   useEditProduct,
   useMovementLogs,
 } from "./hooks/dialogs/";
-import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
-import useProductsList, {
-  ProductsQueryKeys,
-} from "../../hooks/queries/useProducts";
+import { useDeleteDialog, useProductsList, ProductsQueryKeys } from "hooks";
 
 // types
 import { ProductDto } from "lib";
@@ -45,29 +42,29 @@ function Products() {
 
   const addProduct = useAddProduct();
 
-  const editProduct = useEditProduct();
-
-  const doMovement = useDoMovement();
-
-  const movementLogs = useMovementLogs();
+  /*           const editProduct = useEditProduct();
+                    
+                      const doMovement = useDoMovement();
+                    
+                      const movementLogs = useMovementLogs();*/
 
   // #endregion
 
-  const getActions = useCallback(
-    (record: ProductDto) => [
-      doMovement.action(record),
-      movementLogs.action(record),
-      deleteProduct.action(record),
-    ],
-    [doMovement, movementLogs, deleteProduct],
-  );
+  /* const getActions = useCallback(
+                        (record: ProductDto) => [
+                          doMovement.action(record),
+                          movementLogs.action(record),
+                          deleteProduct.action(record),
+                        ],
+                        [doMovement, movementLogs, deleteProduct],
+                      );*/
 
   return (
     <Page
       title={t("_pages:products.title")}
       isLoading={isLoading}
       addOptions={{
-        onClick: addProduct.onClick,
+        onClick: () => addProduct.onClick(),
         disabled: isLoading,
         tooltip: t("_pages:products.add"),
       }}
@@ -77,8 +74,8 @@ function Products() {
         emptyMessage={t("_pages:products.empty")}
         renderComponent={(product) => (
           <ProductCard
-            actions={getActions(product)}
-            onClick={(id: number) => editProduct.onClick(id)}
+            actions={[] /*getActions(product)*/}
+            onClick={(id: number) => {} /*editProduct.onClick(id)*/}
             {...product}
           />
         )}
@@ -86,10 +83,10 @@ function Products() {
 
       {/* Dialogs */}
       <AddProductDialog {...addProduct} />
-      <EditProductDialog {...editProduct} />
+      {/*<EditProductDialog {...editProduct} />
       <DoMovementDialog {...doMovement} />
-      <MovementLogsDialog {...movementLogs} />
-      <ConfirmationDialog {...deleteProduct} />
+      <MovementLogsDialog {...movementLogs} />*/}
+      {/*<ConfirmationDialog {...deleteProduct} />*/}
     </Page>
   );
 }

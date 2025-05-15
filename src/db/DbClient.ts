@@ -9,10 +9,10 @@ export default class DbClient {
    * @param  value - value to insert
    * @returns inserted item
    */
-  async post<TAddDto>(
+  async post<TDto, TAddDto>(
     endpoint: string,
     value: TAddDto | TAddDto[],
-  ): Promise<TAddDto> {
+  ): Promise<TDto> {
     return await invoke(endpoint, { data: value });
   }
 

@@ -27,9 +27,9 @@ export const ProductsQueryKeys: EntityQueryKey = {
   }),
 };
 
-function useProductsList(
+export const useProductsList = (
   props: UseFetchPropsType<FilterProductDto>,
-): UseQueryResult<ProductDto[]> {
+): UseQueryResult<ProductDto[]> => {
   const { filters = { deleted: false } } = props;
 
   const manager = useManager();
@@ -38,11 +38,11 @@ function useProductsList(
     ...ProductsQueryKeys.list(),
     queryFn: () => manager.Products.get(filters),
   });
-}
+};
 
-export function useProductMovements(
+export const useProductMovements = (
   props: UseFetchByIdPropsType,
-): UseQueryResult<MovementLogDto> {
+): UseQueryResult<MovementLogDto> => {
   const { id } = props;
 
   const manager = useManager();
@@ -51,6 +51,4 @@ export function useProductMovements(
     ...ProductsQueryKeys.productMovements(id),
     queryFn: () => manager.Products.movementLogs(id),
   });
-}
-
-export default useProductsList;
+};

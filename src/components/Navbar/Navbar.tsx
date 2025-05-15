@@ -62,7 +62,7 @@ function Navbar(props: NavbarPropsType) {
   return (
     <header
       onMouseDown={(e) => toggleRestoreMaximize(e)}
-      className="flex items-center justify-between bg-background"
+      className="absolute w-screen flex items-center justify-between bg-background z-20"
     >
       <div className="flex gap-2 items-center">
         <button

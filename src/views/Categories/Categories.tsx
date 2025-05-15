@@ -2,15 +2,10 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 // providers
-import { useManager } from "../../providers/ManagerProvider";
+import { useManager } from "providers";
 
 // components
-import {
-  AddCard,
-  ConfirmationDialog,
-  Page,
-  PrettyGrid,
-} from "../../components";
+import { ConfirmationDialog, Page, PrettyGrid } from "../../components";
 import {
   AddCategoryDialog,
   CategoryCard,
@@ -18,21 +13,24 @@ import {
 } from "./components";
 
 // hooks
+import { useDeleteDialog, useCategoriesList, CategoriesQueryKeys } from "hooks";
 import { useAddCategory, useEditCategory } from "./hooks/dialogs";
-import useDeleteDialog from "../../hooks/dialogs/useDeleteDialog";
-import { useCategoriesList } from "../../hooks/queries/useCategories.jsx";
+
+// types
+import { CategoryDto } from "lib";
 
 function Categories() {
   const { t } = useTranslation();
 
   const manager = useManager();
 
-  const { data, isLoading } = useCategoriesList({ manager });
+  const { data, isLoading } = useCategoriesList({});
 
   // #region actions
 
   const deleteCategory = useDeleteDialog({
     mutationFn: (data) => manager.Categories.softDelete(data),
+    ...CategoriesQueryKeys.all(),
   });
 
   const addCategory = useAddCategory();
@@ -42,7 +40,7 @@ function Categories() {
   // #endregion
 
   const getActions = useCallback(
-    (record) => [deleteCategory.action(record)],
+    (record: CategoryDto) => [deleteCategory.action(record)],
     [deleteCategory],
   );
 
@@ -51,7 +49,7 @@ function Categories() {
       title={t("_pages:categories.title")}
       isLoading={isLoading}
       addOptions={{
-        onClick: addCategory.onClick,
+        onClick: () => addCategory.onClick(),
         disabled: isLoading,
         tooltip: t("_pages:categories.add"),
       }}
@@ -62,12 +60,11 @@ function Categories() {
         renderComponent={(category) => (
           <CategoryCard
             actions={getActions(category)}
-            onClick={(id) => editCategory.onClick(id)}
+            onClick={(id: number) => editCategory.onClick(id)}
             {...category}
           />
         )}
       />
-
       {/* Dialogs */}
       <AddCategoryDialog {...addCategory} />
       <EditCategoryDialog {...editCategory} />

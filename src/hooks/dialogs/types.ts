@@ -9,12 +9,19 @@ export type UseDeleteDialogPropsType = {
   queryKey: QueryKey;
 };
 
-export interface UseFormDialogPropsType<TInput extends FieldValues, TResponse> {
-  defaultValues?: DefaultValues<TInput>;
-  getFunction?: (id: number) => Promise<TInput>;
-  mutationFn: MutationFunction<TResponse, TInput>;
+export interface UseFormDialogPropsType<
+  TDto,
+  TMutationDto,
+  TMutationOutputDto,
+  TFormType extends FieldValues,
+> {
+  defaultValues?: DefaultValues<TFormType>;
+  getFunction?: (id: number) => Promise<TDto>;
+  formToDto: (data: TFormType) => TMutationDto;
+  dtoToForm: (data: TDto) => TFormType;
+  mutationFn: MutationFunction<TMutationOutputDto, TMutationDto>;
   onError?: (errors: ValidationError) => void;
-  onSuccess?: (data: TResponse) => void;
+  onSuccess?: (data: TMutationOutputDto) => void;
   queryKey: QueryKey;
   onSuccessMessage: string;
   title: string;

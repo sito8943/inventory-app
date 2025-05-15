@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 // types
-import { AddCardPropsType } from "../Card/types.ts";
+import { AddCardPropsType } from "../Card";
 
 export type PagePropsType = {
   title?: string;

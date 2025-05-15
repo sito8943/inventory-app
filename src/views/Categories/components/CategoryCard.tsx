@@ -1,13 +1,15 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 
 // @emotion/css
 import { css } from "@emotion/css";
 
 // components
-import ItemCard from "../../../components/Card/ItemCard";
+import { ItemCard } from "components";
 
-function CategoryCard(props) {
+// types
+import { CategoryCardPropsType } from "./types.ts";
+
+function CategoryCard(props: CategoryCardPropsType) {
   const { t } = useTranslation();
 
   const { id, onClick, actions, name, description, color } = props;
