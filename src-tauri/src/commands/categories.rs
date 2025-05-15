@@ -7,11 +7,11 @@ use crate::{AppState, FlashData};
 #[tauri::command]
 pub async fn create_categories(
     state: tauri::State<'_, AppState>,
-    form: category::AddDto,
+    data: category::AddDto,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
-    CategoryService::Mutation::create(&state.conn, form)
+    CategoryService::Mutation::create(&state.conn, data)
         .await
         .expect("could not insert category");
 
@@ -46,9 +46,9 @@ pub async fn create_many_categories(
 pub async fn update_categories(
     state: tauri::State<'_, AppState>,
     id: i32,
-    form: category::Model,
+    data: category::Model,
 ) -> Result<FlashData, ()> {
-    CategoryService::Mutation::update(&state.conn, id, form)
+    CategoryService::Mutation::update(&state.conn, id, data)
         .await
         .expect("could not edit category");
 

@@ -8,6 +8,43 @@ use sea_orm::*;
 pub struct Mutation;
 
 impl Mutation {
+
+    pub async fn create(
+        db: &DbConn,
+        form_data: movement_log::AddDto,
+    ) -> Result<movement_log::ActiveModel, DbErr> {
+        movement_log::ActiveModel {
+            movement: Set(form_data.movement),
+            product: Set(form_data.product),
+            stock: Set(form_data.stock),
+            result: Set(form_data.result),
+            ..Default::default()
+        }
+            .save(db)
+            .await
+    }
+
+    pub async fn create_many(db: &DbConn, items: Vec<movement_log::AddDto>) -> Result<i32, DbErr> {
+        let active_models: Vec<movement_log::ActiveModel> = items
+            .into_iter()
+            .map(|p| movement_log::ActiveModel {
+                movement: Set(p.movement),
+                product: Set(p.product),
+                stock: Set(p.stock),
+                result: Set(p.result),
+                created_at: Set(Utc::now()),
+                updated_at: Set(Utc::now()),
+                ..Default::default()
+            })
+            .collect();
+
+        movement_log::Entity::insert_many(active_models.clone())
+            .exec(db)
+            .await?;
+
+        Ok(active_models.len() as i32)
+    }
+
     pub async fn update(db: &DbConn, id: i32, form_data: Model) -> Result<Model, DbErr> {
         let mut movement_log: movement_log::ActiveModel = get_by_id(db, id).await?.into();
 

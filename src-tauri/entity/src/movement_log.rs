@@ -20,6 +20,14 @@ pub struct Model {
 
 #[derive(Debug, Clone, Deserialize)]
 pub struct AddDto {
+    pub product: i32,
+    pub movement: i32,
+    pub stock: i32,
+    pub result: i32,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct DoMovementDto {
     pub id: i32,
     pub product: i32,
     pub movement: i32,

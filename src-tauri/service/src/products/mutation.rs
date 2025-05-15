@@ -27,7 +27,7 @@ impl Mutation {
         .await
     }
 
-    pub async fn do_movement(db: &DbConn, form_data: movement_log::AddDto) -> Result<Model, DbErr> {
+    pub async fn do_movement(db: &DbConn, form_data: movement_log::DoMovementDto) -> Result<Model, DbErr> {
         let mut product: product::ActiveModel = get_by_id(db, form_data.product).await?.into();
 
         let movement: movement::ActiveModel = movements::Query::get_by_id(db, form_data.movement)

@@ -7,11 +7,11 @@ use service::movement_logs as MovementLogService;
 #[tauri::command]
 pub async fn create_movement_logs(
     state: tauri::State<'_, AppState>,
-    form: movement_log::AddDto,
+    data: movement_log::AddDto,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
-    MovementLogService::Mutation::create(&state.conn, form)
+    MovementLogService::Mutation::create(&state.conn, data)
         .await
         .expect("could not insert movement log");
 
@@ -46,9 +46,9 @@ pub async fn create_many_movement_logs(
 pub async fn update_movement_logs(
     state: tauri::State<'_, AppState>,
     id: i32,
-    form: movement_log::Model,
+    data: movement_log::Model,
 ) -> Result<FlashData, ()> {
-    MovementLogService::Mutation::update(&state.conn, id, form)
+    MovementLogService::Mutation::update(&state.conn, id, data)
         .await
         .expect("could not edit movement log");
 

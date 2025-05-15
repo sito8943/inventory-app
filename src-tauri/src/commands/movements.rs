@@ -7,11 +7,11 @@ use crate::{AppState, FlashData};
 #[tauri::command]
 pub async fn create_movements(
     state: tauri::State<'_, AppState>,
-    form: movement::AddDto,
+    data: movement::AddDto,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
-    MovementService::Mutation::create(&state.conn, form)
+    MovementService::Mutation::create(&state.conn, data)
         .await
         .expect("could not insert movement");
 
@@ -46,9 +46,9 @@ pub async fn create_many_movements(
 pub async fn update_movements(
     state: tauri::State<'_, AppState>,
     id: i32,
-    form: movement::Model,
+    data: movement::Model,
 ) -> Result<FlashData, ()> {
-    MovementService::Mutation::update(&state.conn, id, form)
+    MovementService::Mutation::update(&state.conn, id, data)
         .await
         .expect("could not edit movement");
 
