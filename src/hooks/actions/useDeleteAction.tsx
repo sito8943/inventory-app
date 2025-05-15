@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 // types
-import { UseActionPropTypes } from "./types.ts";
+import { UseMultipleActionPropTypes } from "hooks";
 import { BaseEntityDto } from "lib";
 
-export const useDeleteAction = (props: UseActionPropTypes<number>) => {
+export const useDeleteAction = (props: UseMultipleActionPropTypes<number>) => {
   const { t } = useTranslation();
 
   const { onClick, hidden = false } = props;
@@ -19,6 +19,6 @@ export const useDeleteAction = (props: UseActionPropTypes<number>) => {
     disabled: !!record.deletedAt,
     icon: <FontAwesomeIcon className="text-red-500" icon={faTrash} />,
     tooltip: t("_pages:common.actions.delete.text"),
-    onClick: () => onClick(record?.id),
+    onClick: () => onClick([record?.id]),
   });
 };
