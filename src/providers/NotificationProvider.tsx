@@ -1,7 +1,7 @@
 import { useContext, createContext, useReducer } from "react";
 
 // lib
-import { NotificationType } from "../lib/";
+import { NotificationType } from "lib";
 import { BasicProviderPropTypes, NotificationContextType } from "./types.ts";
 
 const NotificationContext = createContext({} as NotificationContextType);
@@ -15,7 +15,10 @@ export function NotificationProvider(props: BasicProviderPropTypes) {
 
       switch (type) {
         case "set":
-          return items;
+          return items.map((item: NotificationType, i: number) => ({
+            ...item,
+            id: i,
+          }));
         case "remove":
           if (index) return state.filter((_, i) => i !== index);
           return [];
@@ -47,7 +50,7 @@ export function NotificationProvider(props: BasicProviderPropTypes) {
       items: [{ ...options, type: "success" }],
     });
 
-  const removeNotification = (index: number) =>
+  const removeNotification = (index?: number) =>
     dispatch({ type: "remove", index });
 
   return (
