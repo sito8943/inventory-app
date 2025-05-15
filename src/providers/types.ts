@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 // lib
-import { NotificationType } from "../lib";
+import { NotificationType } from "lib";
 
 // db
 import Manager from "../db/Manager";
