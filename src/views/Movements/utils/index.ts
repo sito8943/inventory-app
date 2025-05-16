@@ -10,7 +10,7 @@ export const formToDto = ({
   id,
   name,
   description,
-  type,
+  type: Number(type),
 });
 
 export const dtoToForm = (dto: MovementDto): MovementFormType => ({
