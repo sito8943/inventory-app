@@ -44,10 +44,9 @@ pub async fn create_many_products(
 #[tauri::command]
 pub async fn update_products(
     state: tauri::State<'_, AppState>,
-    id: i32,
-    data: product::Model,
+    data: product::UpdateDto,
 ) -> Result<FlashData, ()> {
-    ProductService::Mutation::update(&state.conn, id, data)
+    ProductService::Mutation::update(&state.conn, data.id, data)
         .await
         .expect("could not edit product");
 

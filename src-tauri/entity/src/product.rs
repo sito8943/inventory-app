@@ -31,6 +31,7 @@ pub struct AddDto {
 
 #[derive(Debug, Clone, Deserialize)]
 pub struct UpdateDto {
+    pub id: i32,
     pub name: String,
     pub price: f64,
     pub cost: f64,

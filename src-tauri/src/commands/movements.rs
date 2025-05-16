@@ -45,10 +45,9 @@ pub async fn create_many_movements(
 #[tauri::command]
 pub async fn update_movements(
     state: tauri::State<'_, AppState>,
-    id: i32,
-    data: movement::Model,
+    data: movement::UpdateDto,
 ) -> Result<FlashData, ()> {
-    MovementService::Mutation::update(&state.conn, id, data)
+    MovementService::Mutation::update(&state.conn, data.id, data)
         .await
         .expect("could not edit movement");
 

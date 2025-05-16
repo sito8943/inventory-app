@@ -28,6 +28,7 @@ pub struct AddDto {
 
 #[derive(Debug, Clone, Deserialize)]
 pub struct UpdateDto {
+    pub id: i32,
     pub product: i32,
     pub movement: i32,
     pub stock: i32,

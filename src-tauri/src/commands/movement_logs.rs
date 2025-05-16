@@ -45,10 +45,9 @@ pub async fn create_many_movement_logs(
 #[tauri::command]
 pub async fn update_movement_logs(
     state: tauri::State<'_, AppState>,
-    id: i32,
-    data: movement_log::Model,
+    data: movement_log::UpdateDto,
 ) -> Result<FlashData, ()> {
-    MovementLogService::Mutation::update(&state.conn, id, data)
+    MovementLogService::Mutation::update(&state.conn, data.id, data)
         .await
         .expect("could not edit movement log");
 
