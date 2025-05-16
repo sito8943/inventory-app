@@ -6,9 +6,9 @@ export { NotificationEnumType };
 export type { ServiceError, ValidationError, NotificationType };
 
 // entities
-export type * from "./entities/base";
-export type * from "./entities/product";
-export type * from "./entities/movement";
-export type * from "./entities/movementLog";
-export type * from "./entities/category";
-export type * from "./utils/queryKey.ts";
+export * from "./entities/base";
+export * from "./entities/product";
+export * from "./entities/movement";
+export * from "./entities/movementLog";
+export * from "./entities/category";
+export * from "./utils/queryKey.ts";

@@ -6,13 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // components
 import { FormDialog, TextInput, SelectInput } from "components";
 
-// types
-import { types } from "../../../db/types/products";
-
 // utils
 import { icons } from "./MovementCard.jsx";
+import { enumToKeyValueArray } from "../../../lib/utils";
 
 // types
+import { MovementType } from "lib";
 import {
   AddMovementDialogPropsType,
   EditMovementDialogPropsType,
@@ -24,7 +23,12 @@ export function MovementForm(props: MovementFormPropsType) {
   const { t } = useTranslation();
 
   const typeOptions = useMemo(
-    () => [...(types?.map(({ id, label }) => ({ id, value: label })) ?? [])],
+    () => [
+      ...(enumToKeyValueArray(MovementType)?.map(({ key, value }) => ({
+        id: value as number,
+        value: key,
+      })) ?? []),
+    ],
     [],
   );
 

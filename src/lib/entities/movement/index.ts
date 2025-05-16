@@ -3,6 +3,7 @@ import { MovementDto } from "./MovementDto.ts";
 import { CommonMovementDto } from "./CommonMovementDto.ts";
 import { UpdateMovementDto } from "./UpdateMovementDto.ts";
 import { FilterMovementDto } from "./FilterMovementDto.ts";
+import { MovementType } from "./MovementType.ts";
 
 export type {
   AddMovementDto,
@@ -11,3 +12,4 @@ export type {
   UpdateMovementDto,
   FilterMovementDto,
 };
+export { MovementType };

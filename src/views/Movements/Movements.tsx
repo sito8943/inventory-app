@@ -49,7 +49,7 @@ function Movements() {
       title={t("_pages:movements.title")}
       isLoading={isLoading}
       addOptions={{
-        onClick: addMovement.onClick,
+        onClick: () => addMovement.onClick(),
         disabled: isLoading,
         tooltip: t("_pages:movements.add"),
       }}

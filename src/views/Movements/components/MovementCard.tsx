@@ -27,6 +27,11 @@ function MovementCard(props: MovementCardPropsType) {
     [type],
   );
 
+  const icon = useMemo(
+    () => icons[renderType?.id as keyof typeof icons],
+    [renderType?.id],
+  );
+
   return (
     <ItemCard
       title={name}
@@ -36,10 +41,9 @@ function MovementCard(props: MovementCardPropsType) {
       actions={actions}
     >
       <div className="flex gap-2 items-center">
-        <FontAwesomeIcon
-          className="text-primary text-xl"
-          icon={icons[renderType?.id as keyof typeof icons]}
-        />
+        {icon && (
+          <FontAwesomeIcon className="text-primary text-xl" icon={icon} />
+        )}
         <p>{t(`_pages:movements.inputs.type.${renderType?.label}`)}</p>
       </div>
     </ItemCard>
