@@ -18,23 +18,19 @@ export function useEditCategory() {
 
   const manager = useManager();
 
-  const { handleSubmit, ...rest } = useFormDialog<
+  return useFormDialog<
     CategoryDto,
     UpdateCategoryDto,
     CategoryDto,
     CategoryFormType
   >({
-    formToDto: (data) => data,
-    dtoToForm: (data) => data,
+    formToDto,
+    dtoToForm,
+    defaultValues: emptyCategory,
     getFunction: (id) => manager.Categories.getById(id),
     mutationFn: (data) => manager.Categories.update(data),
     onSuccessMessage: t("_pages:common.actions.add.successMessage"),
     title: t("_pages:categories.forms.edit"),
     ...CategoriesQueryKeys.all(),
   });
-
-  return {
-    handleSubmit,
-    ...rest,
-  };
 }
