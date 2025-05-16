@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 // providers
-import { useManager } from "providers";
+import { queryClient, useManager } from "providers";
 
 // hooks
 import { useFormDialog, MovementsQueryKeys } from "hooks";
@@ -21,7 +21,9 @@ export function useEditMovement() {
     getFunction: (id) => manager.Movements.getById(id),
     mutationFn: (data) => manager.Movements.update(data),
     onSuccessMessage: t("_pages:common.actions.add.successMessage"),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ ...MovementsQueryKeys.all() });
+    },
     title: t("_pages:movements.forms.edit"),
-    ...MovementsQueryKeys.all(),
   });
 }
