@@ -1,12 +1,7 @@
-import { DoMovementDialog } from "./DoMovementDialog";
-import { MovementLogsDialog } from "./MovementLogs";
 import ProductCard from "./ProductCard";
-import { AddProductDialog, EditProductDialog } from "./ProductDialog";
 
-export {
-  DoMovementDialog,
-  MovementLogsDialog,
-  ProductCard,
-  AddProductDialog,
-  EditProductDialog,
-};
+export * from "./DoMovementDialog";
+export * from "./MovementLogs";
+export * from "./ProductDialog";
+
+export { ProductCard };

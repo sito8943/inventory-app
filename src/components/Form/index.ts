@@ -4,6 +4,8 @@ import SelectInput from "./SelectInput.jsx";
 import TextInput from "./TextInput.jsx";
 import AutocompleteInput from "./AutocompleteInput/AutocompleteInput.jsx";
 
+export type * from "./types.ts";
+
 export {
   ColorInput,
   ParagraphInput,
