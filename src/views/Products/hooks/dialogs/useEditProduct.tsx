@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 // providers
-import { queryClient, useManager } from "providers";
+import { useManager } from "providers";
 
 // hooks
 import { useFormDialog, ProductsQueryKeys } from "hooks";
@@ -30,11 +30,7 @@ export function useEditProduct() {
     getFunction: (id) => manager.Products.getById(id),
     mutationFn: (data) => manager.Products.update(data),
     onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        ...ProductsQueryKeys.all(),
-      });
-    },
     title: t("_pages:products.forms.edit"),
+    ...ProductsQueryKeys.all(),
   });
 }

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 // providers
-import { useNotification } from "providers";
+import { queryClient, useNotification } from "providers";
 
 // lib
 import { NotificationEnumType, NotificationType, ValidationError } from "lib";
@@ -131,6 +131,7 @@ export const useFormDialog = <
       if (onError) onError(error);
     },
     onSuccess: async (result) => {
+      await queryClient.invalidateQueries({ queryKey });
       if (onSuccess) onSuccess(result);
       showSuccessNotification({
         message: onSuccessMessage,

@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 // providers
-import { queryClient, useManager } from "providers";
+import { useManager } from "providers";
 
 // hooks
 import { useFormDialog, CategoriesQueryKeys } from "hooks";
@@ -29,10 +29,8 @@ export function useAddCategory() {
     defaultValues: emptyCategory,
     mutationFn: (data) => manager.Categories.insert(data),
     onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ ...CategoriesQueryKeys.all() });
-    },
     title: t("_pages:categories.forms.add"),
+    ...CategoriesQueryKeys.all(),
   });
 
   return {

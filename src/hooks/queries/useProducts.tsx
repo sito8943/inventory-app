@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
 // providers
-import { useManager } from "../../providers/ManagerProvider";
+import { useManager } from "providers";
 
 // hooks
 import { MovementsQueryKeys } from "./useMovements.jsx";
@@ -42,7 +42,7 @@ export const useProductsList = (
 
 export const useProductMovements = (
   props: UseFetchByIdPropsType,
-): UseQueryResult<MovementLogDto> => {
+): UseQueryResult<MovementLogDto[]> => {
   const { id } = props;
 
   const manager = useManager();

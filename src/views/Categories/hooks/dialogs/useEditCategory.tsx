@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 // providers
-import { queryClient, useManager } from "providers";
+import { useManager } from "providers";
 
 // hooks
 import { CategoriesQueryKeys, useFormDialog } from "hooks";
@@ -30,9 +30,7 @@ export function useEditCategory() {
     getFunction: (id) => manager.Categories.getById(id),
     mutationFn: (data) => manager.Categories.update(data),
     onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ ...CategoriesQueryKeys.all() });
-    },
     title: t("_pages:categories.forms.edit"),
+    ...CategoriesQueryKeys.all(),
   });
 }

@@ -31,12 +31,10 @@ export function useDoMovement(): DoMovementDialogPropsType {
       title: t("_pages:products.forms.doMovement"),
       mutationFn: (data) => manager.Products.doMovement(data),
       onSuccessMessage: t("_pages:products.actions.doMovement.successMessage"),
-      onSuccess: async () => {
-        await queryClient.invalidateQueries({ ...ProductsQueryKeys.all() });
-      },
       onError: (error) => {
         console.error(error);
       },
+      ...ProductsQueryKeys.all(),
     }),
     action,
   };
