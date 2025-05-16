@@ -7,7 +7,7 @@ import { css } from "@emotion/css";
 import { ItemCard } from "components";
 
 // types
-import { CategoryCardPropsType } from "./types.ts";
+import { CategoryCardPropsType } from "../types/";
 
 function CategoryCard(props: CategoryCardPropsType) {
   const { t } = useTranslation();

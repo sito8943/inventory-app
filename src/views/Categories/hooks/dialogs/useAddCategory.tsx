@@ -8,7 +8,7 @@ import { useFormDialog, CategoriesQueryKeys } from "hooks";
 
 // types
 import { AddCategoryDto, CategoryDto } from "lib";
-import { CategoryFormType } from "../../components/types.ts";
+import { CategoryFormType } from "../../types/";
 
 export function useAddCategory() {
   const { t } = useTranslation();

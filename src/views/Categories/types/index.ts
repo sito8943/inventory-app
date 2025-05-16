@@ -1,6 +1,8 @@
-import { CategoryDto, ValidationError } from "lib";
-import { ActionPropsType, FormDialogPropsType } from "components";
 import { FieldValues } from "react-hook-form";
+
+// types
+import { ActionPropsType, FormDialogPropsType } from "components";
+import { CategoryDto, ValidationError } from "lib";
 
 export interface CategoryCardPropsType extends CategoryDto {
   actions: ActionPropsType[];
