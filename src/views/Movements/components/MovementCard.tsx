@@ -9,7 +9,7 @@ import { faBoxArchive, faDolly } from "@fortawesome/free-solid-svg-icons";
 import { ItemCard } from "components";
 
 // types
-import { MovementCardPropsType } from "./types.ts";
+import { MovementCardPropsType } from "../types";
 import { types } from "../../../db/types/products.ts";
 
 export const icons = {

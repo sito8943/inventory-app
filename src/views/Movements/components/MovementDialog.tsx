@@ -17,7 +17,7 @@ import {
   AddMovementDialogPropsType,
   EditMovementDialogPropsType,
   MovementFormPropsType,
-} from "./types.ts";
+} from "../types";
 
 export function MovementForm(props: MovementFormPropsType) {
   const { control, isLoading } = props;
@@ -32,6 +32,11 @@ export function MovementForm(props: MovementFormPropsType) {
 
   return (
     <div className="flex flex-col gap-5">
+      <Controller
+        control={control}
+        render={({ field }) => <input {...field} type="hidden" />}
+        name="id"
+      />
       <Controller
         control={control}
         rules={{
