@@ -23,7 +23,6 @@ export interface UseFormDialogPropsType<
   mutationFn: MutationFunction<TMutationOutputDto, TMutationDto>;
   onError?: (errors: ValidationError) => void;
   onSuccess?: (data: TMutationOutputDto) => void;
-  queryKey: QueryKey;
   onSuccessMessage: string;
   title: string;
 }
