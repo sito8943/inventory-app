@@ -10,7 +10,7 @@ import {
   UpdateCategoryDto,
   FilterCategoryDto,
   AddCategoryDto,
-} from "../lib";
+} from "lib";
 
 export default class CategoryClient extends BaseClient<
   CategoryDto,
