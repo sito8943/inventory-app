@@ -9,7 +9,7 @@ import {
   AddCategoryDialogPropsType,
   CategoryFormPropsType,
   EditCategoryDialogPropsType,
-} from "./types.ts";
+} from "../types";
 
 export function CategoryForm(props: CategoryFormPropsType) {
   const { control, isLoading } = props;
@@ -17,6 +17,11 @@ export function CategoryForm(props: CategoryFormPropsType) {
 
   return (
     <div className="flex flex-col gap-5">
+      <Controller
+        control={control}
+        render={({ field }) => <input {...field} type="hidden" />}
+        name="id"
+      />
       <Controller
         control={control}
         rules={{
