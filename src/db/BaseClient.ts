@@ -69,7 +69,7 @@ export default class BaseClient<
    */
   async commonGet(query: TFilter): Promise<TCommonDto[]> {
     return await this.db.commonGet<TCommonDto, TFilter>(
-      `list_common_${Tables.MovementLogs}`,
+      `list_common_${this.table}`,
       query,
     );
   }
