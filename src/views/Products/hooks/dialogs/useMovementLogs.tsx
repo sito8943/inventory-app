@@ -10,6 +10,7 @@ import useMovementLogsAction from "../actions/useMovementLogsAction";
 
 // types
 import { TablesCamelCase } from "../../../../db/types/dbUtils.ts";
+import { MovementLogDto } from "lib";
 
 export function useMovementLogs() {
   const { t } = useTranslation();
@@ -18,11 +19,11 @@ export function useMovementLogs() {
 
   const [id, setId] = useState(0);
 
-  const { data, isLoading } = useProductMovements({ id });
+  const { data = [], isLoading } = useProductMovements({ id });
 
   const { open, handleClose, handleOpen } = useDialog();
 
-  const tableProps = useTableOptions({
+  const tableProps = useTableOptions<MovementLogDto>({
     emptyMessage: t("_pages:movements.empty"),
     data,
     entity: TablesCamelCase.MovementLogs,

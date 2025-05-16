@@ -2,7 +2,7 @@
 import { Dialog, Table } from "components";
 
 // types
-import { MovementLogsDialogPropsType, MovementLogsPropsType } from "./types.ts";
+import { MovementLogsDialogPropsType, MovementLogsPropsType } from "../types";
 
 function MovementLogs(props: MovementLogsPropsType) {
   const { isLoading, tableProps, containerClassName = "" } = props;

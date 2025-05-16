@@ -5,10 +5,13 @@ import { useManager } from "providers";
 
 // types
 import { AddProductDto, ProductDto } from "lib";
+import { ProductFormType } from "../../types";
 
 // hooks
 import { useFormDialog, ProductsQueryKeys } from "hooks";
-import { ProductFormType } from "../../components/types.ts";
+
+// utils
+import { dtoToForm, emptyProduct, formToDto } from "../../utils";
 
 export function useAddProduct() {
   const { t } = useTranslation();
@@ -21,8 +24,9 @@ export function useAddProduct() {
     ProductDto,
     ProductFormType
   >({
-    formToDto: (data) => data,
-    dtoToForm: (data) => data,
+    formToDto,
+    dtoToForm,
+    defaultValues: emptyProduct,
     mutationFn: (data: AddProductDto) => manager.Products.insert(data),
     onSuccessMessage: t("_pages:common.actions.add.successMessage"),
     title: t("_pages:products.forms.add"),

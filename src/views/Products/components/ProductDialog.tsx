@@ -18,8 +18,8 @@ import {
   AddProductDialogPropsType,
   EditProductDialogPropsType,
   ProductFormPropsType,
-} from "./types.ts";
-import { SelectInputOptionType } from "../../../components/Form/types.ts";
+} from "../types";
+import { SelectInputOptionType } from "components";
 
 export const ProductForm = (props: ProductFormPropsType) => {
   const { control, isLoading } = props;
@@ -38,6 +38,11 @@ export const ProductForm = (props: ProductFormPropsType) => {
 
   return (
     <div className="flex flex-col gap-5">
+      <Controller
+        control={control}
+        render={({ field }) => <input {...field} type="hidden" />}
+        name="id"
+      />
       <Controller
         control={control}
         rules={{

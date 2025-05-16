@@ -1,31 +1,40 @@
 import { useTranslation } from "react-i18next";
 
 // providers
-import { useManager } from "providers";
+import { queryClient, useManager } from "providers";
 
 // hooks
 import { useFormDialog, ProductsQueryKeys } from "hooks";
 
+// types
+import { ProductDto, UpdateProductDto } from "lib";
+import { ProductFormType } from "../../types";
+
 // utils
-import { UpdateProductDto } from "lib";
+import { dtoToForm, emptyProduct, formToDto } from "../../utils";
 
 export function useEditProduct() {
   const { t } = useTranslation();
 
   const manager = useManager();
 
-  const { handleSubmit, dialogFn, ...rest } = useFormDialog<
+  return useFormDialog<
+    ProductDto,
     UpdateProductDto,
-    UpdateProductDto
+    ProductDto,
+    ProductFormType
   >({
+    formToDto,
+    dtoToForm,
+    defaultValues: emptyProduct,
     getFunction: (id) => manager.Products.getById(id),
     mutationFn: (data) => manager.Products.update(data),
     onSuccessMessage: t("_pages:common.actions.add.successMessage"),
-    ...ProductsQueryKeys.all(),
-  });
-  return {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        ...ProductsQueryKeys.all(),
+      });
+    },
     title: t("_pages:products.forms.edit"),
-    handleSubmit: handleSubmit((data) => dialogFn.mutate(data)),
-    ...rest,
-  };
+  });
 }

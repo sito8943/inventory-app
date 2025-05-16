@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 // providers
-import { useManager } from "providers";
+import { queryClient, useManager } from "providers";
 
 // hooks
 import { useFormDialog, ProductsQueryKeys } from "hooks";
@@ -12,7 +12,7 @@ import { useDoMovementAction } from "../actions/useDoMovementAction.tsx";
 
 // types
 import { AddMovementLogDto } from "lib";
-import { DoMovementDialogPropsType } from "../../components/types.ts";
+import { DoMovementDialogPropsType } from "../../types";
 
 export function useDoMovement(): DoMovementDialogPropsType {
   const { t } = useTranslation();
@@ -25,16 +25,19 @@ export function useDoMovement(): DoMovementDialogPropsType {
   });
 
   return {
-    ...useFormDialog<AddMovementLogDto, AddMovementLogDto>({
+    ...useFormDialog({
+      formToDto: (data) => data,
+      dtoToForm: () => ({ product: productId }),
       title: t("_pages:products.forms.doMovement"),
       mutationFn: (data) => manager.Products.doMovement(data),
       onSuccessMessage: t("_pages:products.actions.doMovement.successMessage"),
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ ...ProductsQueryKeys.all() });
+      },
       onError: (error) => {
         console.error(error);
       },
-      ...ProductsQueryKeys.all(),
     }),
     action,
-    productId,
   };
 }

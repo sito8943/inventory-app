@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { css } from "@emotion/css";
 
 // components
-import { Chip, ItemCard } from "../../../components";
+import { Chip, ItemCard } from "components";
 
 // icons
 import {
@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 // types
-import { ProductCardPropsType } from "./types.ts";
+import { ProductCardPropsType } from "../types";
 
 function ProductCard(props: ProductCardPropsType) {
   const { t } = useTranslation();
