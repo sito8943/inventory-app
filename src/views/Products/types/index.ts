@@ -18,9 +18,7 @@ export interface DoMovementDialogPropsType extends DoMovementFormPropsType {
 }
 
 export interface DoMovementFormPropsType
-  extends FormDialogPropsType<AddMovementLogDto, ValidationError> {
-  productId: number;
-}
+  extends FormDialogPropsType<AddMovementLogDto, ValidationError> {}
 
 export interface ProductFormType
   extends Omit<ProductDto, "createdAt" | "deletedAt" | "updatedAt">,
