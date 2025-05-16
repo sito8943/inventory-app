@@ -1,7 +1,11 @@
 import { invoke } from "@tauri-apps/api/core";
-import { BaseCommonEntityDto, BaseEntityDto, DeleteDto } from "../lib";
-import { Tables } from "./types";
+
+// manager
 import DbClient from "./DbClient.ts";
+
+// types
+import { BaseCommonEntityDto, BaseEntityDto, DeleteDto } from "lib";
+import { Tables } from "./types";
 
 export default class BaseClient<
   TDto extends BaseEntityDto,
