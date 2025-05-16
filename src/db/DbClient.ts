@@ -13,6 +13,7 @@ export default class DbClient {
     endpoint: string,
     value: TAddDto | TAddDto[],
   ): Promise<TDto> {
+    console.log(value);
     return await invoke(endpoint, { data: value });
   }
 

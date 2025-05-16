@@ -3,11 +3,12 @@ import { DefaultValues, FieldValues } from "react-hook-form";
 
 // types
 import { ValidationError } from "lib";
+import { UseConfirmationPropsType } from "../forms";
 
-export type UseDeleteDialogPropsType = {
-  mutationFn: (data: number[]) => Promise<number>;
+export interface UseDeleteDialogPropsType
+  extends UseConfirmationPropsType<number, ValidationError> {
   queryKey: QueryKey;
-};
+}
 
 export interface UseFormDialogPropsType<
   TDto,

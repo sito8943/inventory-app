@@ -5,19 +5,18 @@ import { useMutation } from "@tanstack/react-query";
 import { useDialog } from "hooks";
 
 // providers
-import { useNotification } from "../../providers/NotificationProvider.tsx";
-import { queryClient } from "../../providers/ManagerProvider.tsx";
+import { useNotification } from "providers";
 
 // types
 import { NotificationType } from "lib";
-import { UseConfirmationPropsType } from "./types.ts";
+import { UseConfirmationPropsType } from "hooks";
 
 export const useConfirmationForm = <TInDto, TError extends Error>(
   props: UseConfirmationPropsType<TInDto, TError>,
 ) => {
   const { showSuccessNotification } = useNotification();
 
-  const { mutationFn, onError, onSuccess, queryKey, onSuccessMessage } = props;
+  const { mutationFn, onError, onSuccess, onSuccessMessage } = props;
 
   const [recordToProcess, setRecordToProcess] = useState<TInDto | TInDto[]>([]);
 
@@ -41,9 +40,9 @@ export const useConfirmationForm = <TInDto, TError extends Error>(
     onError: (error: TError) => {
       console.error(error);
       if (onError) onError(error);
+      close();
     },
     onSuccess: async (result: TInDto) => {
-      await queryClient.invalidateQueries({ queryKey });
       if (onSuccess) onSuccess(result);
       showSuccessNotification({
         message: onSuccessMessage,

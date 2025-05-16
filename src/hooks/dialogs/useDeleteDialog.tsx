@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 // providers
-import { useNotification } from "providers";
+import { queryClient, useNotification } from "providers";
 
 // lib
 import { NotificationEnumType, NotificationType, ValidationError } from "lib";
@@ -13,7 +13,7 @@ import { useDeleteAction, useConfirmationForm } from "hooks";
 import { UseDeleteDialogPropsType } from "hooks";
 
 export const useDeleteDialog = (props: UseDeleteDialogPropsType) => {
-  const { mutationFn, queryKey } = props;
+  const { queryKey, onSuccess, ...rest } = props;
 
   const { showStackNotifications } = useNotification();
   const { t } = useTranslation();
@@ -22,7 +22,6 @@ export const useDeleteDialog = (props: UseDeleteDialogPropsType) => {
     number,
     ValidationError
   >({
-    mutationFn,
     onSuccessMessage: t("_pages:common.actions.delete.successMessage"),
     onError: (error: ValidationError) => {
       if (error.errors)
@@ -35,9 +34,12 @@ export const useDeleteDialog = (props: UseDeleteDialogPropsType) => {
               }) as NotificationType,
           ),
         );
-      close();
     },
-    queryKey,
+    onSuccess: async (result) => {
+      await queryClient.invalidateQueries({ queryKey });
+      if (onSuccess) onSuccess(result);
+    },
+    ...rest,
   });
 
   const action = useDeleteAction({ onClick });
