@@ -45,10 +45,9 @@ pub async fn create_many_categories(
 #[tauri::command]
 pub async fn update_categories(
     state: tauri::State<'_, AppState>,
-    id: i32,
-    data: category::Model,
+    data: category::UpdateDto,
 ) -> Result<FlashData, ()> {
-    CategoryService::Mutation::update(&state.conn, id, data)
+    CategoryService::Mutation::update(&state.conn, data.id, data)
         .await
         .expect("could not edit category");
 

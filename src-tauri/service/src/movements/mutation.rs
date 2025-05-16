@@ -42,7 +42,7 @@ impl Mutation {
         Ok(active_models.len() as i32)
     }
 
-    pub async fn update(db: &DbConn, id: i32, form_data: Model) -> Result<Model, DbErr> {
+    pub async fn update(db: &DbConn, id: i32, form_data: movement::UpdateDto) -> Result<Model, DbErr> {
         let mut movement: movement::ActiveModel = get_by_id(db, id).await?.into();
 
         movement.updated_at = Set(Utc::now());

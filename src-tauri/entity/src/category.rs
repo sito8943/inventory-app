@@ -24,6 +24,14 @@ pub struct AddDto {
     pub description: Option<String>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct UpdateDto {
+    pub id: i32,
+    pub name: String,
+    pub color: String,
+    pub description: Option<String>,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CommonDto {
     pub id: i32,
