@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // manager
@@ -29,6 +29,10 @@ const ManagerProvider = (props: BasicProviderPropTypes) => {
   const { children } = props;
 
   const manager = new Manager();
+
+  useEffect(() => {
+    manager.Movements.init().then(() => console.info("init"));
+  }, []);
 
   return (
     <ManagerContext.Provider value={{ client: manager }}>
