@@ -3,6 +3,7 @@ use chrono::{DateTime, Utc};
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::f64;
+use crate::category;
 
 #[derive(Clone, Debug, DeriveEntityModel, Serialize, Deserialize)]
 #[sea_orm(table_name = "products")]
@@ -21,12 +22,27 @@ pub struct Model {
 }
 
 #[derive(Debug, Clone, Deserialize)]
+pub struct QueryDto {
+    pub id: i32,
+    pub name: String,
+    pub price: f64,
+    pub cost: f64,
+    pub stock: i32,
+    pub categories: Vec<category::CommonDto>,
+    pub description: Option<String>,
+    pub created_at: DateTime<Utc>,
+    pub updated_at: DateTime<Utc>,
+    pub deleted_at: Option<DateTime<Utc>>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
 pub struct AddDto {
     pub name: String,
     pub price: f64,
     pub cost: f64,
     pub stock: i32,
     pub description: Option<String>,
+    pub categories: Vec<category::CommonDto>,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -37,6 +53,7 @@ pub struct UpdateDto {
     pub cost: f64,
     pub stock: i32,
     pub description: Option<String>,
+    pub categories: Vec<category::CommonDto>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -55,6 +72,21 @@ pub struct Filter {
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
-pub enum Relation {}
+pub enum Relation {
+    #[sea_orm(has_many = "crate::product_category::Entity")]
+    ProductCategory,
+}
+
+impl Related<category::Entity> for Entity {
+    fn to() -> RelationDef {
+        crate::product_category::Relation::Category.def()
+    }
+
+    fn via() -> Option<RelationDef> {
+        Some(Relation::ProductCategory.def())
+    }
+}
+
+
 
 impl ActiveModelBehavior for ActiveModel {}

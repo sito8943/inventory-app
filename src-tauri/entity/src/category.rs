@@ -46,6 +46,19 @@ pub struct Filter {
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
-pub enum Relation {}
+pub enum Relation {
+    #[sea_orm(has_many = "crate::product_category::Entity")]
+    ProductCategory,
+}
+
+impl Related<crate::product::Entity> for Entity {
+    fn to() -> RelationDef {
+        crate::product_category::Relation::Product.def()
+    }
+
+    fn via() -> Option<RelationDef> {
+        Some(Relation::ProductCategory.def())
+    }
+}
 
 impl ActiveModelBehavior for ActiveModel {}

@@ -2,6 +2,7 @@ use ::entity::product::Model;
 use ::entity::{movement, movement_log};
 use ::entity::{product, product::Entity as productEntity};
 use chrono::Utc;
+use ::entity::{product_category};
 use sea_orm::sea_query::{Keyword, SimpleExpr};
 use sea_orm::ActiveValue::Set;
 use sea_orm::*;
@@ -15,7 +16,7 @@ impl Mutation {
         db: &DbConn,
         form_data: product::AddDto,
     ) -> Result<product::ActiveModel, DbErr> {
-        product::ActiveModel {
+        let created_product = product::ActiveModel {
             name: Set(form_data.name),
             price: Set(form_data.price),
             cost: Set(form_data.cost),
@@ -24,7 +25,20 @@ impl Mutation {
             ..Default::default()
         }
         .save(db)
-        .await
+        .await?;
+
+        let product_id = created_product.id.clone().unwrap();
+
+        for category in form_data.categories {
+            product_category::ActiveModel {
+                product_id: Set(product_id),
+                category_id: Set(category.id),
+            }
+                .save(db)
+                .await?;
+        }
+
+        Ok(created_product)
     }
 
     pub async fn do_movement(db: &DbConn, form_data: movement_log::DoMovementDto) -> Result<Model, DbErr> {
