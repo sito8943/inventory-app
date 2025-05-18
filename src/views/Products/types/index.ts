@@ -21,8 +21,15 @@ export interface DoMovementFormPropsType
   extends FormDialogPropsType<AddMovementLogDto, ValidationError> {}
 
 export interface ProductFormType
-  extends Omit<ProductDto, "createdAt" | "deletedAt" | "updatedAt">,
-    FieldValues {}
+  extends Omit<
+      ProductDto,
+      "createdAt" | "deletedAt" | "updatedAt" | "price" | "stock" | "cost"
+    >,
+    FieldValues {
+  price: number | string;
+  cost: number | string;
+  stock: number | string;
+}
 
 export interface ProductFormPropsType
   extends FormDialogPropsType<ProductFormType, ValidationError> {}

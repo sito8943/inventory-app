@@ -13,9 +13,9 @@ export const formToDto = ({
   id,
   name,
   description,
-  price,
-  cost,
-  stock,
+  price: Number(price),
+  cost: Number(cost),
+  stock: Number(stock),
   categories,
 });
 
@@ -33,8 +33,8 @@ export const emptyProduct: ProductFormType = {
   id: 0,
   name: "",
   description: "",
-  price: 0,
-  cost: 0,
-  stock: 0,
+  price: "",
+  cost: "",
+  stock: "",
   categories: [],
 };
