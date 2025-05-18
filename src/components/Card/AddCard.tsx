@@ -12,7 +12,7 @@ export function AddCard(props: AddCardPropsType) {
     <button
       data-tooltip-id="tooltip"
       data-tooltip-content={tooltip}
-      className="flex items-center justify-center h-14 w-14 max-xs:h-10 max-xs:w-10 rounded-full fixed bottom-3 right-3 group bg-primary/30 hover:bg-primary border-primary/30 hover:border-primary animated"
+      className="flex items-center justify-center h-14 w-14 max-xs:h-10 max-xs:w-10 rounded-full fixed bottom-3 right-3 group bg-bg-primary hover:bg-hover-primary border-bg-primary hover:border-hover-primary animated"
       {...rest}
     >
       <FontAwesomeIcon
