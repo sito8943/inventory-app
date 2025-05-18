@@ -5,3 +5,13 @@ export interface AutocompleteInputPropsType
   value: SelectInputOptionType | SelectInputOptionType[];
   onChange: (value: SelectInputOptionType | SelectInputOptionType[]) => void;
 }
+
+export type ValuesPropsType = {
+  onDelete: (index: number) => void;
+  list: SelectInputOptionType[];
+};
+
+export type SuggestionsPropsType = {
+  suggestions: SelectInputOptionType[];
+  onOptionClick: (option: SelectInputOptionType) => void;
+};

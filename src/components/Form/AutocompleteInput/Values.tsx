@@ -1,14 +1,19 @@
-import { DeletableChip } from "../../Chip/DeletableChip.jsx";
+// components
+import { DeletableChip } from "../../Chip";
 
-export const Values = (props) => {
+// types
+import { SelectInputOptionType } from "components";
+import { ValuesPropsType } from "./types.ts";
+
+export const Values = (props: ValuesPropsType) => {
   const { list = [], onDelete } = props;
 
   return (
     <div className="flex items-center justify-start flex-wrap mt-4 gap-2">
-      {list.map((selected, i) => (
+      {list.map((selected: SelectInputOptionType, i: number) => (
         <DeletableChip
-          key={selected.value}
-          text={selected.value}
+          key={selected.name}
+          text={selected.name}
           onDelete={() => onDelete(i)}
         />
       ))}

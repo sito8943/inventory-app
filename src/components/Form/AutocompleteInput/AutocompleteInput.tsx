@@ -51,7 +51,7 @@ const AutocompleteInput = forwardRef(function (
     if (!options) return [];
 
     return options.filter((option) => {
-      const isIncluded = option.value
+      const isIncluded = option.name
         .toLowerCase()
         .includes(localValue?.toLowerCase() || "");
 
@@ -92,7 +92,7 @@ const AutocompleteInput = forwardRef(function (
   }, []);
 
   const handleSuggestionClick = useCallback(
-    (suggestion = null) => {
+    (suggestion?: SelectInputOptionType) => {
       setLocalValue("");
       if (!suggestion) onChange([]);
       else {
@@ -131,7 +131,7 @@ const AutocompleteInput = forwardRef(function (
         id={id}
         value={
           !multiple && value
-            ? (value as SelectInputOptionType).value
+            ? (value as SelectInputOptionType).name
             : localValue
         }
         onChange={handleChange}
@@ -162,7 +162,7 @@ const AutocompleteInput = forwardRef(function (
           onOptionClick={handleSuggestionClick}
         />
       )}
-      {multiple && value && (value as SelectInputOptionType[]).length ? (
+      {multiple && Array.isArray(value) ? (
         <Values list={value} onDelete={handleDeleteChip} />
       ) : null}
     </div>
