@@ -25,13 +25,14 @@ import { useDeleteDialog, useProductsList, ProductsQueryKeys } from "hooks";
 
 // types
 import { ProductDto } from "lib";
+import { Error } from "components";
 
 function Products() {
   const { t } = useTranslation();
 
   const manager = useManager();
 
-  const { data, isLoading } = useProductsList({});
+  const { data, isLoading, error = "" } = useProductsList({});
 
   // #region actions
 
@@ -42,22 +43,22 @@ function Products() {
 
   const addProduct = useAddProduct();
 
-  /*           const editProduct = useEditProduct();
-                    
-                      const doMovement = useDoMovement();
-                    
-                      const movementLogs = useMovementLogs();*/
+  const editProduct = useEditProduct();
+
+  const doMovement = useDoMovement();
+
+  /*const movementLogs = useMovementLogs();*/
 
   // #endregion
 
-  /* const getActions = useCallback(
-                        (record: ProductDto) => [
-                          doMovement.action(record),
-                          movementLogs.action(record),
-                          deleteProduct.action(record),
-                        ],
-                        [doMovement, movementLogs, deleteProduct],
-                      );*/
+  const getActions = useCallback(
+    (record: ProductDto) => [
+      doMovement.action(record),
+      /*movementLogs.action(record),*/
+      deleteProduct.action(record),
+    ],
+    [doMovement /*movementLogs*/, , deleteProduct],
+  );
 
   return (
     <Page
@@ -69,24 +70,30 @@ function Products() {
         tooltip: t("_pages:products.add"),
       }}
     >
-      <PrettyGrid
-        data={data}
-        emptyMessage={t("_pages:products.empty")}
-        renderComponent={(product) => (
-          <ProductCard
-            actions={[] /*getActions(product)*/}
-            onClick={(id: number) => {} /*editProduct.onClick(id)*/}
-            {...product}
+      {!error ? (
+        <>
+          <PrettyGrid
+            data={data}
+            emptyMessage={t("_pages:products.empty")}
+            renderComponent={(product) => (
+              <ProductCard
+                actions={getActions(product)}
+                onClick={(id: number) => editProduct.onClick(id)}
+                {...product}
+              />
+            )}
           />
-        )}
-      />
 
-      {/* Dialogs */}
-      <AddProductDialog {...addProduct} />
-      {/*<EditProductDialog {...editProduct} />
-      <DoMovementDialog {...doMovement} />
-      <MovementLogsDialog {...movementLogs} />*/}
-      {/*<ConfirmationDialog {...deleteProduct} />*/}
+          {/* Dialogs */}
+          <AddProductDialog {...addProduct} />
+          <EditProductDialog {...editProduct} />
+          <DoMovementDialog {...doMovement} />
+          {/*<MovementLogsDialog {...movementLogs} />*/}
+          <ConfirmationDialog {...deleteProduct} />
+        </>
+      ) : (
+        <Error message={error} />
+      )}
     </Page>
   );
 }

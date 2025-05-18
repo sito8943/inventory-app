@@ -11,7 +11,13 @@ function View() {
   return (
     <>
       <Header />
-      <ErrorBoundary fallback={<Error />}>
+      <ErrorBoundary
+        fallback={
+          <main>
+            <Error />
+          </main>
+        }
+      >
         <Outlet />
       </ErrorBoundary>
       <Footer />
