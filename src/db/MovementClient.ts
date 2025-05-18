@@ -32,6 +32,8 @@ export default class MovementClient extends BaseClient<
    * @returns
    */
   async init(defaultValues = []): Promise<false | number> {
+    console.log("hola?");
+    console.trace();
     const movements = await this.get({ deleted: false });
 
     if (movements.length > 0) return false;

@@ -1,8 +1,8 @@
-import ColorInput from "./ColorInput.jsx";
-import ParagraphInput from "./ParagraphInput.jsx";
-import SelectInput from "./SelectInput.jsx";
-import TextInput from "./TextInput.jsx";
-import AutocompleteInput from "./AutocompleteInput/AutocompleteInput.jsx";
+import ColorInput from "./ColorInput";
+import ParagraphInput from "./ParagraphInput";
+import SelectInput from "./SelectInput";
+import TextInput from "./TextInput";
+import AutocompleteInput from "./AutocompleteInput/AutocompleteInput";
 
 export type * from "./types.ts";
 

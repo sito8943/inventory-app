@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 // components
-import Chip from "./Chip.jsx";
+import Chip from "./Chip";
 
 // types
 import { DeleteChipPropsType } from "./types.ts";

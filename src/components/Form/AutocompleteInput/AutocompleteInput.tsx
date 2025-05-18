@@ -14,9 +14,9 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
-import TextInput from "../TextInput.jsx";
-import Suggestions from "./Suggestions.jsx";
-import { Values } from "./Values.jsx";
+import TextInput from "../TextInput";
+import Suggestions from "./Suggestions";
+import { Values } from "./Values";
 import { AutocompleteInputPropsType } from "./types.ts";
 import { SelectInputOptionType } from "../types.ts";
 

@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormDialog, TextInput, SelectInput } from "components";
 
 // utils
-import { icons } from "./MovementCard.jsx";
+import { icons } from "./MovementCard";
 import { enumToKeyValueArray } from "../../../lib/utils";
 
 // types

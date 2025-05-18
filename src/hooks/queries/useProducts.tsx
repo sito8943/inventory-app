@@ -4,7 +4,7 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { useManager } from "providers";
 
 // hooks
-import { MovementsQueryKeys } from "./useMovements.jsx";
+import { MovementsQueryKeys } from "./useMovements";
 
 // types
 import { UseFetchByIdPropsType, UseFetchPropsType } from "./types.ts";
