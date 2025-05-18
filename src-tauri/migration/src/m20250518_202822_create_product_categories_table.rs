@@ -9,10 +9,10 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table(ProductCategory::Table)
+                    .table(ProductCategories::Table)
                     .if_not_exists()
-                    .col(ColumnDef::new(ProductCategory::ProductId).integer())
-                    .col(ColumnDef::new(ProductCategory::CategoryId).integer())
+                    .col(ColumnDef::new(ProductCategories::ProductId).integer())
+                    .col(ColumnDef::new(ProductCategories::CategoryId).integer())
                     .to_owned(),
             )
             .await
@@ -20,13 +20,13 @@ impl MigrationTrait for Migration {
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
-            .drop_table(Table::drop().table(ProductCategory::Table).to_owned())
+            .drop_table(Table::drop().table(ProductCategories::Table).to_owned())
             .await
     }
 }
 
 #[derive(DeriveIden)]
-enum ProductCategory {
+enum ProductCategories {
     Table,
     ProductId,
     CategoryId,
