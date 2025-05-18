@@ -55,7 +55,7 @@ pub struct CommonDto {
 
 #[derive(Debug, Deserialize)]
 pub struct Filter {
-    pub product: i32,
+    pub product: Option<i32>,
     pub deleted: Option<bool>, // if true => deleted_at IS NULL
 }
 

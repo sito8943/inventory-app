@@ -65,9 +65,9 @@ pub struct CommonDto {
 #[derive(Debug, Deserialize)]
 pub struct Filter {
     pub name: Option<String>,
-    pub price: f64,
-    pub cost: f64,
-    pub stock: i32,
+    pub price: Option<f64>,
+    pub cost: Option<f64>,
+    pub stock: Option<i32>,
     pub deleted: Option<bool>,
 }
 
