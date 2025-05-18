@@ -11,8 +11,13 @@ impl MigrationTrait for Migration {
                 Table::create()
                     .table(ProductCategories::Table)
                     .if_not_exists()
-                    .col(ColumnDef::new(ProductCategories::ProductId).integer())
-                    .col(ColumnDef::new(ProductCategories::CategoryId).integer())
+                    .col(ColumnDef::new(ProductCategories::ProductId).integer().not_null())
+                    .col(ColumnDef::new(ProductCategories::CategoryId).integer().not_null())
+                    .primary_key(
+                        Index::create()
+                            .col(ProductCategories::ProductId)
+                            .col(ProductCategories::CategoryId),
+                    )
                     .to_owned(),
             )
             .await
