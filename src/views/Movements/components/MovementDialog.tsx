@@ -26,7 +26,7 @@ export function MovementForm(props: MovementFormPropsType) {
     () => [
       ...(enumToKeyValueArray(MovementType)?.map(({ key, value }) => ({
         id: value as number,
-        value: key,
+        name: key,
       })) ?? []),
     ],
     [],

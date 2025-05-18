@@ -28,11 +28,7 @@ export const ProductForm = (props: ProductFormPropsType) => {
   const categories = useCategoriesCommon();
 
   const categoryOptions = useMemo(
-    () =>
-      [
-        ...(categories?.data?.map((cat) => ({ id: cat.id, value: cat.name })) ??
-          []),
-      ] as SelectInputOptionType[],
+    () => [...(categories?.data ?? [])] as SelectInputOptionType[],
     [categories.data],
   );
 

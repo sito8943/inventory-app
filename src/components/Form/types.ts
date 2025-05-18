@@ -26,7 +26,7 @@ export interface ColorInputPropsTypes
 }
 
 export type SelectInputOptionType = {
-  value: string;
+  name: string;
   id: number;
 };
 
