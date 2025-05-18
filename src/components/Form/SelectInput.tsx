@@ -50,7 +50,7 @@ const SelectInput = forwardRef(function (
       >
         {options.map((option) => (
           <option key={option.id} value={option.id}>
-            {option.value}
+            {option.name}
           </option>
         ))}
       </select>
