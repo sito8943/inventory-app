@@ -15,12 +15,13 @@ const Chip = (props: ChipPropsType) => {
     icon,
     variant = "primary",
     className = "",
+    iconClassName = "text-primary",
     ...rest
   } = props;
 
   return (
     <div className={`chip ${variant} ${className}`} {...rest}>
-      {icon ? <FontAwesomeIcon icon={icon} /> : null}
+      {icon ? <FontAwesomeIcon icon={icon} className={iconClassName} /> : null}
       {text ?? children}
     </div>
   );

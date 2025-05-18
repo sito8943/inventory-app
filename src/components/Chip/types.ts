@@ -6,6 +6,7 @@ export interface ChipPropsType
   text?: string;
   children?: ReactNode;
   icon?: IconProp;
+  iconClassName?: string;
   variant?:
     | "primary"
     | "secondary"
