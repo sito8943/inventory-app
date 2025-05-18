@@ -17,8 +17,7 @@ export const WhereLogic = {
   Or: "OR",
 };
 
-export enum DbEvents {
-  Insert = "insert",
-  Update = "update",
-  Delete = "delete",
-}
+export type APIError = {
+  kind: string;
+  message: string;
+};
