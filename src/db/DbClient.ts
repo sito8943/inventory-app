@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
+import { APIError } from "./types";
 
 export default class DbClient {
   constructor() {}
@@ -13,7 +14,11 @@ export default class DbClient {
     endpoint: string,
     value: TAddDto | TAddDto[],
   ): Promise<TDto> {
-    return await invoke(endpoint, { data: value });
+    const result = await invoke(endpoint, { data: value });
+    if ((result as APIError).kind === "error")
+      throw new Error((result as APIError).message);
+
+    return result as TDto;
   }
 
   /**
@@ -26,7 +31,11 @@ export default class DbClient {
     endpoint: string,
     value: TUpdateDto,
   ): Promise<TDto> {
-    return await invoke(endpoint, { data: value });
+    const result = await invoke(endpoint, { data: value });
+    if ((result as APIError).kind === "error")
+      throw new Error((result as APIError).message);
+
+    return result as TDto;
   }
 
   /**
@@ -36,9 +45,13 @@ export default class DbClient {
    * @returns Query result
    */
   async get<TDto, TFilter>(endpoint: string, query: TFilter): Promise<TDto[]> {
-    return await invoke(endpoint, {
+    const result = await invoke(endpoint, {
       filters: { ...query },
     });
+    if ((result as APIError).kind === "error")
+      throw new Error((result as APIError).message);
+
+    return result as TDto[];
   }
 
   /**
@@ -51,9 +64,13 @@ export default class DbClient {
     endpoint: string,
     query: TFilter,
   ): Promise<TCommonDto[]> {
-    return await invoke(endpoint, {
+    const result = await invoke(endpoint, {
       filters: { ...query },
     });
+    if ((result as APIError).kind === "error")
+      throw new Error((result as APIError).message);
+
+    return result as TCommonDto[];
   }
 
   /**
@@ -63,6 +80,10 @@ export default class DbClient {
    * @returns number of deleted items
    */
   async softDelete(endpoint: string, ids: number[]): Promise<number> {
-    return await invoke(endpoint, { ids });
+    const result = await invoke(endpoint, { ids });
+    if ((result as APIError).kind === "error")
+      throw new Error((result as APIError).message);
+
+    return result as number;
   }
 }
