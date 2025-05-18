@@ -1,6 +1,6 @@
+use crate::{AppState, FlashData};
 use entity::product;
 use service::products as ProductService;
-use crate::{AppState, FlashData};
 
 //# region Products
 #[tauri::command]
@@ -10,16 +10,27 @@ pub async fn create_products(
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
-    ProductService::Mutation::create(&state.conn, data)
-        .await
-        .expect("could not insert product");
+    let result = ProductService::Mutation::create(&state.conn, data).await;
 
-    let data = FlashData {
-        kind: "success".to_owned(),
-        message: "product successfully added".to_owned(),
-    };
+    match result {
+        Ok(_) => {
+            let data = FlashData {
+                kind: "success".to_owned(),
+                message: "Product successfully added".to_owned(),
+            };
+            Ok(data)
+        }
+        Err(e) => {
+            // Handle/log the error here
+            eprintln!("Error inserting product: {:?}", e);
 
-    Ok(data)
+            let data = FlashData {
+                kind: "error".to_owned(),
+                message: "Could not insert product".to_owned(),
+            };
+            Ok(data)
+        }
+    }
 }
 
 #[tauri::command]
@@ -100,7 +111,10 @@ pub async fn list_common_products(
 }
 
 #[tauri::command]
-pub async fn products_by_id(state: tauri::State<'_, AppState>, id: i32) -> Result<product::Model, ()> {
+pub async fn products_by_id(
+    state: tauri::State<'_, AppState>,
+    id: i32,
+) -> Result<product::Model, ()> {
     let product = ProductService::Query::get_by_id(&state.conn, id)
         .await
         .expect("cannot find product by id")
