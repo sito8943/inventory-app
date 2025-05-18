@@ -26,11 +26,11 @@ pub async fn create_categories(
 #[tauri::command]
 pub async fn create_many_categories(
     state: tauri::State<'_, AppState>,
-    items: Vec<category::AddDto>,
+    data: Vec<category::AddDto>,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
-    CategoryService::Mutation::create_many(&state.conn, items)
+    CategoryService::Mutation::create_many(&state.conn, data)
         .await
         .expect("could not insert categories");
 

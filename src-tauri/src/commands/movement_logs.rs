@@ -26,11 +26,11 @@ pub async fn create_movement_logs(
 #[tauri::command]
 pub async fn create_many_movement_logs(
     state: tauri::State<'_, AppState>,
-    items: Vec<movement_log::AddDto>,
+    data: Vec<movement_log::AddDto>,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
-    MovementLogService::Mutation::create_many(&state.conn, items)
+    MovementLogService::Mutation::create_many(&state.conn, data)
         .await
         .expect("could not insert movement logs");
 

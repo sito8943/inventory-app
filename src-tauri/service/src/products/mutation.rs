@@ -29,6 +29,9 @@ impl Mutation {
 
         let product_id = created_product.id.clone().unwrap();
 
+        // Handle/log the error here
+        eprintln!("Error inserting product: {:?}", product_id);
+
         for category in form_data.categories {
             product_category::ActiveModel {
                 product_id: Set(product_id),

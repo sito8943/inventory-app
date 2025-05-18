@@ -26,11 +26,11 @@ pub async fn create_movements(
 #[tauri::command]
 pub async fn create_many_movements(
     state: tauri::State<'_, AppState>,
-    items: Vec<movement::AddDto>,
+    data: Vec<movement::AddDto>,
 ) -> Result<FlashData, ()> {
     let _ = &state.conn;
 
-    MovementService::Mutation::create_many(&state.conn, items)
+    MovementService::Mutation::create_many(&state.conn, data)
         .await
         .expect("could not insert movements");
 
