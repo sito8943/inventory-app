@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 // providers
@@ -21,18 +21,37 @@ import {
   useEditProduct,
   useMovementLogs,
 } from "./hooks/dialogs/";
-import { useDeleteDialog, useProductsList, ProductsQueryKeys } from "hooks";
+import {
+  useDeleteDialog,
+  useProductsList,
+  ProductsQueryKeys,
+  useCategoriesCommon,
+} from "hooks";
 
 // types
 import { ProductDto } from "lib";
 import { Error } from "components";
+import { TabsLayout } from "../../components/TabsLayout";
+import categories from "../Categories/Categories.tsx";
 
 function Products() {
   const { t } = useTranslation();
 
   const manager = useManager();
 
-  const { data, isLoading, error = "" } = useProductsList({});
+  const productQuery = useProductsList({});
+
+  const categoryQuery = useCategoriesCommon();
+
+  const isLoading = useMemo(
+    () => productQuery.isLoading && categoryQuery.isLoading,
+    [productQuery.isLoading, categoryQuery.isLoading],
+  );
+
+  const error = useMemo(
+    () => productQuery.error || categoryQuery.error,
+    [productQuery.error, categoryQuery.error],
+  );
 
   // #region actions
 
@@ -60,6 +79,33 @@ function Products() {
     [doMovement /*movementLogs*/, , deleteProduct],
   );
 
+  const tabs = useMemo(
+    () =>
+      categoryQuery.data?.map(({ id, name }) => ({ id, label: name })) ?? [],
+    [categoryQuery.data],
+  );
+
+  const content = useMemo(
+    () =>
+      categoryQuery.data?.map(({ id, name }) => (
+        <div id={name} key={id}>
+          <h3 className="text-xl text-gray-300">{name}</h3>
+          <PrettyGrid
+            data={productQuery.data}
+            emptyMessage={t("_pages:products.empty")}
+            renderComponent={(product) => (
+              <ProductCard
+                actions={getActions(product)}
+                onClick={(id: number) => editProduct.onClick(id)}
+                {...product}
+              />
+            )}
+          />
+        </div>
+      )) ?? [],
+    [categoryQuery.data, productQuery.data, t, getActions, editProduct],
+  );
+
   return (
     <Page
       title={t("_pages:products.title")}
@@ -72,17 +118,7 @@ function Products() {
     >
       {!error ? (
         <>
-          <PrettyGrid
-            data={data}
-            emptyMessage={t("_pages:products.empty")}
-            renderComponent={(product) => (
-              <ProductCard
-                actions={getActions(product)}
-                onClick={(id: number) => editProduct.onClick(id)}
-                {...product}
-              />
-            )}
-          />
+          <TabsLayout tabs={tabs} content={content} />
 
           {/* Dialogs */}
           <AddProductDialog {...addProduct} />
@@ -92,7 +128,7 @@ function Products() {
           <ConfirmationDialog {...deleteProduct} />
         </>
       ) : (
-        <Error message={error} />
+        <Error message={error?.message} />
       )}
     </Page>
   );
