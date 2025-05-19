@@ -87,6 +87,4 @@ impl Related<category::Entity> for Entity {
     }
 }
 
-
-
 impl ActiveModelBehavior for ActiveModel {}
