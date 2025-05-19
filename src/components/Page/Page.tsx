@@ -8,7 +8,7 @@ const Page = (props: PagePropsType) => {
   return (
     <main className="p-5">
       <div className={`${animated ? "apparition" : ""} flex flex-col gap-5`}>
-        <h2 className="text-xl font-bold">{title}</h2>
+        <h2 className="text-3xl font-bold">{title}</h2>
         {isLoading ? (
           <Loading
             size="text-3xl"
