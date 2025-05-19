@@ -18,9 +18,7 @@ function DoMovementForm(props: DoMovementFormPropsType) {
   const movements = useMovementsCommon();
 
   const movementOptions = useMemo(
-    () => [
-      ...(movements?.data?.map(({ id, name }) => ({ id, value: name })) ?? []),
-    ],
+    () => [...(movements?.data ?? [])],
     [movements.data],
   );
 
