@@ -1,8 +1,5 @@
 import { useTranslation } from "react-i18next";
 
-// @emotion/css
-import { css } from "@emotion/css";
-
 // components
 import { Chip, ItemCard } from "components";
 
@@ -19,18 +16,11 @@ import { ProductCardPropsType } from "../types";
 function ProductCard(props: ProductCardPropsType) {
   const { t } = useTranslation();
 
-  const { id, onClick, actions, name, description, color, price, cost, stock } =
-    props;
-
-  const styles = css({
-    borderLeftColor: color,
-    borderLeftWidth: "4px",
-    borderLeftStyle: "solid",
-  });
+  const { id, onClick, actions, name, description, price, cost, stock } = props;
 
   return (
     <ItemCard
-      containerClassName={`${styles} hover:!border-primary !h-55`}
+      containerClassName="hover:!border-primary !h-55"
       title={name}
       name={t("_pages:products.forms.edit")}
       aria-label={t("_pages:products.forms.editAria")}
