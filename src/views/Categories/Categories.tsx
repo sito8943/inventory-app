@@ -55,7 +55,7 @@ function Categories() {
       }}
     >
       <PrettyGrid
-        data={data}
+        data={data?.items}
         emptyMessage={t("_pages:categories.empty")}
         renderComponent={(category) => (
           <CategoryCard

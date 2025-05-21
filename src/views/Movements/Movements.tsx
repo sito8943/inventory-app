@@ -55,7 +55,7 @@ function Movements() {
       }}
     >
       <PrettyGrid
-        data={data}
+        data={data?.items}
         emptyMessage={t("_pages:movements.empty")}
         renderComponent={(movement) => (
           <MovementCard

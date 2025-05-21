@@ -32,7 +32,6 @@ import {
 import { ProductDto } from "lib";
 import { Error } from "components";
 import { TabsLayout } from "../../components/TabsLayout";
-import categories from "../Categories/Categories.tsx";
 
 function Products() {
   const { t } = useTranslation();
@@ -91,7 +90,7 @@ function Products() {
         <div id={name} key={id}>
           <h3 className="text-xl text-gray-300">{name}</h3>
           <PrettyGrid
-            data={productQuery.data}
+            data={productQuery.data?.items}
             emptyMessage={t("_pages:products.empty")}
             renderComponent={(product) => (
               <ProductCard
@@ -103,7 +102,7 @@ function Products() {
           />
         </div>
       )) ?? [],
-    [categoryQuery.data, productQuery.data, t, getActions, editProduct],
+    [categoryQuery.data, t, getActions, editProduct, productQuery.data?.items],
   );
 
   return (
