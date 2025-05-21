@@ -87,7 +87,7 @@ export default class BaseClient<
    * @returns - Query result
    */
   async getById(id: number): Promise<TDto> {
-    return await this.api.doQuery<TDto>(`${this.table}/${id}}`);
+    return await this.api.doQuery<TDto>(`${this.table}/${id}`);
   }
 
   async softDelete(ids: number[]): Promise<number> {
