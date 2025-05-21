@@ -86,7 +86,7 @@ function Products() {
         content: (
           <div id={name} key={id} className="p-5">
             <PrettyGrid
-              data={productQuery?.data ? productQuery?.data[name] : []}
+              data={productQuery?.data ? productQuery?.data[id] : []}
               emptyMessage={t("_pages:products.empty")}
               renderComponent={(product) => (
                 <ProductCard
@@ -114,7 +114,7 @@ function Products() {
     >
       {!error ? (
         <>
-          <TabsLayout tabs={tabs} />
+          <TabsLayout tabs={tabs} className="h-full" />
           {/* Dialogs */}
           <AddProductDialog {...addProduct} />
           <EditProductDialog {...editProduct} />

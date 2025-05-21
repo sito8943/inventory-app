@@ -2,12 +2,14 @@ import { ReactNode } from "react";
 
 export type TabsLayoutPropsType = {
   tabs: TabsType[];
-  content: ReactNode;
+  defaultTab?: number;
+  className?: string;
 };
 
 export type TabsType = {
   id: number | string;
   label: string;
+  content: ReactNode;
 };
 
 export type TabPropsType = {
@@ -15,4 +17,5 @@ export type TabPropsType = {
   id: number | string;
   active: boolean;
   onClick: () => void;
+  siblings: boolean;
 };

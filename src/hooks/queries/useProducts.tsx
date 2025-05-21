@@ -9,11 +9,10 @@ import { MovementsQueryKeys } from "./useMovements";
 // types
 import { UseFetchByIdPropsType, UseFetchPropsType } from "./types.ts";
 import {
+  CategoryProductDto,
   EntityQueryKey,
   FilterProductDto,
   MovementLogDto,
-  ProductDto,
-  QueryResult,
 } from "lib";
 
 export const ProductsQueryKeys: EntityQueryKey = {
@@ -30,14 +29,14 @@ export const ProductsQueryKeys: EntityQueryKey = {
 
 export const useProductsList = (
   props: UseFetchPropsType<FilterProductDto>,
-): UseQueryResult<QueryResult<ProductDto>> => {
+): UseQueryResult<CategoryProductDto> => {
   const { filters = { deleted: false } } = props;
 
   const manager = useManager();
 
   return useQuery({
     ...ProductsQueryKeys.list(),
-    queryFn: () => manager.Products.get(filters),
+    queryFn: () => manager.Products.home(filters),
   });
 };
 

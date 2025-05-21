@@ -100,7 +100,7 @@ p {
 main {
     min-height: 100vh;
     padding-top: 60px;
-    @apply bg-background;
+    @apply bg-background grid grid-rows-1;
 }
 
 main h1,

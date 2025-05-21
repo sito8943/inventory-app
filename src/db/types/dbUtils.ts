@@ -2,7 +2,7 @@ export enum Tables {
   Products = "products",
   Categories = "categories",
   Movements = "movements",
-  MovementLogs = "movement_logs",
+  MovementLogs = "movement-logs",
 }
 
 export enum TablesCamelCase {

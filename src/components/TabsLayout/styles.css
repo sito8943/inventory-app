@@ -1,0 +1,7 @@
+.tabs li:first-child a {
+    border-top-left-radius: 12px !important;
+}
+
+.tabs li:last-child a {
+    border-top-right-radius: 12px !important;
+}
