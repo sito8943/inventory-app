@@ -9,9 +9,14 @@ import { QueryResult } from "lib";
  * @description it has all base methods
  */
 export class APIClient {
-  async doQuery<TResponse>(endpoint: string, query: any = {}) {
+  async doQuery<TResponse, TBody = unknown>(
+    endpoint: string,
+    method = "GET",
+    query: any = {},
+    body?: TBody,
+  ) {
     const builtUrl = buildQueryUrl(endpoint, query ?? {});
-    const { data: result, error } = await makeRequest(builtUrl, "GET", null);
+    const { data: result, error } = await makeRequest(builtUrl, method, body);
     if (error) throw new Error(error.message);
 
     return result as TResponse;
