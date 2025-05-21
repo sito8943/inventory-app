@@ -7,7 +7,7 @@ export const Tab = (props: TabPropsType) => {
     <a
       href={`#${id}`}
       onClick={() => onClick()}
-      className={`button submit ${active ? "primary" : "outlined"}`}
+      className={`button !px-3 !pt-2 !border-none ${active ? "primary" : "outlined"}`}
     >
       {children}
     </a>
