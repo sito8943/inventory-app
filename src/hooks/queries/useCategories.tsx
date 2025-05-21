@@ -4,7 +4,12 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
 // types
 import { UseFetchPropsType } from "./types.ts";
-import { CategoryDto, CommonCategoryDto, FilterCategoryDto } from "lib";
+import {
+  CategoryDto,
+  CommonCategoryDto,
+  FilterCategoryDto,
+  QueryResult,
+} from "lib";
 
 export const CategoriesQueryKeys = {
   all: () => ({
@@ -18,7 +23,7 @@ export const CategoriesQueryKeys = {
 
 export function useCategoriesList(
   props: UseFetchPropsType<FilterCategoryDto>,
-): UseQueryResult<CategoryDto[]> {
+): UseQueryResult<QueryResult<CategoryDto>> {
   const { filters = { deleted: false } } = props;
 
   const manager = useManager();

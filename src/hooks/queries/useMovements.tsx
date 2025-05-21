@@ -1,10 +1,16 @@
-// providers
-import { useManager } from "../../providers/ManagerProvider";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
+
+// providers
+import { useManager } from "providers";
 
 // types
 import { UseFetchPropsType } from "./types.ts";
-import { MovementDto, CommonMovementDto, FilterMovementDto } from "lib";
+import {
+  MovementDto,
+  CommonMovementDto,
+  FilterMovementDto,
+  QueryResult,
+} from "lib";
 
 export const MovementsQueryKeys = {
   all: () => ({
@@ -18,7 +24,7 @@ export const MovementsQueryKeys = {
 
 export function useMovementsList(
   props: UseFetchPropsType<FilterMovementDto>,
-): UseQueryResult<MovementDto[]> {
+): UseQueryResult<QueryResult<MovementDto>> {
   const { filters = { deleted: false } } = props;
 
   const manager = useManager();
@@ -37,7 +43,7 @@ export function useMovementsCommon(): UseQueryResult<CommonMovementDto[]> {
   });
 }
 
-export const defaultMovements = {
+export const defaultMovements: any = {
   en: [
     { name: "Purchases", type: 1 },
     { name: "Sales", type: 2 },

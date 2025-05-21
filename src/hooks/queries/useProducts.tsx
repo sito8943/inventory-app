@@ -13,6 +13,7 @@ import {
   FilterProductDto,
   MovementLogDto,
   ProductDto,
+  QueryResult,
 } from "lib";
 
 export const ProductsQueryKeys: EntityQueryKey = {
@@ -29,7 +30,7 @@ export const ProductsQueryKeys: EntityQueryKey = {
 
 export const useProductsList = (
   props: UseFetchPropsType<FilterProductDto>,
-): UseQueryResult<ProductDto[]> => {
+): UseQueryResult<QueryResult<ProductDto>> => {
   const { filters = { deleted: false } } = props;
 
   const manager = useManager();
