@@ -39,6 +39,20 @@ export default class BaseClient<
 
   /**
    *
+   * @param data - values to insert
+   * @returns - Query result
+   */
+  async insertMany(data: TAddDto[]): Promise<TDto> {
+    return await this.api.doQuery<TDto, TAddDto[]>(
+      `${this.table}/batch`,
+      "POST",
+      {},
+      data,
+    );
+  }
+
+  /**
+   *
    * @param value
    * @returns updated item
    */
@@ -62,7 +76,7 @@ export default class BaseClient<
    */
   async commonGet(query: TFilter): Promise<QueryResult<TCommonDto>> {
     return await this.api.get<TCommonDto, TFilter>(
-      `${this.table}_common`,
+      `${this.table}/common`,
       query,
     );
   }
