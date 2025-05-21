@@ -1,10 +1,13 @@
-import { invoke } from "@tauri-apps/api/core";
-
 // manager
-import DbClient from "./DbClient.ts";
+import { APIClient } from "./APIClient.ts";
 
 // types
-import { BaseCommonEntityDto, BaseEntityDto, DeleteDto } from "lib";
+import {
+  BaseCommonEntityDto,
+  BaseEntityDto,
+  DeleteDto,
+  QueryResult,
+} from "lib";
 import { Tables } from "./types";
 
 export default class BaseClient<
@@ -15,7 +18,7 @@ export default class BaseClient<
   TFilter,
 > {
   table: Tables;
-  db: DbClient = new DbClient();
+  api: APIClient = new APIClient();
 
   /**
    *
@@ -31,17 +34,7 @@ export default class BaseClient<
    * @returns inserted item
    */
   async insert(value: TAddDto): Promise<TDto> {
-    return await this.db.post<TDto, TAddDto>(`create_${this.table}`, value);
-  }
-
-  /**
-   *
-   * @param values
-   * @returns count of items inserted
-   */
-  async insertMany(values: TAddDto[]): Promise<number> {
-    await this.db.post<TDto, TAddDto>(`create_many_${this.table}`, values);
-    return values.length;
+    return await this.api.post<TDto, TAddDto>(`${this.table}`, value);
   }
 
   /**
@@ -50,7 +43,7 @@ export default class BaseClient<
    * @returns updated item
    */
   async update(value: TUpdateDto): Promise<TDto> {
-    return await this.db.put<TDto, TUpdateDto>(`update_${this.table}`, value);
+    return await this.api.patch<TDto, TUpdateDto>(`${this.table}`, value);
   }
 
   /**
@@ -58,8 +51,8 @@ export default class BaseClient<
    * @param query - Where conditions (key-value)
    * @returns - Query result
    */
-  async get(query: TFilter): Promise<TDto[]> {
-    return await this.db.get<TDto, TFilter>(`list_${this.table}`, query);
+  async get(query: TFilter): Promise<QueryResult<TDto>> {
+    return await this.api.get<TDto, TFilter>(`${this.table}`, query);
   }
 
   /**
@@ -67,9 +60,9 @@ export default class BaseClient<
    * @param query - Where conditions (key-value)
    * @returns  - Query result
    */
-  async commonGet(query: TFilter): Promise<TCommonDto[]> {
-    return await this.db.commonGet<TCommonDto, TFilter>(
-      `list_common_${this.table}`,
+  async commonGet(query: TFilter): Promise<QueryResult<TCommonDto>> {
+    return await this.api.get<TCommonDto, TFilter>(
+      `${this.table}_common`,
       query,
     );
   }
@@ -80,10 +73,10 @@ export default class BaseClient<
    * @returns - Query result
    */
   async getById(id: number): Promise<TDto> {
-    return await invoke(`${this.table}_by_id`, { id });
+    return await this.api.doQuery<TDto>(`${this.table}/${id}}`);
   }
 
   async softDelete(ids: number[]): Promise<number> {
-    return await this.db.softDelete(`delete_many_${this.table}`, ids);
+    return await this.api.delete(`${this.table}`, ids);
   }
 }
