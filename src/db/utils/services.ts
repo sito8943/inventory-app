@@ -38,17 +38,20 @@ export async function makeRequest<TBody, TResponse>(
   };
 }
 
-export function buildQueryUrl(
+export function buildQueryUrl<TFilter>(
   endpoint: string,
-  params: Record<string, string | number | boolean | undefined | null>,
+  params?: TFilter,
 ): string {
-  const queryString = Object.entries(params)
-    .filter(([, value]) => value !== undefined && value !== null) // filtra valores no válidos
-    .map(
-      ([key, value]) =>
-        `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`,
-    )
-    .join("&");
+  if (params) {
+    const queryString = Object.entries(params)
+      .filter(([, value]) => value !== undefined && value !== null) // filtra valores no válidos
+      .map(
+        ([key, value]) =>
+          `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`,
+      )
+      .join("&");
 
-  return queryString ? `${endpoint}?${queryString}` : endpoint;
+    return queryString ? `${endpoint}?${queryString}` : endpoint;
+  }
+  return endpoint;
 }

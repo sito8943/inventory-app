@@ -12,10 +12,10 @@ export class APIClient {
   async doQuery<TResponse, TBody = unknown>(
     endpoint: string,
     method = "GET",
-    query: any = {},
+    query?: any,
     body?: TBody,
   ) {
-    const builtUrl = buildQueryUrl(endpoint, query ?? {});
+    const builtUrl = buildQueryUrl(endpoint, query);
     const { data: result, error } = await makeRequest(builtUrl, method, body);
     if (error) throw new Error(error.message);
 
@@ -29,7 +29,7 @@ export class APIClient {
    * @returns Result list
    */
   async get<TDto, TFilter>(endpoint: string, query?: TFilter) {
-    const builtUrl = buildQueryUrl(endpoint, query ?? {});
+    const builtUrl = buildQueryUrl<TFilter>(endpoint, query);
     const { data: result, error } = await makeRequest(builtUrl, "GET", null);
     if (error) throw new Error(error.message);
 
