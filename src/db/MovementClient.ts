@@ -32,10 +32,12 @@ export default class MovementClient extends BaseClient<
    * @returns
    */
   async init(defaultValues = []): Promise<false | number> {
-    const movements = await this.get({ deleted: false });
+    const { items } = await this.get({ deleted: false });
 
-    if (movements.length > 0) return false;
+    if (items.length > 0) return false;
 
-    return await this.insertMany(defaultValues);
+    await this.insertMany(defaultValues);
+
+    return items.length;
   }
 }
