@@ -1,7 +1,7 @@
 import { invoke } from "@tauri-apps/api/core";
 import { APIError } from "./types";
 
-export default class DbClient {
+export default class TauriClient {
   constructor() {}
 
   /**
