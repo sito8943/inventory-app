@@ -8,10 +8,9 @@ import { FormDialog, TextInput, SelectInput } from "components";
 
 // utils
 import { icons } from "./MovementCard";
-import { enumToKeyValueArray } from "../../../lib/utils";
 
 // types
-import { MovementType } from "lib";
+import { MovementType, enumToKeyValueArray } from "lib";
 import {
   AddMovementDialogPropsType,
   EditMovementDialogPropsType,

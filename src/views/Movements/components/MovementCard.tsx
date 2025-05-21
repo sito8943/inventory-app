@@ -10,7 +10,9 @@ import { ItemCard } from "components";
 
 // types
 import { MovementCardPropsType } from "../types";
-import { types } from "../../../db/types/products.ts";
+import { MovementType, enumToKeyValueArray } from "lib";
+
+const types = enumToKeyValueArray(MovementType);
 
 export const icons = {
   1: faBoxArchive,
@@ -23,13 +25,13 @@ function MovementCard(props: MovementCardPropsType) {
   const { id, onClick, actions, name, type } = props;
 
   const renderType = useMemo(
-    () => types.find((ty) => ty.id === type) ?? types[0],
+    () => types.find((ty) => ty.value === type) ?? types[0],
     [type],
   );
 
   const icon = useMemo(
-    () => icons[renderType?.id as keyof typeof icons],
-    [renderType?.id],
+    () => icons[renderType?.value as keyof typeof icons],
+    [renderType?.value],
   );
 
   return (
@@ -44,7 +46,7 @@ function MovementCard(props: MovementCardPropsType) {
         {icon && (
           <FontAwesomeIcon className="text-primary text-xl" icon={icon} />
         )}
-        <p>{t(`_pages:movements.inputs.type.${renderType?.label}`)}</p>
+        <p>{t(`_pages:movements.inputs.type.${renderType?.key}`)}</p>
       </div>
     </ItemCard>
   );

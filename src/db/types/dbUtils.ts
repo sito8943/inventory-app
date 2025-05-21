@@ -12,11 +12,6 @@ export enum TablesCamelCase {
   MovementLogs = "movementLogs",
 }
 
-export const WhereLogic = {
-  And: "AND",
-  Or: "OR",
-};
-
 export type APIError = {
   kind: string;
   message: string;
