@@ -3,6 +3,6 @@ export type QueryResult<TDto> = {
   order: "asc" | "desc";
   currentPage: number;
   pageSize: number;
-  totalCount: number;
-  data: TDto[];
+  total: number;
+  items: TDto[];
 };
