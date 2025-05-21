@@ -37,7 +37,10 @@ export default class ProductClient extends BaseClient<
    * @returns - inserted movement log
    */
   async doMovement(dto: AddMovementLogDto) {
-    return await this.db.post<AddMovementLogDto>("do_movements", dto);
+    return await this.api.post<MovementLogDto, AddMovementLogDto>(
+      "do_movements",
+      dto,
+    );
   }
 
   /**
@@ -46,9 +49,8 @@ export default class ProductClient extends BaseClient<
    * @returns - product movement logs
    */
   async movementLogs(id: number) {
-    return await this.db.commonGet<MovementLogDto, FilterMovementLogDto>(
-      `list_common_${Tables.MovementLogs}`,
-      { product: id },
+    return await this.api.get<MovementLogDto, FilterMovementLogDto>(
+      `${Tables.MovementLogs}/common?product=${id}`,
     );
   }
 
