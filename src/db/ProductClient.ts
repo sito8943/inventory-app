@@ -29,6 +29,10 @@ export default class ProductClient extends BaseClient<
     super(Tables.Products);
   }
 
+  async home(query: FilterProductDto) {
+    return await this.api.get(`${this.table}/home`, query);
+  }
+
   // #region actions
 
   /**

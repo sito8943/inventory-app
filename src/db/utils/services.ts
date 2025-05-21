@@ -44,7 +44,7 @@ export function buildQueryUrl<TFilter>(
 ): string {
   if (params) {
     const queryString = Object.entries(params)
-      .filter(([, value]) => value !== undefined && value !== null) // filtra valores no válidos
+      .filter(([, value]) => value !== undefined && value !== null)
       .map(
         ([key, value]) =>
           `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`,

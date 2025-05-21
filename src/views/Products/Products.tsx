@@ -65,44 +65,41 @@ function Products() {
 
   const doMovement = useDoMovement();
 
-  /*const movementLogs = useMovementLogs();*/
+  const movementLogs = useMovementLogs();
 
   // #endregion
 
   const getActions = useCallback(
     (record: ProductDto) => [
       doMovement.action(record),
-      /*movementLogs.action(record),*/
+      movementLogs.action(record),
       deleteProduct.action(record),
     ],
-    [doMovement /*movementLogs*/, , deleteProduct],
+    [doMovement, movementLogs, deleteProduct],
   );
 
   const tabs = useMemo(
     () =>
-      categoryQuery.data?.map(({ id, name }) => ({ id, label: name })) ?? [],
-    [categoryQuery.data],
-  );
-
-  const content = useMemo(
-    () =>
-      categoryQuery.data?.map(({ id, name }) => (
-        <div id={name} key={id}>
-          <h3 className="text-xl text-gray-300">{name}</h3>
-          <PrettyGrid
-            data={productQuery.data?.items}
-            emptyMessage={t("_pages:products.empty")}
-            renderComponent={(product) => (
-              <ProductCard
-                actions={getActions(product)}
-                onClick={(id: number) => editProduct.onClick(id)}
-                {...product}
-              />
-            )}
-          />
-        </div>
-      )) ?? [],
-    [categoryQuery.data, t, getActions, editProduct, productQuery.data?.items],
+      categoryQuery.data?.map(({ id, name }) => ({
+        id,
+        label: name,
+        content: (
+          <div id={name} key={id} className="p-5">
+            <PrettyGrid
+              data={productQuery?.data ? productQuery?.data[name] : []}
+              emptyMessage={t("_pages:products.empty")}
+              renderComponent={(product) => (
+                <ProductCard
+                  actions={getActions(product)}
+                  onClick={(id: number) => editProduct.onClick(id)}
+                  {...product}
+                />
+              )}
+            />
+          </div>
+        ),
+      })) ?? [],
+    [categoryQuery.data, productQuery?.data, t, getActions, editProduct],
   );
 
   return (
@@ -117,13 +114,12 @@ function Products() {
     >
       {!error ? (
         <>
-          <TabsLayout tabs={tabs} content={content} />
-
+          <TabsLayout tabs={tabs} />
           {/* Dialogs */}
           <AddProductDialog {...addProduct} />
           <EditProductDialog {...editProduct} />
           <DoMovementDialog {...doMovement} />
-          {/*<MovementLogsDialog {...movementLogs} />*/}
+          <MovementLogsDialog {...movementLogs} />
           <ConfirmationDialog {...deleteProduct} />
         </>
       ) : (
