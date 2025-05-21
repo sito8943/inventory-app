@@ -31,6 +31,7 @@ export class APIClient {
   async get<TDto, TFilter>(endpoint: string, query?: TFilter) {
     const builtUrl = buildQueryUrl<TFilter>(endpoint, query);
     const { data: result, error } = await makeRequest(builtUrl, "GET", null);
+
     if (error) throw new Error(error.message);
 
     return result as QueryResult<TDto>;
