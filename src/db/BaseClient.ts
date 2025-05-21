@@ -57,7 +57,10 @@ export default class BaseClient<
    * @returns updated item
    */
   async update(value: TUpdateDto): Promise<TDto> {
-    return await this.api.patch<TDto, TUpdateDto>(`${this.table}`, value);
+    return await this.api.patch<TDto, TUpdateDto>(
+      `${this.table}/${value.id}`,
+      value,
+    );
   }
 
   /**
