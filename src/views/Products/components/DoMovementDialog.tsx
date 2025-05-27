@@ -26,6 +26,11 @@ function DoMovementForm(props: DoMovementFormPropsType) {
     <div className="flex flex-col gap-5">
       <Controller
         control={control}
+        render={({ field }) => <input {...field} type="hidden" />}
+        name="product"
+      />
+      <Controller
+        control={control}
         name="movement"
         disabled={isLoading || movements?.isLoading}
         render={({ field: { value, onChange, ...rest } }) => (
