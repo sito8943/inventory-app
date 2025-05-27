@@ -16,6 +16,7 @@ import {
   EditMovementDialogPropsType,
   MovementFormPropsType,
 } from "../types";
+import { Tables } from "../../../db/types";
 
 export function MovementForm(props: MovementFormPropsType) {
   const { control, isLoading } = props;
@@ -51,6 +52,7 @@ export function MovementForm(props: MovementFormPropsType) {
           <TextInput
             required
             maxLength={20}
+            autoComplete={`${Tables.Movements}-${t("_pages:movements.inputs.name.name")}}`}
             placeholder={t("_pages:movements.inputs.name.name")}
             {...field}
           />

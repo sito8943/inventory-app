@@ -10,6 +10,7 @@ import {
   CategoryFormPropsType,
   EditCategoryDialogPropsType,
 } from "../types";
+import { Tables } from "../../../db/types";
 
 export function CategoryForm(props: CategoryFormPropsType) {
   const { control, isLoading } = props;
@@ -34,6 +35,7 @@ export function CategoryForm(props: CategoryFormPropsType) {
             required
             maxLength={20}
             value={value ?? ""}
+            autoComplete={`${Tables.Categories}-${t("_pages:categories.inputs.name.name")}}`}
             placeholder={t("_pages:categories.inputs.name.name")}
             {...rest}
           />
@@ -47,6 +49,7 @@ export function CategoryForm(props: CategoryFormPropsType) {
           <ParagraphInput
             maxLength={60}
             value={value ?? ""}
+            autoComplete={`${Tables.Categories}-${t("_pages:categories.inputs.description.name")}}`}
             placeholder={t("_pages:categories.inputs.description.name")}
             {...rest}
           />

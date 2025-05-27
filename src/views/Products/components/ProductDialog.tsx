@@ -20,6 +20,7 @@ import {
   ProductFormPropsType,
 } from "../types";
 import { SelectInputOptionType } from "components";
+import { Tables } from "../../../db/types";
 
 export const ProductForm = (props: ProductFormPropsType) => {
   const { control, isLoading } = props;
@@ -50,6 +51,7 @@ export const ProductForm = (props: ProductFormPropsType) => {
           <TextInput
             required
             maxLength={25}
+            autoComplete={`${Tables.Products}-${t("_pages:products.inputs.name.name")}}`}
             placeholder={t("_pages:products.inputs.name.name")}
             {...field}
           />
@@ -77,6 +79,7 @@ export const ProductForm = (props: ProductFormPropsType) => {
         render={({ field }) => (
           <ParagraphInput
             maxLength={60}
+            autoComplete={`${Tables.Products}-${t("_pages:products.inputs.description.name")}}`}
             placeholder={t("_pages:products.inputs.description.name")}
             {...field}
           />
