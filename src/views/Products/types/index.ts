@@ -4,7 +4,7 @@ import {
   FormDialogPropsType,
 } from "components";
 import {
-  AddMovementLogDto,
+  DoMovementDto,
   MovementLogDto,
   ProductDto,
   ValidationError,
@@ -17,8 +17,12 @@ export interface DoMovementDialogPropsType extends DoMovementFormPropsType {
   action: (record: ProductDto) => ActionPropsType;
 }
 
+export interface DoMovementFormType
+  extends Partial<DoMovementDto>,
+    FieldValues {}
+
 export interface DoMovementFormPropsType
-  extends FormDialogPropsType<AddMovementLogDto, ValidationError> {}
+  extends FormDialogPropsType<DoMovementFormType, ValidationError> {}
 
 export interface ProductFormType
   extends Omit<

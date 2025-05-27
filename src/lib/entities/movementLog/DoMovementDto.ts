@@ -1,4 +1,4 @@
-export interface AddMovementLogDto {
+export interface DoMovementDto {
   product: number;
   movement: number;
   count: number;
