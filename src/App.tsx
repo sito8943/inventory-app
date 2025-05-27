@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Suspense } from "react";
 import loadable from "@loadable/component";
 
 // layouts
@@ -9,7 +10,6 @@ import "./App.css";
 
 // view
 import Home from "./views/Home";
-import { Suspense } from "react";
 
 const Products = loadable(() => import("./views/Products/Products"));
 const Categories = loadable(() => import("./views/Categories/Categories"));
