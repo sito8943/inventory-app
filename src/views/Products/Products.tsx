@@ -13,6 +13,8 @@ import {
   MovementLogsDialog,
   ProductCard,
 } from "./components";
+import { Error } from "components";
+import { TabsLayout } from "../../components/TabsLayout";
 
 // hooks
 import {
@@ -30,8 +32,6 @@ import {
 
 // types
 import { ProductDto } from "lib";
-import { Error } from "components";
-import { TabsLayout } from "../../components/TabsLayout";
 
 function Products() {
   const { t } = useTranslation();

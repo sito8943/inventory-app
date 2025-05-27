@@ -11,6 +11,7 @@ import {
   CategoryCard,
   EditCategoryDialog,
 } from "./components";
+import { Error } from "components";
 
 // hooks
 import { useDeleteDialog, useCategoriesList, CategoriesQueryKeys } from "hooks";
@@ -24,7 +25,7 @@ function Categories() {
 
   const manager = useManager();
 
-  const { data, isLoading } = useCategoriesList({});
+  const { data, isLoading, error } = useCategoriesList({});
 
   // #region actions
 
@@ -54,21 +55,27 @@ function Categories() {
         tooltip: t("_pages:categories.add"),
       }}
     >
-      <PrettyGrid
-        data={data?.items}
-        emptyMessage={t("_pages:categories.empty")}
-        renderComponent={(category) => (
-          <CategoryCard
-            actions={getActions(category)}
-            onClick={(id: number) => editCategory.onClick(id)}
-            {...category}
+      {!error ? (
+        <>
+          <PrettyGrid
+            data={data?.items}
+            emptyMessage={t("_pages:categories.empty")}
+            renderComponent={(category) => (
+              <CategoryCard
+                actions={getActions(category)}
+                onClick={(id: number) => editCategory.onClick(id)}
+                {...category}
+              />
+            )}
           />
-        )}
-      />
-      {/* Dialogs */}
-      <AddCategoryDialog {...addCategory} />
-      <EditCategoryDialog {...editCategory} />
-      <ConfirmationDialog {...deleteCategory} />
+          {/* Dialogs */}
+          <AddCategoryDialog {...addCategory} />
+          <EditCategoryDialog {...editCategory} />
+          <ConfirmationDialog {...deleteCategory} />
+        </>
+      ) : (
+        <Error message={error?.message} />
+      )}
     </Page>
   );
 }

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useManager } from "providers";
 
 // components
+import { Error } from "components";
 import { ConfirmationDialog, Page, PrettyGrid } from "../../components";
 import {
   AddMovementDialog,
@@ -24,7 +25,7 @@ function Movements() {
 
   const manager = useManager();
 
-  const { data, isLoading } = useMovementsList({});
+  const { data, isLoading, error } = useMovementsList({});
 
   // #region actions
 
@@ -54,22 +55,28 @@ function Movements() {
         tooltip: t("_pages:movements.add"),
       }}
     >
-      <PrettyGrid
-        data={data?.items}
-        emptyMessage={t("_pages:movements.empty")}
-        renderComponent={(movement) => (
-          <MovementCard
-            actions={getActions(movement)}
-            onClick={(id: number) => editMovement.onClick(id)}
-            {...movement}
+      {!error ? (
+        <>
+          <PrettyGrid
+            data={data?.items}
+            emptyMessage={t("_pages:movements.empty")}
+            renderComponent={(movement) => (
+              <MovementCard
+                actions={getActions(movement)}
+                onClick={(id: number) => editMovement.onClick(id)}
+                {...movement}
+              />
+            )}
           />
-        )}
-      />
 
-      {/* Dialogs */}
-      <AddMovementDialog {...addMovement} />
-      <EditMovementDialog {...editMovement} />
-      <ConfirmationDialog {...deleteMovement} />
+          {/* Dialogs */}
+          <AddMovementDialog {...addMovement} />
+          <EditMovementDialog {...editMovement} />
+          <ConfirmationDialog {...deleteMovement} />
+        </>
+      ) : (
+        <Error message={error?.message} />
+      )}
     </Page>
   );
 }
