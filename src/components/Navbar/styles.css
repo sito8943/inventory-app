@@ -1,0 +1,13 @@
+@import "../../styles/variables.css";
+
+.header {
+    @apply absolute w-full flex items-center justify-between bg-background z-20
+}
+
+.toolbar .button {
+    @apply bg-background hover:bg-alt-background text-white flex items-center justify-center w-14 h-10 border-none rounded-none;
+}
+
+.toolbar {
+    @apply flex items-center justify-end
+}

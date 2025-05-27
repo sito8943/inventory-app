@@ -44,10 +44,6 @@ p {
     @apply bg-background border-background hover:bg-border hover:border-border;
 }
 
-.toolbar .button {
-    @apply bg-background hover:bg-alt-background text-white flex items-center justify-center w-14 h-10 border-none rounded-none;
-}
-
 .button.close {
     @apply hover:bg-red-500;
 }
