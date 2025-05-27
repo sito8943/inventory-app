@@ -16,7 +16,7 @@ import { ProductCardPropsType } from "../types";
 function ProductCard(props: ProductCardPropsType) {
   const { t } = useTranslation();
 
-  const { id, onClick, actions, name, description, price, cost, stock } = props;
+  const { id, onClick, actions, name, price, cost, stock } = props;
 
   return (
     <ItemCard
@@ -28,12 +28,6 @@ function ProductCard(props: ProductCardPropsType) {
       className="gap-2"
       actions={actions}
     >
-      <p className={`${!!description ? "" : "!text-xs italic"} text-start`}>
-        {!!description
-          ? description
-          : t("_pages:products.inputs.description.empty")}
-      </p>
-
       <Chip icon={faDollar} variant="none" className="!p-0">
         <p className="font-medium">{t("_pages:products.inputs.price.name")}:</p>
         <p className={!price ? "italic" : ""}>
