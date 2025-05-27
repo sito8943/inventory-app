@@ -18,6 +18,9 @@ import { faSquare } from "@fortawesome/free-regular-svg-icons";
 // types
 import { NavbarPropsType } from "./types.js";
 
+// styles
+import "./styles.css";
+
 const appWindow = getCurrentWindow();
 
 // tauri types
@@ -60,10 +63,7 @@ function Navbar(props: NavbarPropsType) {
   };
 
   return (
-    <header
-      onMouseDown={(e) => toggleRestoreMaximize(e)}
-      className="absolute w-full flex items-center justify-between bg-background z-20"
-    >
+    <header onMouseDown={(e) => toggleRestoreMaximize(e)} className="header">
       <div className="flex gap-2 items-center">
         <button
           type="button"
@@ -78,7 +78,7 @@ function Navbar(props: NavbarPropsType) {
           {t("_pages:home.appName")}
         </h1>
       </div>
-      <ul className="toolbar flex items-center justify-end">
+      <ul className="toolbar">
         <button
           name={t("_accessibility:buttons.minimize")}
           aria-label={t("_accessibility:ariaLabels.minimize")}
