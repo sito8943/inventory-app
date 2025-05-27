@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 // providers
-import { queryClient, useManager } from "providers";
+import { useManager } from "providers";
 
 // hooks
 import { useFormDialog, ProductsQueryKeys } from "hooks";
@@ -11,8 +11,8 @@ import { useFormDialog, ProductsQueryKeys } from "hooks";
 import { useDoMovementAction } from "../actions/useDoMovementAction.tsx";
 
 // types
-import { AddMovementLogDto } from "lib";
-import { DoMovementDialogPropsType } from "../../types";
+import { DoMovementDto, MovementLogDto } from "lib";
+import { DoMovementDialogPropsType, DoMovementFormType } from "../../types";
 
 export function useDoMovement(): DoMovementDialogPropsType {
   const { t } = useTranslation();
@@ -20,22 +20,38 @@ export function useDoMovement(): DoMovementDialogPropsType {
   const manager = useManager();
   const [productId, setProductId] = useState<number>(0);
 
-  const action = useDoMovementAction({
-    onClick: (id) => setProductId(id as number),
+  const dialogProps = useFormDialog<
+    MovementLogDto,
+    DoMovementDto,
+    MovementLogDto,
+    DoMovementFormType
+  >({
+    formToDto: ({ product, movement, count }) => {
+      console.log(product, movement, count);
+      return {
+        product: Number(product),
+        movement: Number(movement),
+        count: Number(count),
+      };
+    },
+    defaultValues: { product: productId },
+    title: t("_pages:products.forms.doMovement"),
+    mutationFn: (data) => manager.Products.doMovement(data),
+    onSuccessMessage: t("_pages:products.actions.doMovement.successMessage"),
+    ...ProductsQueryKeys.all(),
   });
 
+  const action = useDoMovementAction({
+    onClick: (id) => {
+      setProductId(id as number);
+      dialogProps.onClick(id);
+    },
+  });
+
+  console.log(productId);
+
   return {
-    ...useFormDialog({
-      formToDto: (data) => data,
-      dtoToForm: () => ({ product: productId }),
-      title: t("_pages:products.forms.doMovement"),
-      mutationFn: (data) => manager.Products.doMovement(data),
-      onSuccessMessage: t("_pages:products.actions.doMovement.successMessage"),
-      onError: (error) => {
-        console.error(error);
-      },
-      ...ProductsQueryKeys.all(),
-    }),
+    ...dialogProps,
     action,
   };
 }
