@@ -5,7 +5,10 @@
   },
   "common": {
     "actions": {
-      "add": { "text": "Agregar", "successMessage": "Guardado exitosamente" },
+      "add": {
+        "text": "Agregar",
+        "successMessage": "Guardado exitosamente"
+      },
       "delete": {
         "text": "Eliminar",
         "successMessage": "Eliminado exitosamente",
@@ -127,10 +130,6 @@
         "name": "Descripción",
         "empty": "Sin descripción",
         "placeholder": "Alguna descripción"
-      },
-      "color": {
-        "name": "Color",
-        "required": "El color es obligatorio"
       }
     }
   }

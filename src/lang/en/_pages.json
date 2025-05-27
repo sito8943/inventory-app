@@ -5,7 +5,10 @@
   },
   "common": {
     "actions": {
-      "add": { "text": "Add", "successMessage": "Saved successful" },
+      "add": {
+        "text": "Add",
+        "successMessage": "Saved successful"
+      },
       "delete": {
         "text": "Delete",
         "successMessage": "Deleted successful",
@@ -127,10 +130,6 @@
         "name": "Description",
         "empty": "No description",
         "placeholder": "Some description"
-      },
-      "color": {
-        "name": "Color",
-        "required": "Color is required"
       }
     }
   }
