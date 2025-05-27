@@ -114,7 +114,11 @@ function Products() {
     >
       {!error ? (
         <>
-          <TabsLayout tabs={tabs} className="h-full" />
+          <TabsLayout
+            defaultTab={tabs[0]?.id ?? 0}
+            tabs={tabs}
+            className="h-full"
+          />
           {/* Dialogs */}
           <AddProductDialog {...addProduct} />
           <EditProductDialog {...editProduct} />

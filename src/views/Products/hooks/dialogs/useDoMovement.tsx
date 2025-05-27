@@ -26,18 +26,16 @@ export function useDoMovement(): DoMovementDialogPropsType {
     MovementLogDto,
     DoMovementFormType
   >({
-    formToDto: ({ product, movement, count }) => {
-      console.log(product, movement, count);
-      return {
-        product: Number(product),
-        movement: Number(movement),
-        count: Number(count),
-      };
-    },
+    formToDto: ({ product, movement, count }) => ({
+      product: Number(product),
+      movement: Number(movement),
+      count: Number(count),
+    }),
     defaultValues: { product: productId },
     title: t("_pages:products.forms.doMovement"),
     mutationFn: (data) => manager.Products.doMovement(data),
     onSuccessMessage: t("_pages:products.actions.doMovement.successMessage"),
+    onSuccess: () => setProductId(0),
     ...ProductsQueryKeys.all(),
   });
 
@@ -48,10 +46,9 @@ export function useDoMovement(): DoMovementDialogPropsType {
     },
   });
 
-  console.log(productId);
-
   return {
     ...dialogProps,
     action,
+    product: productId,
   };
 }

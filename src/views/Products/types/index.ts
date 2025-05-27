@@ -22,7 +22,9 @@ export interface DoMovementFormType
     FieldValues {}
 
 export interface DoMovementFormPropsType
-  extends FormDialogPropsType<DoMovementFormType, ValidationError> {}
+  extends FormDialogPropsType<DoMovementFormType, ValidationError> {
+  product: number;
+}
 
 export interface ProductFormType
   extends Omit<

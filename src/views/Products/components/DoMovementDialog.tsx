@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Controller } from "react-hook-form";
 
@@ -12,7 +12,7 @@ import { useMovementsCommon } from "hooks";
 import { DoMovementDialogPropsType, DoMovementFormPropsType } from "../types";
 
 function DoMovementForm(props: DoMovementFormPropsType) {
-  const { control, isLoading } = props;
+  const { control, isLoading, product, setValue } = props;
   const { t } = useTranslation();
 
   const movements = useMovementsCommon();
@@ -21,6 +21,10 @@ function DoMovementForm(props: DoMovementFormPropsType) {
     () => [...(movements?.data ?? [])],
     [movements.data],
   );
+
+  useEffect(() => {
+    if (product && setValue) setValue("product", product);
+  }, [product, setValue]);
 
   return (
     <div className="flex flex-col gap-5">

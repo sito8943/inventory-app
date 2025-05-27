@@ -49,7 +49,7 @@ export const useFormDialog = <
 
   const { open, handleClose, handleOpen } = useDialog();
 
-  const { control, handleSubmit, reset, setError, getValues } =
+  const { control, handleSubmit, reset, setError, getValues, setValue } =
     useForm<TFormType>({
       defaultValues,
     });
@@ -61,7 +61,7 @@ export const useFormDialog = <
   });
 
   useEffect(() => {
-    if (data) reset({ ...dtoToForm(data) });
+    if (data && dtoToForm) reset({ ...dtoToForm(data) });
   }, [data]);
 
   const parseFormError = useCallback(
@@ -146,6 +146,7 @@ export const useFormDialog = <
     handleClose: close,
     control,
     getValues,
+    setValue,
     handleSubmit,
     onSubmit: (data) => dialogFn.mutate(formToDto(data)),
     reset,

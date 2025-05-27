@@ -7,6 +7,7 @@ import {
   UseFormHandleSubmit,
   UseFormReset,
   UseFormSetError,
+  UseFormSetValue,
 } from "react-hook-form";
 
 export type DialogPropsType = {
@@ -29,6 +30,7 @@ export interface FormDialogPropsType<
 > extends DialogPropsType {
   control?: Control<TFormType>;
   getValues?: UseFormGetValues<TFormType>;
+  setValue?: UseFormSetValue<TFormType>;
   reset?: UseFormReset<TFormType>;
   setError?: UseFormSetError<TFormType>;
   handleSubmit: UseFormHandleSubmit<TFormType>;
