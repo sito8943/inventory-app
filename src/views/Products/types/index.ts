@@ -57,5 +57,4 @@ export interface MovementLogsDialogPropsType
 export interface ProductCardPropsType extends ProductDto {
   actions: ActionPropsType[];
   onClick: (id: number) => void;
-  color: string;
 }

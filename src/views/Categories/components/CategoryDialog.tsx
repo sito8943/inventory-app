@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Controller } from "react-hook-form";
 
 // components
-import { FormDialog, TextInput, ColorInput, ParagraphInput } from "components";
+import { FormDialog, TextInput, ParagraphInput } from "components";
 
 // types
 import {
@@ -48,23 +48,6 @@ export function CategoryForm(props: CategoryFormPropsType) {
             maxLength={60}
             value={value ?? ""}
             placeholder={t("_pages:categories.inputs.description.name")}
-            {...rest}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        rules={{
-          required: t("_pages:categories.inputs.name.required"),
-        }}
-        name="color"
-        disabled={isLoading}
-        render={({ field: { value, onChange, ...rest } }) => (
-          <ColorInput
-            required
-            value={value ?? ""}
-            onChange={onChange}
-            placeholder={t("_pages:categories.inputs.color.name")}
             {...rest}
           />
         )}

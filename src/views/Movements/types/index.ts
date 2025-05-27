@@ -18,5 +18,4 @@ export interface EditMovementDialogPropsType
 export interface MovementCardPropsType extends MovementDto {
   actions: ActionPropsType[];
   onClick: (id: number) => void;
-  color: string;
 }

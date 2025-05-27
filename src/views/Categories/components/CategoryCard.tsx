@@ -1,8 +1,5 @@
 import { useTranslation } from "react-i18next";
 
-// @emotion/css
-import { css } from "@emotion/css";
-
 // components
 import { ItemCard } from "components";
 
@@ -12,20 +9,11 @@ import { CategoryCardPropsType } from "../types/";
 function CategoryCard(props: CategoryCardPropsType) {
   const { t } = useTranslation();
 
-  const { id, onClick, actions, name, description, color } = props;
-
-  const styles = css({
-    background: color,
-  });
+  const { id, onClick, actions, name, description } = props;
 
   return (
     <ItemCard
-      title={
-        <div className="flex items-center gap-2 justify-start">
-          <span className={`${styles} w-3 h-3 rounded-full`}></span>
-          <h3 className="!text-gray-200 text-lg text-start">{name}</h3>
-        </div>
-      }
+      title={name}
       name={t("_pages:categories.forms.edit")}
       aria-label={t("_pages:categories.forms.editAria")}
       onClick={() => onClick(id)}
