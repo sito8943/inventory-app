@@ -4,6 +4,9 @@ import { Link, useLocation } from "react-router-dom";
 //types
 import { DrawerPropsTypes } from "./types.ts";
 
+// styles
+import "./styles.css";
+
 // sitemap
 const sitemap = [
   {
@@ -31,23 +34,14 @@ function Drawer(props: DrawerPropsTypes) {
 
   const { open, onClose } = props;
 
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
   return (
     <div
       aria-label={t("_accessibility:ariaLabels.closeMenu")}
       aria-disabled={!open}
-      className={`${
-        open ? "w-screen h-screen" : "pointer-events-none"
-      } fixed z-30`}
+      className={`${open ? "opened" : "closed"} drawer-backdrop`}
       onClick={() => onClose()}
     >
-      <aside
-        className={`${
-          open ? "translate-x-0" : "-translate-x-64"
-        } pt-5 w-64 fixed top-0 left-0 z-1 border-r-2 rounded-r-lg border-border bg-drawer-background h-screen animated`}
-      >
+      <aside className={`${open ? "opened" : "closed"} drawer animated`}>
         <h2 className="text-xl text-white px-5 pb-5 font-bold poppins">
           {t("_pages:home.appName")}
         </h2>
