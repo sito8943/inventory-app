@@ -5,7 +5,7 @@ import { Tables } from "./types";
 
 // types
 import {
-  AddMovementLogDto,
+  DoMovementDto,
   AddProductDto,
   CommonProductDto,
   MovementLogDto,
@@ -40,9 +40,9 @@ export default class ProductClient extends BaseClient<
    * @param  dto
    * @returns - inserted movement log
    */
-  async doMovement(dto: AddMovementLogDto) {
-    return await this.api.post<MovementLogDto, AddMovementLogDto>(
-      "do_movements",
+  async doMovement(dto: DoMovementDto) {
+    return await this.api.post<MovementLogDto, DoMovementDto>(
+      `${this.table}/do-movement`,
       dto,
     );
   }
