@@ -3,16 +3,19 @@ import { useTranslation } from "react-i18next";
 import { createPortal } from "react-dom";
 
 // provider
-import { useNotification } from "../../providers/NotificationProvider";
+import { useNotification } from "providers";
 
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faWarning,
   faCircleCheck,
   faClose,
+  faWarning,
 } from "@fortawesome/free-solid-svg-icons";
-import { NotificationEnumType } from "../../lib";
+import { NotificationEnumType } from "lib";
+
+// styles
+import "./styles.css";
 
 function Notification() {
   const { t } = useTranslation();
@@ -33,14 +36,29 @@ function Notification() {
     }
   }, []);
 
-  const textColor = useCallback((type: string) => {
+  const textColor = useCallback((type: NotificationEnumType) => {
     switch (type) {
-      case "error":
-        return "text-red-400";
-      case "success":
-        return "text-green-600";
+      case NotificationEnumType.success:
+        return "!text-success";
+      case NotificationEnumType.error:
+        return "!text-error";
+      case NotificationEnumType.warning:
+        return "!text-warning";
       default:
-        return "text-primary";
+        return "!text-info";
+    }
+  }, []);
+
+  const bgColor = useCallback((type: NotificationEnumType) => {
+    switch (type) {
+      case NotificationEnumType.success:
+        return "bg-bg-success";
+      case NotificationEnumType.error:
+        return "bg-bg-error";
+      case NotificationEnumType.warning:
+        return "bg-bg-warning";
+      default:
+        return "bg-bg-info";
     }
   }, []);
 
@@ -54,21 +72,22 @@ function Notification() {
 
   return createPortal(
     <div
-      className={`bottom-0 left-0 p-2 gap-2 flex flex-col justify-end items-start fixed z-30 ${
-        notification?.length ? "w-screen h-screen" : ""
-      } pointer-events-none`}
+      className={`notification-portal ${notification?.length ? "w-screen h-screen" : ""}`}
     >
       {notification?.length
         ? notification?.map(({ id, type, message }, i) => (
             <div
               key={id}
-              className={`relative apparition z-10 bg-alt-background p-4 pl-2.5 rounded-2xl ${textColor(
-                NotificationEnumType[type],
-              )} pointer-events-auto flex justify-between gap-2 items-center min-w-40 max-xs:w-full`}
+              className={`apparition notification ${bgColor(type)}`}
             >
               <div className="flex gap-3 items-center">
-                <FontAwesomeIcon icon={renderIcon(type)} />
-                <p className="whitespace-nowrap">{message}</p>
+                <FontAwesomeIcon
+                  icon={renderIcon(type)}
+                  className={`${textColor(type)}`}
+                />
+                <p className={`whitespace-nowrap ${textColor(type)}`}>
+                  {message}
+                </p>
               </div>
               <button
                 type="button"
@@ -77,7 +96,7 @@ function Notification() {
               >
                 <FontAwesomeIcon
                   icon={faClose}
-                  className="text-primary hover:text-red-400 cursor-pointer"
+                  className={`${textColor(type)} hover:text-red-400 cursor-pointer`}
                   onClick={() => onClose(i)}
                 />
               </button>

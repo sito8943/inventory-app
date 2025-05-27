@@ -1,7 +1,7 @@
 import { useContext, createContext, useReducer } from "react";
 
 // lib
-import { NotificationType } from "lib";
+import { NotificationEnumType, NotificationType } from "lib";
 import { BasicProviderPropTypes, NotificationContextType } from "./types.ts";
 
 const NotificationContext = createContext({} as NotificationContextType);
@@ -32,7 +32,7 @@ export function NotificationProvider(props: BasicProviderPropTypes) {
   const showErrorNotification = (options: NotificationType) =>
     dispatch({
       type: "set",
-      items: [{ ...options, type: "error" }],
+      items: [{ ...options, type: NotificationEnumType.error }],
     });
 
   const showNotification = (options: NotificationType) =>
@@ -47,7 +47,7 @@ export function NotificationProvider(props: BasicProviderPropTypes) {
   const showSuccessNotification = (options: NotificationType) =>
     dispatch({
       type: "set",
-      items: [{ ...options, type: "success" }],
+      items: [{ ...options, type: NotificationEnumType.success }],
     });
 
   const removeNotification = (index?: number) =>
