@@ -9,7 +9,7 @@ import useTableOptions from "../../../../components/Table/useTableOptions";
 import useMovementLogsAction from "../actions/useMovementLogsAction";
 
 // types
-import { TablesCamelCase } from "../../../../db/types/dbUtils.ts";
+import { TablesCamelCase } from "../../../../db/types";
 import { MovementLogDto } from "lib";
 
 export function useMovementLogs() {
