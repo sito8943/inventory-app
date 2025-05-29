@@ -16,7 +16,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // components
 import TextInput from "../TextInput";
 import Suggestions from "./Suggestions";
-import { Values } from "./Values";
+import Values from "./Values";
+
+// types
 import { AutocompleteInputPropsType } from "./types.ts";
 import { SelectInputOptionType } from "../types.ts";
 
@@ -27,7 +29,7 @@ import { SelectInputOptionType } from "../types.ts";
  */
 const AutocompleteInput = forwardRef(function (
   props: AutocompleteInputPropsType,
-  ref: Ref<HTMLInputElement>,
+  ref: Ref<HTMLInputElement>
 ) {
   const { t } = useTranslation();
 
@@ -57,7 +59,7 @@ const AutocompleteInput = forwardRef(function (
 
       if (Array.isArray(value)) {
         const isSelected = value.some(
-          (v: SelectInputOptionType) => v.id === option.id,
+          (v: SelectInputOptionType) => v.id === option.id
         );
         return !isSelected && isIncluded;
       }
@@ -107,18 +109,18 @@ const AutocompleteInput = forwardRef(function (
       }
       setShowSuggestions(false);
     },
-    [multiple, onChange, value],
+    [multiple, onChange, value]
   );
 
   const handleDeleteChip = useCallback(
     (index: number) => {
       const newValue = (value as SelectInputOptionType[]).filter(
-        (_, i) => i !== index,
+        (_, i) => i !== index
       );
       if (newValue.length) onChange(newValue);
       else onChange([]);
     },
-    [onChange, value],
+    [onChange, value]
   );
 
   return (

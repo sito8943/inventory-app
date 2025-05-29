@@ -29,7 +29,7 @@ export const FormDialog = <TInput extends FieldValues, TError extends Error>(
             type="submit"
             className="button submit primary"
             name={t("_accessibility:buttons.submit")}
-            aria-label={t("_accessibility:ariaLabels.insert")}
+            aria-label={t("_accessibility:ariaLabels.submit")}
           >
             {t("_accessibility:buttons.submit")}
           </button>

@@ -12,6 +12,8 @@ import {
   faClose,
   faWarning,
 } from "@fortawesome/free-solid-svg-icons";
+
+// types
 import { NotificationEnumType } from "lib";
 
 // styles

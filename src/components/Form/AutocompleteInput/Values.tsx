@@ -5,7 +5,7 @@ import { DeletableChip } from "../../Chip";
 import { SelectInputOptionType } from "components";
 import { ValuesPropsType } from "./types.ts";
 
-export const Values = (props: ValuesPropsType) => {
+const Values = (props: ValuesPropsType) => {
   const { list = [], onDelete } = props;
 
   return (
@@ -20,3 +20,5 @@ export const Values = (props: ValuesPropsType) => {
     </div>
   );
 };
+
+export default Values;
