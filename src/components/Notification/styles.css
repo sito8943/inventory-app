@@ -5,5 +5,5 @@
 }
 
 .notification {
-    @apply shadow-md shadow-black/50 pointer-events-auto flex justify-between gap-2 items-center min-w-40 max-xs:w-full relative z-10 p-4 pl-2.5 rounded-2xl;
+    @apply shadow-md shadow-black/50 pointer-events-auto flex justify-between gap-2 items-center min-w-40 max-xs:w-full relative z-10 p-2 px-2.5 rounded-3xl;
 }
