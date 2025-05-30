@@ -2,7 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use std::env;
-use tauri::path;
+use tauri::{Manager};
 use tauri_plugin_fs::FsExt;
 
 #[tokio::main]
