@@ -27,6 +27,7 @@ migration = { path = "./migration" }
 service = { path = "./service" }
 entity = { path = "./entity" }
 sea-orm = "1.1.10"
+tauri-plugin-fs = "2.3.0"
 
 [workspace]
 members = [".", "service", "entity", "migration"]
