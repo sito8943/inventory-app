@@ -15,6 +15,13 @@
         "dialog": {
           "title": "Are you sure to delete?"
         }
+      },
+      "restore": {
+        "text": "Restore",
+        "successMessage": "Restored successful",
+        "dialog": {
+          "title": "Are you sure to restore?"
+        }
       }
     }
   },

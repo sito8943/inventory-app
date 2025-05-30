@@ -31,6 +31,7 @@
     "insert": "Insert content",
     "cancel": "Cancel action",
     "delete": "Delete item",
+    "restore": "Restore item",
     "openMenu": "Open menu",
     "closeDialog": "Close dialog window",
     "closeColorDialog": "Close color dialog window",

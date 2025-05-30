@@ -96,4 +96,8 @@ export default class BaseClient<
   async softDelete(ids: number[]): Promise<number> {
     return await this.api.delete(`${this.table}`, ids);
   }
+
+  async restore(ids: number[]): Promise<number> {
+    return await this.api.patch(`${this.table}/restore`, ids);
+  }
 }

@@ -14,7 +14,12 @@ import {
 import { Error } from "components";
 
 // hooks
-import { useDeleteDialog, useCategoriesList, CategoriesQueryKeys } from "hooks";
+import {
+  useDeleteDialog,
+  useCategoriesList,
+  CategoriesQueryKeys,
+  useRestoreDialog,
+} from "hooks";
 import { useAddCategory, useEditCategory } from "./hooks/dialogs";
 
 // types
@@ -34,6 +39,11 @@ function Categories() {
     ...CategoriesQueryKeys.all(),
   });
 
+  const restoreCategory = useRestoreDialog({
+    mutationFn: (data) => manager.Categories.restore(data),
+    ...CategoriesQueryKeys.all(),
+  });
+
   const addCategory = useAddCategory();
 
   const editCategory = useEditCategory();
@@ -41,8 +51,11 @@ function Categories() {
   // #endregion
 
   const getActions = useCallback(
-    (record: CategoryDto) => [deleteCategory.action(record)],
-    [deleteCategory],
+    (record: CategoryDto) => [
+      deleteCategory.action(record),
+      restoreCategory.action(record),
+    ],
+    [deleteCategory, restoreCategory],
   );
 
   return (
@@ -72,6 +85,7 @@ function Categories() {
           <AddCategoryDialog {...addCategory} />
           <EditCategoryDialog {...editCategory} />
           <ConfirmationDialog {...deleteCategory} />
+          <ConfirmationDialog {...restoreCategory} />
         </>
       ) : (
         <Error message={error?.message} />
