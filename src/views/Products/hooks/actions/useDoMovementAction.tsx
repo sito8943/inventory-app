@@ -18,8 +18,8 @@ export const useDoMovementAction = (
 
   return (record: ProductDto) => ({
     id: "doMovement",
-    hidden: !!record.deleted || hidden,
-    disabled: !!record.deleted,
+    hidden: record.deleted || hidden,
+    disabled: record.deleted,
     icon: <FontAwesomeIcon className="text-primary" icon={faPlus} />,
     tooltip: t("_pages:products.forms.doMovement"),
     onClick: () => onClick(record?.id),

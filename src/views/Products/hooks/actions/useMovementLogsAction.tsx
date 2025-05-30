@@ -15,8 +15,8 @@ function useMovementLogsAction(props: UseSingleActionPropTypes<number>) {
 
   return (record: ProductDto) => ({
     id: "movementLogs",
-    hidden: hidden || !!record.deleted,
-    disabled: !!record.deleted,
+    hidden: hidden || record.deleted,
+    disabled: record.deleted,
     icon: <FontAwesomeIcon className="text-primary" icon={faClock} />,
     tooltip: t("_pages:products.forms.movementLogs"),
     onClick: () => onClick(record?.id),
