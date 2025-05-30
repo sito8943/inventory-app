@@ -29,7 +29,7 @@ export interface DoMovementFormPropsType
 export interface ProductFormType
   extends Omit<
       ProductDto,
-      "createdAt" | "deletedAt" | "updatedAt" | "price" | "stock" | "cost"
+      "createdAt" | "deleted" | "updatedAt" | "price" | "stock" | "cost"
     >,
     FieldValues {
   price: number | string;

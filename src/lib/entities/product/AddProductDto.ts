@@ -1,7 +1,7 @@
 import { CommonCategoryDto, ProductDto } from "lib";
 
 export interface AddProductDto
-  extends Omit<ProductDto, "id" | "updatedAt" | "createdAt" | "deletedAt"> {
+  extends Omit<ProductDto, "id" | "updatedAt" | "createdAt" | "deleted"> {
   name: string;
   description: string;
   price: number;

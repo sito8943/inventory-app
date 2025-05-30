@@ -10,7 +10,7 @@ export interface CategoryCardPropsType extends CategoryDto {
 }
 
 export interface CategoryFormType
-  extends Omit<CategoryDto, "deletedAt" | "createdAt" | "updatedAt">,
+  extends Omit<CategoryDto, "deleted" | "createdAt" | "updatedAt">,
     FieldValues {}
 
 export interface CategoryFormPropsType

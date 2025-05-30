@@ -1,7 +1,7 @@
 import { DeleteDto } from "lib";
 
 export interface BaseEntityDto extends DeleteDto {
-  deletedAt: Date;
+  deleted: Date;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -3,7 +3,7 @@ import { ActionPropsType, FormDialogPropsType } from "components";
 import { MovementDto, ValidationError } from "lib";
 
 export interface MovementFormType
-  extends Omit<MovementDto, "createdAt" | "deletedAt" | "updatedAt">,
+  extends Omit<MovementDto, "createdAt" | "deleted" | "updatedAt">,
     FieldValues {}
 
 export interface MovementFormPropsType

@@ -64,14 +64,15 @@ export class APIClient {
    * @returns delete result
    */
   async delete(endpoint: string, data: any) {
-    const { error, data: result } = await makeRequest<
-      number[],
-      { count: number }
-    >(endpoint, "DELETE", data);
+    const { error, data: result } = await makeRequest<number[], number>(
+      endpoint,
+      "DELETE",
+      data,
+    );
 
     if (error) throw new Error(error.message);
 
-    return result?.count;
+    return result;
   }
 
   /**

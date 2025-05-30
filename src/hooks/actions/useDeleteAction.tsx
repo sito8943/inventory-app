@@ -15,8 +15,8 @@ export const useDeleteAction = (props: UseMultipleActionPropTypes<number>) => {
 
   return (record: BaseEntityDto) => ({
     id: "delete",
-    hidden: !!record.deletedAt || hidden,
-    disabled: !!record.deletedAt,
+    hidden: !!record.deleted || hidden,
+    disabled: !!record.deleted,
     icon: <FontAwesomeIcon className="text-red-500" icon={faTrash} />,
     tooltip: t("_pages:common.actions.delete.text"),
     onClick: () => onClick([record?.id]),
