@@ -3,6 +3,7 @@ import { FieldValues } from "react-hook-form";
 
 // component
 import { Dialog } from "./Dialog";
+import Loading from "../Loading/Loading";
 
 // types
 import { FormDialogPropsType } from "./types.ts";
@@ -16,6 +17,7 @@ export const FormDialog = <TInput extends FieldValues, TError extends Error>(
     handleSubmit,
     onSubmit,
     handleClose,
+    isLoading = false,
     buttonEnd = true,
     ...rest
   } = props;
@@ -31,6 +33,7 @@ export const FormDialog = <TInput extends FieldValues, TError extends Error>(
             name={t("_accessibility:buttons.submit")}
             aria-label={t("_accessibility:ariaLabels.submit")}
           >
+            {isLoading ? <Loading color="text-dark" className="mt-1" /> : null}
             {t("_accessibility:buttons.submit")}
           </button>
           <button

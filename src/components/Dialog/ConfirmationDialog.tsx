@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 
 // component
 import { Dialog } from "./Dialog";
+import Loading from "../Loading/Loading";
 
 // types
 import { ConfirmationDialogPropsType } from "./types.ts";
@@ -9,7 +10,13 @@ import { ConfirmationDialogPropsType } from "./types.ts";
 export const ConfirmationDialog = (props: ConfirmationDialogPropsType) => {
   const { t } = useTranslation();
 
-  const { children, handleSubmit, handleClose, ...rest } = props;
+  const {
+    children,
+    handleSubmit,
+    handleClose,
+    isLoading = false,
+    ...rest
+  } = props;
 
   return (
     <Dialog {...rest} handleClose={handleClose}>
@@ -21,6 +28,7 @@ export const ConfirmationDialog = (props: ConfirmationDialogPropsType) => {
           name={t("_accessibility:buttons.ok")}
           aria-label={t("_accessibility:ariaLabels.ok")}
         >
+          {isLoading ? <Loading color="text-dark" className="mt-1" /> : null}
           {t("_accessibility:buttons.ok")}
         </button>
         <button

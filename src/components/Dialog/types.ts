@@ -15,13 +15,13 @@ export type DialogPropsType = {
   title: string;
   children?: ReactNode;
   handleClose: () => void;
-  isLoading?: boolean;
   containerClassName?: string;
   className?: string;
 };
 
 export interface ConfirmationDialogPropsType extends DialogPropsType {
   handleSubmit: () => void;
+  isLoading?: boolean;
 }
 
 export interface FormDialogPropsType<
@@ -40,4 +40,5 @@ export interface FormDialogPropsType<
   onClick: (id?: number) => void;
   /* if the buttons are aligned to the end */
   buttonEnd?: boolean;
+  isLoading?: boolean;
 }
