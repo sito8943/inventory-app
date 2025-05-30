@@ -14,6 +14,12 @@ export type ManagerProviderContextType = {
   client: Manager;
 };
 
+export type ConfigProviderContextType = {
+  data: FileDataType;
+};
+
+export type FileDataType = {};
+
 export type NotificationContextType = {
   notification: NotificationType[];
   removeNotification: (index?: number) => void;
