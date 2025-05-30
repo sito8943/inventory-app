@@ -18,4 +18,5 @@ export type ItemCardPropsType = {
   className?: string;
   name: string;
   onClick?: () => void;
+  deleted: boolean;
 };

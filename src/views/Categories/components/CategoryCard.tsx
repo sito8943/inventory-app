@@ -9,17 +9,20 @@ import { CategoryCardPropsType } from "../types/";
 function CategoryCard(props: CategoryCardPropsType) {
   const { t } = useTranslation();
 
-  const { id, onClick, actions, name, description } = props;
+  const { id, onClick, actions, name, description, deleted } = props;
 
   return (
     <ItemCard
       title={name}
+      deleted={deleted}
       name={t("_pages:categories.forms.edit")}
       aria-label={t("_pages:categories.forms.editAria")}
-      onClick={() => onClick(id)}
+      onClick={() => (!deleted ? onClick(id) : {})}
       actions={actions}
     >
-      <p className={`${!!description ? "" : "!text-xs italic"} text-start`}>
+      <p
+        className={`${!!description ? "" : "!text-xs italic"} text-start ${deleted ? "!text-secondary" : ""}`}
+      >
         {!!description
           ? description
           : t("_pages:categories.inputs.description.empty")}

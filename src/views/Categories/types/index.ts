@@ -7,6 +7,7 @@ import { CategoryDto, ValidationError } from "lib";
 export interface CategoryCardPropsType extends CategoryDto {
   actions: ActionPropsType[];
   onClick: (id: number) => void;
+  deleted: boolean;
 }
 
 export interface CategoryFormType
