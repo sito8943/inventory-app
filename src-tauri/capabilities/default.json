@@ -14,7 +14,16 @@
     "core:window:allow-set-size",
     "core:window:allow-close",
     "core:window:allow-minimize",
-    "core:window:allow-internal-toggle-maximize"
+    "core:window:allow-internal-toggle-maximize",
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [
+        {
+          "path": "$HOME/*"
+        }
+      ]
+    }
   ],
   "capabilities": [
     {
@@ -32,7 +41,16 @@
         "core:window:allow-set-size",
         "core:window:allow-close",
         "core:window:allow-minimize",
-        "core:window:allow-internal-toggle-maximize"
+        "core:window:allow-internal-toggle-maximize",
+        "fs:default",
+        {
+          "identifier": "fs:allow-exists",
+          "allow": [
+            {
+              "path": "$HOME/*"
+            }
+          ]
+        }
       ]
     }
   ]
