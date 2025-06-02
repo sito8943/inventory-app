@@ -11,15 +11,21 @@ import "@fontsource/poppins";
 import "@fontsource/roboto";
 
 // provider
-import { ManagerProvider, NotificationProvider } from "providers";
+import {
+  ManagerProvider,
+  NotificationProvider,
+  ConfigProvider,
+} from "providers";
 
 //i18
 import "./i18";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ManagerProvider>
-    <NotificationProvider>
-      <App />
-    </NotificationProvider>
+    <ConfigProvider>
+      <NotificationProvider>
+        <App />
+      </NotificationProvider>
+    </ConfigProvider>
   </ManagerProvider>,
 );

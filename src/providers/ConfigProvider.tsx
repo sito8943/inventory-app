@@ -6,7 +6,11 @@ import {
   useMemo,
   useState,
 } from "react";
-import { BasicProviderPropTypes, ConfigProviderContextType } from "./types.ts";
+import {
+  BasicProviderPropTypes,
+  ConfigProviderContextType,
+  FileDataType,
+} from "./types.ts";
 
 // client
 import TauriClient from "../db/TauriClient.ts";
@@ -18,7 +22,7 @@ const ConfigProvider = (props: BasicProviderPropTypes) => {
   const { children } = props;
 
   const tauriClient = useMemo(() => new TauriClient(), []);
-  const [data, setData] = useState();
+  const [data, setData] = useState<FileDataType>();
 
   const init = useCallback(() => {
     try {
