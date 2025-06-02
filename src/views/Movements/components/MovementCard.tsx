@@ -15,14 +15,14 @@ import { MovementType, enumToKeyValueArray } from "lib";
 const types = enumToKeyValueArray(MovementType);
 
 export const icons = {
-  1: faBoxArchive,
-  2: faDolly,
+  0: faBoxArchive,
+  1: faDolly,
 };
 
 function MovementCard(props: MovementCardPropsType) {
   const { t } = useTranslation();
 
-  const { id, onClick, actions, name, type } = props;
+  const { id, onClick, actions, name, type, deleted } = props;
 
   const renderType = useMemo(
     () => types.find((ty) => ty.value === type) ?? types[0],
@@ -41,6 +41,7 @@ function MovementCard(props: MovementCardPropsType) {
       aria-label={t("_pages:movements.forms.editAria")}
       onClick={() => onClick(id)}
       actions={actions}
+      deleted={deleted}
     >
       <div className="flex gap-2 items-center">
         {icon && (

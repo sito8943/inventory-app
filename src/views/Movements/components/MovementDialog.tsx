@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Controller, useWatch } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,6 +33,10 @@ export function MovementForm(props: MovementFormPropsType) {
   );
 
   const { type } = useWatch({ control });
+
+  useEffect(() => {
+    console.log(typeOptions);
+  }, [typeOptions]);
 
   return (
     <div className="flex flex-col gap-5">

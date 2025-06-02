@@ -35,7 +35,6 @@ export default class MovementClient extends BaseClient<
     const { items } = await this.get({ deleted: false });
 
     if (items.length > 0) return false;
-
     await this.insertMany(defaultValues);
 
     return items.length;

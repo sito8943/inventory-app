@@ -45,11 +45,11 @@ export function useMovementsCommon(): UseQueryResult<CommonMovementDto[]> {
 
 export const defaultMovements: any = {
   en: [
-    { name: "Purchases", type: 1 },
-    { name: "Sales", type: 2 },
+    { name: "Purchases", type: 0, description: "" },
+    { name: "Sales", type: 1, description: "" },
   ],
   es: [
-    { name: "Compras", type: 1 },
-    { name: "Ventas", type: 2 },
+    { name: "Compras", type: 0, description: "" },
+    { name: "Ventas", type: 1, description: "" },
   ],
 };

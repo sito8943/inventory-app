@@ -15,7 +15,12 @@ import {
 
 // hooks
 import { useAddMovement, useEditMovement } from "./hooks/dialogs/";
-import { useMovementsList, useDeleteDialog, MovementsQueryKeys } from "hooks";
+import {
+  useMovementsList,
+  useDeleteDialog,
+  MovementsQueryKeys,
+  useRestoreDialog,
+} from "hooks";
 
 // types
 import { CategoryDto } from "lib";
@@ -34,6 +39,11 @@ function Movements() {
     ...MovementsQueryKeys.all(),
   });
 
+  const restoreMovement = useRestoreDialog({
+    mutationFn: (data) => manager.Movements.restore(data),
+    ...MovementsQueryKeys.all(),
+  });
+
   const addMovement = useAddMovement();
 
   const editMovement = useEditMovement();
@@ -41,8 +51,11 @@ function Movements() {
   // #endregion
 
   const getActions = useCallback(
-    (record: CategoryDto) => [deleteMovement.action(record)],
-    [deleteMovement],
+    (record: CategoryDto) => [
+      deleteMovement.action(record),
+      restoreMovement.action(record),
+    ],
+    [deleteMovement, restoreMovement],
   );
 
   return (

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode } from "react";
 
 // lib
 import { NotificationType } from "lib";
@@ -15,7 +15,8 @@ export type ManagerProviderContextType = {
 };
 
 export type ConfigProviderContextType = {
-  data: FileDataType;
+  data?: FileDataType;
+  updateData: Dispatch<FileDataType>;
 };
 
 export type FileDataType = {};
