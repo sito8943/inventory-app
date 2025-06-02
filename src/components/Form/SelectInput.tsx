@@ -32,7 +32,7 @@ const SelectInput = forwardRef(function (
       onChange({
         target: { value: options[0]?.id },
       } as unknown as ChangeEvent<HTMLSelectElement>);
-  }, [onChange, options, value]);
+  }, []);
 
   return (
     <div className={`relative flex flex-col ${containerClassName}`}>
