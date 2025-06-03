@@ -5,12 +5,13 @@ import { ErrorBoundary } from "react-error-boundary";
 // components
 import Header from "./Header";
 import Footer from "./Footer";
-import { Notification, Error } from "../../components/";
+import { Notification, Error, Network } from "../../components/";
 
 function View() {
   return (
     <>
       <Header />
+      <Network />
       <ErrorBoundary
         fallback={
           <main>

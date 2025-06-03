@@ -6,6 +6,11 @@ import {
   useMemo,
   useState,
 } from "react";
+
+// config
+import { config } from "../config.ts";
+
+// types
 import {
   BasicProviderPropTypes,
   ConfigProviderContextType,
@@ -14,7 +19,7 @@ import {
 
 // client
 import TauriClient from "../db/TauriClient.ts";
-import { config } from "../config.ts";
+import { QueryKey, useQuery } from "@tanstack/react-query";
 
 const ConfigContext = createContext({} as ConfigProviderContextType);
 
@@ -23,15 +28,36 @@ const ConfigProvider = (props: BasicProviderPropTypes) => {
 
   const tauriClient = useMemo(() => new TauriClient(), []);
   const [data, setData] = useState<FileDataType>();
+  const [connected, setConnected] = useState(false);
 
   const init = useCallback(() => {
     try {
       const file = tauriClient.readFile(config.configFile);
-      console.log(file);
     } catch (e) {
       console.error((e as Error).message);
     }
   }, [tauriClient]);
+
+  const checkConnection = useCallback(async () => {
+    try {
+      const response = await fetch(`${config.apiUrl}app/ping`, {
+        method: "GET",
+        cache: "no-cache",
+      });
+      setConnected(true);
+      return response.ok; // true si status 2xx
+    } catch (error) {
+      setConnected(false);
+      console.error(error);
+      return false;
+    }
+  }, []);
+
+  const pingServer = useQuery({
+    initialData: true,
+    queryKey: ["ping"],
+    queryFn: checkConnection,
+  });
 
   useEffect(() => {
     init();
@@ -39,7 +65,9 @@ const ConfigProvider = (props: BasicProviderPropTypes) => {
   }, []);
 
   return (
-    <ConfigContext.Provider value={{ data, updateData: setData }}>
+    <ConfigContext.Provider
+      value={{ data, connected, pingServer, updateData: setData }}
+    >
       {children}
     </ConfigContext.Provider>
   );

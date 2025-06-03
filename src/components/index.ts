@@ -12,6 +12,7 @@ export * from "./Card/";
 export * from "./Actions/";
 export * from "./Form";
 export * from "./Dialog";
+export * from "./Network";
 
 export {
   Page,

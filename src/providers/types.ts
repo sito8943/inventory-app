@@ -1,4 +1,5 @@
 import { Dispatch, ReactNode } from "react";
+import { DefinedUseQueryResult } from "@tanstack/react-query";
 
 // lib
 import { NotificationType } from "lib";
@@ -16,6 +17,8 @@ export type ManagerProviderContextType = {
 
 export type ConfigProviderContextType = {
   data?: FileDataType;
+  connected: boolean;
+  pingServer: DefinedUseQueryResult<boolean, Error>;
   updateData: Dispatch<FileDataType>;
 };
 
