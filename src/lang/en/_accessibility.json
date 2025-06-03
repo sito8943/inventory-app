@@ -13,7 +13,8 @@
     "closeApp": "Close application",
     "closeMenu": "Close menu",
     "deleteChip": "Remove {{value}}",
-    "cleanInput": "Clean input"
+    "cleanInput": "Clean input",
+    "retry": "Retry"
   },
   "labels": {
     "colorPicker": "Pick a color",
@@ -42,7 +43,8 @@
     "closeApp": "Close the application",
     "closeMenu": "Close the menu",
     "deleteChip": "Remove the {{value}}",
-    "cleanInput": "Clean the input value"
+    "cleanInput": "Clean the input value",
+    "retry": "Retry to connect"
   },
   "errors": {
     "unknownError": "An error has occurred"

@@ -13,7 +13,8 @@
     "closeApp": "Cerrar aplicación",
     "closeMenu": "Cerrar menú",
     "deleteChip": "Eliminar {{value}}",
-    "cleanInput": "Limpiar entrada"
+    "cleanInput": "Limpiar entrada",
+    "retry": "Reintentar"
   },
   "labels": {
     "colorPicker": "Selecciona un color",
@@ -41,7 +42,8 @@
     "closeApp": "Cerrar la aplicación",
     "closeMenu": "Cerrar el menú",
     "deleteChip": "Elimina a {{value}}",
-    "cleanInput": "Limpia los valores de la entrada"
+    "cleanInput": "Limpia los valores de la entrada",
+    "retry": "Reintentar conexión"
   },
   "errors": {
     "unknownError": "Ha ocurrido un error"
