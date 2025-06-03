@@ -1,5 +1,14 @@
+import {useTranslation} from "react-i18next";
+
+const year = new Date().getFullYear();
+
 function Footer() {
-  return <footer></footer>;
+
+    const {t} = useTranslation();
+
+    return <footer className="w-full bg-dark flex items-center justify-center">
+        <p>{t("_pages:footer.copyright")} {year}</p>
+    </footer>;
 }
 
 export default Footer;
