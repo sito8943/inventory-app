@@ -3,6 +3,11 @@
     "title": "Home",
     "appName": "Inventory"
   },
+  "network": {
+    "connected": "Connected",
+    "retrying": "Connection lost... Retrying",
+    "notConnected": "Not connected"
+  },
   "common": {
     "actions": {
       "add": {

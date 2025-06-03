@@ -3,6 +3,11 @@
     "title": "Inicio",
     "appName": "Inventario"
   },
+  "network": {
+    "connected": "Conectado",
+    "retrying": "Conexión perdida... Reconectando",
+    "notConnected": "Sin conexión"
+  },
   "common": {
     "actions": {
       "add": {
