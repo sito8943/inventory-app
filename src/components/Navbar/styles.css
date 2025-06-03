@@ -1,7 +1,7 @@
 @import "../../styles/variables.css";
 
 .header {
-    @apply absolute w-full flex items-center justify-between bg-background z-20
+    @apply w-full flex items-center justify-between bg-background z-20
 }
 
 .toolbar .button {
@@ -10,4 +10,8 @@
 
 .toolbar {
     @apply flex items-center justify-end
+}
+
+.button.menu {
+    @apply h-10 bg-background border-background hover:bg-border hover:border-border;
 }
