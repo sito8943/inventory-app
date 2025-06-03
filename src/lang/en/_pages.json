@@ -144,5 +144,8 @@
         "placeholder": "Some description"
       }
     }
+  },
+  "footer": {
+    "copyright": "Inventory App ©"
   }
 }

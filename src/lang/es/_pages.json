@@ -137,5 +137,8 @@
         "placeholder": "Alguna descripción"
       }
     }
+  },
+  "footer": {
+    "copyright": "Inventory App ©"
   }
 }
