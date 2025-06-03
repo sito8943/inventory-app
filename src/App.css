@@ -40,10 +40,6 @@ p {
     @apply flex items-center gap-2 text-white bg-alt-background hover:bg-border border-border border-2 px-4 py-1 rounded-sm cursor-pointer;
 }
 
-.button.menu {
-    @apply bg-background border-background hover:bg-border hover:border-border;
-}
-
 .button.close {
     @apply hover:bg-red-500;
 }
@@ -80,9 +76,16 @@ p {
     @apply bg-primary hover:bg-hover-primary text-black;
 }
 
-main {
+#root {
+    display: grid;
     min-height: 100vh;
-    padding-top: 60px;
+    transition: grid-template-rows 500ms ease-in-out;
+    transition-delay: 1s;
+    grid-template-rows:  40px 40px 1fr 40px
+}
+
+main {
+    height: 100%;
     @apply bg-background grid grid-rows-1;
 }
 
