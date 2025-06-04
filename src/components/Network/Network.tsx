@@ -26,13 +26,13 @@ export const Network = () => {
     }, [t, connected, isLoading]);
 
     const bodyBg = useMemo(() => {
-        if (!connected) return "bg-bg-error";
-        if (connected) return "bg-bg-success";
-    }, [connected]);
+        if (!connected || isLoading) return "bg-bg-error";
+        return "bg-bg-success";
+    }, [connected, isLoading]);
 
     const fontStyles = useMemo(() => {
         if (!connected) return "!text-error";
-        if (connected) return "!text-success";
+        return "!text-success";
     }, [connected]);
 
     useEffect(() => {

@@ -1,5 +1,5 @@
 .network {
-    transition: color, height;
+    transition: background-color, color, height;
     transition-duration: 500ms;
     transition-timing-function: ease-in-out;
 }

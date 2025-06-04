@@ -21,7 +21,7 @@ const NetworkContext = createContext({} as NetworkProviderContextType);
 const NetworkProvider = (props: BasicProviderPropTypes) => {
     const {children} = props;
 
-    const [connected, setConnected] = useState(true);
+    const [connected, setConnected] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const sendPing = () => {
