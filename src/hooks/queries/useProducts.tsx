@@ -36,7 +36,7 @@ export const useProductsList = (
 
   return useQuery({
     ...ProductsQueryKeys.list(),
-    queryFn: () => manager.Products.home(filters),
+    queryFn: () => manager.Categories.home(filters),
   });
 };
 
