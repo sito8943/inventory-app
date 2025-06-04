@@ -1,11 +1,23 @@
-.tabs li a {
+.horizontal .tabs li a {
     border-radius: 0 !important;
 }
 
-.tabs li:first-child a {
+.horizontal .tabs li:first-child a {
     border-radius: 12px 0 0 0 !important;
 }
 
-.tabs li:last-child a {
+.horizontal .tabs li:last-child a {
     border-radius: 0 12px 0 0 !important;
+}
+
+.vertical .tabs li a {
+    border-radius: 0 !important;
+}
+
+.vertical .tabs li:first-child a {
+    border-radius: 4px 0 0 4px !important;
+}
+
+.vertical .tabs li:last-child a {
+    border-radius: 0 4px 4px 0 !important;
 }

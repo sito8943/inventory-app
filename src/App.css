@@ -1,5 +1,9 @@
 @import "./styles/variables.css";
 
+* {
+    scroll-behavior: smooth;
+}
+
 textarea {
     resize: none;
 }

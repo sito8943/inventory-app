@@ -23,9 +23,9 @@ export const TabsLayout = (props: TabsLayoutPropsType) => {
     <div
       className={`bg-alt-background mt-5 rounded-b-xl rounded-r-xl ${className}`}
     >
-      <ul className="tabs flex w-full items-center justify-start -mt-6">
+      <ul className="horizontal tabs flex w-full items-center justify-start -mt-6">
         {tabs.map(({ id, label }) => (
-          <li key={id}>
+          <li key={id} className="flex-1">
             <Tab
               onClick={() => setActiveTab(id)}
               id={id}

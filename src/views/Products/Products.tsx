@@ -14,7 +14,6 @@ import {
     ProductCard,
 } from "./components";
 import {Error} from "components";
-import {TabsLayout} from "../../components/TabsLayout";
 
 // hooks
 import {
@@ -32,6 +31,7 @@ import {
 
 // types
 import {ProductDto} from "lib";
+import {VerticalTabsLayout} from "../../components/TabsLayout/VerticalTabsLayout.tsx";
 
 function Products() {
     const {t} = useTranslation();
@@ -84,7 +84,7 @@ function Products() {
                 id,
                 label: name,
                 content: (
-                    <div id={name} key={id} className="p-5">
+                    <div id={name} key={id} className="p-5 pb-10 border-2 border-dark/20 rounded-xl">
                         <PrettyGrid
                             data={productQuery?.data ? productQuery?.data[id] : []}
                             emptyMessage={t("_pages:products.empty")}
@@ -114,7 +114,7 @@ function Products() {
         >
             {!error ? (
                 <>
-                    <TabsLayout
+                    <VerticalTabsLayout
                         defaultTab={tabs[0]?.id ?? 0}
                         tabs={tabs}
                         className="h-full"

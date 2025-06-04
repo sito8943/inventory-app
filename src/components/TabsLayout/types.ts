@@ -17,5 +17,5 @@ export type TabPropsType = {
   id: number | string;
   active: boolean;
   onClick: () => void;
-  siblings: boolean;
+  siblings?: boolean;
 };
