@@ -1,9 +1,10 @@
-import {Dispatch, ReactNode} from "react";
+import {ReactNode} from "react";
 
 // lib
-import {NotificationType} from "lib";
+import {BaseEntityDto, NotificationType} from "lib"
 
 // db
+import {Tables} from "../db/types"
 import Manager from "../db/Manager";
 
 export type BasicProviderPropTypes = {
@@ -16,10 +17,12 @@ export type ManagerProviderContextType = {
 
 export type ConfigProviderContextType = {
     data?: FileDataType;
-    updateData: Dispatch<FileDataType>;
+    updateData: (key: Tables, data: BaseEntityDto[]) => void;
 };
 
-export type FileDataType = {};
+export type FileDataType = {
+    [key in Tables]: BaseEntityDto[];
+};
 
 export type NotificationContextType = {
     notification: NotificationType[];
