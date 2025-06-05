@@ -17,10 +17,26 @@
     "core:window:allow-internal-toggle-maximize",
     "fs:default",
     {
+      "identifier": "fs:write-files",
+      "allow": [
+        {
+          "path": "$APPLOCALDATA/data.json"
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-write-text-file",
+      "allow": [
+        {
+          "path": "$APPLOCALDATA/data.json"
+        }
+      ]
+    },
+    {
       "identifier": "fs:allow-exists",
       "allow": [
         {
-          "path": "$HOME/*"
+          "path": "$APPLOCALDATA/data.json"
         }
       ]
     }
@@ -44,10 +60,26 @@
         "core:window:allow-internal-toggle-maximize",
         "fs:default",
         {
+          "identifier": "fs:write-files",
+          "allow": [
+            {
+              "path": "$APPLOCALDATA/data.json"
+            }
+          ]
+        },
+        {
+          "identifier": "fs:allow-write-text-file",
+          "allow": [
+            {
+              "path": "$APPLOCALDATA/data.json"
+            }
+          ]
+        },
+        {
           "identifier": "fs:allow-exists",
           "allow": [
             {
-              "path": "$HOME/*"
+              "path": "$APPLOCALDATA/data.json"
             }
           ]
         }

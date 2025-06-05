@@ -1,19 +1,24 @@
-import { BaseDirectory, readFile, create } from "@tauri-apps/plugin-fs";
+import {BaseDirectory, readFile, create, writeTextFile} from "@tauri-apps/plugin-fs";
 
 export default class TauriClient {
-  constructor() {}
+    constructor() {
+    }
 
-  async readFile(file: string) {
-    return await readFile(file, {
-      baseDir: BaseDirectory.Home,
-    });
-  }
+    async readFile(file: string) {
+        return await readFile(file, {
+            baseDir: BaseDirectory.AppLocalData,
+        });
+    }
 
-  async createFile(paramFile: string, content: string) {
-    const file = await create(paramFile, {
-      baseDir: BaseDirectory.AppData,
-    });
-    await file.write(new TextEncoder().encode(content));
-    await file.close();
-  }
+    async writeTextFile(file: string, content: string) {
+        await writeTextFile(file, content, {baseDir: BaseDirectory.AppLocalData});
+    }
+
+    async createFile(paramFile: string, content: string) {
+        const file = await create(paramFile, {
+            baseDir: BaseDirectory.AppLocalData,
+        });
+        await file.write(new TextEncoder().encode(content));
+        await file.close();
+    }
 }

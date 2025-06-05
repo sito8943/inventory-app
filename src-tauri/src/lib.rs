@@ -17,7 +17,7 @@ pub async fn run() {
         .setup(|app| {
                 // allowed the given directory
                 let scope = app.fs_scope();
-                scope.allow_directory(app.path().home_dir().unwrap(), false).expect("TODO: panic message");
+                scope.allow_directory(app.path().app_data_dir().unwrap(), false).expect("TODO: panic message");
 
                 Ok(())
         })
