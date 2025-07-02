@@ -22,9 +22,9 @@ import {BaseEntityDto} from "lib";
 // client
 import TauriClient from "../db/TauriClient.ts";
 
-const ConfigContext = createContext({} as ConfigProviderContextType);
+const CacheContext = createContext({} as ConfigProviderContextType);
 
-const ConfigProvider = (props: BasicProviderPropTypes) => {
+const CacheProvider = (props: BasicProviderPropTypes) => {
     const {children} = props;
 
     const tauriClient = useMemo(() => new TauriClient(), []);
@@ -35,43 +35,59 @@ const ConfigProvider = (props: BasicProviderPropTypes) => {
         [Tables.MovementLogs]: [],
     });
 
-    const updateData = useCallback((key: Tables, value: BaseEntityDto[]) => {
-        setData((prevData) => ({
-            ...prevData,
-            [key]: value,
-        } as FileDataType))
-    }, [])
-
-    const updateFile = useCallback(async () => {
+    const updateFile = useCallback(async (data: FileDataType) => {
         try {
             await tauriClient.writeTextFile(config.configFile, JSON.stringify(data));
         } catch (e) {
             console.error(e);
             await tauriClient.createFile(config.configFile, `{}`);
         }
-    }, [tauriClient, data]);
+    }, [tauriClient]);
+
+    const readFile = useCallback(async () => {
+        try {
+            const file = await tauriClient.readFile(config.configFile);
+            return JSON.parse(file) as FileDataType;
+        } catch (e) {
+            console.error(e);
+        }
+    }, [tauriClient]);
+
+    const updateCache = useCallback((key: Tables, value: BaseEntityDto[]) => {
+        const newData = {...data}
+        setData((prevData) => ({
+            ...prevData,
+            [key]: value,
+        } as FileDataType))
+        updateFile(newData).then(() => console.info("config file updated"));
+    }, [data, updateFile])
+
+    const loadCache = useCallback(async (key: Tables) => {
+        const content = await readFile()
+        return content ? content[key] : null
+    }, [readFile])
 
 
     useEffect(() => {
-        updateFile();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     return (
-        <ConfigContext.Provider
-            value={{data, updateData}}
+        <CacheContext.Provider
+            value={{updateCache, loadCache}}
         >
             {children}
-        </ConfigContext.Provider>
+        </CacheContext.Provider>
     );
 };
 
-const useConfig = () => {
-    const context = useContext(ConfigContext);
+const useCache = () => {
+    const context = useContext(CacheContext);
 
     if (context === undefined)
         throw new Error("configContext must be used within a Provider");
     return context;
 };
 
-export {ConfigProvider, useConfig};
+export {CacheProvider, useCache};

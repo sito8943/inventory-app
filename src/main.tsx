@@ -14,7 +14,7 @@ import "@fontsource/roboto";
 import {
     ManagerProvider,
     NotificationProvider,
-    ConfigProvider,
+    CacheProvider,
     NetworkProvider
 } from "providers";
 
@@ -24,11 +24,11 @@ import "./i18";
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <ManagerProvider>
         <NetworkProvider>
-            <ConfigProvider>
+            <CacheProvider>
                 <NotificationProvider>
                     <App/>
                 </NotificationProvider>
-            </ConfigProvider>
+            </CacheProvider>
         </NetworkProvider>
     </ManagerProvider>,
 );

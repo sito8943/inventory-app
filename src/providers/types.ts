@@ -17,8 +17,8 @@ export type ManagerProviderContextType = {
 
 export type ConfigProviderContextType = {
     data?: FileDataType;
-    updateData: (key: Tables, data: BaseEntityDto[]) => void;
-    loadData: (key: Tables) => Promise<BaseEntityDto[]>
+    updateCache: (key: Tables, data: BaseEntityDto[]) => void;
+    loadCache: (key: Tables) => Promise<BaseEntityDto[] | null>
 };
 
 export type FileDataType = {
