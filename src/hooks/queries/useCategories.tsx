@@ -36,8 +36,8 @@ export function useCategoriesList(
             } catch (error) {
                 console.warn("API failed, loading categories from cache", error);
                 const cached = await loadCache(Tables.Categories);
-                if (!cached) throw new Error("No cached categories available");
-                return cached;
+                if (!cached || !Array.isArray(cached)) throw new Error("No cached categories available");
+                return {items: cached, total: cached?.length};
             }
         },
     });
@@ -45,8 +45,21 @@ export function useCategoriesList(
 
 export function useCategoriesCommon(): UseQueryResult<CommonCategoryDto[]> {
     const manager = useManager();
+    const {loadCache, updateCache} = useCache();
+
     return useQuery({
         ...CategoriesQueryKeys.common(),
-        queryFn: () => manager.Categories.commonGet({deleted: false}),
+        queryFn: async () => {
+            try {
+                const result = await manager.Categories.commonGet({deleted: false});
+                updateCache(Tables.Categories, result.items);
+                return result;
+            } catch (error) {
+                console.warn("API failed, loading categories from cache", error);
+                const cached = await loadCache(Tables.Categories) as CommonCategoryDto[];
+                if (!cached || !Array.isArray(cached)) throw new Error("No cached categories available");
+                return cached.map(({id, name}) => ({id, name}));
+            }
+        },
     });
 }

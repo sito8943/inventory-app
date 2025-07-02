@@ -47,14 +47,17 @@ const CacheProvider = (props: BasicProviderPropTypes) => {
     const readFile = useCallback(async () => {
         try {
             const file = await tauriClient.readFile(config.configFile);
-            return JSON.parse(file) as FileDataType;
+            return JSON.parse(file);
         } catch (e) {
             console.error(e);
         }
     }, [tauriClient]);
 
-    const updateCache = useCallback((key: Tables, value: BaseEntityDto[]) => {
-        const newData = {...data}
+    const updateCache = useCallback(<T = BaseEntityDto>(key: Tables, value: T[]) => {
+        const newData = {
+            ...data,
+            [key]: value,
+        };
         setData((prevData) => ({
             ...prevData,
             [key]: value,
@@ -62,7 +65,7 @@ const CacheProvider = (props: BasicProviderPropTypes) => {
         updateFile(newData).then(() => console.info("config file updated"));
     }, [data, updateFile])
 
-    const loadCache = useCallback(async (key: Tables) => {
+    const loadCache = useCallback(async <T = BaseEntityDto>(key: Tables): Promise<T[] | null> => {
         const content = await readFile()
         return content ? content[key] : null
     }, [readFile])
