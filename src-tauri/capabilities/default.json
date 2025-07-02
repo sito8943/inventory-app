@@ -20,7 +20,15 @@
       "identifier": "fs:write-files",
       "allow": [
         {
-          "path": "$APPLOCALDATA/data.json"
+          "path": "$APPLOCALDATA/inventory.json"
+        }
+      ]
+    },
+    {
+      "identifier": "fs:read-files",
+      "allow": [
+        {
+          "path": "$APPLOCALDATA/inventory.json"
         }
       ]
     },
@@ -28,7 +36,7 @@
       "identifier": "fs:allow-write-text-file",
       "allow": [
         {
-          "path": "$APPLOCALDATA/data.json"
+          "path": "$APPLOCALDATA/inventory.json"
         }
       ]
     },
@@ -36,7 +44,7 @@
       "identifier": "fs:allow-exists",
       "allow": [
         {
-          "path": "$APPLOCALDATA/data.json"
+          "path": "$APPLOCALDATA/inventory.json"
         }
       ]
     }
@@ -63,7 +71,15 @@
           "identifier": "fs:write-files",
           "allow": [
             {
-              "path": "$APPLOCALDATA/data.json"
+              "path": "$APPLOCALDATA/inventory.json"
+            }
+          ]
+        },
+        {
+          "identifier": "fs:read-files",
+          "allow": [
+            {
+              "path": "$APPLOCALDATA/inventory.json"
             }
           ]
         },
@@ -71,7 +87,7 @@
           "identifier": "fs:allow-write-text-file",
           "allow": [
             {
-              "path": "$APPLOCALDATA/data.json"
+              "path": "$APPLOCALDATA/inventory.json"
             }
           ]
         },
@@ -79,7 +95,7 @@
           "identifier": "fs:allow-exists",
           "allow": [
             {
-              "path": "$APPLOCALDATA/data.json"
+              "path": "$APPLOCALDATA/inventory.json"
             }
           ]
         }
