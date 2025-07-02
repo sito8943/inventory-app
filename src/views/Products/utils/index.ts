@@ -16,7 +16,7 @@ export const formToDto = ({
   price: Number(price),
   cost: Number(cost),
   stock: Number(stock),
-  categories,
+  categoryIds: categories.map((c) => c.id),
 });
 
 export const dtoToForm = (dto: ProductDto): ProductFormType => ({
