@@ -30,7 +30,7 @@ export const ProductsQueryKeys: EntityQueryKey = {
 
 export const useProductsList = (
     props: UseFetchPropsType<FilterProductDto>,
-): UseQueryResult<CategoryProductDto> => {
+): UseQueryResult<CategoryProductDto[]> => {
     const {filters = {deleted: false}} = props;
 
     const manager = useManager();
