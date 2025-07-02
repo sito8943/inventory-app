@@ -22,7 +22,7 @@ export default class BaseClient<
 
   /**
    *
-   * @param {string} table
+   * @param table
    */
   constructor(table: Tables) {
     this.table = table;
@@ -46,7 +46,7 @@ export default class BaseClient<
     return await this.api.doQuery<TDto, TAddDto[]>(
       `${this.table}/batch`,
       "POST",
-      {},
+      "",
       data,
     );
   }
