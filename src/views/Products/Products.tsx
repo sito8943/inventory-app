@@ -78,29 +78,36 @@ function Products() {
         [doMovement, movementLogs, deleteProduct],
     );
 
+
     const tabs = useMemo(
-        () =>
-            categoryQuery.data?.map(({id, name}) => ({
-                id,
-                label: name,
-                content: (
-                    <div id={name} key={id} className="p-5 pb-10 border-2 border-dark/20 rounded-xl">
-                        <PrettyGrid
-                            data={productQuery?.data ? productQuery?.data[id] : []}
-                            emptyMessage={t("_pages:products.empty")}
-                            renderComponent={(product) => (
-                                <ProductCard
-                                    actions={getActions(product)}
-                                    onClick={(id: number) => editProduct.onClick(id)}
-                                    {...product}
-                                />
-                            )}
-                        />
-                    </div>
-                ),
-            })) ?? [],
+        () => {
+
+            return categoryQuery.data?.map(({id, name}) => {
+                const found = productQuery?.data?.find((item) => item.id === id);
+                return ({
+                    id,
+                    label: name,
+                    content: (
+                        <div id={name} key={id} className="p-5 pb-10 border-2 border-dark/20 rounded-xl">
+                            <PrettyGrid
+                                data={(found?.products ?? []) as ProductDto[]}
+                                emptyMessage={t("_pages:products.empty")}
+                                renderComponent={(product) => (
+                                    <ProductCard
+                                        actions={getActions(product)}
+                                        onClick={(id: number) => editProduct.onClick(id)}
+                                        {...product}
+                                    />
+                                )}
+                            />
+                        </div>
+                    ),
+                })
+            }) ?? []
+        },
         [categoryQuery.data, productQuery?.data, t, getActions, editProduct],
     );
+
 
     return (
         <Page

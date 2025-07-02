@@ -1,5 +1,7 @@
-import { ProductDto } from "lib";
+import {ProductDto} from "lib";
 
 export type CategoryProductDto = {
-  [key: number]: ProductDto[];
+    id: number;
+    name: string;
+    products: ProductDto[];
 };
