@@ -1,8 +1,8 @@
-import {useCallback, useEffect} from "react";
+import {useCallback} from "react";
 import {useTranslation} from "react-i18next";
 
 // providers
-import {useManager, useConfig} from "providers";
+import {useManager} from "providers";
 
 // components
 import {ConfirmationDialog, Page, PrettyGrid} from "../../components";
@@ -24,14 +24,11 @@ import {useAddCategory, useEditCategory} from "./hooks/dialogs";
 
 // types
 import {CategoryDto} from "lib";
-import {Tables} from "../../db/types";
 
 function Categories() {
     const {t} = useTranslation();
 
     const manager = useManager()
-
-    const {updateData} = useConfig()
 
     const {data, isLoading, error} = useCategoriesList({});
 
@@ -60,10 +57,6 @@ function Categories() {
         ],
         [deleteCategory, restoreCategory],
     )
-
-    useEffect(() => {
-        updateData(Tables.Categories, data?.items ?? []);
-    }, [data?.items]);
 
     return (
         <Page
