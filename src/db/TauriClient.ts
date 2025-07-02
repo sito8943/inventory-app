@@ -1,11 +1,11 @@
-import {BaseDirectory, readFile, create, writeTextFile} from "@tauri-apps/plugin-fs";
+import {BaseDirectory, readTextFile, create, writeTextFile} from "@tauri-apps/plugin-fs";
 
 export default class TauriClient {
     constructor() {
     }
 
     async readFile(file: string) {
-        return await readFile(file, {
+        return await readTextFile(file, {
             baseDir: BaseDirectory.AppLocalData,
         });
     }
