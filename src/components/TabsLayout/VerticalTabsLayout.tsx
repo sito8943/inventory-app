@@ -18,9 +18,9 @@ export const VerticalTabsLayout = (props: TabsLayoutPropsType) => {
         <div
             className={`vertical ${className}`}
         >
-            <ul className="tabs flex w-full items-center justify-start">
+            <ul className={`tabs flex w-full items-center justify-start ${tabs.length > 1 ? "multiple" :""}`}>
                 {tabs.map(({id, label}) => (
-                    <li key={id} className="flex-1">
+                    <li key={id} className={tabs.length > 1 ? "flex-1" : ""}>
                         <Tab
                             id={id}
                             onClick={() => setActiveTab(id)}
