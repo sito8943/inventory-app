@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { useContext, createContext, useReducer } from "react";
 
 // lib
@@ -26,7 +27,7 @@ export function NotificationProvider(props: BasicProviderPropTypes) {
       return state;
     },
     [] as NotificationType[],
-    () => [] as NotificationType[],
+    () => [] as NotificationType[]
   );
 
   const showErrorNotification = (options: NotificationType) =>

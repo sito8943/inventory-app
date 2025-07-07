@@ -31,8 +31,8 @@ export const useDeleteDialog = (props: UseDeleteDialogPropsType) => {
               ({
                 message: t(`_pages:${key}.errors.${message}`),
                 type: NotificationEnumType.error,
-              }) as NotificationType,
-          ),
+              }) as NotificationType
+          )
         );
     },
     onSuccess: async (result) => {
@@ -42,7 +42,7 @@ export const useDeleteDialog = (props: UseDeleteDialogPropsType) => {
     ...rest,
   });
 
-  const action = useDeleteAction({ onClick });
+  const { action } = useDeleteAction({ onClick });
 
   return {
     onClick,

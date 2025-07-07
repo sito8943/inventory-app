@@ -16,7 +16,7 @@ import { ProductCardPropsType } from "../types";
 function ProductCard(props: ProductCardPropsType) {
   const { t } = useTranslation();
 
-  const { id, onClick, actions, name, price, cost, stock } = props;
+  const { id, onClick, actions, name, price, cost, stock, deleted } = props;
 
   return (
     <ItemCard
@@ -27,6 +27,7 @@ function ProductCard(props: ProductCardPropsType) {
       onClick={() => onClick(id)}
       className="gap-2"
       actions={actions}
+      deleted={deleted}
     >
       <Chip icon={faDollar} variant="none" className="!p-0">
         <p className="font-medium">{t("_pages:products.inputs.price.name")}:</p>

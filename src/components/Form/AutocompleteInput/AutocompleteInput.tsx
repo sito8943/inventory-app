@@ -7,6 +7,7 @@ import {
   useMemo,
   useRef,
   useState,
+  MouseEvent,
 } from "react";
 
 // icons
@@ -71,21 +72,25 @@ const AutocompleteInput = forwardRef(function (
   const autocompleteRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClick = (event: any) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         autocompleteRef.current &&
         !autocompleteRef.current.contains(event.target as Node)
-      )
+      ) {
         setShowSuggestions(false);
+      }
     };
-    const escapePressed = (e: any) => {
+
+    const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") setShowSuggestions(false);
     };
-    document.addEventListener("click", handleClick);
-    document.addEventListener("keydown", escapePressed);
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+
     return () => {
-      document.removeEventListener("click", handleClick);
-      document.removeEventListener("keydown", escapePressed);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
     };
   }, []);
 
@@ -98,14 +103,14 @@ const AutocompleteInput = forwardRef(function (
       setLocalValue("");
       if (!suggestion) onChange([]);
       else {
-        if (multiple)
-          value
-            ? onChange([
-                ...(value as SelectInputOptionType[]),
-                suggestion,
-              ] as SelectInputOptionType[])
-            : onChange([suggestion]);
-        else onChange(suggestion);
+        if (multiple) {
+          if (value)
+            onChange([
+              ...(value as SelectInputOptionType[]),
+              suggestion,
+            ] as SelectInputOptionType[]);
+          else onChange([suggestion]);
+        } else onChange(suggestion);
       }
       setShowSuggestions(false);
     },

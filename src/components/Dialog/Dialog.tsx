@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, MouseEvent } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 
@@ -26,10 +26,10 @@ export const Dialog = (props: DialogPropsType) => {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   const onKeyPress = useCallback(
-    (e: any) => {
+    (e: KeyboardEvent) => {
       if (e.key === "Escape" && open) handleClose();
     },
-    [open, handleClose],
+    [open, handleClose]
   );
 
   useEffect(() => {
@@ -53,14 +53,14 @@ export const Dialog = (props: DialogPropsType) => {
   const styles = useMemo(() => css({ width: `${windowSize}px` }), [windowSize]);
 
   const bigHandleClose = useCallback(
-    (e: any) => {
+    (e: MouseEvent<HTMLDivElement>) => {
       if (
-        e?.target?.getAttribute("name") ===
+        e?.currentTarget?.getAttribute("name") ===
         t("_accessibility:buttons.closeDialog")
       )
         handleClose();
     },
-    [t, handleClose],
+    [t, handleClose]
   );
 
   return createPortal(
@@ -93,6 +93,6 @@ export const Dialog = (props: DialogPropsType) => {
         {children}
       </div>
     </div>,
-    document.body,
+    document.body
   );
 };
