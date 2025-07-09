@@ -6,14 +6,11 @@ export interface MovementFormType
   extends Omit<MovementDto, "createdAt" | "deleted" | "updatedAt">,
     FieldValues {}
 
-export interface MovementFormPropsType
-  extends FormDialogPropsType<MovementFormType, ValidationError> {}
+export type MovementFormPropsType = FormDialogPropsType<MovementFormType, ValidationError>
 
-export interface AddMovementDialogPropsType
-  extends FormDialogPropsType<MovementFormType, ValidationError> {}
+export type AddMovementDialogPropsType = FormDialogPropsType<MovementFormType, ValidationError>
 
-export interface EditMovementDialogPropsType
-  extends FormDialogPropsType<MovementFormType, ValidationError> {}
+export type EditMovementDialogPropsType = FormDialogPropsType<MovementFormType, ValidationError>
 
 export interface MovementCardPropsType extends MovementDto {
   actions: ActionPropsType[];
