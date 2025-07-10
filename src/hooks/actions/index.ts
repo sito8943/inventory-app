@@ -1,6 +1,3 @@
-import { useDeleteAction } from "./useDeleteAction.tsx";
-import { useRestoreAction } from "./useRestoreAction.tsx";
-
-export { useDeleteAction };
-export { useRestoreAction };
+export * from "./useDeleteAction.tsx";
+export * from "./useRestoreAction.tsx";
 export type * from "./types.ts";

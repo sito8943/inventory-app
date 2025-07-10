@@ -1,5 +1,3 @@
-import { AddCard } from "./AddCard.tsx";
-import { ItemCard } from "./ItemCard.tsx";
-
-export { AddCard, ItemCard };
+export * from "./AddCard.tsx";
+export * from "./ItemCard.tsx";
 export type * from "./types.ts";

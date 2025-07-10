@@ -5,13 +5,15 @@ import {useCache, useManager} from "providers";
 
 // types
 import { UseFetchPropsType } from "./types.ts";
+import {Tables} from "../../db/types";
+
+// lib
 import {
   MovementDto,
   CommonMovementDto,
   FilterMovementDto,
   QueryResult,
 } from "lib";
-import {Tables} from "../../db/types";
 
 export const MovementsQueryKeys = {
   all: () => ({
@@ -69,7 +71,7 @@ export function useMovementsCommon(): UseQueryResult<CommonMovementDto[]> {
   });
 }
 
-export const defaultMovements: any = {
+export const defaultMovements: Record<string, Record<string, string | number>[]> = {
   en: [
     { name: "Purchases", type: 0, description: "" },
     { name: "Sales", type: 1, description: "" },

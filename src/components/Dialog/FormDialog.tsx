@@ -1,15 +1,17 @@
 import { useTranslation } from "react-i18next";
 import { FieldValues } from "react-hook-form";
 
+// @sito/dashboard
+import { Loading } from "@sito/dashboard";
+
 // component
 import { Dialog } from "./Dialog";
-import Loading from "../Loading/Loading";
 
 // types
 import { FormDialogPropsType } from "./types.ts";
 
 export const FormDialog = <TInput extends FieldValues, TError extends Error>(
-  props: FormDialogPropsType<TInput, TError>,
+  props: FormDialogPropsType<TInput, TError>
 ) => {
   const { t } = useTranslation();
   const {

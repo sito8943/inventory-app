@@ -1,26 +1,15 @@
-import Table from "./Table/Table";
-import Notification from "./Notification/Notification";
-import Navbar from "./Navbar/Navbar";
-import Drawer from "./Drawer/Drawer";
-import Loading from "./Loading/Loading";
-import Page from "./Page/Page";
-import PrettyGrid from "./PrettyGrid/PrettyGrid";
-import Error from "./Error/Error";
-
 export * from "./Chip/";
 export * from "./Card/";
 export * from "./Actions/";
 export * from "./Form";
 export * from "./Dialog";
 export * from "./Network";
-
-export {
-  Page,
-  PrettyGrid,
-  Loading,
-  Table,
-  Notification,
-  Navbar,
-  Drawer,
-  Error,
-};
+export * from "./Actions";
+export * from "./Drawer";
+export * from "./Error";
+export * from "./Navbar";
+export * from "./Notification";
+export * from "./Page";
+export * from "./PrettyGrid";
+export * from "./TabsLayout";
+export * from "./Drawer";

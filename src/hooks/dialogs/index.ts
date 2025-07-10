@@ -1,7 +1,5 @@
-import { useDeleteDialog } from "./useDeleteDialog.tsx";
-import { useRestoreDialog } from "./useRestoreDialog.tsx";
-import { useDialog } from "./useDialog.tsx";
-import { useFormDialog } from "./useFormDialog.tsx";
-
-export { useDialog, useDeleteDialog, useRestoreDialog, useFormDialog };
+export * from "./useDeleteDialog.tsx";
+export * from "./useDialog.tsx";
+export * from "./useFormDialog.tsx";
+export * from "./useRestoreDialog.tsx";
 export type * from "./types.ts";

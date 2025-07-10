@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import {
   getCurrentWindow,
   PhysicalPosition,
@@ -29,20 +29,23 @@ type WindowProps = {
   size: PhysicalSize;
 };
 
-function Navbar(props: NavbarPropsType) {
+export function Navbar(props: NavbarPropsType) {
   const { t } = useTranslation();
 
   const { openDrawer } = props;
 
   const [isMaximized, setIsMaximized] = useState(false);
   const [windowProps, setWindowProps] = useState<WindowProps>(
-    {} as WindowProps,
+    {} as WindowProps
   );
 
-  const toggleRestoreMaximize = async (e: any) => {
+  const toggleRestoreMaximize = async (
+    e: MouseEvent<HTMLElement, globalThis.MouseEvent>
+  ) => {
     if (
       e.buttons === 1 &&
-      (e.target.nodeName === "HEADER" || e.target.nodeName === "DIV")
+      ((e.target as Node).nodeName === "HEADER" ||
+        (e.target as Node).nodeName === "DIV")
     ) {
       // Primary (left) button
       if (e.detail === 2) {
@@ -124,5 +127,3 @@ function Navbar(props: NavbarPropsType) {
     </header>
   );
 }
-
-export default Navbar;

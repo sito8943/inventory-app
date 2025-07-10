@@ -5,6 +5,6 @@ export interface EntityInvalidateQueryFilters
   queryKey: QueryKey;
 }
 
-export interface EntityQueryKey {
-  [key: string]: (data?: any) => EntityInvalidateQueryFilters;
+export interface EntityQueryKey<T> {
+  [key: string]: (param?: T) => EntityInvalidateQueryFilters;
 }

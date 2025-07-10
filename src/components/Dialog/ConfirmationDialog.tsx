@@ -1,8 +1,10 @@
 import { useTranslation } from "react-i18next";
 
+// @sito/dashboard
+import { Loading } from "@sito/dashboard";
+
 // component
 import { Dialog } from "./Dialog";
-import Loading from "../Loading/Loading";
 
 // types
 import { ConfirmationDialogPropsType } from "./types.ts";

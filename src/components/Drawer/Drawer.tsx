@@ -56,11 +56,8 @@ function Drawer(props: DrawerPropsTypes) {
               } animated`}
             >
               <Link
-                //@ts-ignore
-                disabled={!open}
                 aria-disabled={!open}
                 to={link.path ?? `/${link.name}`}
-                name={`_pages:${link.name}.title`}
                 aria-label={t(`_accessibility:ariaLabels.${link.name}`)}
                 className="text-lg text-white flex w-full py-2 px-5"
               >

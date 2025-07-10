@@ -27,7 +27,7 @@ export const useFormDialog = <
     TMutationDto,
     TMutationOutputDto,
     TFormType
-  >,
+  >
 ): FormDialogPropsType<TFormType, ValidationError> => {
   const { t } = useTranslation();
   const { showStackNotifications, showSuccessNotification } = useNotification();
@@ -62,6 +62,7 @@ export const useFormDialog = <
 
   useEffect(() => {
     if (data && dtoToForm) reset({ ...dtoToForm(data) });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const parseFormError = useCallback(
@@ -84,7 +85,7 @@ export const useFormDialog = <
       }
       return messages;
     },
-    [t, queryKey],
+    [t, queryKey]
   );
 
   const releaseFormError = useCallback(() => {
@@ -99,7 +100,7 @@ export const useFormDialog = <
       setId(id ?? 0);
       handleOpen();
     },
-    [handleOpen],
+    [handleOpen]
   );
 
   const close = useCallback(() => {
@@ -124,8 +125,8 @@ export const useFormDialog = <
               ({
                 message,
                 type: NotificationEnumType.error,
-              }) as NotificationType,
-          ),
+              }) as NotificationType
+          )
         );
       }
       if (onError) onError(error);

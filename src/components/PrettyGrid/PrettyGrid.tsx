@@ -1,4 +1,5 @@
-import { PrettyGridPropsType } from "./types.ts";
+// types
+import { PrettyGridPropsType } from "./types";
 
 const PrettyGrid = (props: PrettyGridPropsType) => {
   const { emptyMessage = "", renderComponent, data = [] } = props;

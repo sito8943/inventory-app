@@ -7,7 +7,7 @@ function useTimeAge() {
   const timeAge = useCallback(
     (date: Date) => {
       const now = new Date();
-      // @ts-ignore
+
       const diffInMilliseconds = now - date;
       const diffInMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
       const diffInHours = Math.floor(diffInMinutes / 60);
@@ -44,7 +44,7 @@ function useTimeAge() {
         year: "numeric",
       });
     },
-    [t, i18n.language],
+    [t, i18n.language]
   );
 
   return { timeAge };

@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 
 // types
-import { TabsLayoutPropsType } from "./types.ts";
+import { TabsLayoutPropsType } from "./types";
 
 // components
-import { Tab } from "./Tab.tsx";
+import { Tab } from "./Tab";
 
 // styles
 import "./styles.css";

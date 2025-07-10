@@ -1,4 +1,2 @@
-import { useConfirmationForm } from "./useConfirmationForm.tsx";
-
-export { useConfirmationForm };
+export * from "./useConfirmationForm.tsx";
 export type * from "./types.ts";

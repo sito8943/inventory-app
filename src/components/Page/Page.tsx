@@ -1,4 +1,8 @@
-import { AddCard, Loading } from "..";
+// @sito/dashboard
+import { Loading } from "@sito/dashboard";
+
+// components
+import { AddCard } from "components";
 
 // types
 import { PagePropsType } from "./types.ts";
@@ -10,10 +14,7 @@ const Page = (props: PagePropsType) => {
       <div className={`${animated ? "apparition" : ""} flex flex-col gap-5`}>
         <h2 className="text-3xl font-bold">{title}</h2>
         {isLoading ? (
-          <Loading
-            size="text-3xl"
-            containerClassName="flex justify-center items-center h-50"
-          />
+          <Loading className="flex justify-center items-center h-50" />
         ) : (
           children
         )}

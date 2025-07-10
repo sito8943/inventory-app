@@ -1,8 +1,7 @@
 import { useState } from "react";
 
 // components
-import Drawer from "../../components/Drawer/Drawer";
-import Navbar from "../../components/Navbar/Navbar";
+import { Navbar, Drawer } from "components";
 
 function Header() {
   const [showDrawer, setShowDrawer] = useState(false);

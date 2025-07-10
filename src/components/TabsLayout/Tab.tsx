@@ -1,4 +1,5 @@
-import { TabPropsType } from "./types.ts";
+// types
+import { TabPropsType } from "./types";
 
 export const Tab = (props: TabPropsType) => {
   const { id, active, onClick, children } = props;

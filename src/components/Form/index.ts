@@ -1,15 +1,3 @@
-import ColorInput from "./ColorInput";
-import ParagraphInput from "./ParagraphInput";
-import SelectInput from "./SelectInput";
-import TextInput from "./TextInput";
-import AutocompleteInput from "./AutocompleteInput/AutocompleteInput";
+export * from "./ParagraphInput.tsx";
 
 export type * from "./types.ts";
-
-export {
-  ColorInput,
-  ParagraphInput,
-  SelectInput,
-  TextInput,
-  AutocompleteInput,
-};
