@@ -45,13 +45,7 @@ export const Network = () => {
 
   return (
     <div className={`flex items-center justify-start pl-4 network ${bodyBg}`}>
-      {!isLoading ? (
-        <Loading
-          color="stroke-blue-800"
-          className="!w-40"
-          loaderClass="!w-5 h-5"
-        />
-      ) : null}
+      {isLoading ? <Loading color="text-white" /> : null}
       {!isLoading && !connected ? (
         <button
           className="text-white"
