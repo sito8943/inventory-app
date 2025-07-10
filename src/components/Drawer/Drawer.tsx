@@ -27,7 +27,7 @@ const sitemap = [
   },
 ];
 
-function Drawer(props: DrawerPropsTypes) {
+export function Drawer(props: DrawerPropsTypes) {
   const { t } = useTranslation();
 
   const location = useLocation();
@@ -70,5 +70,3 @@ function Drawer(props: DrawerPropsTypes) {
     </div>
   );
 }
-
-export default Drawer;

@@ -1,12 +1,12 @@
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-// @sito/dashboard
-import { Loading } from "@sito/dashboard";
-
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
+
+// components
+import { Loading } from "components";
 
 // providers
 import { useNetwork } from "providers";
@@ -45,7 +45,13 @@ export const Network = () => {
 
   return (
     <div className={`flex items-center justify-start pl-4 network ${bodyBg}`}>
-      {isLoading ? <Loading color="text-white" /> : null}
+      {!isLoading ? (
+        <Loading
+          color="stroke-blue-800"
+          className="!w-40"
+          loaderClass="!w-5 h-5"
+        />
+      ) : null}
       {!isLoading && !connected ? (
         <button
           className="text-white"

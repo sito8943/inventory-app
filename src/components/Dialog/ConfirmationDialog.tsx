@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next";
 
 // @sito/dashboard
-import { Loading } from "@sito/dashboard";
 
-// component
+// components
 import { Dialog } from "./Dialog";
+import { Loading } from "components";
 
 // types
-import { ConfirmationDialogPropsType } from "./types.ts";
+import { ConfirmationDialogPropsType } from "./types";
 
 export const ConfirmationDialog = (props: ConfirmationDialogPropsType) => {
   const { t } = useTranslation();

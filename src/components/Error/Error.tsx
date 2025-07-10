@@ -7,7 +7,7 @@ import { faSadTear } from "@fortawesome/free-regular-svg-icons";
 // types
 import { ErrorPropsType } from "./types.ts";
 
-export default function Error(props: ErrorPropsType) {
+export function Error(props: ErrorPropsType) {
   const { message } = props;
   const { t } = useTranslation();
 

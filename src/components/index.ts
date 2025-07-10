@@ -13,3 +13,4 @@ export * from "./Page";
 export * from "./PrettyGrid";
 export * from "./TabsLayout";
 export * from "./Drawer";
+export * from "./Loading";

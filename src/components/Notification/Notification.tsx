@@ -19,14 +19,14 @@ import { NotificationEnumType } from "lib";
 // styles
 import "./styles.css";
 
-function Notification() {
+export function Notification() {
   const { t } = useTranslation();
 
   const { notification, removeNotification } = useNotification();
 
   const onClose = useCallback(
     (index?: number) => removeNotification(index),
-    [removeNotification],
+    [removeNotification]
   );
 
   const renderIcon = useCallback((type: NotificationEnumType) => {
@@ -106,8 +106,6 @@ function Notification() {
           ))
         : null}
     </div>,
-    document.body,
+    document.body
   );
 }
-
-export default Notification;

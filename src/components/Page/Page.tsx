@@ -1,8 +1,5 @@
-// @sito/dashboard
-import { Loading } from "@sito/dashboard";
-
 // components
-import { AddCard } from "components";
+import { AddCard, Loading } from "components";
 
 // types
 import { PagePropsType } from "./types.ts";
