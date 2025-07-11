@@ -22,7 +22,7 @@ export const Page = (props: PagePropsType) => {
         </div>
         <div className="p-5">
           {isLoading ? (
-            <Loading className="flex justify-center items-center h-50" />
+            <Loading containerClassName="flex justify-center items-center h-50" />
           ) : (
             children
           )}
