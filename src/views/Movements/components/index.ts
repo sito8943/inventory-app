@@ -1,5 +1,3 @@
-import MovementCard from "./MovementCard";
-
+export * from "./MovementCard";
 export * from "./MovementDialog";
-
-export { MovementCard };
+export * from "./utils";

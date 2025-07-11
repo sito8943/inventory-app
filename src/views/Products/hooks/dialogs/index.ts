@@ -1,6 +1,4 @@
-import { useAddProduct } from "./useAddProduct";
-import { useEditProduct } from "./useEditProduct";
-import { useDoMovement } from "./useDoMovement";
-import { useMovementLogs } from "./useMovementLogs";
-
-export { useAddProduct, useEditProduct, useDoMovement, useMovementLogs };
+export * from "./useAddProduct";
+export * from "./useDoMovement";
+export * from "./useEditProduct";
+export * from "./useMovementLogs";

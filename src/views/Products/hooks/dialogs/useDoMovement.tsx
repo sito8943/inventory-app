@@ -8,11 +8,13 @@ import { useManager } from "providers";
 import { useFormDialog, ProductsQueryKeys } from "hooks";
 
 // actions
-import { useDoMovementAction } from "../actions/useDoMovementAction.tsx";
+import { useDoMovementAction } from "../actions";
 
 // types
-import { DoMovementDto, MovementLogDto } from "lib";
 import { DoMovementDialogPropsType, DoMovementFormType } from "../../types";
+
+// lib
+import { DoMovementDto, MovementLogDto } from "lib";
 
 export function useDoMovement(): DoMovementDialogPropsType {
   const { t } = useTranslation();
@@ -39,7 +41,7 @@ export function useDoMovement(): DoMovementDialogPropsType {
     ...ProductsQueryKeys.all(),
   });
 
-  const action = useDoMovementAction({
+  const { action } = useDoMovementAction({
     onClick: (id) => {
       setProductId(id as number);
       dialogProps.onClick(id);

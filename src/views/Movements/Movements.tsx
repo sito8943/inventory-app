@@ -5,8 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useManager } from "providers";
 
 // components
-import { Error } from "components";
-import { ConfirmationDialog, Page, PrettyGrid } from "../../components";
+import { ConfirmationDialog, Page, PrettyGrid, Error } from "components";
 import {
   AddMovementDialog,
   EditMovementDialog,
@@ -14,7 +13,7 @@ import {
 } from "./components";
 
 // hooks
-import { useAddMovement, useEditMovement } from "./hooks/dialogs/";
+import { useAddMovement, useEditMovement } from "./hooks";
 import {
   useMovementsList,
   useDeleteDialog,
@@ -25,7 +24,7 @@ import {
 // types
 import { CategoryDto } from "lib";
 
-function Movements() {
+export function Movements() {
   const { t } = useTranslation();
 
   const manager = useManager();
@@ -55,7 +54,7 @@ function Movements() {
       deleteMovement.action(record),
       restoreMovement.action(record),
     ],
-    [deleteMovement, restoreMovement],
+    [deleteMovement, restoreMovement]
   );
 
   return (
@@ -93,5 +92,3 @@ function Movements() {
     </Page>
   );
 }
-
-export default Movements;

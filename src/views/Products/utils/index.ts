@@ -1,5 +1,8 @@
-import { ProductDto, UpdateProductDto } from "lib";
+// types
 import { ProductFormType } from "../types";
+
+// lib
+import { ProductDto, UpdateProductDto } from "lib";
 
 export const formToDto = ({
   id,

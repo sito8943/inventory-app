@@ -7,8 +7,10 @@ import { useManager } from "providers";
 import { useFormDialog, ProductsQueryKeys } from "hooks";
 
 // types
-import { ProductDto, UpdateProductDto } from "lib";
 import { ProductFormType } from "../../types";
+
+// lib
+import { ProductDto, UpdateProductDto } from "lib";
 
 // utils
 import { dtoToForm, emptyProduct, formToDto } from "../../utils";

@@ -14,7 +14,7 @@ import { useMovementsCommon } from "hooks";
 // types
 import { DoMovementDialogPropsType, DoMovementFormPropsType } from "../types";
 
-function DoMovementForm(props: DoMovementFormPropsType) {
+export function DoMovementForm(props: DoMovementFormPropsType) {
   const { control, isLoading, product, setValue } = props;
   const { t } = useTranslation();
 

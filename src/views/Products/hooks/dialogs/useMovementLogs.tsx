@@ -3,13 +3,17 @@ import { useTranslation } from "react-i18next";
 
 // hooks
 import { useDialog, useProductMovements, useTimeAge } from "hooks";
-import useTableOptions from "../../../../components/Table/useTableOptions";
+
+// components
+import { useTableOptions } from "components";
 
 // actions
-import useMovementLogsAction from "../actions/useMovementLogsAction";
+import { useMovementLogsAction } from "../actions";
 
 // types
 import { TablesCamelCase } from "../../../../db/types";
+
+// lib
 import { MovementLogDto } from "lib";
 
 export function useMovementLogs() {
@@ -58,7 +62,7 @@ export function useMovementLogs() {
     [handleOpen]
   );
 
-  const action = useMovementLogsAction({ onClick });
+  const { action } = useMovementLogsAction({ onClick });
 
   return {
     action,

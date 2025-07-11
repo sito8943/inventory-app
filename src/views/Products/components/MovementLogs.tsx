@@ -4,7 +4,7 @@ import { Dialog, Table } from "components";
 // types
 import { MovementLogsDialogPropsType, MovementLogsPropsType } from "../types";
 
-function MovementLogs(props: MovementLogsPropsType) {
+export function MovementLogs(props: MovementLogsPropsType) {
   const { tableProps, containerClassName = "" } = props;
 
   return (

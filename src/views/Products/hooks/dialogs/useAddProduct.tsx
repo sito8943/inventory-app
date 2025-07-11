@@ -4,8 +4,10 @@ import { useTranslation } from "react-i18next";
 import { useManager } from "providers";
 
 // types
-import { AddProductDto, ProductDto } from "lib";
 import { ProductFormType } from "../../types";
+
+// lib
+import { AddProductDto, ProductDto } from "lib";
 
 // hooks
 import { useFormDialog, ProductsQueryKeys } from "hooks";

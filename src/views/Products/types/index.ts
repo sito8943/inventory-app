@@ -37,14 +37,11 @@ export interface ProductFormType
   stock: number | string;
 }
 
-export interface ProductFormPropsType
-  extends FormDialogPropsType<ProductFormType, ValidationError> {}
+export type ProductFormPropsType = FormDialogPropsType<ProductFormType, ValidationError>
 
-export interface AddProductDialogPropsType
-  extends FormDialogPropsType<ProductFormType, ValidationError> {}
+export type AddProductDialogPropsType = FormDialogPropsType<ProductFormType, ValidationError>
 
-export interface EditProductDialogPropsType
-  extends FormDialogPropsType<ProductFormType, ValidationError> {}
+export type EditProductDialogPropsType = FormDialogPropsType<ProductFormType, ValidationError>
 
 export type MovementLogsPropsType = {
   isLoading: boolean;

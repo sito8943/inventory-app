@@ -3,35 +3,34 @@ import { useTranslation } from "react-i18next";
 
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBoxArchive, faDolly } from "@fortawesome/free-solid-svg-icons";
 
 // components
 import { ItemCard } from "components";
 
 // types
 import { MovementCardPropsType } from "../types";
+
+// lib
 import { MovementType, enumToKeyValueArray } from "lib";
+
+// utils
+import { icons } from "./utils";
 
 const types = enumToKeyValueArray(MovementType);
 
-export const icons = {
-  0: faBoxArchive,
-  1: faDolly,
-};
-
-function MovementCard(props: MovementCardPropsType) {
+export function MovementCard(props: MovementCardPropsType) {
   const { t } = useTranslation();
 
   const { id, onClick, actions, name, type, deleted } = props;
 
   const renderType = useMemo(
     () => types.find((ty) => ty.value === type) ?? types[0],
-    [type],
+    [type]
   );
 
   const icon = useMemo(
     () => icons[renderType?.value as keyof typeof icons],
-    [renderType?.value],
+    [renderType?.value]
   );
 
   return (
@@ -52,5 +51,3 @@ function MovementCard(props: MovementCardPropsType) {
     </ItemCard>
   );
 }
-
-export default MovementCard;

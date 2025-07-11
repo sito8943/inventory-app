@@ -13,7 +13,7 @@ import {
 // types
 import { ProductCardPropsType } from "../types";
 
-function ProductCard(props: ProductCardPropsType) {
+export function ProductCard(props: ProductCardPropsType) {
   const { t } = useTranslation();
 
   const { id, onClick, actions, name, price, cost, stock, deleted } = props;
@@ -46,9 +46,7 @@ function ProductCard(props: ProductCardPropsType) {
           {stock ? (
             <>
               {t("_entities:product.stock.label")}:{" "}
-              <span>
-                {`${stock} ${t("_entities:product.stock.units")}`}
-              </span>
+              <span>{`${stock} ${t("_entities:product.stock.units")}`}</span>
             </>
           ) : (
             t("_entities:product.stock.empty")
@@ -58,5 +56,3 @@ function ProductCard(props: ProductCardPropsType) {
     </ItemCard>
   );
 }
-
-export default ProductCard;

@@ -5,13 +5,12 @@ import { useTranslation } from "react-i18next";
 import { useManager } from "providers";
 
 // components
-import { ConfirmationDialog, Page, PrettyGrid } from "../../components";
+import { ConfirmationDialog, Page, PrettyGrid, Error } from "components";
 import {
   AddCategoryDialog,
   CategoryCard,
   EditCategoryDialog,
 } from "./components";
-import { Error } from "components";
 
 // hooks
 import {
@@ -25,7 +24,7 @@ import { useAddCategory, useEditCategory } from "./hooks";
 // types
 import { CategoryDto } from "lib";
 
-function Categories() {
+export function Categories() {
   const { t } = useTranslation();
 
   const manager = useManager();
@@ -93,5 +92,3 @@ function Categories() {
     </Page>
   );
 }
-
-export default Categories;
