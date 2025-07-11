@@ -1,8 +1,8 @@
+/* eslint-disable react-refresh/only-export-components */
 import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -18,11 +18,11 @@ import {
 } from "./types.ts";
 
 // lib
-import { BaseEntityDto, Tables, TauriClient } from "lib";
+import { BaseEntityDto, Tables, TauriClient, toLocal } from "lib";
 
-const CacheContext = createContext({} as ConfigProviderContextType);
+const LocalCacheContext = createContext({} as ConfigProviderContextType);
 
-const CacheProvider = (props: BasicProviderPropTypes) => {
+const LocalCacheProvider = (props: BasicProviderPropTypes) => {
   const { children } = props;
 
   const tauriClient = useMemo(() => new TauriClient(), []);
@@ -36,10 +36,7 @@ const CacheProvider = (props: BasicProviderPropTypes) => {
   const updateFile = useCallback(
     async (data: FileDataType) => {
       try {
-        await tauriClient.writeTextFile(
-          config.configFile,
-          JSON.stringify(data)
-        );
+        toLocal(config.localCache, JSON.stringify(data));
       } catch (e) {
         console.error(e);
         await tauriClient.createFile(config.configFile, `{}`);
@@ -83,23 +80,19 @@ const CacheProvider = (props: BasicProviderPropTypes) => {
     [readFile]
   );
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
   return (
-    <CacheContext.Provider value={{ updateCache, loadCache }}>
+    <LocalCacheContext.Provider value={{ updateCache, loadCache }}>
       {children}
-    </CacheContext.Provider>
+    </LocalCacheContext.Provider>
   );
 };
 
-const useCache = () => {
-  const context = useContext(CacheContext);
+const useLocalCache = () => {
+  const context = useContext(LocalCacheContext);
 
   if (context === undefined)
     throw new Error("configContext must be used within a Provider");
   return context;
 };
 
-export { CacheProvider, useCache };
+export { LocalCacheProvider, useLocalCache };
