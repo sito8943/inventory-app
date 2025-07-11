@@ -1,5 +1,5 @@
 import { TextInputPropsType } from "@sito/dashboard";
-import { DetailedHTMLProps, TextareaHTMLAttributes } from "react";
+import { DetailedHTMLProps, ReactNode, TextareaHTMLAttributes } from "react";
 
 export interface ParagraphInputPropsType
   extends Pick<
@@ -16,3 +16,7 @@ export interface ParagraphInputPropsType
       TextareaHTMLAttributes<HTMLTextAreaElement>,
       HTMLTextAreaElement
     > {}
+
+export type FormContainerPropsType = {
+  children: ReactNode;
+};

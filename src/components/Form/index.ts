@@ -1,3 +1,3 @@
-export * from "./ParagraphInput.tsx";
-
-export type * from "./types.ts";
+export * from "./ParagraphInput";
+export * from "./FormContainer";
+export type * from "./types";

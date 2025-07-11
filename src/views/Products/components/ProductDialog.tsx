@@ -6,7 +6,7 @@ import { Controller } from "react-hook-form";
 import { TextInput, AutocompleteInput, Option } from "@sito/dashboard";
 
 // components
-import { FormDialog, ParagraphInput } from "components";
+import { FormContainer, FormDialog, ParagraphInput } from "components";
 
 // hooks
 import { useCategoriesCommon } from "hooks";
@@ -31,7 +31,7 @@ export const ProductForm = (props: ProductFormPropsType) => {
   );
 
   return (
-    <div className="flex flex-col gap-5 pt-1">
+    <FormContainer>
       <Controller
         control={control}
         render={({ field }) => <input {...field} type="hidden" />}
@@ -120,7 +120,7 @@ export const ProductForm = (props: ProductFormPropsType) => {
           />
         )}
       />
-    </div>
+    </FormContainer>
   );
 };
 

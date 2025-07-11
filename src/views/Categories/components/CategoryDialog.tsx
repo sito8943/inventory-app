@@ -5,7 +5,7 @@ import { Controller } from "react-hook-form";
 import { TextInput } from "@sito/dashboard";
 
 // components
-import { FormDialog, ParagraphInput } from "components";
+import { FormContainer, FormDialog, ParagraphInput } from "components";
 
 // types
 import {
@@ -20,7 +20,7 @@ export function CategoryForm(props: CategoryFormPropsType) {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col gap-5 pt-1">
+    <FormContainer>
       <Controller
         control={control}
         render={({ field }) => <input {...field} type="hidden" />}
@@ -60,7 +60,7 @@ export function CategoryForm(props: CategoryFormPropsType) {
           />
         )}
       />
-    </div>
+    </FormContainer>
   );
 }
 

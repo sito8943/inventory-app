@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TextInput, SelectInput } from "@sito/dashboard";
 
 // components
-import { FormDialog } from "components";
+import { FormContainer, FormDialog } from "components";
 
 // utils
 import { icons } from "./MovementCard";
@@ -38,7 +38,7 @@ export function MovementForm(props: MovementFormPropsType) {
   const { type } = useWatch({ control });
 
   return (
-    <div className="flex flex-col gap-5 pt-1">
+    <FormContainer>
       <Controller
         control={control}
         render={({ field }) => <input {...field} type="hidden" />}
@@ -83,7 +83,7 @@ export function MovementForm(props: MovementFormPropsType) {
           </SelectInput>
         )}
       />
-    </div>
+    </FormContainer>
   );
 }
 
