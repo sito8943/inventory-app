@@ -20,17 +20,17 @@ export const menuMap: MenuItemType[] = [
   },
   {
     page: MenuKeys.Categories,
-    path: "/",
+    path: "/categories",
     icon: <FontAwesomeIcon icon={faHome} />,
   },
   {
     page: MenuKeys.Products,
-    path: "/",
+    path: "/products",
     icon: <FontAwesomeIcon icon={faHome} />,
   },
   {
     page: MenuKeys.Movements,
-    path: "/",
+    path: "/movements",
     icon: <FontAwesomeIcon icon={faHome} />,
   },
 ];
