@@ -37,7 +37,7 @@ import {
 // types
 import { ProductDto } from "lib";
 
-function Products() {
+export function Products() {
   const { t } = useTranslation();
 
   const manager = useManager();
@@ -143,5 +143,3 @@ function Products() {
     </Page>
   );
 }
-
-export default Products;
