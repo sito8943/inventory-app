@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 // providers
 import { useManager } from "providers";
@@ -13,20 +14,13 @@ import {
   Error,
 } from "components";
 import {
-  AddProductDialog,
   DoMovementDialog,
-  EditProductDialog,
   MovementLogsDialog,
   ProductCard,
 } from "./components";
 
 // hooks
-import {
-  useAddProduct,
-  useDoMovement,
-  useEditProduct,
-  useMovementLogs,
-} from "./hooks";
+import { useDoMovement, useMovementLogs } from "./hooks";
 import {
   useDeleteDialog,
   useProductsList,
@@ -36,11 +30,14 @@ import {
 
 // types
 import { ProductDto } from "lib";
+import { findPath, PageId } from "../sitemap";
 
 export function Products() {
   const { t } = useTranslation();
 
   const manager = useManager();
+
+  const navigate = useNavigate();
 
   const productQuery = useProductsList({});
 
@@ -62,10 +59,6 @@ export function Products() {
     mutationFn: (data: number[]) => manager.Products.softDelete(data),
     ...ProductsQueryKeys.all(),
   });
-
-  const addProduct = useAddProduct();
-
-  const editProduct = useEditProduct();
 
   const doMovement = useDoMovement();
 
@@ -101,7 +94,14 @@ export function Products() {
                 renderComponent={(product) => (
                   <ProductCard
                     actions={getActions(product)}
-                    onClick={(id: number) => editProduct.onClick(id)}
+                    onClick={(id: number) =>
+                      navigate(
+                        findPath(PageId.ProductDetails).replace(
+                          ":id",
+                          String(id)
+                        )
+                      )
+                    }
                     {...product}
                   />
                 )}
@@ -111,16 +111,16 @@ export function Products() {
         };
       }) ?? []
     );
-  }, [categoryQuery.data, productQuery?.data, t, getActions, editProduct]);
+  }, [categoryQuery.data, productQuery?.data, t, getActions, navigate]);
 
   return (
     <Page
       title={t("_pages:products.title")}
       isLoading={isLoading}
       addOptions={{
-        onClick: () => addProduct.onClick(),
         disabled: isLoading,
         tooltip: t("_pages:products.add"),
+        onClick: () => navigate(findPath(PageId.ProductInsert)),
       }}
     >
       {!error ? (
@@ -131,8 +131,6 @@ export function Products() {
             className="h-full"
           />
           {/* Dialogs */}
-          <AddProductDialog {...addProduct} />
-          <EditProductDialog {...editProduct} />
           <DoMovementDialog {...doMovement} />
           <MovementLogsDialog {...movementLogs} />
           <ConfirmationDialog {...deleteProduct} />

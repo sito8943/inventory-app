@@ -7,25 +7,8 @@ import { DrawerPropsTypes } from "./types.ts";
 // styles
 import "./styles.css";
 
-// sitemap
-const sitemap = [
-  {
-    name: "home",
-    path: "/",
-  },
-  {
-    name: "categories",
-    path: "/categories",
-  },
-  {
-    name: "products",
-    path: "/products",
-  },
-  {
-    name: "movements",
-    path: "/movements",
-  },
-];
+// views
+import { menuMap } from "views";
 
 export function Drawer(props: DrawerPropsTypes) {
   const { t } = useTranslation();
@@ -46,22 +29,22 @@ export function Drawer(props: DrawerPropsTypes) {
           {t("_pages:home.appName")}
         </h2>
         <ul className="flex flex-col">
-          {sitemap.map((link) => (
+          {menuMap.map((link) => (
             <li
-              key={link.name}
+              key={link.page}
               className={`w-full flex hover:bg-alt-background ${
-                (link.path ?? `/${link.name}`) === location.pathname
+                (link.path ?? `/${link.page}`) === location.pathname
                   ? "bg-alt-background"
                   : ""
               } animated`}
             >
               <Link
                 aria-disabled={!open}
-                to={link.path ?? `/${link.name}`}
-                aria-label={t(`_accessibility:ariaLabels.${link.name}`)}
+                to={link.path ?? `/${link.path}`}
+                aria-label={t(`_accessibility:ariaLabels.${link.path}`)}
                 className="text-lg text-white flex w-full py-2 px-5"
               >
-                {t(`_pages:${link.name}.title`)}
+                {t(`_pages:${link.page}.title`)}
               </Link>
             </li>
           ))}
