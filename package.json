@@ -20,7 +20,6 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@loadable/component": "^5.16.7",
-    "@sito/dashboard": "^0.0.36",
     "@tailwindcss/vite": "^4.0.11",
     "@tanstack/react-query": "5.40",
     "@tauri-apps/api": "^2",

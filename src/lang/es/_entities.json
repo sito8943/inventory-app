@@ -1,0 +1,31 @@
+{
+  "base": {
+    "id": {
+      "label": "Id"
+    },
+    "lockedBy": {
+      "label": ""
+    },
+    "deleted": {
+      "label": "Eliminado"
+    },
+    "updatedAt": {
+      "label": "Última actualización"
+    },
+    "createdAt": {
+      "label": "Fecha de creación"
+    }
+  },
+  "category": {
+    "name": { "label": "Nombre" }
+  },
+  "movement": {
+    "name": { "label": "Nombre" }
+  },
+  "product": {
+    "name": { "label": "Nombre" }
+  },
+  "movementLog": {
+    "name": { "label": "Nombre" }
+  }
+}

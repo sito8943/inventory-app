@@ -12,6 +12,13 @@ export enum TablesCamelCase {
   MovementLogs = "movementLogs",
 }
 
+export enum EntityName {
+  Product = "product",
+  Category = "category",
+  Movement = "movement",
+  MovementLog = "movementLog",
+}
+
 export type APIError = {
   kind: string;
   message: string;

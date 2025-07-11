@@ -2,13 +2,11 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Controller } from "react-hook-form";
 
+// @sito/dashboard
+import { TextInput, AutocompleteInput, Option } from "@sito/dashboard";
+
 // components
-import {
-  FormDialog,
-  AutocompleteInput,
-  TextInput,
-  ParagraphInput,
-} from "../../../components";
+import { FormDialog, ParagraphInput } from "components";
 
 // hooks
 import { useCategoriesCommon } from "hooks";
@@ -19,8 +17,8 @@ import {
   EditProductDialogPropsType,
   ProductFormPropsType,
 } from "../types";
-import { SelectInputOptionType } from "components";
 import { Tables } from "../../../db/types";
+
 
 export const ProductForm = (props: ProductFormPropsType) => {
   const { control, isLoading } = props;
@@ -29,8 +27,8 @@ export const ProductForm = (props: ProductFormPropsType) => {
   const categories = useCategoriesCommon();
 
   const categoryOptions = useMemo(
-    () => [...(categories?.data ?? [])] as SelectInputOptionType[],
-    [categories.data],
+    () => [...(categories?.data ?? [])] as Option[],
+    [categories.data]
   );
 
   return (
@@ -64,7 +62,7 @@ export const ProductForm = (props: ProductFormPropsType) => {
         render={({ field: { value, onChange, ...rest } }) => (
           <AutocompleteInput
             options={categoryOptions}
-            value={value as unknown as SelectInputOptionType[]}
+            value={value as unknown as Option[]}
             multiple
             onChange={(v) => onChange(v)}
             placeholder={t("_pages:products.inputs.category.name")}

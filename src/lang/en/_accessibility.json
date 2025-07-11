@@ -24,9 +24,13 @@
     "hour": "Hour",
     "hours": "Hours",
     "yesterday": "Yesterday",
-    "ago": "Ago"
+    "ago": "Ago",
+    "actions": "Actions"
   },
-  "tooltips": {},
+  "tooltips": {
+    "showAsTable": "Mostrar como tabla",
+    "showAsGrid": "Mostrar como grid"
+  },
   "ariaLabels": {
     "ok": "Confirm action",
     "insert": "Insert content",

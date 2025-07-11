@@ -7,9 +7,11 @@ import { namespaces } from "./lang/nameSpaces.ts";
 // es
 import esAccessibility from "./lang/es/_accessibility.json";
 import esPages from "./lang/es/_pages.json";
+import esEntities from "./lang/es/_entities.json";
 // es
 import enAccessibility from "./lang/en/_accessibility.json";
 import enPages from "./lang/en/_pages.json";
+import enEntities from "./lang/en/_entities.json";
 
 i18n
   // detect user language
@@ -28,10 +30,12 @@ i18n
       es: {
         _accessibility: esAccessibility,
         _pages: esPages,
+        _entities: esEntities,
       },
       en: {
         _accessibility: enAccessibility,
         _pages: enPages,
+        _entities: enEntities,
       },
     },
   });

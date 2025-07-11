@@ -1,7 +1,7 @@
 // types
 import { PrettyGridPropsType } from "./types";
 
-const PrettyGrid = (props: PrettyGridPropsType) => {
+export const PrettyGrid = (props: PrettyGridPropsType) => {
   const { emptyMessage = "", renderComponent, data = [] } = props;
 
   return data?.length ? (
@@ -12,5 +12,3 @@ const PrettyGrid = (props: PrettyGridPropsType) => {
     <p className="text-center mt-5">{emptyMessage}</p>
   );
 };
-
-export default PrettyGrid;

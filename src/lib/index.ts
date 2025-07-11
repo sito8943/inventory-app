@@ -11,7 +11,7 @@ export * from "./entities/product";
 export * from "./entities/movement";
 export * from "./entities/movementLog";
 export * from "./entities/category";
-export * from "./utils/queryKey.ts";
+export * from "./utils/";
 
 // api
 export * from "./api";

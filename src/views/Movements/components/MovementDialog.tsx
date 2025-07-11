@@ -3,8 +3,11 @@ import { useTranslation } from "react-i18next";
 import { Controller, useWatch } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+// @sito/dashboard
+import { TextInput, SelectInput } from "@sito/dashboard";
+
 // components
-import { FormDialog, TextInput, SelectInput } from "components";
+import { FormDialog } from "components";
 
 // utils
 import { icons } from "./MovementCard";
@@ -29,7 +32,7 @@ export function MovementForm(props: MovementFormPropsType) {
         name: key,
       })) ?? []),
     ],
-    [],
+    []
   );
 
   const { type } = useWatch({ control });

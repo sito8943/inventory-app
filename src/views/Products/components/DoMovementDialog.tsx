@@ -2,8 +2,11 @@ import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Controller } from "react-hook-form";
 
+// @sito/dashboard
+import { TextInput, SelectInput } from "@sito/dashboard";
+
 // components
-import { FormDialog, SelectInput, TextInput } from "components";
+import { FormDialog } from "components";
 
 // hooks
 import { useMovementsCommon } from "hooks";
@@ -19,7 +22,7 @@ function DoMovementForm(props: DoMovementFormPropsType) {
 
   const movementOptions = useMemo(
     () => [...(movements?.data ?? [])],
-    [movements.data],
+    [movements.data]
   );
 
   useEffect(() => {
