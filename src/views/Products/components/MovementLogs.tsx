@@ -5,11 +5,11 @@ import { Dialog, Table } from "components";
 import { MovementLogsDialogPropsType, MovementLogsPropsType } from "../types";
 
 function MovementLogs(props: MovementLogsPropsType) {
-  const { isLoading, tableProps, containerClassName = "" } = props;
+  const { tableProps, containerClassName = "" } = props;
 
   return (
     <div className={`flex flex-col gap-5 overflow-auto ${containerClassName}`}>
-      <Table isLoading={isLoading} {...tableProps} />
+      <Table {...tableProps} />
     </div>
   );
 }

@@ -55,7 +55,7 @@ export function useMovementLogs() {
       setId(id);
       handleOpen();
     },
-    [handleOpen],
+    [handleOpen]
   );
 
   const action = useMovementLogsAction({ onClick });

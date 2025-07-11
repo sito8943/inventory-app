@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
-function useTimeAge() {
+export function useTimeAge() {
   const { t, i18n } = useTranslation();
 
   const timeAge = useCallback(
@@ -49,5 +49,3 @@ function useTimeAge() {
 
   return { timeAge };
 }
-
-export default useTimeAge;
