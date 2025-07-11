@@ -1,7 +1,12 @@
+// lib
+import { BaseEntityDto } from "lib";
+
 // types
 import { PrettyGridPropsType } from "./types";
 
-export const PrettyGrid = (props: PrettyGridPropsType) => {
+export const PrettyGrid = <TDto extends BaseEntityDto>(
+  props: PrettyGridPropsType<TDto>
+) => {
   const { emptyMessage = "", renderComponent, data = [] } = props;
 
   return data?.length ? (

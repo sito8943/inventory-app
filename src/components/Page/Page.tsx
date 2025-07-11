@@ -4,7 +4,7 @@ import { AddCard, Loading } from "components";
 // types
 import { PagePropsType } from "./types.ts";
 
-const Page = (props: PagePropsType) => {
+export const Page = (props: PagePropsType) => {
   const { title, children, isLoading, addOptions, animated = true } = props;
   return (
     <main className="p-5">
@@ -20,5 +20,3 @@ const Page = (props: PagePropsType) => {
     </main>
   );
 };
-
-export default Page;
