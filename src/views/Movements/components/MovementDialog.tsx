@@ -57,7 +57,7 @@ export function MovementForm(props: MovementFormPropsType) {
             maxLength={20}
             autoComplete={`${Tables.Movements}-${t("_entities:movement.name.label")}}`}
             label={t("_entities:movement.name.label")}
-            placeholder={t("_entities.movement.name.placeholder")}
+            placeholder={t("_entities:movement.name.placeholder")}
             {...field}
           />
         )}
@@ -72,15 +72,15 @@ export function MovementForm(props: MovementFormPropsType) {
             options={typeOptions}
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            startAdornment={
-              <FontAwesomeIcon
-                icon={icons[(type ?? 0) as keyof typeof icons]}
-                className=" ml-2 border-border border-2 absolute left-1 top-[50%] -translate-y-[50%] text-white text-sm"
-              />
-            }
             label={t("_entities:movement.type.label")}
+            inputClassName="!pl-7"
             {...rest}
-          />
+          >
+            <FontAwesomeIcon
+              icon={icons[(type ?? 0) as keyof typeof icons]}
+              className="border-border border-2 absolute left-0 top-[10px] -translate-y-[50%] text-white text-sm"
+            />
+          </SelectInput>
         )}
       />
     </div>

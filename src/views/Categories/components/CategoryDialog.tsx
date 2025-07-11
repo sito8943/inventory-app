@@ -20,7 +20,7 @@ export function CategoryForm(props: CategoryFormPropsType) {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-2">
       <Controller
         control={control}
         render={({ field }) => <input {...field} type="hidden" />}
@@ -39,7 +39,8 @@ export function CategoryForm(props: CategoryFormPropsType) {
             maxLength={20}
             value={value ?? ""}
             autoComplete={`${Tables.Categories}-${t("_entities:category.name.label")}}`}
-            placeholder={t("_entities:category.name.label")}
+            label={t("_entities:category.name.label")}
+            placeholder={t("_entities:category.name.placeholder")}
             {...rest}
           />
         )}
@@ -53,7 +54,8 @@ export function CategoryForm(props: CategoryFormPropsType) {
             maxLength={60}
             value={value ?? ""}
             autoComplete={`${Tables.Categories}-${t("_entities:category.description.label")}}`}
-            placeholder={t("_entities:category.description.label")}
+            label={t("_entities:category.description.label")}
+            placeholder={t("_entities:category.description.placeholder")}
             {...rest}
           />
         )}
