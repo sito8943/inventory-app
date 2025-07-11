@@ -13,6 +13,7 @@ export function AddCard(props: AddCardPropsType) {
 
   return (
     <button
+      type="button"
       data-tooltip-id="tooltip"
       data-tooltip-content={tooltip}
       className="add-card animated"
