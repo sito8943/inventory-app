@@ -10,11 +10,8 @@ import { useTableOptions } from "components";
 // actions
 import { useMovementLogsAction } from "../actions";
 
-// types
-import { TablesCamelCase } from "../../../../db/types";
-
 // lib
-import { MovementLogDto } from "lib";
+import { MovementLogDto, TablesCamelCase } from "lib";
 
 export function useMovementLogs() {
   const { t } = useTranslation();

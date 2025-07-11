@@ -8,7 +8,6 @@ import { MovementsQueryKeys } from "./useMovements";
 
 // types
 import { UseFetchByIdPropsType, UseFetchPropsType } from "./types.ts";
-import { Tables } from "../../db/types";
 
 // lib
 import {
@@ -16,6 +15,7 @@ import {
   EntityQueryKey,
   FilterProductDto,
   MovementLogDto,
+  Tables,
 } from "lib";
 
 export const ProductsQueryKeys: EntityQueryKey<number> = {

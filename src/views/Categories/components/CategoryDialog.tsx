@@ -13,7 +13,9 @@ import {
   CategoryFormPropsType,
   EditCategoryDialogPropsType,
 } from "../types";
-import { Tables } from "../../../db/types";
+
+// lib
+import { Tables } from "lib";
 
 export function CategoryForm(props: CategoryFormPropsType) {
   const { control, isLoading } = props;

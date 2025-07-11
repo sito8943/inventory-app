@@ -7,11 +7,13 @@ import { useManager } from "providers";
 import { useFormDialog, MovementsQueryKeys } from "hooks";
 
 // types
-import { MovementFormType } from "../../types";
+import { MovementFormType } from "../types";
+
+// lib
 import { AddMovementDto, MovementDto } from "lib";
 
 // types
-import { emptyMovement, formToDto, dtoToForm } from "../../utils";
+import { emptyMovement, formToDto, dtoToForm } from "../utils";
 
 export function useAddMovement() {
   const { t } = useTranslation();

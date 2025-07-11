@@ -1,11 +1,10 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
 // providers
-import {useCache, useManager} from "providers";
+import { useCache, useManager } from "providers";
 
 // types
 import { UseFetchPropsType } from "./types.ts";
-import {Tables} from "../../db/types";
 
 // lib
 import {
@@ -13,6 +12,7 @@ import {
   CommonMovementDto,
   FilterMovementDto,
   QueryResult,
+  Tables
 } from "lib";
 
 export const MovementsQueryKeys = {
@@ -26,14 +26,14 @@ export const MovementsQueryKeys = {
 };
 
 export function useMovementsList(
-  props: UseFetchPropsType<FilterMovementDto>,
+  props: UseFetchPropsType<FilterMovementDto>
 ): UseQueryResult<QueryResult<MovementDto>> {
   const { filters = { deleted: false } } = props;
 
   const manager = useManager();
-  const {loadCache, updateCache} = useCache();
+  const { loadCache, updateCache } = useCache();
 
-   return useQuery({
+  return useQuery({
     ...MovementsQueryKeys.list(),
     queryFn: async () => {
       try {
@@ -43,8 +43,9 @@ export function useMovementsList(
       } catch (error) {
         console.warn("API failed, loading categories from cache", error);
         const cached = await loadCache(Tables.Movements);
-        if (!cached || !Array.isArray(cached)) throw new Error("No cached categories available");
-        return {items: cached, total: cached?.length};
+        if (!cached || !Array.isArray(cached))
+          throw new Error("No cached categories available");
+        return { items: cached, total: cached?.length };
       }
     },
   });
@@ -52,26 +53,32 @@ export function useMovementsList(
 
 export function useMovementsCommon(): UseQueryResult<CommonMovementDto[]> {
   const manager = useManager();
-  const {loadCache, updateCache} = useCache();
+  const { loadCache, updateCache } = useCache();
 
   return useQuery({
     ...MovementsQueryKeys.common(),
     queryFn: async () => {
       try {
-        const result = await manager.Movements.commonGet({deleted: false});
+        const result = await manager.Movements.commonGet({ deleted: false });
         updateCache(Tables.Movements, result.items);
         return result;
       } catch (error) {
         console.warn("API failed, loading categories from cache", error);
-        const cached = await loadCache(Tables.Movements) as CommonMovementDto[];
-        if (!cached || !Array.isArray(cached)) throw new Error("No cached categories available");
-        return cached.map(({id, name}) => ({id, name}));
+        const cached = (await loadCache(
+          Tables.Movements
+        )) as CommonMovementDto[];
+        if (!cached || !Array.isArray(cached))
+          throw new Error("No cached categories available");
+        return cached.map(({ id, name }) => ({ id, name }));
       }
     },
   });
 }
 
-export const defaultMovements: Record<string, Record<string, string | number>[]> = {
+export const defaultMovements: Record<
+  string,
+  Record<string, string | number>[]
+> = {
   en: [
     { name: "Purchases", type: 0, description: "" },
     { name: "Sales", type: 1, description: "" },

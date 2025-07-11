@@ -5,7 +5,6 @@ import { useCache, useManager } from "providers";
 
 // types
 import { UseFetchPropsType } from "./types.ts";
-import { Tables } from "../../db/types";
 
 // lib
 import {
@@ -13,6 +12,7 @@ import {
   CommonCategoryDto,
   FilterCategoryDto,
   QueryResult,
+  Tables,
 } from "lib";
 
 export const CategoriesQueryKeys = {

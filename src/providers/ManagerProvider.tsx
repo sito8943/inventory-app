@@ -3,8 +3,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
 // manager
-import Manager from "../db/Manager";
 import { ManagerProviderContextType, BasicProviderPropTypes } from "./types.ts";
+
+// lib
+import { Manager } from "lib";
 
 // hooks
 import { defaultMovements } from "hooks";

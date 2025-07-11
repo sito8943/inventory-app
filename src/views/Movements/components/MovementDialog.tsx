@@ -10,7 +10,7 @@ import { TextInput, SelectInput } from "@sito/dashboard";
 import { FormContainer, FormDialog } from "components";
 
 // utils
-import { icons } from "./MovementCard";
+import { icons } from "./utils";
 
 // types
 import { MovementType, enumToKeyValueArray } from "lib";
@@ -19,7 +19,9 @@ import {
   EditMovementDialogPropsType,
   MovementFormPropsType,
 } from "../types";
-import { Tables } from "../../../db/types";
+
+// lib
+import { Tables } from "lib";
 
 export function MovementForm(props: MovementFormPropsType) {
   const { control, isLoading } = props;

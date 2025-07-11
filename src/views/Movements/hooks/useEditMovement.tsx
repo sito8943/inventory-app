@@ -7,7 +7,7 @@ import { useManager } from "providers";
 import { useFormDialog, MovementsQueryKeys } from "hooks";
 
 // utils
-import { emptyMovement, formToDto, dtoToForm } from "../../utils";
+import { emptyMovement, formToDto, dtoToForm } from "../utils";
 
 export function useEditMovement() {
   const { t } = useTranslation();

@@ -17,7 +17,9 @@ import {
   EditProductDialogPropsType,
   ProductFormPropsType,
 } from "../types";
-import { Tables } from "../../../db/types";
+
+// lib
+import { Tables } from "lib";
 
 export const ProductForm = (props: ProductFormPropsType) => {
   const { control, isLoading } = props;
