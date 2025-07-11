@@ -37,11 +37,20 @@ export interface ProductFormType
   stock: number | string;
 }
 
-export type ProductFormPropsType = FormDialogPropsType<ProductFormType, ValidationError>
+export type ProductFormPropsType = FormDialogPropsType<
+  ProductFormType,
+  ValidationError
+>;
 
-export type AddProductDialogPropsType = FormDialogPropsType<ProductFormType, ValidationError>
+export type AddProductDialogPropsType = FormDialogPropsType<
+  ProductFormType,
+  ValidationError
+>;
 
-export type EditProductDialogPropsType = FormDialogPropsType<ProductFormType, ValidationError>
+export type EditProductDialogPropsType = FormDialogPropsType<
+  ProductFormType,
+  ValidationError
+>;
 
 export type MovementLogsPropsType = {
   isLoading: boolean;
@@ -57,3 +66,7 @@ export interface ProductCardPropsType extends ProductDto {
   actions: ActionPropsType[];
   onClick: (id: number) => void;
 }
+
+export type UseProductFormPropsType = {
+  id?: number;
+};

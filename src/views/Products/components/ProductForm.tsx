@@ -6,17 +6,13 @@ import { Controller } from "react-hook-form";
 import { TextInput, AutocompleteInput, Option } from "@sito/dashboard";
 
 // components
-import { FormContainer, FormDialog, ParagraphInput } from "components";
+import { FormContainer, ParagraphInput } from "components";
 
 // hooks
 import { useCategoriesCommon } from "hooks";
 
 // types
-import {
-  AddProductDialogPropsType,
-  EditProductDialogPropsType,
-  ProductFormPropsType,
-} from "../types";
+import { ProductFormPropsType } from "../types";
 
 // lib
 import { Tables } from "lib";
@@ -125,19 +121,3 @@ export const ProductForm = (props: ProductFormPropsType) => {
     </FormContainer>
   );
 };
-
-export function AddProductDialog(props: AddProductDialogPropsType) {
-  return (
-    <FormDialog {...props}>
-      <ProductForm {...props} />
-    </FormDialog>
-  );
-}
-
-export function EditProductDialog(props: EditProductDialogPropsType) {
-  return (
-    <FormDialog {...props}>
-      <ProductForm {...props} />
-    </FormDialog>
-  );
-}
