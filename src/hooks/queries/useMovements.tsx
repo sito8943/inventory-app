@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
 // providers
-import { useCache, useManager } from "providers";
+import { useLocalCache, useManager } from "providers";
 
 // types
 import { UseFetchPropsType } from "./types.ts";
@@ -31,7 +31,7 @@ export function useMovementsList(
   const { filters = { deleted: false } } = props;
 
   const manager = useManager();
-  const { loadCache, updateCache } = useCache();
+  const { loadCache, updateCache } = useLocalCache();
 
   return useQuery({
     ...MovementsQueryKeys.list(),
@@ -53,7 +53,7 @@ export function useMovementsList(
 
 export function useMovementsCommon(): UseQueryResult<CommonMovementDto[]> {
   const manager = useManager();
-  const { loadCache, updateCache } = useCache();
+  const { loadCache, updateCache } = useLocalCache();
 
   return useQuery({
     ...MovementsQueryKeys.common(),

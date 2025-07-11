@@ -13,46 +13,29 @@ import { config } from "../config.ts";
 // types
 import {
   BasicProviderPropTypes,
-  ConfigProviderContextType,
+  LocalCacheProviderContextType,
   FileDataType,
 } from "./types.ts";
 
 // lib
-import { BaseEntityDto, Tables, TauriClient, toLocal } from "lib";
+import { BaseEntityDto, fromLocal, Tables, toLocal } from "lib";
 
-const LocalCacheContext = createContext({} as ConfigProviderContextType);
+// fileCache
+import { useFileCache } from "./FileCacheProvider.tsx";
+
+const LocalCacheContext = createContext({} as LocalCacheProviderContextType);
 
 const LocalCacheProvider = (props: BasicProviderPropTypes) => {
   const { children } = props;
 
-  const tauriClient = useMemo(() => new TauriClient(), []);
+  const fileCache = useFileCache();
+
   const [data, setData] = useState<FileDataType>({
     [Tables.Products]: [],
     [Tables.Categories]: [],
     [Tables.Movements]: [],
     [Tables.MovementLogs]: [],
   });
-
-  const updateFile = useCallback(
-    async (data: FileDataType) => {
-      try {
-        toLocal(config.localCache, JSON.stringify(data));
-      } catch (e) {
-        console.error(e);
-        await tauriClient.createFile(config.configFile, `{}`);
-      }
-    },
-    [tauriClient]
-  );
-
-  const readFile = useCallback(async () => {
-    try {
-      const file = await tauriClient.readFile(config.configFile);
-      return JSON.parse(file);
-    } catch (e) {
-      console.error(e);
-    }
-  }, [tauriClient]);
 
   const updateCache = useCallback(
     <T = BaseEntityDto,>(key: Tables, value: T[]) => {
@@ -67,17 +50,22 @@ const LocalCacheProvider = (props: BasicProviderPropTypes) => {
             [key]: value,
           }) as FileDataType
       );
-      updateFile(newData).then(() => console.info("config file updated"));
+      toLocal(config.localCache, newData);
+      try {
+        fileCache.updateFile(newData);
+      } catch (err) {
+        console.error(err);
+      }
     },
-    [data, updateFile]
+    [data, fileCache]
   );
 
   const loadCache = useCallback(
-    async <T = BaseEntityDto,>(key: Tables): Promise<T[] | null> => {
-      const content = await readFile();
+    <T = BaseEntityDto,>(key: Tables): T[] | null => {
+      const content = fromLocal(config.localCache, "object");
       return content ? content[key] : null;
     },
-    [readFile]
+    []
   );
 
   return (

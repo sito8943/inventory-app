@@ -1,11 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useCallback, useContext, useMemo } from "react";
 
 // config
 import { config } from "../config.ts";
@@ -13,25 +7,19 @@ import { config } from "../config.ts";
 // types
 import {
   BasicProviderPropTypes,
-  ConfigProviderContextType,
+  FileCacheProviderContextType,
   FileDataType,
 } from "./types.ts";
 
 // lib
-import { BaseEntityDto, Tables, TauriClient } from "lib";
+import { TauriClient } from "lib";
 
-const FileCacheContext = createContext({} as ConfigProviderContextType);
+const FileCacheContext = createContext({} as FileCacheProviderContextType);
 
 const FileCacheProvider = (props: BasicProviderPropTypes) => {
   const { children } = props;
 
   const tauriClient = useMemo(() => new TauriClient(), []);
-  const [data, setData] = useState<FileDataType>({
-    [Tables.Products]: [],
-    [Tables.Categories]: [],
-    [Tables.Movements]: [],
-    [Tables.MovementLogs]: [],
-  });
 
   const updateFile = useCallback(
     async (data: FileDataType) => {
@@ -51,40 +39,14 @@ const FileCacheProvider = (props: BasicProviderPropTypes) => {
   const readFile = useCallback(async () => {
     try {
       const file = await tauriClient.readFile(config.configFile);
-      return JSON.parse(file);
+      return JSON.parse(file) as FileDataType;
     } catch (e) {
       console.error(e);
     }
   }, [tauriClient]);
 
-  const updateCache = useCallback(
-    <T = BaseEntityDto,>(key: Tables, value: T[]) => {
-      const newData = {
-        ...data,
-        [key]: value,
-      };
-      setData(
-        (prevData) =>
-          ({
-            ...prevData,
-            [key]: value,
-          }) as FileDataType
-      );
-      updateFile(newData).then(() => console.info("config file updated"));
-    },
-    [data, updateFile]
-  );
-
-  const loadCache = useCallback(
-    async <T = BaseEntityDto,>(key: Tables): Promise<T[] | null> => {
-      const content = await readFile();
-      return content ? content[key] : null;
-    },
-    [readFile]
-  );
-
   return (
-    <FileCacheContext.Provider value={{ updateCache, loadCache }}>
+    <FileCacheContext.Provider value={{ readFile, updateFile }}>
       {children}
     </FileCacheContext.Provider>
   );

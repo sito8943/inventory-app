@@ -5,30 +5,31 @@ import "react-tooltip/dist/react-tooltip.css";
 import App from "./App";
 
 // fonts
-// @ts-ignore
 import "@fontsource/poppins";
-// @ts-ignore
 import "@fontsource/roboto";
 
 // providers
 import {
-    ManagerProvider,
-    NotificationProvider,
-    CacheProvider,
-    NetworkProvider
+  ManagerProvider,
+  NotificationProvider,
+  LocalCacheProvider,
+  NetworkProvider,
+  FileCacheProvider,
 } from "providers";
 
 //i18
 import "./i18";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    <ManagerProvider>
-        <NetworkProvider>
-            <CacheProvider>
-                <NotificationProvider>
-                    <App/>
-                </NotificationProvider>
-            </CacheProvider>
-        </NetworkProvider>
-    </ManagerProvider>,
+  <ManagerProvider>
+    <NetworkProvider>
+      <FileCacheProvider>
+        <LocalCacheProvider>
+          <NotificationProvider>
+            <App />
+          </NotificationProvider>
+        </LocalCacheProvider>
+      </FileCacheProvider>
+    </NetworkProvider>
+  </ManagerProvider>
 );

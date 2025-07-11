@@ -11,10 +11,15 @@ export type ManagerProviderContextType = {
   client: Manager;
 };
 
-export type ConfigProviderContextType = {
+export type LocalCacheProviderContextType = {
   data?: FileDataType;
   updateCache: <T = BaseEntityDto>(key: Tables, data: T[]) => void;
-  loadCache: <T = BaseEntityDto>(key: Tables) => Promise<T[] | null>;
+  loadCache: <T = BaseEntityDto>(key: Tables) => T[] | null;
+};
+
+export type FileCacheProviderContextType = {
+  updateFile: (data: FileDataType) => Promise<void>;
+  readFile: () => Promise<FileDataType | undefined>;
 };
 
 export type FileDataType = {

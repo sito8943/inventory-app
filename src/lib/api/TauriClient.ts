@@ -19,10 +19,14 @@ export class TauriClient {
   }
 
   async createFile(paramFile: string, content: string) {
-    const file = await create(paramFile, {
-      baseDir: BaseDirectory.AppLocalData,
-    });
-    await file.write(new TextEncoder().encode(content));
-    await file.close();
+    try {
+      const file = await create(paramFile, {
+        baseDir: BaseDirectory.AppLocalData,
+      });
+      await file.write(new TextEncoder().encode(content));
+      await file.close();
+    } catch (err) {
+      console.error(err);
+    }
   }
 }

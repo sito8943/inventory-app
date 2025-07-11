@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
 // providers
-import { useCache, useManager } from "providers";
+import { useLocalCache, useManager } from "providers";
 
 // hooks
 import { MovementsQueryKeys } from "./useMovements";
@@ -36,7 +36,7 @@ export const useProductsList = (
   const { filters = { deleted: false } } = props;
 
   const manager = useManager();
-  const { loadCache, updateCache } = useCache();
+  const { loadCache, updateCache } = useLocalCache();
 
   return useQuery({
     ...ProductsQueryKeys.list(),
@@ -64,7 +64,7 @@ export const useProductMovements = (
   const { id } = props;
 
   const manager = useManager();
-  const { loadCache, updateCache } = useCache();
+  const { loadCache, updateCache } = useLocalCache();
 
   return useQuery({
     ...ProductsQueryKeys.productMovements(id),
