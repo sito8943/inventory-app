@@ -1,0 +1,36 @@
+@import "./variables.css";
+
+.text-input,
+.text-input-label,
+.select-input-label {
+  @apply text-white;
+}
+
+.select-input {
+  color: white;
+}
+
+select > option {
+  color: black !important;
+}
+
+.text-input,
+.select-input {
+  @apply border-2 border-gray-300/40 !pl-2 rounded-lg;
+}
+
+.text-input-label,
+.select-input-label {
+  @apply left-2 peer-focus:!left-2;
+}
+
+.text-input-container {
+  @apply mb-5;
+}
+
+.text-input-label,
+.select-input-label,
+.peer:focus ~ .text-input-label,
+.peer:focus ~ .select-input-label {
+  transform: translateY(-30px) scale(0.75);
+}
