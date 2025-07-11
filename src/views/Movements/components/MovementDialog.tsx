@@ -47,7 +47,7 @@ export function MovementForm(props: MovementFormPropsType) {
       <Controller
         control={control}
         rules={{
-          required: t("_pages:movements.inputs.name.required"),
+          required: t("_entities:movement.name.required"),
         }}
         name="name"
         disabled={isLoading}
@@ -55,8 +55,9 @@ export function MovementForm(props: MovementFormPropsType) {
           <TextInput
             required
             maxLength={20}
-            autoComplete={`${Tables.Movements}-${t("_pages:movements.inputs.name.name")}}`}
-            placeholder={t("_pages:movements.inputs.name.name")}
+            autoComplete={`${Tables.Movements}-${t("_entities:movement.name.label")}}`}
+            label={t("_entities:movement.name.label")}
+            placeholder={t("_entities.movement.name.placeholder")}
             {...field}
           />
         )}
@@ -77,7 +78,7 @@ export function MovementForm(props: MovementFormPropsType) {
                 className=" ml-2 border-border border-2 absolute left-1 top-[50%] -translate-y-[50%] text-white text-sm"
               />
             }
-            placeholder={t("_pages:movements.inputs.type.name")}
+            label={t("_entities:movement.type.label")}
             {...rest}
           />
         )}

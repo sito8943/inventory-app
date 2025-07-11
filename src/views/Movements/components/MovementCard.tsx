@@ -47,7 +47,7 @@ function MovementCard(props: MovementCardPropsType) {
         {icon && (
           <FontAwesomeIcon className="text-primary text-xl" icon={icon} />
         )}
-        <p>{t(`_pages:movements.inputs.type.${renderType?.key}`)}</p>
+        <p>{t(`_entities:movement.type.${renderType?.key}`)}</p>
       </div>
     </ItemCard>
   );

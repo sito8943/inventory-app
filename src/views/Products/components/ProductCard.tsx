@@ -30,28 +30,28 @@ function ProductCard(props: ProductCardPropsType) {
       deleted={deleted}
     >
       <Chip icon={faDollar} variant="none" className="!p-0">
-        <p className="font-medium">{t("_pages:products.inputs.price.name")}:</p>
+        <p className="font-medium">{t("_entities:product.price.name")}:</p>
         <p className={!price ? "italic" : ""}>
-          {price ? `$${price}` : t("_pages:products.inputs.price.empty")}
+          {price ? `$${price}` : t("_entities:product.price.empty")}
         </p>
       </Chip>
       <Chip icon={faCoins} variant="none" className="!p-0">
-        <p className="font-medium">{t("_pages:products.inputs.cost.name")}:</p>
+        <p className="font-medium">{t("_entities:product.cost.name")}:</p>
         <p className={!cost ? "italic" : ""}>
-          {cost ? `${cost}` : t("_pages:products.inputs.cost.empty")}
+          {cost ? `${cost}` : t("_entities:product.cost.empty")}
         </p>
       </Chip>
       <Chip icon={faBoxArchive} variant="none" className="!p-0">
         <p className={stock ? "font-medium" : "italic"}>
           {stock ? (
             <>
-              {t("_pages:products.inputs.stock.name")}:{" "}
+              {t("_entities:product.stock.name")}:{" "}
               <span>
-                {`${stock} ${t("_pages:products.inputs.stock.units")}`}
+                {`${stock} ${t("_entities:product.stock.units")}`}
               </span>
             </>
           ) : (
-            t("_pages:products.inputs.stock.empty")
+            t("_entities:product.stock.empty")
           )}
         </p>
       </Chip>

@@ -21,11 +21,11 @@ function CategoryCard(props: CategoryCardPropsType) {
       actions={actions}
     >
       <p
-        className={`${!!description ? "" : "!text-xs italic"} text-start ${deleted ? "!text-secondary" : ""}`}
+        className={`${description ? "" : "!text-xs italic"} text-start ${deleted ? "!text-secondary" : ""}`}
       >
-        {!!description
+        {description
           ? description
-          : t("_pages:categories.inputs.description.empty")}
+          : t("_entities:category.description.empty")}
       </p>
     </ItemCard>
   );

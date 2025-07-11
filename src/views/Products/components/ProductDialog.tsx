@@ -19,7 +19,6 @@ import {
 } from "../types";
 import { Tables } from "../../../db/types";
 
-
 export const ProductForm = (props: ProductFormPropsType) => {
   const { control, isLoading } = props;
   const { t } = useTranslation();
@@ -41,7 +40,7 @@ export const ProductForm = (props: ProductFormPropsType) => {
       <Controller
         control={control}
         rules={{
-          required: t("_pages:products.inputs.name.required"),
+          required: t("_entities:product.name.required"),
         }}
         name="name"
         disabled={isLoading || categories?.isLoading}
@@ -49,8 +48,9 @@ export const ProductForm = (props: ProductFormPropsType) => {
           <TextInput
             required
             maxLength={25}
-            autoComplete={`${Tables.Products}-${t("_pages:products.inputs.name.name")}}`}
-            placeholder={t("_pages:products.inputs.name.name")}
+            autoComplete={`${Tables.Products}-${t("_entities:product.name.label")}}`}
+            label={t("_entities:product.name.label")}
+            placeholder={t("_entities:product.name.placeholder")}
             {...field}
           />
         )}
@@ -65,7 +65,7 @@ export const ProductForm = (props: ProductFormPropsType) => {
             value={value as unknown as Option[]}
             multiple
             onChange={(v) => onChange(v)}
-            placeholder={t("_pages:products.inputs.category.name")}
+            label={t("_entities:product.category.label")}
             {...rest}
           />
         )}
@@ -77,8 +77,9 @@ export const ProductForm = (props: ProductFormPropsType) => {
         render={({ field }) => (
           <ParagraphInput
             maxLength={60}
-            autoComplete={`${Tables.Products}-${t("_pages:products.inputs.description.name")}}`}
-            placeholder={t("_pages:products.inputs.description.name")}
+            autoComplete={`${Tables.Products}-${t("_entities:product.description.label")}}`}
+            label={t("_entities:product.description.label")}
+            placeholder={t("_entities:product.description.placeholder")}
             {...field}
           />
         )}
@@ -90,7 +91,7 @@ export const ProductForm = (props: ProductFormPropsType) => {
         render={({ field }) => (
           <TextInput
             type="number"
-            placeholder={t("_pages:products.inputs.price.name")}
+            label={t("_entities:product.price.label")}
             {...field}
           />
         )}
@@ -102,7 +103,7 @@ export const ProductForm = (props: ProductFormPropsType) => {
         render={({ field }) => (
           <TextInput
             type="number"
-            placeholder={t("_pages:products.inputs.cost.name")}
+            label={t("_entities:product.cost.label")}
             {...field}
           />
         )}
@@ -114,7 +115,7 @@ export const ProductForm = (props: ProductFormPropsType) => {
         render={({ field }) => (
           <TextInput
             type="number"
-            placeholder={t("_pages:products.inputs.stock.name")}
+            label={t("_entities:product.stock.label")}
             {...field}
           />
         )}

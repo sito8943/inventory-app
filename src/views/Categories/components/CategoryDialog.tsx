@@ -29,7 +29,7 @@ export function CategoryForm(props: CategoryFormPropsType) {
       <Controller
         control={control}
         rules={{
-          required: `t("_pages:categories.inputs.name.required")`,
+          required: `t("_entities:category.name.required")`,
         }}
         name="name"
         disabled={isLoading}
@@ -38,8 +38,8 @@ export function CategoryForm(props: CategoryFormPropsType) {
             required
             maxLength={20}
             value={value ?? ""}
-            autoComplete={`${Tables.Categories}-${t("_pages:categories.inputs.name.name")}}`}
-            placeholder={t("_pages:categories.inputs.name.name")}
+            autoComplete={`${Tables.Categories}-${t("_entities:category.name.label")}}`}
+            placeholder={t("_entities:category.name.label")}
             {...rest}
           />
         )}
@@ -52,8 +52,8 @@ export function CategoryForm(props: CategoryFormPropsType) {
           <ParagraphInput
             maxLength={60}
             value={value ?? ""}
-            autoComplete={`${Tables.Categories}-${t("_pages:categories.inputs.description.name")}}`}
-            placeholder={t("_pages:categories.inputs.description.name")}
+            autoComplete={`${Tables.Categories}-${t("_entities:category.description.label")}}`}
+            placeholder={t("_entities:category.description.label")}
             {...rest}
           />
         )}

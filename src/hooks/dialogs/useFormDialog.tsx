@@ -79,7 +79,7 @@ export const useFormDialog = <
           ) {
             input.focus();
             input.classList.add("error");
-            messages.push(t(`_pages:${queryKey}.inputs.${key}.${message}`));
+            messages.push(t(`_entities:${queryKey}.${key}.${message}`));
           }
         });
       }
