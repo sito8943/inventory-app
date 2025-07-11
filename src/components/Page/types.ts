@@ -9,4 +9,5 @@ export type PagePropsType = {
   isLoading?: boolean;
   addOptions?: AddCardPropsType;
   animated?: boolean;
+  toolbar?: ReactNode;
 };
