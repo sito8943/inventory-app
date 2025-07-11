@@ -6,7 +6,7 @@ import { ItemCard } from "components";
 // types
 import { CategoryCardPropsType } from "../types/";
 
-function CategoryCard(props: CategoryCardPropsType) {
+export function CategoryCard(props: CategoryCardPropsType) {
   const { t } = useTranslation();
 
   const { id, onClick, actions, name, description, deleted } = props;
@@ -23,12 +23,8 @@ function CategoryCard(props: CategoryCardPropsType) {
       <p
         className={`${description ? "" : "!text-xs italic"} text-start ${deleted ? "!text-secondary" : ""}`}
       >
-        {description
-          ? description
-          : t("_entities:category.description.empty")}
+        {description ? description : t("_entities:category.description.empty")}
       </p>
     </ItemCard>
   );
 }
-
-export default CategoryCard;

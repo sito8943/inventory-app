@@ -20,7 +20,7 @@ import {
   CategoriesQueryKeys,
   useRestoreDialog,
 } from "hooks";
-import { useAddCategory, useEditCategory } from "./hooks/dialogs";
+import { useAddCategory, useEditCategory } from "./hooks";
 
 // types
 import { CategoryDto } from "lib";

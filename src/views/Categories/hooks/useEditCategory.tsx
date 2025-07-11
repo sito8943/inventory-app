@@ -7,11 +7,11 @@ import { useManager } from "providers";
 import { CategoriesQueryKeys, useFormDialog } from "hooks";
 
 // utils
-import { dtoToForm, emptyCategory, formToDto } from "../../utils/";
+import { dtoToForm, emptyCategory, formToDto } from "../utils";
 
 // types
 import { UpdateCategoryDto, CategoryDto } from "lib";
-import { CategoryFormType } from "../../types/";
+import { CategoryFormType } from "../types";
 
 export function useEditCategory() {
   const { t } = useTranslation();

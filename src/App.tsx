@@ -14,6 +14,11 @@ import Home from "./views/Home";
 const Products = loadable(() => import("./views/Products/Products"));
 const Categories = loadable(() => import("./views/Categories/Categories"));
 const Movements = loadable(() => import("./views/Movements/Movements"));
+const ProductDetailsPage = loadable(() =>
+  import("components").then((module) => ({
+    default: module.HtmlInput,
+  }))
+);
 
 function App() {
   return (

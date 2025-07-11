@@ -14,11 +14,8 @@ export interface CategoryFormType
   extends Omit<CategoryDto, "deleted" | "createdAt" | "updatedAt">,
     FieldValues {}
 
-export interface CategoryFormPropsType
-  extends FormDialogPropsType<CategoryFormType, ValidationError> {}
+export type CategoryFormPropsType = FormDialogPropsType<CategoryFormType, ValidationError>
 
-export interface AddCategoryDialogPropsType
-  extends FormDialogPropsType<CategoryFormType, ValidationError> {}
+export type AddCategoryDialogPropsType = FormDialogPropsType<CategoryFormType, ValidationError>
 
-export interface EditCategoryDialogPropsType
-  extends FormDialogPropsType<CategoryFormType, ValidationError> {}
+export type EditCategoryDialogPropsType = FormDialogPropsType<CategoryFormType, ValidationError>
