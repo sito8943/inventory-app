@@ -78,7 +78,7 @@ export function MovementForm(props: MovementFormPropsType) {
           >
             <FontAwesomeIcon
               icon={icons[(type ?? 0) as keyof typeof icons]}
-              className="border-border border-2 absolute left-0 top-[10px] -translate-y-[50%] text-white text-sm"
+              className="absolute left-2 top-3.5 -translate-y-[50%] text-white text-sm"
             />
           </SelectInput>
         )}
