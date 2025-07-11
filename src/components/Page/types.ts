@@ -7,6 +7,6 @@ export type PagePropsType = {
   title?: string;
   children: ReactNode;
   isLoading?: boolean;
-  addOptions: AddCardPropsType;
+  addOptions?: AddCardPropsType;
   animated?: boolean;
 };
