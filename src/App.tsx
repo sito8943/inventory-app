@@ -53,6 +53,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<ProductDetailsPage />} />
+            <Route path="/products/insert" element={<ProductDetailsPage />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/movements" element={<Movements />} />
             <Route path="*" element={<NotFound />} />
