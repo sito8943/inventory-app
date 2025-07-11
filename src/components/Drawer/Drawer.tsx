@@ -33,9 +33,7 @@ export function Drawer(props: DrawerPropsTypes) {
             <li
               key={link.page}
               className={`w-full flex hover:bg-alt-background ${
-                (link.path ?? `/${link.page}`) === location.pathname
-                  ? "bg-alt-background"
-                  : ""
+                link.path === location.pathname ? "bg-alt-background" : ""
               } animated`}
             >
               <Link
