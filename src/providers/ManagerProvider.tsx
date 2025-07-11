@@ -41,6 +41,7 @@ const ManagerProvider = (props: BasicProviderPropTypes) => {
   useEffect(() => {
     const defaultValues = defaultMovements[i18n.language];
     manager.Movements.init(defaultValues).then(() => console.info("init"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

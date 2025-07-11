@@ -12,21 +12,21 @@ export class Manager {
   /**
    * @returns products
    */
-  get Products() {
+  get Products(): ProductClient {
     return this.products;
   }
 
   /**
    * @returns categories
    */
-  get Categories() {
+  get Categories(): CategoryClient {
     return this.categories;
   }
 
   /**
    * @returns
    */
-  get Movements() {
+  get Movements(): MovementClient {
     return this.movements;
   }
 }
