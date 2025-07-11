@@ -38,7 +38,7 @@ export function MovementForm(props: MovementFormPropsType) {
   const { type } = useWatch({ control });
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 pt-1">
       <Controller
         control={control}
         render={({ field }) => <input {...field} type="hidden" />}
