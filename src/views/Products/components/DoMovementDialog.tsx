@@ -46,7 +46,7 @@ function DoMovementForm(props: DoMovementFormPropsType) {
             options={movementOptions}
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            placeholder={t("_pages:products.inputs.movement.name")}
+            label={t("_entities:movementLog.movement.label")}
             {...rest}
           />
         )}
@@ -54,7 +54,7 @@ function DoMovementForm(props: DoMovementFormPropsType) {
       <Controller
         control={control}
         rules={{
-          required: t("_pages:products.inputs.count.required"),
+          required: t("_entities:movementLog.count.required"),
         }}
         name="count"
         disabled={isLoading || movements?.isLoading}
@@ -63,7 +63,7 @@ function DoMovementForm(props: DoMovementFormPropsType) {
             required
             type="number"
             maxLength={25}
-            placeholder={t("_pages:products.inputs.count.name")}
+            label={t("_entities:movementLog.count.label")}
             {...field}
           />
         )}

@@ -39,27 +39,6 @@
       "add": "New Movement",
       "edit": "Edit Movement",
       "editAria": "Click to edit movement"
-    },
-    "inputs": {
-      "name": {
-        "name": "Name",
-        "unique": "There is a movement with that name already",
-        "placeholder": "Ex: "
-      },
-      "type": {
-        "invalid": "Please select a valid type",
-        "name": "Type",
-        "in": "In",
-        "out": "Out"
-      }
-    }
-  },
-  "movementLogs": {
-    "properties": {
-      "movement": "Movement",
-      "stock": "Quantity",
-      "result": "Resulting stock",
-      "createdAt": "Date"
     }
   },
   "products": {
@@ -79,44 +58,6 @@
       "editAria": "Click to edit product",
       "movementLogs": "Movement logs",
       "doMovement": "Add movement"
-    },
-    "inputs": {
-      "name": {
-        "name": "Name",
-        "unique": "There is a product with that name already",
-        "placeholder": "Ex: Pizza",
-        "required": "Name is required"
-      },
-      "description": {
-        "name": "Description",
-        "empty": "No description",
-        "placeholder": "Some description"
-      },
-      "category": {
-        "name": "Category",
-        "invalid": "Please select a valid category"
-      },
-      "cost": {
-        "name": "Cost",
-        "empty": "Free"
-      },
-      "price": {
-        "name": "Price",
-        "empty": "Free"
-      },
-      "stock": {
-        "name": "Stock",
-        "empty": "Out of stock",
-        "units": "units"
-      },
-      "movement": {
-        "name": "Movement",
-        "invalid": "Please select a valid movement"
-      },
-      "count": {
-        "name": "Count",
-        "required": "The count is required"
-      }
     }
   },
   "categories": {
@@ -130,19 +71,6 @@
     },
     "errors": {
       "withProducts": "This category has products. Please delete the products first"
-    },
-    "inputs": {
-      "name": {
-        "name": "Name",
-        "placeholder": "Ex: Drinks",
-        "unique": "There is a category with that name already",
-        "required": "Name is required"
-      },
-      "description": {
-        "name": "Description",
-        "empty": "No description",
-        "placeholder": "Some description"
-      }
     }
   },
   "footer": {

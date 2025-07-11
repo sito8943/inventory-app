@@ -32,27 +32,6 @@
       "add": "Nuevo Movimiento",
       "edit": "Editar Movimiento",
       "editAria": "Haz clic para editar el movimiento"
-    },
-    "inputs": {
-      "name": {
-        "name": "Nombre",
-        "unique": "Ya existe un movimiento con ese nombre",
-        "placeholder": "Ej: "
-      },
-      "type": {
-        "invalid": "Por favor selecciona un tipo válido",
-        "name": "Tipo",
-        "in": "Entrada",
-        "out": "Salida"
-      }
-    }
-  },
-  "movementLogs": {
-    "properties": {
-      "movement": "Movimiento",
-      "stock": "Cantidad",
-      "result": "Stock resultante",
-      "createdAt": "Fecha"
     }
   },
   "products": {
@@ -72,44 +51,6 @@
       "editAria": "Haz clic para editar el producto",
       "movementLogs": "Registros de movimientos",
       "doMovement": "Agregar movimiento"
-    },
-    "inputs": {
-      "name": {
-        "name": "Nombre",
-        "unique": "Ya existe un producto con ese nombre",
-        "placeholder": "Ej: Pizza",
-        "required": "El nombre es obligatorio"
-      },
-      "description": {
-        "name": "Descripción",
-        "empty": "Sin descripción",
-        "placeholder": "Alguna descripción"
-      },
-      "category": {
-        "name": "Categoría",
-        "invalid": "Por favor selecciona una categoría válida"
-      },
-      "cost": {
-        "name": "Costo",
-        "empty": "Gratis"
-      },
-      "price": {
-        "name": "Precio",
-        "empty": "Gratis"
-      },
-      "stock": {
-        "name": "Inventario",
-        "empty": "Sin existencias",
-        "units": "unidades"
-      },
-      "movement": {
-        "name": "Movimiento",
-        "invalid": "Por favor selecciona un movimiento válido"
-      },
-      "count": {
-        "name": "Cantidad",
-        "required": "La cantidad es obligatoria"
-      }
     }
   },
   "categories": {
@@ -123,19 +64,6 @@
     },
     "errors": {
       "withProducts": "Esta categoría tiene productos. Por favor elimina los productos primero"
-    },
-    "inputs": {
-      "name": {
-        "name": "Nombre",
-        "unique": "Ya existe una categoría con ese nombre",
-        "placeholder": "Ej: Bebidas",
-        "required": "El nombre es obligatorio"
-      },
-      "description": {
-        "name": "Descripción",
-        "empty": "Sin descripción",
-        "placeholder": "Alguna descripción"
-      }
     }
   },
   "footer": {
