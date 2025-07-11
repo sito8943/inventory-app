@@ -8,9 +8,21 @@ import View from "./layouts/View/View";
 // css
 import "./App.css";
 
-// view
-import Home from "./views/Home";
+// components
+import { SplashScreen } from "components";
 
+// view
+
+const Home = loadable(() =>
+  import("views").then((module) => ({
+    default: module.Home,
+  }))
+);
+const NotFound = loadable(() =>
+  import("views").then((module) => ({
+    default: module.NotFound,
+  }))
+);
 const Products = loadable(() =>
   import("views").then((module) => ({
     default: module.Products,
@@ -34,7 +46,7 @@ const ProductDetailsPage = loadable(() =>
 
 function App() {
   return (
-    <Suspense>
+    <Suspense fallback={<SplashScreen />}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<View />}>
@@ -43,6 +55,7 @@ function App() {
             <Route path="/products/:id" element={<ProductDetailsPage />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/movements" element={<Movements />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>
