@@ -25,7 +25,7 @@ select > option {
 }
 
 .text-input-container {
-  @apply mb-5;
+  @apply mb-4;
 }
 
 .text-input-label,
@@ -33,4 +33,9 @@ select > option {
 .peer:focus ~ .text-input-label,
 .peer:focus ~ .select-input-label {
   transform: translateY(-30px) scale(0.75);
+  top: 10px;
+}
+
+.text-input-helper-text {
+  @apply text-sm
 }
