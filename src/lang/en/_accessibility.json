@@ -14,7 +14,8 @@
     "closeMenu": "Close menu",
     "deleteChip": "Remove {{value}}",
     "cleanInput": "Clean input",
-    "retry": "Retry"
+    "retry": "Retry",
+    "workOffline": "Work offline"
   },
   "labels": {
     "colorPicker": "Pick a color",

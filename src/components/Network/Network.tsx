@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 // icons
@@ -16,6 +16,7 @@ import "./styles.css";
 
 export const Network = () => {
   const { connected, isLoading, sendPing } = useNetwork();
+  const [show, setShow] = useState(true);
 
   const { t } = useTranslation();
 
@@ -38,15 +39,17 @@ export const Network = () => {
   useEffect(() => {
     const root = document.getElementById("root");
     if (root) {
-      if (connected) root.style.gridTemplateRows = "40px 0 1fr 40px";
-      if (!connected) root.style.gridTemplateRows = "40px 40px 1fr 40px";
+      console.log(show);
+      if (connected || !show) root.style.gridTemplateRows = "40px 0 1fr 40px";
+      if (!connected && show)
+        root.style.gridTemplateRows = "40px 40px 1fr 40px";
     }
-  }, [connected]);
+  }, [connected, show]);
 
   return (
     <div className={`flex items-center justify-start pl-4 network ${bodyBg}`}>
-      {isLoading ? <Loading color="text-white" /> : null}
-      {!isLoading && !connected ? (
+      {isLoading && show ? <Loading color="text-white" /> : null}
+      {!isLoading && !connected && show ? (
         <button
           className="text-white"
           onClick={() => sendPing()}
@@ -56,6 +59,13 @@ export const Network = () => {
         </button>
       ) : null}
       <p className={`ml-3 ${fontStyles}`}>{message}</p>
+      <button
+        className="text-white underline ml-3"
+        onClick={() => setShow(false)}
+        aria-label={t("_accessibility:buttons.workOffline")}
+      >
+        {t("_accessibility:buttons.workOffline")}
+      </button>
     </div>
   );
 };
