@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
 import loadable from "@loadable/component";
+import { useTranslation } from "react-i18next";
 
 // layouts
 import View from "./layouts/View/View";
@@ -10,9 +11,12 @@ import "./App.css";
 
 // components
 import { SplashScreen } from "components";
+import {
+  TableOptionsProvider,
+  TranslationProvider,
+} from "@sito/dashboard";
 
 // view
-
 const Home = loadable(() =>
   import("views").then((module) => ({
     default: module.Home,
@@ -45,13 +49,24 @@ const ProductDetailsPage = loadable(() =>
 );
 
 function App() {
+  const { t } = useTranslation();
+
   return (
     <Suspense fallback={<SplashScreen />}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<View />}>
             <Route index element={<Home />} />
-            <Route path="/products" element={<Products />} />
+            <Route
+              path="/products"
+              element={
+                <TableOptionsProvider>
+                  <TranslationProvider t={t}>
+                    <Products />
+                  </TranslationProvider>
+                </TableOptionsProvider>
+              }
+            />
             <Route path="/products/:id" element={<ProductDetailsPage />} />
             <Route path="/products/insert" element={<ProductDetailsPage />} />
             <Route path="/categories" element={<Categories />} />

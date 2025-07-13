@@ -1,20 +1,28 @@
+import { FieldValues } from "react-hook-form";
+
+// @sito/dashboard
+import { Action } from "@sito/dashboard";
+
+// components
 import {
   ActionPropsType,
   DialogPropsType,
   FormDialogPropsType,
 } from "components";
+
+// lib
 import {
   DoMovementDto,
   MovementLogDto,
   ProductDto,
   ValidationError,
 } from "lib";
+
 import { TablePropsType } from "../../../components/Table/types.ts";
-import { FieldValues } from "react-hook-form";
 
 export interface DoMovementDialogPropsType extends DoMovementFormPropsType {
   title: string;
-  action: (record: ProductDto) => ActionPropsType;
+  action: (record: ProductDto) => Action<ProductDto>;
 }
 
 export interface DoMovementFormType

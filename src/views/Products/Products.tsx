@@ -1,23 +1,16 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+// @sito/dashboard
+import { Action, FilterTypes, Table } from "@sito/dashboard";
 
 // providers
 import { useManager } from "providers";
 
 // components
-import {
-  ConfirmationDialog,
-  Page,
-  PrettyGrid,
-  VerticalTabsLayout,
-  Error,
-} from "components";
-import {
-  DoMovementDialog,
-  MovementLogsDialog,
-  ProductCard,
-} from "./components";
+import { ConfirmationDialog, Page, Error } from "components";
+import { DoMovementDialog, MovementLogsDialog } from "./components";
 
 // hooks
 import { useDoMovement, useMovementLogs } from "./hooks";
@@ -29,7 +22,7 @@ import {
 } from "hooks";
 
 // types
-import { ProductDto } from "lib";
+import { BaseEntityDto, EntityName, ProductDto, useParseColumns } from "lib";
 import { findPath, PageId } from "../sitemap";
 
 export function Products() {
@@ -39,19 +32,13 @@ export function Products() {
 
   const navigate = useNavigate();
 
-  const productQuery = useProductsList({});
+  const { data, isLoading, setTotal, error } = useProductsList();
 
-  const categoryQuery = useCategoriesCommon();
+  const { data: categoryList } = useCategoriesCommon();
 
-  const isLoading = useMemo(
-    () => productQuery.isLoading && categoryQuery.isLoading,
-    [productQuery.isLoading, categoryQuery.isLoading]
-  );
-
-  const error = useMemo(
-    () => productQuery.error || categoryQuery.error,
-    [productQuery.error, categoryQuery.error]
-  );
+  useEffect(() => {
+    if (data) setTotal(data.total ?? 0);
+  }, [data, setTotal]);
 
   // #region actions
 
@@ -67,7 +54,7 @@ export function Products() {
   // #endregion
 
   const getActions = useCallback(
-    (record: ProductDto) => [
+    (record: ProductDto): Action<ProductDto>[] => [
       doMovement.action(record),
       movementLogs.action(record),
       deleteProduct.action(record),
@@ -75,43 +62,24 @@ export function Products() {
     [doMovement, movementLogs, deleteProduct]
   );
 
-  const tabs = useMemo(() => {
-    return (
-      categoryQuery.data?.map(({ id, name }) => {
-        const found = productQuery?.data?.find((item) => item.id === id);
-        return {
-          id,
-          label: name,
-          content: (
-            <div
-              id={name}
-              key={id}
-              className="p-5 pb-10 border-2 border-dark/20 rounded-xl"
-            >
-              <PrettyGrid
-                data={(found?.products ?? []) as ProductDto[]}
-                emptyMessage={t("_pages:products.empty")}
-                renderComponent={(product) => (
-                  <ProductCard
-                    actions={getActions(product)}
-                    onClick={(id: number) =>
-                      navigate(
-                        findPath(PageId.ProductDetails).replace(
-                          ":id",
-                          String(id)
-                        )
-                      )
-                    }
-                    {...product}
-                  />
-                )}
-              />
-            </div>
-          ),
-        };
-      }) ?? []
-    );
-  }, [categoryQuery.data, productQuery?.data, t, getActions, navigate]);
+  const { columns } = useParseColumns<ProductDto>(
+    [
+      {
+        key: "name",
+        filterOptions: { type: FilterTypes.text, defaultValue: "" },
+        renderBody: (name: string, entity: BaseEntityDto) => (
+          <Link
+            className={`underline ${entity.deleted ? "text-white" : "text-light-primary"} flex`}
+            to={`${entity.id}`}
+          >
+            <span className="w-80 truncate">{name}</span>
+          </Link>
+        ),
+      },
+    ],
+    EntityName.Product,
+    ["createdAt"]
+  );
 
   return (
     <Page
@@ -125,10 +93,12 @@ export function Products() {
     >
       {!error ? (
         <>
-          <VerticalTabsLayout
-            defaultTab={tabs[0]?.id ?? 0}
-            tabs={tabs}
-            className="h-full"
+          <Table
+            data={data?.items ?? []}
+            actions={getActions}
+            isLoading={isLoading}
+            entity={EntityName.Product}
+            columns={columns}
           />
           {/* Dialogs */}
           <DoMovementDialog {...doMovement} />
