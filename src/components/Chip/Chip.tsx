@@ -8,7 +8,7 @@ import { ChipPropsType } from "./types.ts";
  * @param {object} props - component props
  * @returns Chip component
  */
-const Chip = (props: ChipPropsType) => {
+export const Chip = (props: ChipPropsType) => {
   const {
     text,
     children,
@@ -26,5 +26,3 @@ const Chip = (props: ChipPropsType) => {
     </div>
   );
 };
-
-export default Chip;

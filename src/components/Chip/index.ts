@@ -1,5 +1,3 @@
-import Chip from "./Chip";
-import { DeletableChip } from "./DeletableChip.tsx";
-
-export { Chip, DeletableChip };
+export * from "./Chip.tsx";
+export * from "./DeletableChip.tsx";
 export * from "./types.ts";
