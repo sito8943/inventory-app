@@ -15,7 +15,9 @@
     "deleteChip": "Remove {{value}}",
     "cleanInput": "Clean input",
     "retry": "Retry",
-    "workOffline": "Work offline"
+    "workOffline": "Work offline",
+    "filters": "Filters",
+    "clear": "Clear"
   },
   "labels": {
     "colorPicker": "Pick a color",

@@ -14,7 +14,9 @@
     "closeMenu": "Cerrar menú",
     "deleteChip": "Eliminar {{value}}",
     "cleanInput": "Limpiar entrada",
-    "retry": "Reintentar"
+    "retry": "Reintentar",
+    "filters": "Filtros",
+    "clear": "Limpiar"
   },
   "labels": {
     "colorPicker": "Selecciona un color",
