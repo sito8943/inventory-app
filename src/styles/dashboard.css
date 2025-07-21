@@ -7,11 +7,15 @@
 }
 
 .select-input {
-  @apply !text-text
+  @apply !text-text;
 }
 
 select > option {
   color: black !important;
+}
+
+.autocomplete-suggestions-container {
+  @apply border-2 border-border/40 rounded-lg;
 }
 
 .text-input,
@@ -37,5 +41,5 @@ select > option {
 }
 
 .text-input-helper-text {
-  @apply text-sm
+  @apply text-sm;
 }
