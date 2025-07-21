@@ -17,6 +17,7 @@ import { faAdd, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 // lib
 import { BaseEntityDto } from "lib";
+import { GlobalActions } from "hooks";
 
 export const Page = <TEntity extends BaseEntityDto>(
   props: PagePropsType<TEntity>
@@ -39,6 +40,7 @@ export const Page = <TEntity extends BaseEntityDto>(
     if (addOptions) {
       const addAction = {
         ...(addOptions as Action<BaseEntityDto>),
+        id: GlobalActions.Add,
         icon: <FontAwesomeIcon icon={faAdd} />,
       };
       if (Array.isArray(actions)) actions.unshift(addAction);
