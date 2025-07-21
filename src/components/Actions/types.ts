@@ -1,14 +1,6 @@
-import { MouseEventHandler, ReactNode } from "react";
+import { Action } from "@sito/dashboard";
+import { BaseEntityDto } from "lib";
 
-export type ActionPropsType = {
-  id: string;
-  hidden?: boolean;
-  disabled?: boolean;
-  icon: ReactNode;
-  tooltip: string;
-  onClick: MouseEventHandler<HTMLButtonElement> | undefined;
-};
-
-export type ActionsPropsType = {
-  actions: ActionPropsType[];
+export type ActionsPropsType<TRow extends BaseEntityDto> = {
+  actions: Action<TRow>[];
 };

@@ -1,10 +1,13 @@
 // components
+import { BaseEntityDto } from "lib";
 import { Action } from "./Action";
 
 // types
 import { ActionsPropsType } from "./types.ts";
 
-export function Actions(props: ActionsPropsType) {
+export function Actions<TRow extends BaseEntityDto>(
+  props: ActionsPropsType<TRow>
+) {
   const { actions = [] } = props;
   return (
     <ul className="flex w-full items-center justify-end">
