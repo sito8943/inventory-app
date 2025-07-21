@@ -21,8 +21,10 @@ import {
   useCategoriesCommon,
 } from "hooks";
 
-// types
+// lib
 import { BaseEntityDto, EntityName, ProductDto, useParseColumns } from "lib";
+
+// sitemap
 import { findPath, PageId } from "../sitemap";
 
 export function Products() {

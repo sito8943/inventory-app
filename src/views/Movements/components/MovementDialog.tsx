@@ -56,7 +56,7 @@ export function MovementForm(props: MovementFormPropsType) {
           <TextInput
             required
             maxLength={20}
-            autoComplete={`${Tables.Movements}-${t("_entities:movement.name.label")}}`}
+            autoComplete={`${Tables.Movements}-${t("_entities:movement.name.label")}`}
             label={t("_entities:movement.name.label")}
             placeholder={t("_entities:movement.name.placeholder")}
             {...field}
@@ -72,7 +72,7 @@ export function MovementForm(props: MovementFormPropsType) {
             required
             options={typeOptions}
             value={value}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={(e) => onChange((e.target as HTMLSelectElement).value)}
             label={t("_entities:movement.type.label")}
             inputClassName="!pl-7"
             {...rest}

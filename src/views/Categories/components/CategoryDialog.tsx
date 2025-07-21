@@ -40,7 +40,7 @@ export function CategoryForm(props: CategoryFormPropsType) {
             required
             maxLength={20}
             value={value ?? ""}
-            autoComplete={`${Tables.Categories}-${t("_entities:category.name.label")}}`}
+            autoComplete={`${Tables.Categories}-${t("_entities:category.name.label")}`}
             label={t("_entities:category.name.label")}
             placeholder={t("_entities:category.name.placeholder")}
             {...rest}
@@ -55,7 +55,7 @@ export function CategoryForm(props: CategoryFormPropsType) {
           <ParagraphInput
             maxLength={60}
             value={value ?? ""}
-            autoComplete={`${Tables.Categories}-${t("_entities:category.description.label")}}`}
+            autoComplete={`${Tables.Categories}-${t("_entities:category.description.label")}`}
             label={t("_entities:category.description.label")}
             placeholder={t("_entities:category.description.placeholder")}
             {...rest}

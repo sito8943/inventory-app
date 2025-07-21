@@ -47,7 +47,7 @@ export const ProductForm = (props: ProductFormPropsType) => {
             <TextInput
               required
               maxLength={25}
-              autoComplete={`${Tables.Products}-${t("_entities:product.name.label")}}`}
+              autoComplete={`${Tables.Products}-${t("_entities:product.name.label")}`}
               label={t("_entities:product.name.label")}
               placeholder={t("_entities:product.name.placeholder")}
               {...field}
@@ -78,7 +78,7 @@ export const ProductForm = (props: ProductFormPropsType) => {
         render={({ field }) => (
           <ParagraphInput
             maxLength={60}
-            autoComplete={`${Tables.Products}-${t("_entities:product.description.label")}}`}
+            autoComplete={`${Tables.Products}-${t("_entities:product.description.label")}`}
             label={t("_entities:product.description.label")}
             placeholder={t("_entities:product.description.placeholder")}
             {...field}
