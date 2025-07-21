@@ -11,10 +11,7 @@ import "./App.css";
 
 // components
 import { SplashScreen } from "components";
-import {
-  TableOptionsProvider,
-  TranslationProvider,
-} from "@sito/dashboard";
+import { TableOptionsProvider, TranslationProvider } from "@sito/dashboard";
 
 // view
 const Home = loadable(() =>
