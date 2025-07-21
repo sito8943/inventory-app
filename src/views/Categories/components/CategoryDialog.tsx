@@ -5,7 +5,7 @@ import { Controller } from "react-hook-form";
 import { TextInput } from "@sito/dashboard";
 
 // components
-import { FormContainer, FormDialog, ParagraphInput } from "components";
+import { FormDialog, ParagraphInput } from "components";
 
 // types
 import {
@@ -22,7 +22,7 @@ export function CategoryForm(props: CategoryFormPropsType) {
   const { t } = useTranslation();
 
   return (
-    <FormContainer>
+    <>
       <Controller
         control={control}
         render={({ field }) => <input {...field} type="hidden" />}
@@ -62,7 +62,7 @@ export function CategoryForm(props: CategoryFormPropsType) {
           />
         )}
       />
-    </FormContainer>
+    </>
   );
 }
 

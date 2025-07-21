@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TextInput, SelectInput } from "@sito/dashboard";
 
 // components
-import { FormContainer, FormDialog } from "components";
+import { FormDialog } from "components";
 
 // utils
 import { icons } from "./utils";
@@ -39,7 +39,7 @@ export function MovementForm(props: MovementFormPropsType) {
   const { type } = useWatch({ control });
 
   return (
-    <FormContainer>
+    <>
       <Controller
         control={control}
         render={({ field }) => <input {...field} type="hidden" />}
@@ -84,7 +84,7 @@ export function MovementForm(props: MovementFormPropsType) {
           </SelectInput>
         )}
       />
-    </FormContainer>
+    </>
   );
 }
 
