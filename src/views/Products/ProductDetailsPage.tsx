@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 // components
-import { Actions, Page } from "components";
+import { Page } from "components";
 import { ProductForm } from "./components";
 
 // hooks
@@ -51,10 +51,8 @@ export function ProductDetailsPage() {
     <Page
       title={t(`_pages:products.title`)}
       isLoading={productForm.isLoading}
-      toolbar={
-        <Actions
-          actions={getActions((productForm.getValues?.() ?? {}) as ProductDto)}
-        />
+      actions={
+        id ? getActions((productForm.getValues?.() ?? {}) as ProductDto) : []
       }
     >
       <ProductForm {...productForm} />
