@@ -15,7 +15,9 @@ import { faAdd } from "@fortawesome/free-solid-svg-icons";
 // lib
 import { BaseEntityDto } from "lib";
 
-export const Page = (props: PagePropsType<BaseEntityDto>) => {
+export const Page = <TEntity extends BaseEntityDto>(
+  props: PagePropsType<TEntity>
+) => {
   const {
     title,
     children,
