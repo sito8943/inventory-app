@@ -12,7 +12,7 @@ export function Actions<TRow extends BaseEntityDto>(
   return (
     <ul className="flex w-full items-center justify-end">
       {actions?.map((action) => (
-        <li key={action.id}>
+        <li key={action.id ?? action.tooltip}>
           <Action {...action} />
         </li>
       ))}

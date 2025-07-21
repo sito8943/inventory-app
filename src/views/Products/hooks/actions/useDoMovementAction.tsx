@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
-// types
+// lib
 import { ProductDto } from "lib";
 
 // hook
@@ -10,6 +10,9 @@ import { UseSingleActionPropTypes } from "hooks";
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
+// types
+import { ProductActions } from "../../types";
 
 export const useDoMovementAction = (
   props: UseSingleActionPropTypes<number>
@@ -20,7 +23,7 @@ export const useDoMovementAction = (
 
   const action = useCallback(
     (record: ProductDto) => ({
-      id: "doMovement",
+      id: ProductActions.DoMovement,
       hidden: record.deleted || hidden,
       disabled: record.deleted,
       icon: <FontAwesomeIcon className="text-primary" icon={faPlus} />,

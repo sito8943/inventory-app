@@ -11,6 +11,9 @@ import { UseSingleActionPropTypes } from "hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 
+// types
+import { ProductActions } from "../../types";
+
 export function useMovementLogsAction(props: UseSingleActionPropTypes<number>) {
   const { t } = useTranslation();
 
@@ -18,7 +21,7 @@ export function useMovementLogsAction(props: UseSingleActionPropTypes<number>) {
 
   const action = useCallback(
     (record: ProductDto) => ({
-      id: "movementLogs",
+      id: ProductActions.MovementLogs,
       hidden: hidden || record.deleted,
       disabled: record.deleted,
       icon: <FontAwesomeIcon className="text-primary" icon={faClock} />,

@@ -1,6 +1,11 @@
-import { ActionPropsType } from "./types.ts";
+import { Action as ActionType } from "@sito/dashboard";
 
-export function Action(props: ActionPropsType) {
+// lib
+import { BaseEntityDto } from "lib";
+
+export function Action<TEntity extends BaseEntityDto>(
+  props: ActionType<TEntity>
+) {
   const {
     id,
     hidden = false,
@@ -15,7 +20,7 @@ export function Action(props: ActionPropsType) {
       id={id}
       className="action"
       disabled={disabled}
-      onClick={onClick}
+      onClick={() => onClick()}
       aria-disabled={disabled}
       data-tooltip-id="tooltip"
       data-tooltip-content={tooltip}

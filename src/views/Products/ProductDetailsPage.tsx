@@ -51,6 +51,7 @@ export function ProductDetailsPage() {
     <Page
       title={t(`_pages:products.title`)}
       isLoading={productForm.isLoading}
+      showBack
       actions={
         id ? getActions((productForm.getValues?.() ?? {}) as ProductDto) : []
       }

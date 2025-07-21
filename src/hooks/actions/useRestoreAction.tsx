@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 // icons
@@ -5,9 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
 // types
-import { UseMultipleActionPropTypes } from "hooks";
+import { GlobalActions, UseMultipleActionPropTypes } from "hooks";
+
+// lib
 import { BaseEntityDto } from "lib";
-import { useCallback } from "react";
 
 export const useRestoreAction = (props: UseMultipleActionPropTypes<number>) => {
   const { t } = useTranslation();
@@ -16,7 +18,7 @@ export const useRestoreAction = (props: UseMultipleActionPropTypes<number>) => {
 
   const action = useCallback(
     (record: BaseEntityDto) => ({
-      id: "restore",
+      id: GlobalActions.Restore,
       hidden: !record.deleted || hidden,
       disabled: !record.deleted,
       icon: <FontAwesomeIcon className="text-red-500" icon={faRotateLeft} />,

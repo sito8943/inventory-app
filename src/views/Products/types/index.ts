@@ -4,11 +4,7 @@ import { FieldValues } from "react-hook-form";
 import { Action } from "@sito/dashboard";
 
 // components
-import {
-  ActionPropsType,
-  DialogPropsType,
-  FormDialogPropsType,
-} from "components";
+import { DialogPropsType, FormDialogPropsType } from "components";
 
 // lib
 import {
@@ -20,6 +16,8 @@ import {
 
 import { TablePropsType } from "../../../components/Table/types.ts";
 
+// actions
+export * from "./actions";
 export interface DoMovementDialogPropsType extends DoMovementFormPropsType {
   title: string;
   action: (record: ProductDto) => Action<ProductDto>;
@@ -71,7 +69,7 @@ export interface MovementLogsDialogPropsType
     MovementLogsPropsType {}
 
 export interface ProductCardPropsType extends ProductDto {
-  actions: ActionPropsType[];
+  actions: Action<ProductDto>[];
   onClick: (id: number) => void;
 }
 
