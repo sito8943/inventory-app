@@ -1,6 +1,7 @@
 {
   "buttons": {
     "ok": "Aceptar",
+    "back": "Atrás",
     "openMenu": "Abrir menú",
     "submit": "Enviar",
     "cancel": "Cancelar",

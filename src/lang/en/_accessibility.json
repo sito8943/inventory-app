@@ -1,6 +1,7 @@
 {
   "buttons": {
     "ok": "Ok",
+    "back": "Go back",
     "openMenu": "Open menu",
     "submit": "Submit",
     "cancel": "Cancel",
