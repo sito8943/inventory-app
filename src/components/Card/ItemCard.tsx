@@ -25,7 +25,7 @@ export function ItemCard(props: ItemCardPropsType) {
       >
         {typeof title === "string" || typeof title === "number" ? (
           <h3
-            className={`text-lg ${deleted ? "!text-secondary" : "!text-gray-200"} text-start`}
+            className={`text-lg ${deleted ? "!text-secondary" : "!text-text"} text-start`}
           >
             {title}
           </h3>

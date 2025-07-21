@@ -14,7 +14,7 @@ export function Error(props: ErrorPropsType) {
   return (
     <div className="flex flex-col items-center justify-center pt-10 gap-5">
       <FontAwesomeIcon icon={faSadTear} className="text-red-300 text-4xl" />
-      <p className="text-white text-center">
+      <p className="text-text text-center">
         {message ?? t("_accessibility:errors.unknownError")}
       </p>
     </div>

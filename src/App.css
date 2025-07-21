@@ -38,11 +38,11 @@ button {
 
 input,
 p {
-    @apply text-sm text-gray-400;
+    @apply text-sm text-text-muted;
 }
 
 .button {
-    @apply flex items-center justify-center gap-2 text-white bg-alt-background hover:bg-border border-border border-2 px-4 py-1 rounded-sm cursor-pointer;
+    @apply flex items-center justify-center gap-2 text-text bg-base hover:bg-base-light px-4 py-1 rounded-sm cursor-pointer;
 }
 
 .button.close {
@@ -50,15 +50,15 @@ p {
 }
 
 .icon-button {
-    @apply hover:bg-border w-7 h-7 rounded-full flex items-center justify-center;
+    @apply bg-base hover:bg-base-light w-7 h-7 rounded-full flex items-center justify-center;
 }
 
 .action {
-    @apply hover:bg-border w-10 h-10 rounded-full;
+    @apply bg-base hover:bg-base-light w-10 h-10 rounded-full;
 }
 
 .input {
-    @apply text-white bg-alt-background border-border border-2 px-4 py-1 rounded-sm;
+    @apply text-white bg-base border-border border-2 px-4 py-1 rounded-sm;
 }
 
 .input.error {
@@ -70,11 +70,11 @@ p {
 }
 
 .outlined {
-    @apply border-border text-white border-2;
+    @apply border-border text-text border-2;
 }
 
 .outlined:hover {
-    @apply bg-border text-white border-2;
+    @apply bg-border text-text-muted border-2 border-border;
 }
 
 .primary {
@@ -91,13 +91,13 @@ p {
 
 main {
     height: 100%;
-    @apply bg-background grid grid-rows-1;
+    @apply bg-base-dark grid grid-rows-1;
 }
 
 main h1,
 main h2,
 main h3 {
-    @apply text-white;
+    @apply text-text;
 }
 
 .apparition {

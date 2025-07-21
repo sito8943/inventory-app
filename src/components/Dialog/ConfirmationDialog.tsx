@@ -30,7 +30,7 @@ export const ConfirmationDialog = (props: ConfirmationDialogPropsType) => {
           name={t("_accessibility:buttons.ok")}
           aria-label={t("_accessibility:ariaLabels.ok")}
         >
-          {isLoading ? <Loading color="text-dark" className="mt-1" /> : null}
+          {isLoading ? <Loading color="text-text-mute" className="mt-1" /> : null}
           {t("_accessibility:buttons.ok")}
         </button>
         <button

@@ -19,7 +19,7 @@ export function Navbar(props: NavbarPropsType) {
   const { openDrawer } = props;
 
   return (
-    <header id="header" className="header">
+    <header id="header" className="header bg-base">
       <div className="flex gap-2 items-center">
         <button
           type="button"
@@ -30,7 +30,7 @@ export function Navbar(props: NavbarPropsType) {
         >
           <FontAwesomeIcon icon={faBars} />
         </button>
-        <h1 className="text-lg text-white pointer-events-none">
+        <h1 className="text-lg text-text pointer-events-none">
           {t("_pages:home.appName")}
         </h1>
       </div>

@@ -3,11 +3,11 @@
 .text-input,
 .text-input-label,
 .select-input-label {
-  @apply text-white;
+  @apply !text-text;
 }
 
 .select-input {
-  color: white;
+  @apply !text-text
 }
 
 select > option {
@@ -16,7 +16,7 @@ select > option {
 
 .text-input,
 .select-input {
-  @apply border-2 border-gray-300/40 !pl-2 rounded-lg;
+  @apply border-2 border-border/40 !pl-2 rounded-lg;
 }
 
 .text-input-label,

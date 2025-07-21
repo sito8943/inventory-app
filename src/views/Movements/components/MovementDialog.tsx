@@ -12,16 +12,15 @@ import { FormContainer, FormDialog } from "components";
 // utils
 import { icons } from "./utils";
 
+// lib
+import { MovementType, enumToKeyValueArray, Tables } from "lib";
+
 // types
-import { MovementType, enumToKeyValueArray } from "lib";
 import {
   AddMovementDialogPropsType,
   EditMovementDialogPropsType,
   MovementFormPropsType,
 } from "../types";
-
-// lib
-import { Tables } from "lib";
 
 export function MovementForm(props: MovementFormPropsType) {
   const { control, isLoading } = props;
@@ -80,7 +79,7 @@ export function MovementForm(props: MovementFormPropsType) {
           >
             <FontAwesomeIcon
               icon={icons[(type ?? 0) as keyof typeof icons]}
-              className="absolute left-2 top-3.5 -translate-y-[50%] text-white text-sm"
+              className="absolute left-2 top-3.5 -translate-y-[50%] text-text text-sm"
             />
           </SelectInput>
         )}

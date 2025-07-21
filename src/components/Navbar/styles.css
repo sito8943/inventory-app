@@ -1,11 +1,11 @@
 @import "../../styles/variables.css";
 
 .header {
-    @apply w-full flex items-center justify-between bg-background z-20
+    @apply w-full flex items-center justify-between z-20
 }
 
 .toolbar .button {
-    @apply bg-background hover:bg-alt-background text-white flex items-center justify-center w-14 h-10 border-none rounded-none;
+    @apply flex items-center justify-center w-14 h-10 border-none rounded-none;
 }
 
 .toolbar {
@@ -13,5 +13,5 @@
 }
 
 .button.menu {
-    @apply h-10 bg-background border-background hover:bg-border hover:border-border;
+    @apply h-10;
 }

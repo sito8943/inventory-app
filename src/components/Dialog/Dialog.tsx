@@ -69,11 +69,11 @@ export const Dialog = (props: DialogPropsType) => {
       aria-disabled={!open}
       onClick={bigHandleClose}
       className={`dialog  ${styles} h-screen ${
-        open ? "bg-alt-background/20 backdrop-blur-xl" : "pointer-events-none"
+        open ? "bg-base/20 backdrop-blur-xl" : "pointer-events-none"
       } fixed left-0 top-0 flex items-center justify-center z-10 ${containerClassName}`}
     >
       <div
-        className={`relative elevated min-w-70 bg-alt-background p-5 rounded-2xl border-border border-2 animated ${
+        className={`relative elevated min-w-70 bg-base p-5 rounded-2xl border-border border-2 animated ${
           open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         } ${className}`}
       >
@@ -88,7 +88,7 @@ export const Dialog = (props: DialogPropsType) => {
           <FontAwesomeIcon icon={faClose} />
         </button>
         <div className="flex items-center gap-2 mb-5">
-          <h3 className="text-white text-xl">{title}</h3>
+          <h3 className="text-text text-xl">{title}</h3>
         </div>
         {children}
       </div>
