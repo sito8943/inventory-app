@@ -1,19 +1,15 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
-import { ActionPropsType } from "../Actions/";
+import { ReactNode } from "react";
 
-export interface AddCardPropsType
-  extends DetailedHTMLProps<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  > {
-  onClick: (e: any) => void;
-  tooltip: string;
-}
+// @sito/dashboard
+import { Action } from "@sito/dashboard";
 
-export type ItemCardPropsType = {
+// lib
+import { BaseEntityDto } from "lib";
+
+export type ItemCardPropsType<TEntity extends BaseEntityDto> = {
   children: ReactNode;
   containerClassName?: string;
-  actions: ActionPropsType[];
+  actions: Action<TEntity>[];
   title: string | ReactNode;
   className?: string;
   name: string;

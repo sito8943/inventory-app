@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 // @sito/dashboard
-import { Action, Tooltip } from "@sito/dashboard";
+import { Action } from "@sito/dashboard";
 
 // components
-import { Actions, AddCard, Loading } from "components";
+import { Actions, Loading } from "components";
 
 // types
 import { PagePropsType } from "./types.ts";
@@ -52,7 +52,6 @@ export const Page = (props: PagePropsType<BaseEntityDto>) => {
           )}
         </div>
       </div>
-      {addOptions && <AddCard {...addOptions} />}
     </main>
   );
 };
