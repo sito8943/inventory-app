@@ -31,7 +31,7 @@ export function CategoryForm(props: CategoryFormPropsType) {
       <Controller
         control={control}
         rules={{
-          required: `t("_entities:category.name.required")`,
+          required: `${t("_entities:category.name.required")}`,
         }}
         name="name"
         disabled={isLoading}
