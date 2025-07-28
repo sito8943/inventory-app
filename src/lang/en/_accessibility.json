@@ -18,6 +18,7 @@
     "retry": "Retry",
     "workOffline": "Work offline",
     "filters": "Filters",
+    "applyFilters": "Apply filters",
     "clear": "Clear"
   },
   "labels": {
